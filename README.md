@@ -6,11 +6,11 @@
 
 # Project Approach and Technology
 
-3. Technology Stack 3.1 Languages 3.1.1 JavaScript JavaScript, a versatile
-   scripting language for web development. Rationale: Single for both frontend
-   and backend development. Widely known and proficient among developers. Rich
-   ecosystem of libraries and frameworks. Most of our team has familiarity with
-   the language Large community for support and resources.
+Little updat 3. Technology Stack 3.1 Languages 3.1.1 JavaScript JavaScript, a
+versatile scripting language for web development. Rationale: Single for both
+frontend and backend development. Widely known and proficient among developers.
+Rich ecosystem of libraries and frameworks. Most of our team has familiarity
+with the language Large community for support and resources.
 
 3.2 Backend Frameworks 3.2.1 Next.js Next.js, a React framework for server-side
 rendering and static site generation. Rationale: Aligns with Agile Scrum
