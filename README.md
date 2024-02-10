@@ -37,14 +37,14 @@
         - Use the created user stories as a UI/UX design foundation. Design wireframes, user flows, and interface elements that align with the identified user needs and scenarios.
     * **Initial Frontend Development based on User Stories:**
         - Begin the initial frontend development, focusing on non-complex components or sections that align with the user stories and UI/UX design.
-    * **Initial Backend Development based on User Stories:**<
+    * **Initial Backend Development based on User Stories:**
         - Start setting up the basic backend infrastructure and functionalities that are directly related to the user stories and the anticipated frontend components.
 
 2) **Sprint 2** `(Deadline: March 11, 2024)`
     * **Continued Frontend Development based on User Stories:**
         - Progress with the frontend development, focusing on more complex components now that the initial setup is complete. Ensure the implementation aligns with the user stories and UI/UX design.
-    * **Continued Frontend Development based on User Stories:**
-        - Progress with the frontend development, focusing on more complex components now that the initial setup is complete. Ensure the implementation aligns with the user stories and UI/UX design.
+    * **Continued Backend Development based on User Stories:**
+	- Extend backend development to include core functionalities, ensuring that they directly support the user stories and the frontend components being developed.
     * **Begin Integration Testing:**
         - Start testing the integration between the frontend and backend components. Identify and address any issues or inconsistencies that may arise during the integration process.
 
