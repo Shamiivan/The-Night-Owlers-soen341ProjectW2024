@@ -403,6 +403,113 @@ and a lower learning curve, making it a strong candidate for the car-rental web
 application project. Its growing community and straightforward API can help
 teams quickly develop and iterate on features.
 
-### Analysis of frameworks
+## Backend Frameworks
 
-### Final choice
+### Express.js
+
+#### Description:
+
+Express.js is a minimal and flexible Node.js web application framework that
+provides a robust set of features for web and mobile applications. It is known
+for its simplicity and performance, as well as its ability to work with any
+database and ORM.
+
+#### Rationale:
+
+Express.js is selected for our car-rental web application due to:
+
+- **Community Support**: Being part of the larger Node.js ecosystem, Express.js
+  benefits from a strong community and a wealth of resources and third-party
+  modules.
+- **Performance**: Express.js is lightweight and unopinionated, which means it
+  can be optimized for performance without unnecessary overhead.
+- **Ease of Integration**: It can be easily integrated with the frontend React
+  application and can work with databases, REST APIs, and GraphQL servers.
+
+#### Qualitative Assessment:
+
+- **Strengths**: Express.js's simplicity and flexibility make it easy to learn
+  and use. Its middleware architecture allows for modular and composable
+  server-side logic.
+- **Weaknesses**: As a minimalist framework, Express.js might require additional
+  libraries for certain features, such as authentication or advanced routing.
+- **Use Cases**: For the car-rental application, Express.js can handle the
+  backend tasks such as:
+  - **API Endpoints**: Creating RESTful API endpoints for browsing vehicles,
+    managing reservations, and user accounts.
+  - **Database Operations**: Interacting with the database to perform CRUD
+    operations on vehicles, user accounts, and reservations.
+  - **Middleware Integration**: Utilizing middleware for logging, error
+    handling, and serving static files.
+
+### Django
+
+#### Description:
+
+Django is a high-level Python web framework that encourages rapid development
+and clean, pragmatic design. It follows the Model-View-Controller architectural
+pattern and emphasizes reusability and pluggability of components.
+
+#### Rationale:
+
+Django is chosen for the car-rental web application due to:
+
+- **Community Support**: Django has a large and active community, with many
+  third-party packages available to extend its functionality.
+- **Security**: Django comes with a robust set of features to protect against
+  common security threats, including protection against cross-site scripting,
+  cross-site request forgery, and SQL injection attacks.
+- **Component Libraries**: Django's admin interface and ORM can simplify the
+  development of complex data-driven websites.
+
+#### Qualitative Assessment:
+
+- **Strengths**: Django's "batteries-included" philosophy means it comes with
+  many features out of the box, such as an ORM, authentication, and an admin
+  interface.
+- **Weaknesses**: Django's monolithic architecture can be less flexible than
+  microservice architectures for complex systems. Also, its learning curve is
+  steeper compared to some other frameworks.
+- **Use Cases**: In the context of the car-rental application, Django can be
+  used to:
+  - **Data Management**: Leverage Django's ORM to model and manipulate data
+    related to vehicles, reservations, and user profiles.
+  - **Authentication**: Use Django's built-in authentication system to manage
+    user accounts and sessions.
+  - **Admin Interface**: Utilize the admin dashboard to manage the application's
+    data.
+
+### Laravel
+
+#### Description:
+
+Laravel is a PHP web framework aiming to make web development tasks enjoyable
+for developers. It is a free, open-source framework that combines the best
+features of other web frameworks, including frameworks implemented in other
+languages, such as Ruby on Rails, ASP.NET MVC, and Sinatra.
+
+#### Rationale:
+
+Laravel is selected for our car-rental web application due to:
+
+- **Community Support**: Laravel has a large and active community, which means
+  plenty of tutorials, third-party packages, and support.
+- **Performance**: Laravel is known for its elegant syntax and is optimized for
+  performance, making it suitable for web applications with high traffic.
+- **Ease of Integration**: Laravel can be easily integrated with various
+  frontend frameworks and can work with databases, REST APIs, and GraphQL
+  servers.
+
+#### Qualitative Assessment:
+
+- **Strengths**: Laravel's expressive syntax and clear structure make it easy to
+  use and understand, which speeds up development.
+- **Weaknesses**: Laravel's monolithic nature can make it less flexible than
+  microservice architectures for very large applications.
+- **Use Cases**: For the car-rental application, Laravel can be employed for:
+  - **Routing**: Define routes for the application's pages, including CRUD
+    operations for vehicles, user accounts, and reservations.
+  - **Validation**: Use Laravel's validation features to ensure data integrity
+    and security.
+  - **Authentication**: Implement secure user authentication and authorization
+    using Laravel's built-in tools.
