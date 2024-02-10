@@ -89,15 +89,15 @@
 
 3) **Collaboration tool**
     1)	**Version Control:**
-    * `GitHub` for code repository and version control
+    * `GitHub` 
 	    - **Purpose:** Acts as a centralized repository for the project's source code, enabling version control, collaboration, and code review.
         - **Benefits:** Ensures a single source of truth for code, facilitates collaboration among team members, and allows for the tracking of changes over time.
     2)	**Project Management:**
-    * `GitHub` for agile project management, issue tracking, and sprint planning
+    * `GitHub`
 	    - **Purpose:** Provides a platform for agile project management, allowing the team to plan sprints, track user stories, and manage issues.
         - **Benefits:** Streamlines project management processes, enhances visibility into project progress, and supports efficient sprint planning and execution.
     3)	**Documentation:**
-    * `GitHub Wiki` for collaborative documentation
+    * `GitHub Wiki` 
         - **Purpose:** Serves as a collaborative space for documenting project-related information, including guidelines, best practices, and project knowledge.
         - **Benefits:** Centralizes project documentation, allows for collaborative content creation, and helps in knowledge sharing among team members.
 
