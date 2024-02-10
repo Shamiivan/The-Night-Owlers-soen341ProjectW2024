@@ -322,8 +322,6 @@ Use Cases: Routing, validation, and authentication for the car-rental applicatio
 
 ### Next.js
 
-#### :
-
 Next.js is an open-source React framework that provides a set of features for
 building server-rendered React applications. It is known for its hybrid static
 and server rendering, automatic code splitting, hot module replacement, and its
