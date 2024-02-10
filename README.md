@@ -66,8 +66,7 @@
 
 *<ins>Note</ins>: Milestones and deadlines are subject to adjustment based on ongoing feedback and project evolution.*
 
-## Collaboration and Communication
-**Communication:**
+## Communication
 1) **Team Meetings:**
     * **Weekly sprint planning and review meetings**
         - **Purpose:** To plan the upcoming sprint, discuss user stories, and set priorities. The review meetings allow the team to assess the completed work, gather feedback, and adjust the plan for the next sprint.
@@ -88,20 +87,6 @@ a high level of awareness about the ongoing work.
     * `Google`
         - **Purpose:** Serves as a centralized location for storing and collaborating on formal project documentation, including requirements, design documents, and reports.
         - **Benefits:** Enables collaborative editing, version history tracking, and easy access to important project documents from anywhere.
-
-**Collaboration**
-1) **Version Control:**
-    * `GitHub`
-        - **Purpose:** Acts as a centralized repository for the project's source code, enabling version control, collaboration, and code review.
-        - **Benefits:** Ensures a single source of truth for code, facilitates collaboration among team members and allows for the tracking of changes over time.
-2) **Project Management:**
-    * `GitHub`
-        - **Purpose:** Provides a platform for agile project management, allowing the team to plan sprints, track user stories, and manage issues.
-        - **Benefits:** Streamlines project management processes, enhances visibility into project progress and supports efficient sprint planning and execution.
-3) **Documentation:**
-    * `GitHub Wiki`
-        - **Purpose:** Serves as a collaborative space for documenting project-related information, including guidelines, best practices, and project knowledge.
-        - **Benefits:** Centralizes project documentation, allows for collaborative content creation and helps in knowledge sharing among team members.
 
 Little updat 3. Technology Stack 3.1 Languages 3.1.1 JavaScript JavaScript, a
 versatile scripting language for web development. Rationale: Single for both
