@@ -4,7 +4,7 @@
 
 # Team Members and Roles
 
-# 3 Project Approach and Technology
+# Project Approach and Technology
 
 ## 2.1 Development Methodology
 
