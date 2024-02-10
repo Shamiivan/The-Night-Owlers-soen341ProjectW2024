@@ -4,44 +4,64 @@
 
 # Team Members and Roles
 
-# Project Approach and Technology
+# 3 Project Approach and Technology
 
-Little updat 3. Technology Stack 3.1 Languages 3.1.1 JavaScript JavaScript, a
-versatile scripting language for web development. Rationale: Single for both
-frontend and backend development. Widely known and proficient among developers.
-Rich ecosystem of libraries and frameworks. Most of our team has familiarity
-with the language Large community for support and resources.
+## 3.1 Overview
 
-3.2 Backend Frameworks 3.2.1 Next.js Next.js, a React framework for server-side
-rendering and static site generation. Rationale: Aligns with Agile Scrum
-methodology. Supports iterative development and continuous integration. Seamless
-integration with GitHub for version control.
+#### Criteria of selection given the project needs
 
-Qualitative Assessment: Strengths: Pre-rendering, seamless deployment, automatic
-code splitting. Weaknesses Learning curve, configuration complexity, limitations
-with serverless functions. Use Cases: Starting a reservation,
-viewing/modifying/canceling a reservation. Browsing vehicles, CRUD operations on
-users, vehicles, and reservations. 3.2.2 Firestore Firestore, a real-time
-database with offline support. Rationale: Seamless integration with Next.js.
-Supports rapid iterations and collaboration. Offers real-time updates and
-offline functionality. Qualitative Assessment: Strengths: Real-time updates,
-offline support, scalable. Weaknesses: Limited query capabilities, potential
-costs with high usage. Use Cases: Real-time reservation updates, browsing
-vehicle listings. Managing user accounts and reservation records. 3.3 Frontend
-Frameworks 3.3.1 Next.js Same as the backend framework above. The framework is
-built on top of React. The section covers the front end capabilities of Next.js
-Rationale: Pre-rendering, seamless deployment, automatic code splitting.
-Efficient state management and data passing. Qualitative Assessment: Strengths:
-Pre-rendering capabilities, automatic code splitting. Weaknesses: Learning
-curve, configuration complexity, limitations with serverless functions. Use
-Cases: Similar to backend framework use cases. 3.4 Version Control Git & GitHub
-Description: Git & GitHub, a version control and collaboration platform.
-Rationale: Enables change tracking and version history. Facilitates team
-collaboration and project management. Benefits: Efficient collaboration and
-version control. Streamlined project management and communication tools. 3.5.
-Deployment Vercel Vercel, a cloud platform for static sites and Jamstack
-applications. Rationale: Automated build and deployment pipeline. Real-time
-feedback with the Vercel Toolbar. Using a deployed place to see the website will
-allow for better monitoring of potential errors Benefits: Simplified deployment
-process. All it takes is update the main repository Unique URLs for each
-deployment, make it easy to track version changes
+- Modularity
+- Perfomance
+- Ease of integraion
+- Component libraries
+- Learning Curve
+- Community and support
+- Security
+
+### 3.1 Frontend Frameworks
+
+### Framework A: React
+
+#### Description:
+
+React is a JavaScript library developed by Facebook for building user
+interfaces, particularly for single-page applications. It is known for its
+component-based architecture, which promotes reusability and modularity in the
+codebase.
+
+#### Rationale:
+
+The choice of React for our car-rental web application is driven by several
+factors:
+
+- **Community Support**: React has a vibrant community with a wide array of
+  resources available, which can assist in solving problems and learning best
+  practices.
+- **Scalability**: React's virtual DOM and component-based structure make it
+  suitable for applications that may grow in complexity over time.
+- **Ease of Integration**: React can be easily integrated into existing projects
+  or used as the starting point for a new application, fitting well within the
+  Agile Scrum development methodology.
+
+#### Qualitative Assessment:
+
+- **Strengths**: React's strengths lie in its component-based architecture,
+  which allows for the creation of reusable UI components. This leads to a more
+  maintainable codebase and faster development times. Additionally, React's
+  virtual DOM optimizes performance by minimizing direct DOM manipulations.
+- **Weaknesses**: One potential weakness is that React has a steep learning
+  curve, especially for developers not familiar with its concepts like JSX and
+  the component lifecycle. Moreover, React is just the view layer, meaning that
+  other libraries or frameworks may be needed for state management or routing.
+- **Use Cases**: Given the project's requirements, React is an excellent choice
+  for implementing the core features of the car-rental application. For
+  instance, the component-based architecture would allow for the creation of
+  separate components for browsing vehicles, starting a reservation, and
+  managing user accounts. These components could then be composed to form the
+  complete application interface.
+
+### Analysis of frameworks
+
+### Final choice
+
+##
