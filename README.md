@@ -7,99 +7,168 @@
 # 3 Project Approach and Technology
 
 ## 2.1 Development Methodology
+
 **Development Methodology:** `Agile`
 
 **Justification:**
-* **Efficiency:**
-    - Agile's focus on iterative, incremental development streamlines the process, delivering functional results more efficiently.
-* **Flexibility:**
-    -  Agile adapts to changing project requirements, making it suitable for dynamic situations where priorities may evolve.
-* **Iterative Development:**
-    - Breaking down the project into cycles allows for constant refinement, improving the project based on ongoing feedback.
-* **Client Collaboration:**
-    - Agile's emphasis on continuous client involvement ensures the final product aligns with client expectations.
-* **Risk Mitigation:**
-    - Agile's iterative nature aids in early identification and mitigation of risks, contributing to a more successful outcome.
-* **Team Collaboration:**
-    - Agile promotes collaboration, fostering shared understanding and effective communication among team members.
-* **Continuous Improvement:**
-    - Regular retrospective meetings in Agile facilitate a continuous improvement cycle, ensuring the development process becomes more efficient and effective over time.
+
+- **Efficiency:**
+  - Agile's focus on iterative, incremental development streamlines the process,
+    delivering functional results more efficiently.
+- **Flexibility:**
+  - Agile adapts to changing project requirements, making it suitable for
+    dynamic situations where priorities may evolve.
+- **Iterative Development:**
+  - Breaking down the project into cycles allows for constant refinement,
+    improving the project based on ongoing feedback.
+- **Client Collaboration:**
+  - Agile's emphasis on continuous client involvement ensures the final product
+    aligns with client expectations.
+- **Risk Mitigation:**
+  - Agile's iterative nature aids in early identification and mitigation of
+    risks, contributing to a more successful outcome.
+- **Team Collaboration:**
+  - Agile promotes collaboration, fostering shared understanding and effective
+    communication among team members.
+- **Continuous Improvement:**
+  - Regular retrospective meetings in Agile facilitate a continuous improvement
+    cycle, ensuring the development process becomes more efficient and effective
+    over time.
 
 ## 2.2 Project Timeline
-1) **Sprint 1** `(Deadline: February 12, 2024)`
-    * **Define Project Scope and Objectives:**
-        - Clearly articulate the goals, requirements, and limitations of the project. Collaborate with stakeholders to ensure a shared understanding.
-    * **Set up a development environment:**
-        - Configure development environments for all team members, ensuring that tools, libraries, and dependencies are installed and configured consistently.
-    * **Create User Stories:**
-        - Collaborate with stakeholders, including end-users, to create detailed user stories that capture the functionalities and features expected from the application.
-    * **Initiate UI/UX Design based on User Stories:**
-        - Use the created user stories as a UI/UX design foundation. Design wireframes, user flows, and interface elements that align with the identified user needs and scenarios.
-    * **Initial Frontend Development based on User Stories:**
-        - Begin the initial frontend development, focusing on non-complex components or sections that align with the user stories and UI/UX design.
-    * **Initial Backend Development based on User Stories:**<
-        - Start setting up the basic backend infrastructure and functionalities that are directly related to the user stories and the anticipated frontend components.
 
-2) **Sprint 2** `(Deadline: March 11, 2024)`
-    * **Continued Frontend Development based on User Stories:**
-        - Progress with the frontend development, focusing on more complex components now that the initial setup is complete. Ensure the implementation aligns with the user stories and UI/UX design.
-    * **Continued Frontend Development based on User Stories:**
-        - Progress with the frontend development, focusing on more complex components now that the initial setup is complete. Ensure the implementation aligns with the user stories and UI/UX design.
-    * **Begin Integration Testing:**
-        - Start testing the integration between the frontend and backend components. Identify and address any issues or inconsistencies that may arise during the integration process.
+1. **Sprint 1** `(Deadline: February 12, 2024)`
 
-3) **Sprint 3** `(Deadline: March 25, 2024)`
-    * **Implement Additional Features Based on Feedback and User Stories:**
-        - Incorporate feedback from stakeholders, end-users, and team members to enhance or add features to the application. Ensure these additions align with the evolving user stories.
-    * **Conduct User Acceptance Testing:**
-        - Engage end-users in testing the application to ensure it meets their needs and expectations, as outlined in the user stories.
-    * **Prepare for Deployment:**
-        - Assemble all components and prepare the application for deployment. This involves finalizing configurations, optimizing performance, and addressing any outstanding issues.
+   - **Define Project Scope and Objectives:**
+     - Clearly articulate the goals, requirements, and limitations of the
+       project. Collaborate with stakeholders to ensure a shared understanding.
+   - **Set up a development environment:**
+     - Configure development environments for all team members, ensuring that
+       tools, libraries, and dependencies are installed and configured
+       consistently.
+   - **Create User Stories:**
+     - Collaborate with stakeholders, including end-users, to create detailed
+       user stories that capture the functionalities and features expected from
+       the application.
+   - **Initiate UI/UX Design based on User Stories:**
+     - Use the created user stories as a UI/UX design foundation. Design
+       wireframes, user flows, and interface elements that align with the
+       identified user needs and scenarios.
+   - **Initial Frontend Development based on User Stories:**
+     - Begin the initial frontend development, focusing on non-complex
+       components or sections that align with the user stories and UI/UX design.
+   - **Initial Backend Development based on User Stories:**<
+     - Start setting up the basic backend infrastructure and functionalities
+       that are directly related to the user stories and the anticipated
+       frontend components.
 
-4) **Sprint 4** `(Deadline: April 10, 2024)`
-    * **Deploy the Application to the Production Environment:**
-        - Release the application to the live production environment. This includes deploying both frontend and backend components to a server that is accessible to end-users.
-    * **Continuous Integration (CI) Implementation:**
-        - Integrate and configure Continuous Integration (CI) tools to automate the testing and deployment processes, ensuring that changes align with user stories.
-    * **Conduct Final Testing and Resolve Any Issues:**
-        - Perform comprehensive testing on the live application, now integrated with CI, to catch any unforeseen issues. Address and resolve any bugs or performance issues that may arise during this final testing phase.
+2. **Sprint 2** `(Deadline: March 11, 2024)`
 
-*<ins>Note</ins>: Milestones and deadlines are subject to adjustment based on ongoing feedback and project evolution.*
+   - **Continued Frontend Development based on User Stories:**
+     - Progress with the frontend development, focusing on more complex
+       components now that the initial setup is complete. Ensure the
+       implementation aligns with the user stories and UI/UX design.
+   - **Continued Frontend Development based on User Stories:**
+     - Progress with the frontend development, focusing on more complex
+       components now that the initial setup is complete. Ensure the
+       implementation aligns with the user stories and UI/UX design.
+   - **Begin Integration Testing:**
+     - Start testing the integration between the frontend and backend
+       components. Identify and address any issues or inconsistencies that may
+       arise during the integration process.
+
+3. **Sprint 3** `(Deadline: March 25, 2024)`
+
+   - **Implement Additional Features Based on Feedback and User Stories:**
+     - Incorporate feedback from stakeholders, end-users, and team members to
+       enhance or add features to the application. Ensure these additions align
+       with the evolving user stories.
+   - **Conduct User Acceptance Testing:**
+     - Engage end-users in testing the application to ensure it meets their
+       needs and expectations, as outlined in the user stories.
+   - **Prepare for Deployment:**
+     - Assemble all components and prepare the application for deployment. This
+       involves finalizing configurations, optimizing performance, and
+       addressing any outstanding issues.
+
+4. **Sprint 4** `(Deadline: April 10, 2024)`
+   - **Deploy the Application to the Production Environment:**
+     - Release the application to the live production environment. This includes
+       deploying both frontend and backend components to a server that is
+       accessible to end-users.
+   - **Continuous Integration (CI) Implementation:**
+     - Integrate and configure Continuous Integration (CI) tools to automate the
+       testing and deployment processes, ensuring that changes align with user
+       stories.
+   - **Conduct Final Testing and Resolve Any Issues:**
+     - Perform comprehensive testing on the live application, now integrated
+       with CI, to catch any unforeseen issues. Address and resolve any bugs or
+       performance issues that may arise during this final testing phase.
+
+_<ins>Note</ins>: Milestones and deadlines are subject to adjustment based on
+ongoing feedback and project evolution._
 
 ## 2.3 Communication and Collaboration
-1) **Team Meetings:**
-    * **Weekly sprint planning and review meetings**
-        - **Purpose:** To plan the upcoming sprint, discuss user stories, and set priorities. The review meetings allow the team to assess the completed work, gather feedback, and adjust the plan for the next sprint.
-        - **Benefits:** Ensures alignment on project goals, distributes tasks based on priorities and provides a platform for discussing challenges and proposing solutions.
 
-    * **Two days a week for quick progress updates**
-        - **Purpose:** Regular, short meetings for team members to share progress updates, discuss any blockers, and ensure everyone is on the same page.
-        - **Benefits:** Promotes transparency, allows quick problem-solving and maintains a high level of awareness about the ongoing work.
+1. **Team Meetings:**
 
-2) **Communication Tools:**
-    * `Discord`
-        - **Purpose:** Facilitates real-time communication, quick queries, and informal collaboration among team members.
-        - **Benefits:** Encourages spontaneous discussions, builds camaraderie, and provides a platform for resolving immediate issues.
-    * `Zoom`
-        - **Purpose:** Supports virtual face-to-face meetings for in-depth discussions, sprint reviews, and any complex conversations.
-        - **Benefits:** Enhances communication by providing a visual component, fosters team connection, and allows for a more personal interaction compared to text-based communication.
-    * `Google`
-        - **Purpose:** Serves as a centralized location for storing and collaborating on formal project documentation, including requirements, design documents, and reports.
-        - **Benefits:** Enables collaborative editing, version history tracking, and easy access to important project documents from anywhere.
+   - **Weekly sprint planning and review meetings**
 
-3) **Collaboration tool**
-    1)	**Version Control:**
-    * `GitHub` 
-	    - **Purpose:** Acts as a centralized repository for the project's source code, enabling version control, collaboration, and code review.
-        - **Benefits:** Ensures a single source of truth for code, facilitates collaboration among team members, and allows for the tracking of changes over time.
-    2)	**Project Management:**
-    * `GitHub`
-	    - **Purpose:** Provides a platform for agile project management, allowing the team to plan sprints, track user stories, and manage issues.
-        - **Benefits:** Streamlines project management processes, enhances visibility into project progress, and supports efficient sprint planning and execution.
-    3)	**Documentation:**
-    * `GitHub Wiki` 
-        - **Purpose:** Serves as a collaborative space for documenting project-related information, including guidelines, best practices, and project knowledge.
-        - **Benefits:** Centralizes project documentation, allows for collaborative content creation, and helps in knowledge sharing among team members.
+     - **Purpose:** To plan the upcoming sprint, discuss user stories, and set
+       priorities. The review meetings allow the team to assess the completed
+       work, gather feedback, and adjust the plan for the next sprint.
+     - **Benefits:** Ensures alignment on project goals, distributes tasks based
+       on priorities and provides a platform for discussing challenges and
+       proposing solutions.
+
+   - **Two days a week for quick progress updates**
+     - **Purpose:** Regular, short meetings for team members to share progress
+       updates, discuss any blockers, and ensure everyone is on the same page.
+     - **Benefits:** Promotes transparency, allows quick problem-solving and
+       maintains a high level of awareness about the ongoing work.
+
+2. **Communication Tools:**
+
+   - `Discord`
+     - **Purpose:** Facilitates real-time communication, quick queries, and
+       informal collaboration among team members.
+     - **Benefits:** Encourages spontaneous discussions, builds camaraderie, and
+       provides a platform for resolving immediate issues.
+   - `Zoom`
+     - **Purpose:** Supports virtual face-to-face meetings for in-depth
+       discussions, sprint reviews, and any complex conversations.
+     - **Benefits:** Enhances communication by providing a visual component,
+       fosters team connection, and allows for a more personal interaction
+       compared to text-based communication.
+   - `Google`
+     - **Purpose:** Serves as a centralized location for storing and
+       collaborating on formal project documentation, including requirements,
+       design documents, and reports.
+     - **Benefits:** Enables collaborative editing, version history tracking,
+       and easy access to important project documents from anywhere.
+
+3. **Collaboration tool**
+   1. **Version Control:**
+   - `GitHub`
+     - **Purpose:** Acts as a centralized repository for the project's source
+       code, enabling version control, collaboration, and code review.
+     - **Benefits:** Ensures a single source of truth for code, facilitates
+       collaboration among team members, and allows for the tracking of changes
+       over time.
+   2. **Project Management:**
+   - `GitHub`
+     - **Purpose:** Provides a platform for agile project management, allowing
+       the team to plan sprints, track user stories, and manage issues.
+     - **Benefits:** Streamlines project management processes, enhances
+       visibility into project progress, and supports efficient sprint planning
+       and execution.
+   3. **Documentation:**
+   - `GitHub Wiki`
+     - **Purpose:** Serves as a collaborative space for documenting
+       project-related information, including guidelines, best practices, and
+       project knowledge.
+     - **Benefits:** Centralizes project documentation, allows for collaborative
+       content creation, and helps in knowledge sharing among team members.
 
 ## 3.1 Overview
 
@@ -208,6 +277,58 @@ make it a viable option for the car-rental web application project. Its modular
 architecture aligns well with the project's Agile development approach, and the
 learning curve, while steep initially, can be managed with adequate training and
 resources.
+
+### Vue.js
+
+#### Description:
+
+Vue.js is a progressive JavaScript framework used for building user interfaces
+and single-page applications. It's known for its simplicity, versatility, and
+performance, as well as its ability to integrate with existing projects or be
+used to build a new app from scratch.
+
+#### Rationale:
+
+Vue.js stands out for several reasons that align with the project needs:
+
+- **Community Support**: Vue.js has been gaining traction in recent years and
+  has a growing community. While not as large as React's or Angular's, it still
+  offers a solid base of resources and third-party libraries.
+- **Performance**: Vue.js is designed to be fast and efficient. It compiles
+  templates down to virtual DOM render functions and uses a virtual DOM diffing
+  algorithm similar to React's, which helps keep performance high.
+- **Ease of Integration**: Vue.js is designed to be adaptable and can be
+  introduced into a project incrementally. It can also be mixed with other
+  libraries or existing projects without much friction.
+
+#### Qualitative Assessment:
+
+- **Strengths**: Vue.js is praised for its simplicity and ease of use,
+  especially for developers who are just starting with modern front-end
+  frameworks. It has a gentle learning curve compared to Angular and is often
+  described as being more "developer-friendly." Vue.js also allows for a lot of
+  flexibility in how you structure your application, whether you choose a full
+  framework approach or opt for a more modular setup.
+- **Weaknesses**: While Vue.js is powerful, it may not have as many
+  enterprise-level features out of the box as Angular. Additionally, since it's
+  relatively newer compared to React and Angular, it may not have as extensive a
+  community or as many third-party libraries available.
+- **Use Cases**: Vue.js would be suitable for the car-rental application in
+  several ways:
+  - **Dynamic Content Updates**: Vue.js's reactivity system would allow for easy
+    updates to the UI in response to changes in data, such as updating the list
+    of available cars after a filter is applied.
+  - **Interactive Forms**: Vue.js's form handling capabilities would make it
+    straightforward to implement forms for user registration, reservation
+    details, and contact information.
+  - **Single Page Application (SPA) Structure**: Vue.js's router allows for the
+    creation of SPAs, which would be beneficial for the fluid navigation between
+    different sections of the car-rental application.
+
+In conclusion, Vue.js offers a balance between performance, ease of integration,
+and a lower learning curve, making it a strong candidate for the car-rental web
+application project. Its growing community and straightforward API can help
+teams quickly develop and iterate on features.
 
 ### Analysis of frameworks
 
