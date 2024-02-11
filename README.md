@@ -9,19 +9,18 @@ Welcome to the Car-Rental Web Application project for the SOEN 341 course, Winte
 
 ## Table of Contents ##
 - [Project Overview](#project-overview)
+- [Technology Stack](#technology-stack)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Wiki](#wiki)
 
 ## Technology Stack ##
 ### Frontend Frameworks ###
-React and Next.js
-- A JavaScript library for building user interfaces with a component-based architecture.
+- **React:** Utilized for building user interfaces with a component-based architecture.
+- **Next.js:** Employed in the front end for its capabilities in simplifying development and integration.
 ### Backend Frameworks ###
-Next.js
-- A lightweight backend framework known for simplicity and ease of integration.
-
-
+- **Next.js:** Utilized as a lightweight backend framework, known for its simplicity and seamless integration.
+  
 ## Installation ##
 To set up the Car-Rental Web Application locally, follow these steps:
 
