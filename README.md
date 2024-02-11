@@ -10,7 +10,7 @@ Team Name: The Night Owlers
 | ------------- | ------------- |
 |Theebika Thiyagaraja Iyer  | 40191001  |
 | Shami Ivan Senga | 40228447  |
-| Angru li  | 40123754  |
+| Angru Li  | 40123754  |
 | Jutipong Puntuleng  | 40080233 |
 | Ryan Mazari  | 40241379  |
 
