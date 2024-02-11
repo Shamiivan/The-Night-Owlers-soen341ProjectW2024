@@ -18,8 +18,10 @@ Welcome to the Car-Rental Web Application project for the SOEN 341 course, Winte
 ### Frontend Frameworks ###
 - **React:** Utilized for building user interfaces with a component-based architecture.
 - **Next.js:** Employed in the front end for its capabilities in simplifying development and integration.
+- **Tailwind CSS:** Utilized for efficient styling and design
 ### Backend Frameworks ###
 - **Next.js:** Utilized as a lightweight backend framework, known for its simplicity and seamless integration.
+- **MongoDB:** Chosen as the backend database for effective data storage and retrieval.
   
 ## Installation ##
 To set up the Car-Rental Web Application locally, follow these steps:
