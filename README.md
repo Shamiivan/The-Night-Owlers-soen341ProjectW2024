@@ -96,70 +96,58 @@ test
 1. **Sprint 1** `(Deadline: February 12, 2024)`
 
    - **Define Project Scope and Objectives:**
-     - Clearly articulate the goals, requirements, and limitations of the
-       project. Collaborate with stakeholders to ensure a shared understanding.
+     - Provide a concise overview of the car-rental web application project, including its objectives and primary features.
    - **Set up a development environment:**
-     - Configure development environments for all team members, ensuring that
-       tools, libraries, and dependencies are installed and configured
-       consistently.
+     - Configure development environments for all team members, ensuring consistent installation and configuration of tools, libraries, and dependencies.
    - **Create User Stories:**
-     - Collaborate with stakeholders, including end-users, to create detailed
-       user stories that capture the functionalities and features expected from
-       the application.
+     - Create detailed user stories capturing expected functionalities and features of the application.
    - **Initiate UI/UX Design based on User Stories:**
-     - Use the created user stories as a UI/UX design foundation. Design
-       wireframes, user flows, and interface elements that align with the
-       identified user needs and scenarios.
-   - **Initial Frontend Development based on User Stories:**
-     - Begin the initial frontend development, focusing on non-complex
-       components or sections that align with the user stories and UI/UX design.
-   - **Initial Backend Development based on User Stories:**<
-     - Start setting up the basic backend infrastructure and functionalities
-       that are directly related to the user stories and the anticipated
-       frontend components.
+     - Start initial UI/UX design based on user stories.
 
 2. **Sprint 2** `(Deadline: March 11, 2024)`
 
-   - **Continued Frontend Development based on User Stories:**
-     - Progress with the frontend development, focusing on more complex
-       components now that the initial setup is complete. Ensure the
-       implementation aligns with the user stories and UI/UX design.
-   - **Continued Frontend Development based on User Stories:**
-     - Progress with the frontend development, focusing on more complex
-       components now that the initial setup is complete. Ensure the
-       implementation aligns with the user stories and UI/UX design.
-   - **Begin Integration Testing:**
-     - Start testing the integration between the frontend and backend
-       components. Identify and address any issues or inconsistencies that may
-       arise during the integration process.
+   - **Website Setup:**
+     - Define website structure for future expansion and seamless user navigation.
+     - Initiate website setup, starting with key pages like the homepage and reservation page.
+     - Implement visually appealing and user-friendly design aligned with UI/UX specifications.
+   - **vehicle Information Collection:**
+     - Begin the process of gathering detailed information about cars to be included in the database.
+     - Collect data such as make, model, year, images, and other relevant details to build comprehensive vehicle listings.
+   - **Website and Database Integration:**
+     - Establish a connection between the website frontend and the backend database.
+     - Implement functionality to retrieve and display vehicle information dynamically from the database on the website.
+   - **Integration Testing Kickoff:**
+     - Begin integration testing to assess the interaction between the webpage components and the backend systems.
+     - Identify and address any issues or discrepancies arising during the integration process.
 
 3. **Sprint 3** `(Deadline: March 25, 2024)`
 
-   - **Implement Additional Features Based on Feedback and User Stories:**
-     - Incorporate feedback from stakeholders, end-users, and team members to
-       enhance or add features to the application. Ensure these additions align
-       with the evolving user stories.
+   - **Implement Additional Features:**
+     - Analyze feedback from stakeholders, and the development team gathered during the previous sprints.
+     - Implement additional features or enhancements to address identified areas for improvement.
+     - Ensure that these additions align with the evolving user stories and contribute to an improved user experience.
    - **Conduct User Acceptance Testing:**
-     - Engage end-users in testing the application to ensure it meets their
-       needs and expectations, as outlined in the user stories.
+     - Engage end-users in thorough testing of the application to ensure it meets their needs and expectations.
+     - Create UAT scenarios based on user stories, allowing end-users to interact with the application and provide valuable insights.
+     - Address any issues or concerns raised during the UAT phase, making necessary adjustments to enhance the application
    - **Prepare for Deployment:**
-     - Assemble all components and prepare the application for deployment. This
-       involves finalizing configurations, optimizing performance, and
-       addressing any outstanding issues.
+     - Assemble all components of the application, including frontend, backend, and database.
+     - Finalize configurations for production deployment, ensuring security measures are in place.
+     - Optimize application performance to meet scalability requirements and enhance user responsiveness.
+   - **Testing and Quality Assurance:**
+     - Conduct thorough testing of the entire application, addressing any remaining bugs or issues.
+     - Ensure that all features, including those implemented in response to feedback, function as intended and contribute positively to the overall user experience.
 
 4. **Sprint 4** `(Deadline: April 10, 2024)`
-   - **Deploy the Application to the Production Environment:**
-     - Release the application to the live production environment. This includes
-       deploying both frontend and backend components to a server that is
-       accessible to end-users.
+   - **Deploy to Production Environment:**
+     - Release the application to the live production environment, deploying both frontend and backend components to a server accessible to end-users.
+     - Monitor the deployment process to ensure a smooth transition from the development environment to production.
    - **Continuous Integration (CI) Implementation:**
-     - Integrate and configure Continuous Integration (CI) tools to automate the
-       testing and deployment processes, ensuring that changes align with user
-       stories.
+     - Integrate and configure Continuous Integration (CI) tools to automate the testing and deployment processes.
+     - Set up CI pipelines to ensure that changes made to the application are systematically tested and deployed, promoting consistency and reliability.
+
    - **Conduct Final Testing and Resolve Any Issues:**
-     - Perform comprehensive testing on the live application, now integrated
-       with CI, to catch any unforeseen issues. Address and resolve any bugs or
-       performance issues that may arise during this final testing phase.
+     - Perform comprehensive testing on the live application, now integrated with CI, to catch any unforeseen issues. Address and resolve any bugs or performance issues that may arise during this final testing phase.
 
 _<ins>Note</ins>: Milestones and deadlines are subject to adjustment based on
 ongoing feedback and project evolution._
@@ -176,8 +164,7 @@ ongoing feedback and project evolution._
      - **Benefits:** Ensures alignment on project goals, distributes tasks based
        on priorities and provides a platform for discussing challenges and
        proposing solutions.
-
-   - **Two days a week for quick progress updates**
+   - **Daily meeting for quick progress updates**
      - **Purpose:** Regular, short meetings for team members to share progress
        updates, discuss any blockers, and ensure everyone is on the same page.
      - **Benefits:** Promotes transparency, allows quick problem-solving and
@@ -196,7 +183,7 @@ ongoing feedback and project evolution._
      - **Benefits:** Enhances communication by providing a visual component,
        fosters team connection, and allows for a more personal interaction
        compared to text-based communication.
-   - `Google`
+   - `Google Drive`
      - **Purpose:** Serves as a centralized location for storing and
        collaborating on formal project documentation, including requirements,
        design documents, and reports.
@@ -212,7 +199,7 @@ ongoing feedback and project evolution._
        collaboration among team members, and allows for the tracking of changes
        over time.
    2. **Project Management:**
-   - `GitHub`
+   - `GitHub Project`
      - **Purpose:** Provides a platform for agile project management, allowing
        the team to plan sprints, track user stories, and manage issues.
      - **Benefits:** Streamlines project management processes, enhances
