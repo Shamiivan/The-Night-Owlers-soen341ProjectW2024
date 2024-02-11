@@ -9,8 +9,6 @@ Welcome to the Car-Rental Web Application project for the SOEN 341 course, Winte
 - [Project Overview](#project-overview)
 - [Installation](#installation)
 - [Usage](#usage)
-- [Team Rules and Management](#Team-Rules-and-Management)
-- [Labels](#labels)
 - [Wiki](#wiki)
 
 ## Installation ##
@@ -45,23 +43,6 @@ To run the Car-Rental Web Application and explore its features, follow these ste
 - Explore the following key features of our Car-Rental Web Application:
 - Vehicle Catalog: Browse our extensive catalog of rental vehicles, including cars, SUVs, vans, and trucks.
 - Reservation Management: Easily start, view, modify, or cancel reservations based on your preferences.
-    
-## Team Rules and Management ##
-Refer to our [Wiki](https://github.com/Shamiivan/The-Night-Owlers-soen341ProjectW2024/wiki) for detailed information on team rules and management practices. This includes guidelines for communication, meeting schedules, and individual responsibilities.
-
-## Labels ##
-We use the following labels to manage issues and pull requests:
-
-Bug: Something isn't working.
-Documentation: Improvements or additions to documentation.
-Duplicate: This issue or pull request already exists.
-Enhancement: New feature or request.
-Good First Issue: Good for newcomers.
-Help Wanted: Extra attention is needed.
-Invalid: This doesn't seem right.
-Question: Further information is requested.
-User Stories: This is a user story.
-Wontfix: This will not be worked on.
 
 ## Wiki
 Explore our [Wiki](https://github.com/Shamiivan/The-Night-Owlers-soen341ProjectW2024/wiki) for additional information, including team rules, management guidelines, and detailed project documentation.
