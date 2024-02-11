@@ -1,4 +1,40 @@
 # Project Approach and Technology
+## project overview
+**Objective:**
+. In our project, we will design a car rental website based on the project management skills that we learned in SOEN 341.   
+**1.1Project objectives:**
+- To apply the software management skills such as agile  that we learn in SOEN 341
+- To learn how to develop a website that contains frontend and backend
+- To provide a seamless and intuitive user experience for customers looking to rent cars.
+- To enable car rental companies to manage their fleet, bookings, and customer interactions more effectively.
+- To offer a flexible and scalable solution that can grow with the business needs of our clients.
+ 
+**1.2Scope:**
+There are two main groups that will benefit from our website:
+**Customer:**
+- User  Registration and authentication: Design sign-up/login processes for  renters. User will login when the password and username match
+- Car rental location selection: Find the nearest car rental place based on their location.Customer can give the access of their location or type the post code, and the nearest place will be given.
+-   Car type selection: Check the types of cars that are available in that location, Check the basic features(parameter such as oil consumption, number of seat) and pictures of one car.
+-   Sorting and filtering: Sorting the car type based on the price, and popularity.
+  -  eservation:Customers can make or cancel reservations on the website, they can choose which type of car and the time they want to rent.
+-   Rating and review: Users can rate and review their rental experience and the vehicle they have rented.
+**Car rental company**
+-  Staff from car company can login when they password and username match
+- car companies have the access to change their car’s availability, and they also have the access to add new cars.
+- Car companies have the access to change the feature and picture.
+ 
+ 
+
+ **1.3 Target Audience**
+The intended users of this software are twofold:
+ 
+- Individuals looking for temporary vehicle rentals: This includes travelers, those in need of a vehicle for a short period, or individuals looking to rent a car for a special occasion.
+- Car rental companies: Businesses that own fleets of vehicles and are looking to streamline their operations and enhance their customer service through digital transformation.
+
+
+
+
+
 
 ## 2.1 Development Methodology
 
