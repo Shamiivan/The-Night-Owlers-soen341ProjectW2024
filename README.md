@@ -4,6 +4,16 @@
 
 ## Team Members and Roles ##
 
+Team Name: The Night Owlers 
+
+| Name  | Student ID |
+| ------------- | ------------- |
+| Theebika Thiyagaraja Iyer  | 40191001  |
+| Shami Ivan Senga | 40228447  |
+| Angru Li  | 40123754  |
+| Jutipong Puntuleng  | 40080233 |
+| Ryan Mazari  | 40241379  |
+
 ## Project Overview ##
 Welcome to the Car-Rental Web Application project for the SOEN 341 course, Winter 2024. This project aims to develop a comprehensive car rental platform using Agile methodologies. The application serves as a bridge between customers seeking vehicle rentals and the car rental company offering services.
 
@@ -60,3 +70,4 @@ To run the Car-Rental Web Application and explore its features, follow these ste
 ```
 ## Wiki
 Explore our [Wiki](https://github.com/Shamiivan/The-Night-Owlers-soen341ProjectW2024/wiki) for additional information, including team rules, management guidelines, and detailed project documentation.
+
