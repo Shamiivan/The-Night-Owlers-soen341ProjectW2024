@@ -4,7 +4,7 @@
 
 ## Team Members and Roles ##
 
-Team Name: The Night Owlers 
+### Team Name: The Night Owlers 
 
 | Name  | Student ID |
 | ------------- | ------------- |
