@@ -1,12 +1,24 @@
 import Image from "next/image";
+import "@/styles/global.css";
+import { Inter as FontSans } from "next/font/google";
+import { cn } from "../lib/utils";
+
+import { Button } from "@/components/ui/button";
+
+export const fontSans = FontSans({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-      <h1 className="text-4xl font-bold text-center mx-auto w-full">The-Night-Owlers ROOCKS</h1>
-      </div>
-
+    <main
+      className={cn(
+        "min-h-screen bg-background font-sans antialiased",
+        fontSans.variable,
+      )}
+    >
+      <Button>Click me Button</Button>
     </main>
   );
 }
