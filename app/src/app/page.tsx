@@ -4,72 +4,21 @@ import { Inter as FontSans } from "next/font/google";
 import { cn } from "../lib/utils";
 
 import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import Card from "@/components/ui/Card";
+import Navbar from "@/components/ui/Navbar";
 
 export default function Home() {
   return (
     <main>
-      <div className="flex">
-        <Card className="flex-1">
-          <CardHeader>
-            <CardTitle>Toyota Camry</CardTitle>
-            <CardDescription>52$/day</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <Button>Make a reservation</Button>
-            <Button variant="destructive" size="lg">Delete</Button>
-            <Button variant="secondary" size="lg">Delete</Button>
-            <Button variant="outline" size="sm">Cancel</Button>
+      <h1>Welcome to My Page</h1>
 
-            <Button variant="ghost" size="icon">?</Button>
-          </CardFooter>
-        </Card>
-
-        <Card className="flex-1">
-          <CardHeader>
-            <CardTitle>Toyota Camry</CardTitle>
-            <CardDescription>52$/day</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <Button>Make a reservation</Button>
-          </CardFooter>
-        </Card>
-
-        <Card className="flex-1">
-          <CardHeader>
-            <CardTitle>Toyota Camry</CardTitle>
-            <CardDescription>52$/day</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
-            </p>
-          </CardContent>
-          <CardFooter>
-            <Button>Make a reservation</Button>
-          </CardFooter>
-        </Card>
-      </div>
+      <Card
+        title="Special Offer"
+        description="This is an amazing deal that you shouldn't miss."
+        content="Details about the special offer..."
+        buttonText="Make Reservation"
+      />
+      <Navbar />
     </main>
   );
 }
