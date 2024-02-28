@@ -1,5 +1,5 @@
 import "@/styles/global.css";
-import Card from "../components/ui/Card.tsx";
+import Card from "../components/ui/card.tsx";
 import Navbar from "../components/ui/Navbar.tsx";
 
 export default function Home() {
