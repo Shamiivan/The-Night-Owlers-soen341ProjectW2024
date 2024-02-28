@@ -1,6 +1,6 @@
 import "@/styles/global.css";
-import Card from "@/components/ui/Card";
-import Navbar from "@/components/ui/Navbar";
+import Card from "../components/ui/Card";
+import Navbar from "../components/ui/Navbar";
 
 export default function Home() {
   const cardData = {
