@@ -16,7 +16,9 @@ export default function Home() {
   return (
     <main>
       <Navbar />
-      <h1>Welcome to My Page</h1>
+      <div className="bg-secondary">
+        <h1 className="text-primary-foreground">Welcome to My Page</h1>
+      </div>
       <Card
         name={cardData.name}
         price={cardData.price}
