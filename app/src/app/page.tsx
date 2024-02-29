@@ -1,6 +1,7 @@
 import "@/styles/global.css";
 import Card from "@/components/ui/card";
 import Navbar from "@/components/ui/Navbar";
+import Footer from "@/components/ui/Footer";
 
 export default function Home() {
   const cardData = {
@@ -24,7 +25,7 @@ export default function Home() {
         nPeople={cardData.nPeople}
         nBags={cardData.nBags}
       />{" "}
-      
+      <Footer/>
     </main>
   );
 }
