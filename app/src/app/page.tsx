@@ -6,7 +6,7 @@ import Footer from "@/components/ui/Footer";
 export default function Home() {
   const cardData = {
     name: "Car Name",
-    price: "99",
+    price: 99,
     description:
       "This is a great car with excellent features for your next trip.",
     automatic: true,
@@ -25,7 +25,7 @@ export default function Home() {
         nPeople={cardData.nPeople}
         nBags={cardData.nBags}
       />{" "}
-      <Footer/>
+      <Footer />
     </main>
   );
 }
