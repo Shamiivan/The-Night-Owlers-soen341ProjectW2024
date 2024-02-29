@@ -5,7 +5,7 @@ import Navbar from "@/components/ui/Navbar";
 export default function Home() {
   const cardData = {
     name: "Car Name",
-    price: "$99/day",
+    price: "99",
     description:
       "This is a great car with excellent features for your next trip.",
     automatic: true,

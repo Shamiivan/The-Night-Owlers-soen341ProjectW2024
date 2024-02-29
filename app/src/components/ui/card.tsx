@@ -1,15 +1,15 @@
-// PerformancePaintTimin
 import React from "react";
+import { Button } from "./button";
+import Image from "./Image";
 import {
   IoArrowForward,
   IoLocationSharp,
   IoTimeOutline,
 } from "react-icons/io5";
-import { Button } from "./button";
 
 interface Props {
   name: string;
-  price: string;
+  price: number;
   description: string;
   automatic: boolean;
   nPeople: number;
@@ -20,38 +20,27 @@ const Card: React.FC<Props> = (
   { name, price, description, automatic, nPeople, nBags },
 ) => {
   return (
-    <div className="w-72 sm:w-80 flex flex-col justify-start bg-white border overflow-hidden rounded-xl shadow-md">
-      <div className="w-full h-48 sm:h-52 bg-slate-400 rounded-t-xl">
-        <div className="absolute w-32 p-1 bg-sky-400 rounded-tl-xl rounded-br-lg text-white">
-          category
+    <div className="mx-auto max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4">
+      <div className="group relative">
+        <div className="aspect-h-1 aspect-w-1 lg:aspect-none w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-40">
+          <img
+            src="https://picsum.photos/200/300?grayscale"
+            alt="Front of men's Basic Tee in black."
+            className="max-h-80 w-full object-fill object-center"
+          />
         </div>
-        <img
-          src="https://picsum.photos/200/300?grayscale"
-          // src={`/api/uploads/${encodeURIComponent(image)}`}
-          // alt={name}
-          className="w-full object-cover overflow-hidden max-h-full"
-        />
-      </div>
-      <div className="w-full flex flex-col px-4 pb-4 gap-2 sm-gap-3 text-start rounded-b-xl">
-        <div>
-          <h3 className="w-full text-title-l font-semibold font-raleway text-black">
-            Name
-          </h3>
-          <p className="italic text-base font-light">Additional tags</p>
+        <div className="flex flex-col">
+          <h2 className="text-xl font-bold tracking-tight text-gray-800">
+            {name}
+          </h2>
+          <p className="text-xs pl-1 font-medium text-gray-300">${price}/day</p>
         </div>
-
-        <div className="flex flex-row items-start sm:items-center gap-2 sm:gap-6">
-          <div className="flex flex-row items-center text-sm gap-1 text-gray-600">
-            <IoTimeOutline size={24} color="gray" /> date
-          </div>
-          <div className="flex flex-row items-center text-sm gap-1 text-gray-600">
-            <IoLocationSharp size={24} color="gray" /> location
+        <div className="mt-2 flex justify-between">
+          <div>
+            <p className="mt-1 text-sm text-gray-500">{description}</p>
           </div>
         </div>
-
-        <p className="text-base text-gray-600 line-clamp-3">{description}</p>
-
-        <Button>Make a reservation</Button>
+        <hr className="border-1 border-gray-300 my-4" />
       </div>
     </div>
   );
