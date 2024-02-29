@@ -1,11 +1,6 @@
 import React from "react";
 import { Button } from "./button";
 import Image from "./Image";
-import {
-  IoArrowForward,
-  IoLocationSharp,
-  IoTimeOutline,
-} from "react-icons/io5";
 
 interface Props {
   name: string;
