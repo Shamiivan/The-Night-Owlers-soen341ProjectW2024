@@ -20,11 +20,11 @@ const DriverDetail = () => {
             <div className="grid grid-cols-2">
               <div>
                 <p className=''>Email</p>
-                <input type="name" placeholder="Email" className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"/>
+                <input type="email" placeholder="Email" className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"/>
               </div>
               <div>
                 <p className=''>Contact Number</p>
-                <input type="name" placeholder="Contact Number" className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"/>
+                <input type="tel" placeholder="Contact Number" className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"/>
               </div>
             </div>
           </div>
