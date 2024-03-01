@@ -15,7 +15,7 @@ const Card: React.FC<Props> = (
   { name, price, description, automatic, nPeople, nBags },
 ) => {
   return (
-    <div className="mx-auto max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4">
+    <div className="border rounded bg-secondary-foreground mx-2 max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4">
       <div className="group relative">
         <div className="aspect-h-1 aspect-w-1 lg:aspect-none w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-40">
           <img

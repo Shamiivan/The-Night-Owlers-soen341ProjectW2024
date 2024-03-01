@@ -12,18 +12,87 @@ export default function VehiclesIndex() {
   };
   return (
     <main>
-      <div className="bg-secondary">
-        <h1 className="text-primary-foreground">Welcome to My Page</h1>
+      <div className="flex">
+        {/* filters */}
+        <div
+          style={{ flexGrow: 1 }}
+          className="rounded border p-4 m-1 flex flex-col"
+        >
+          {/* FILTERS 1: CATEGORIES */}
+          <div className="flex flex-col">
+            <h3>Categories</h3>
+            <ul className="list-disc">
+              <li>cars</li>
+              <li>Suvs</li>
+              <li>Trucks</li>
+              <li>Vans</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* CARS */}
+        <div style={{ flexGrow: 2 }} className="p-4 m-1">
+          <div className="flex flex-col">
+            <div className="flex mb-8 justify-between">
+              <Card
+                name={cardData.name}
+                price={cardData.price}
+                description={cardData.description}
+                automatic={cardData.automatic}
+                nPeople={cardData.nPeople}
+                nBags={cardData.nBags}
+              />
+
+              <Card
+                name={cardData.name}
+                price={cardData.price}
+                description={cardData.description}
+                automatic={cardData.automatic}
+                nPeople={cardData.nPeople}
+                nBags={cardData.nBags}
+              />
+
+              <Card
+                name={cardData.name}
+                price={cardData.price}
+                description={cardData.description}
+                automatic={cardData.automatic}
+                nPeople={cardData.nPeople}
+                nBags={cardData.nBags}
+              />
+            </div>
+
+            <div className="flex justify-between">
+              <Card
+                name={cardData.name}
+                price={cardData.price}
+                description={cardData.description}
+                automatic={cardData.automatic}
+                nPeople={cardData.nPeople}
+                nBags={cardData.nBags}
+              />
+
+              <Card
+                name={cardData.name}
+                price={cardData.price}
+                description={cardData.description}
+                automatic={cardData.automatic}
+                nPeople={cardData.nPeople}
+                nBags={cardData.nBags}
+              />
+
+              <Card
+                name={cardData.name}
+                price={cardData.price}
+                description={cardData.description}
+                automatic={cardData.automatic}
+                nPeople={cardData.nPeople}
+                nBags={cardData.nBags}
+              />
+            </div>
+          </div>
+        </div>
       </div>
-      <Card
-        name={cardData.name}
-        price={cardData.price}
-        description={cardData.description}
-        automatic={cardData.automatic}
-        nPeople={cardData.nPeople}
-        nBags={cardData.nBags}
-      />
-      {" "}
     </main>
   );
 }
