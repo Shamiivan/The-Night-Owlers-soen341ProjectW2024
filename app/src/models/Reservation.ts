@@ -15,3 +15,4 @@ const ReservationSchema = new Schema({
     returnDate : { type: Date, required: true },
     status : { type: String, required: true, enum: ["available", "reserved", "rented", "returned"] },
 });
+export default mongoose.model<IReservation>("Reservation", ReservationSchema);
