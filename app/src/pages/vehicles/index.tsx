@@ -1,6 +1,6 @@
 import Card from "@/components/ui/card";
 
-export default function VehiclesIndex() {
+export default function Vehicles() {
   const cardData = {
     name: "Car Name",
     price: 99,
@@ -8,7 +8,7 @@ export default function VehiclesIndex() {
       "This is a great car with excellent features for your next trip.",
     automatic: true,
     nPeople: 4,
-    nBags: 2,
+    nBags: 2
   };
   return (
     <main>
