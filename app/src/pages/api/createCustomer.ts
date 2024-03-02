@@ -7,7 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const { firstName,lastName, email, password } = req.body;
     console.log(req.body);
     const result = await createUser(firstName, lastName, email, password, 'customer');
-
     if (result.success) {
       res.status(201).json({ success: true, data: result.value });
       console.log(result);

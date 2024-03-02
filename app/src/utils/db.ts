@@ -21,7 +21,6 @@ export async function connectToDatabase() {
     return executeAsync(async () => {
         // Connect to MongoDB with specified options
         await mongoose.connect(uri, {
-            useUnifiedTopology: true, // Use the new server discovery and monitoring engine
             serverSelectionTimeoutMS: 5000, // Timeout after 5s instead of 30s
         });
         // Log a message indicating a successful connection
