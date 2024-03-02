@@ -1,11 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase } from '../../utils/dbConnect';
-import printError from "../../utils/print";
+import { connectToDatabase, createUser, getAllUsers } from '@/utils/db';
+import printError from "@/utils/print";
+import { get } from "http";
 export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse,
 ) {
-   const result = await connectToDatabase();
+   const result = await getAllUsers();
     if (result.success) {
         res.status(200).json({ message: "Connected to MongoDB!" });
         console.log(typeof result.value)
