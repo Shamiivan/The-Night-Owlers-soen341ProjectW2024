@@ -7,6 +7,8 @@ dotenv.config();
 const uri = process.env.MONGODB_URI as string;
 console.log(uri);
 
+
+
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
  serverApi: {
@@ -16,6 +18,11 @@ const client = new MongoClient(uri, {
  }
 });
 
+
+/**
+ * Connects to the MongoDB database using the Mongoose library.
+ * @returns A Promise that resolves to the Mongoose connection object.
+ */
 
 export async function connectToDatabase() {
     return executeAsync(async () => {
