@@ -1,16 +1,30 @@
-import mongoose, {Document, Schema} from "mongoose";
+import mongoose, { Document, Schema } from 'mongoose';
 
+// Define the IUser interface
 interface IUser extends Document {
-    username: string;
+    firstName: string;
+    lastName: string;
     password: string;
     email: string;
     role: "customer" | "admin";
 }
 
-const UserSchema = new Schema({ 
-    username : { type: String, required: true },
-    password : { type: String, required: true },
-    email : { type: String, required: true },
-    role : { type: String, required: true, enum: ["customer", "admin"] },
-});
-export default mongoose.model<IUser>("User ", UserSchema);
+// Check if the model is already compiled
+let User: mongoose.Model<IUser> | undefined = mongoose.models.User as mongoose.Model<IUser> | undefined;
+
+if (!User) {
+    // Define the User schema
+    const UserSchema = new Schema<IUser>({
+        firstName: { type: String, required: true },
+        lastName: { type: String, required: true },
+        password: { type: String, required: true },
+        email: { type: String, required: true },
+        role: { type: String, required: true, enum: ["customer", "admin"] },
+    });
+
+    // Create the User model
+    User = mongoose.model<IUser>('User', UserSchema);
+}
+
+export default User;
+export type { IUser };
