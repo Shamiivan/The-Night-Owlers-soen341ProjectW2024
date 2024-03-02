@@ -4,6 +4,7 @@ import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import User, { IUser } from '@/models/User';
 
+
 // Load environment variables from .env file
 dotenv.config();
 // Retrieve the MongoDB URI from environment variables
@@ -65,8 +66,35 @@ export async function createUser(firstName: string, lastName: string, password: 
         // Save the new user document to the database
         const result = await newUser.save();
         // Log the result of the user creation
-        console.log("User created:", result);
-        // Return the created user document
         return result;
+    });
+}
+
+/**
+ * Retrieves a single user document by its ID.
+ * @param id - The ID of the user document to retrieve.
+ * @returns A promise that resolves with the user document or null if not found.
+ */
+export async function getUserById(id: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for the user document with the specified ID
+        const user = await User?.findById(id);
+        // Log the result of the query
+        return user;
+    });
+}
+
+/**
+ * Retrieves all user documents from the database.
+ * @returns A promise that resolves with an array of user documents.
+ */
+export async function getAllUsers() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for all user documents
+        const users = await User?.find({});
+        // Log the result of the query
+        return users;
     });
 }
