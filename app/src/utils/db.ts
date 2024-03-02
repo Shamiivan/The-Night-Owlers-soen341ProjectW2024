@@ -59,7 +59,7 @@ export async function createUser(firstName: string, lastName: string, password: 
     return executeAsync(async () => {
         await connectToDatabase();
         // Create a new user document with the provided details
-        const newUser = new User({ firstName, lastName, password, email, role });
+        const newUser = new (User as mongoose.Model<IUser>)({ firstName, lastName, password, email, role });
         // Save the new user document to the database
         const result = await newUser.save();
         // Log the result of the user creation
