@@ -29,7 +29,7 @@ const BillingAddress = () => {
   };
 
   return (
-    <div className='px-10  pb-10 border-2 border-black rounded-xl my-5'>
+    <form className='px-10  pb-10 border-2 border-black rounded-xl my-5'>
       <h1 className='font-semibold'>Billing Address</h1>
 
       <div className="grid-rows-5 gap-4">
@@ -88,7 +88,7 @@ const BillingAddress = () => {
           />
         </div>
       </div>
-    </div>
+    </form>
   );
 }
 

@@ -24,7 +24,7 @@ const DriverDetail = () => {
   };
 
   return (
-    <div className='px-10 pb-10 border-2 border-black rounded-xl mt-8'>
+    <form className='px-10 pb-10 border-2 border-black rounded-xl mt-8'>
       <h1 className='font-semibold'>Driver's Detail</h1>
 
       <div className="grid-rows-2">
@@ -75,7 +75,7 @@ const DriverDetail = () => {
           </div>
         </div>
       </div>
-    </div>
+    </form>
   );
 };
 
