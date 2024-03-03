@@ -30,9 +30,6 @@ const ReserveDetail: React.FC<Props> = (
           <p className='text-xl font-semibold'>Price</p>
           <p>${price}</p>
         </div>
-        <div className='flex justify-end'>
-           <Button>Confirm</Button>
-        </div>
     </div>
   )
 }
