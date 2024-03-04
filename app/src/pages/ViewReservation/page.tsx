@@ -11,13 +11,11 @@ export default function Home() {
   const reservationsDataSets = [
     [
       { img:'', id: 1, car: 'Car A', startDate: '2024-03-05', endDate: '2024-03-08', location:'Airport'},
-      // Add more reservation data for the first list
     ],
     [
       { img:'', id: 2, car: 'Car B', startDate: '2024-03-10', endDate: '2024-03-15', location:'Train station' },
-      // Add more reservation data for the second list
     ],
-    // Add more arrays for additional lists
+    // link to database
   ];
 
 
