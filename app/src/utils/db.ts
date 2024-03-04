@@ -91,7 +91,8 @@ export async function getAllUsers() {
         await connectToDatabase();
         // Query the database for all user documents
         const users = await User?.find({});
-        // Log the result of the query
         return users;
     });
 }
+
+
