@@ -1,3 +1,4 @@
+import "@/styles/global.css";
 import Card from "@/components/ui/card";
 
 export default function Vehicles() {
