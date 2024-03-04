@@ -13,7 +13,7 @@ async function fetchUsers() {
     }
 }
 
-export default async function About() {
+export default async function Users() {
     const result = await fetchUsers();
     const users = Array.isArray(result) ? result : [];
     return (
