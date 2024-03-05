@@ -23,17 +23,19 @@ const VehicleDetails: React.FC = () => {
         mileage: 0,
       };
       return (
-        <div>
+        <div className="flex flex-col min-h-screen">
           <Navbar />
-          <VehicleDetailCard
-            name="Honda Civic"
-            carDescription="The Honda Civic is a line of cars manufactured by Honda. "
-            carImage="https://www.honda.ca/en/civic_sedan"
-            carInformation={carInformation}
-          />
-      <Footer />
-    </div>
-  );
-};
+          <main className="flex-grow"> 
+            <VehicleDetailCard
+              name="Honda Civic"
+              carDescription="The Honda Civic is a line of cars manufactured by Honda."
+              carImage="https://www.honda.ca/en/civic_sedan" 
+              carInformation={carInformation}
+            />
+          </main>
+          <Footer />
+        </div>
+      );
+    };
 
 export default VehicleDetails;
