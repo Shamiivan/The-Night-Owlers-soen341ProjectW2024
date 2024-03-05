@@ -1,34 +1,29 @@
-import "@/styles/global.css";
 import React, { useState } from 'react';
+import "@/styles/global.css";
 
 const AddingVehiclesAdmin = () => {
+  // Use string type for values that will be converted to numbers later
   const [brand, setBrand] = useState('');
   const [model, setModel] = useState('');
-  const [year, setYear] = useState(0);
+  const [year, setYear] = useState('');
   const [transmissionType, setTransmissionType] = useState('');
   const [color, setColor] = useState('');
   const [fuelType, setFuelType] = useState('');
-  const [engineCapacity, setEngineCapacity] = useState(0);
-  const [totalDoors, setTotalDoors] = useState(0);
-  const [rentalPrice, setRentalPrice] = useState(0);
-  const [mileage, setMileage] = useState(0);
+  const [engineCapacity, setEngineCapacity] = useState('');
+  const [totalDoors, setTotalDoors] = useState('');
+  const [rentalPrice, setRentalPrice] = useState('');
+  const [mileage, setMileage] = useState('');
 
-
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // Handle the form submission, potentially sending data to a server
-    // For example:
-    // const carData = { brand, model, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage };
-    // console.log(carData);
-    // You would send carData to your server here
+    
   };
 
   return (
-    <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10 space-y-4 bg-white p-8 shadow rounded-lg">
+    <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
       {/* Input fields for each car attribute */}
       {/* Brand Field */}
-      <div>
-        {/* ... (other input fields similar to the following pattern) */}
+      <div className="mb-4">
         <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>
         <input
           type="text"
@@ -39,15 +34,19 @@ const AddingVehiclesAdmin = () => {
           required
         />
       </div>
-      {/* Model Field */}
-      <div>
-        {/* ... */}
+      {/* ...other fields... */}
+      {/* Rental Price Field */}
+      <div className="mb-4">
+        <label htmlFor="rentalPrice" className="block text-sm font-medium text-gray-700">Rental Price ($):</label>
+        <input
+          type="text" // change to text to avoid number parsing
+          id="rentalPrice"
+          value={rentalPrice}
+          onChange={(e) => setRentalPrice(e.target.value)} // e.target.value will be a string
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          required
+        />
       </div>
-      {/* Year Field */}
-      <div>
-        {/* ... */}
-      </div>
-      {/* ... other fields ... */}
       {/* Save Button */}
       <button
         type="submit"
