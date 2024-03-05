@@ -9,18 +9,18 @@ const VehicleDetails: React.FC = () => {
       const carInformation = {
         brand: 'Honda',
         model: 'Civic',
-        year: 2021,
+        year: 2019,
         transmissionType: {
           automatic: true,
           nPeople: 5,
           nBags: 3,
         },
-        color: 'Red',
+        color: 'Blue',
         fuelType: 'Petrol',
         engineCapacity: 1500,
         totalDoors: 4,
         rentalPrice: 100,
-        mileage: 0,
+        mileage: 58000,
       };
       return (
         <div className="flex flex-col min-h-screen">
@@ -29,7 +29,7 @@ const VehicleDetails: React.FC = () => {
             <VehicleDetailCard
               name="Honda Civic"
               carDescription="The Honda Civic is a line of cars manufactured by Honda."
-              carImage="https://www.honda.ca/en/civic_sedan" 
+              carImage="/HondaCivic.jpeg" 
               carInformation={carInformation}
             />
           </main>
