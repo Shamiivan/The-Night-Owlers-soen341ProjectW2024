@@ -21,8 +21,9 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
+import Users from "@/components/dashboard/users";
 
-export default function Dashboard({
+export default async function Dashboard({
   defaultLayout = [265, 440, 655],
   defaultCollapsed = false,
   navCollapsedSize,
@@ -127,6 +128,7 @@ export default function Dashboard({
               </form>
             </div>
             <TabsContent value="all" className="m-0">
+              <Users />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
               <div className="bg-primary">Something</div>
