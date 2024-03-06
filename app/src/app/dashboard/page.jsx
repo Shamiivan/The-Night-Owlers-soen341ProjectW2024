@@ -21,7 +21,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import Users from "@/components/dashboard/users";
+import UserList from "@/components/dashboard/users";
 
 
 export default function Dashboard({
@@ -35,7 +35,7 @@ export default function Dashboard({
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
-        onLayout={(sizes: number[]) => {
+        onLayout={(sizes) => {
           document.cookie = `react-resizable-panels:layout=${
             JSON.stringify(
               sizes,
@@ -129,7 +129,7 @@ export default function Dashboard({
               </form>
             </div>
             <TabsContent value="all" className="m-0">
-              <Users />
+              <UserList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
               <div className="bg-primary">Something</div>
