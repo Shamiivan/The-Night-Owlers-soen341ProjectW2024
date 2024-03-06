@@ -4,7 +4,7 @@ import "@/styles/global.css";
 
 const AddingVehiclesAdmin = () => {
   const [brand, setBrand] = useState('');
-  const [model, setModel] = useState('');
+  const [carModel, setModel] = useState('');
   const [year, setYear] = useState('');
   const [transmissionType, setTransmissionType] = useState('');
   const [color, setColor] = useState('');
@@ -18,7 +18,7 @@ const AddingVehiclesAdmin = () => {
     e.preventDefault();
     const response = await fetch('/api/addCar', {
       method: 'POST',
-      body: JSON.stringify({ brand, model, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage }),
+      body: JSON.stringify({ brand, carModel, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage }),
       headers: {
         'Content-Type': 'application/json',
       },
@@ -44,7 +44,7 @@ const AddingVehiclesAdmin = () => {
         <input
           type="text"
           id="model"
-          value={model}
+          value={carModel}
           onChange={(e) => setModel(e.target.value)}
           className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           required
