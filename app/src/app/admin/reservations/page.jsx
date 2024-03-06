@@ -36,10 +36,11 @@ export default function Dashboard({
       <ResizablePanelGroup
         direction="horizontal"
         onLayout={(sizes) => {
-          document.cookie = `react-resizable-panels:layout=${JSON.stringify(
-            sizes,
-          )
-            }`;
+          document.cookie = `react-resizable-panels:layout=${
+            JSON.stringify(
+              sizes,
+            )
+          }`;
         }}
         className="h-full max-h-[800px] items-stretch"
       >
@@ -51,14 +52,15 @@ export default function Dashboard({
           maxSize={20}
           onCollapse={(collapsed) => {
             setIsCollapsed(collapsed);
-            document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(
-              collapsed,
-            )
-              }`;
+            document.cookie = `react-resizable-panels:collapsed=${
+              JSON.stringify(
+                collapsed,
+              )
+            }`;
           }}
           className={cn(
             isCollapsed &&
-            "min-w-[50px] transition-all duration-300 ease-in-out",
+              "min-w-[50px] transition-all duration-300 ease-in-out",
           )}
         >
           <Separator />
@@ -69,21 +71,21 @@ export default function Dashboard({
                 title: "Users",
                 label: "128",
                 icon: UsersRound,
-                variant: "default",
-                url: "/admin/users",
+                variant: "ghost",
+                url : "/admin/users",
               },
               {
                 title: "Vehicles",
                 label: "9",
                 icon: CarIcon,
                 variant: "ghost",
-                url: "/admin/vehicles",
+                url : "/admin/vehicles",
               },
               {
                 title: "Reservations",
                 label: "100",
                 icon: File,
-                variant: "ghost",
+                variant: "default",
                 url : "/admin/reservations",
               },
             ]}
