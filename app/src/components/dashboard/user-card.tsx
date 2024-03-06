@@ -6,6 +6,7 @@ interface userProps {
   firstName: string;
   lastName: string;
   email: string;
+  _id: string;
 }
 
 export function UserCard({ firstName, lastName, email }: userProps) {
@@ -23,8 +24,14 @@ export function UserCard({ firstName, lastName, email }: userProps) {
           {email}
         </p>
       </div>
-      <div className="ml-auto font-medium">
-        <Button>Delete</Button>
+      <div className="ml-auto font-medium flex flex-row">
+        <div className="mr-2">
+        <Button variant="link">Update</Button>
+          </div>
+          <div className="mr-2">
+        <Button variant ="destructive">Delete</Button>
+          </div>
+
       </div>
       <Separator />
     </div>
