@@ -25,13 +25,14 @@ export default function UserList() {
     };
 
     fetchUsers();
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []); 
 
   return (
     <div className="p-8 bg-ghost mb-2 space-y-8">
       {users.map((user) => (
         <UserCard
           key={user._id}
+          _id={user._id}
           firstName={user.firstName}
           lastName={user.lastName}
           email={user.email}
