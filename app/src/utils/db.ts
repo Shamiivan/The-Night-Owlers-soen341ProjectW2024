@@ -19,6 +19,7 @@ const uri = process.env.MONGODB_URI as string;
  */
 export async function connectToDatabase() {
     return executeAsync(async () => {
+        console.log('connectted successfullly');
         // Connect to MongoDB with specified options
         await mongoose.connect(uri, {
             serverSelectionTimeoutMS: 5000,
@@ -63,6 +64,7 @@ export async function createUser(firstName: string, lastName: string, password: 
         // Save the new user document to the database
         const result = await newUser.save();
         // Log the result of the user creation
+      
         return result;
     });
 }
@@ -95,3 +97,26 @@ export async function getAllUsers() {
         return users;
     });
 }
+
+
+
+//cardetail part
+
+
+
+
+export async function getCarById(Carid: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for the user document with the specified ID
+        const Car_detail = await User?.findById(Carid);
+        // Log the result of the query
+        console.log("get car work");
+        console.log(Car_detail);
+        return Car_detail;
+    });
+}
+
+
+
+
