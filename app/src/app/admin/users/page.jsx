@@ -24,7 +24,7 @@ import {
 import UserList from "@/components/dashboard/users";
 
 
-export default function Dashboard({
+export default function Users({
   defaultLayout = [265, 440, 655],
   defaultCollapsed = false,
   navCollapsedSize,
