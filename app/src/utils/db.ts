@@ -79,6 +79,8 @@ export async function getUserById(id: string) {
         await connectToDatabase();
         // Query the database for the user document with the specified ID
         const user = await User?.findById(id);
+        console.log(user);
+          console.log("get car work");
         // Log the result of the query
         return user;
     });

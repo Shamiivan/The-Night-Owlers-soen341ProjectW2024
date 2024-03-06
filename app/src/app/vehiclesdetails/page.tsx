@@ -2,9 +2,10 @@ import React from 'react';
 import Navbar from "@/components/ui/Navbar";
 import Footer from '@/components/ui/Footer';
 import VehicleDetailCard from '@/components/VehicleDetailCard';
+import cdbservice from '@/pages/api/cdbservice';
 let db = require('@/utils/db');
 let cdb = require('@/utils/cardb');
-
+let cdbs = require('@/pages/api/cdbservice');
 const VehicleDetails: React.FC = () => {
 
       const carInformation = {
@@ -23,10 +24,15 @@ const VehicleDetails: React.FC = () => {
         rentalPrice: 100,
         mileage: 0,
       };
-      db.connectToDatabase();
-     // db.getCarById('65e2e8b8307dc19abacdc792')
-      db.getUserById('65e6e4944909ef3b2fd8a7f8')
+      cdb.connectDB();
+      const documentId = '65e80d3dc03e69f034389091';
+      cdb.readItem( '65e80d3dc03e69f034389091');
+      //db.readItem('65e2e8b8307dc19abacdc792')
+      //db.getUserById('65e2e8b8307dc19abacdc792')
       //cdb.connectToDatabase();
+    //  console.log('ho'+cdb.getcarById( documentId));
+     // cdb.getcarById( documentId);
+    cdbs.data
       return (
         <div>
           <Navbar />
