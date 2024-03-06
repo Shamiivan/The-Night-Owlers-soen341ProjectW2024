@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import User, { IUser } from '@/models/User';
+import Vehicle, { IVehicle } from '@/models/Vehicle';
 
 
 // Load environment variables from .env file
@@ -102,7 +103,7 @@ export async function addCar(brand: string, model: string, year: number, transmi
     return executeAsync(async () => {
         await connectToDatabase();
         // Create a new car document with the provided details
-        const newCar = new (Car as mongoose.Model<ICar>)({ brand, model, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage });
+        const newCar = new (Vehicle as mongoose.Model<IVehicle>)({ brand, model, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage });
         // Save the new car document to the database
         const result = await newCar.save();
         // Log the result of the car creation

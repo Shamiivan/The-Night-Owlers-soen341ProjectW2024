@@ -4,9 +4,9 @@ import { addCar } from '@/utils/db';
 
 export default async function handler( req: NextApiRequest, res: NextApiResponse) {
     if (req.method === 'POST') {
-        const { brand, model, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage } = req.body;
+        const { brand, carModel, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage } = req.body;
         console.log(req.body);
-        const result = await addCar(brand, model, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage);
+        const result = await addCar(brand, carModel, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage);
         if (result.success) {
             res.status(201).json({ success: true, data: result.value });
             console.log(result);
