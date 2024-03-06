@@ -8,7 +8,7 @@ interface userProps {
   email: string;
 }
 
-export async function UserCard({ firstName, lastName, email }: userProps) {
+export function UserCard({ firstName, lastName, email }: userProps) {
   return (
     <div className="flex items-center">
       <Avatar className="h-9 w-9">

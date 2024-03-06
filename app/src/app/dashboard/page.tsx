@@ -23,7 +23,8 @@ import {
 } from "@/components/ui/resizable";
 import Users from "@/components/dashboard/users";
 
-export default async function Dashboard({
+
+export default function Dashboard({
   defaultLayout = [265, 440, 655],
   defaultCollapsed = false,
   navCollapsedSize,

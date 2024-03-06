@@ -19,10 +19,11 @@ const uri = process.env.MONGODB_URI as string;
  */
 export async function connectToDatabase() {
     return executeAsync(async () => {
-        // Connect to MongoDB with specified options
+        if(!mongoose.connection.readyState){
         await mongoose.connect(uri, {
             serverSelectionTimeoutMS: 5000,
         });
+        }
     });
     
 }

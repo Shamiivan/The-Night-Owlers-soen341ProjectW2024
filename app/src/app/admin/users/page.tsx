@@ -1,5 +1,4 @@
 // app/about/page.js
-import { useEffect, useState } from "react";
 import { getAllUsers } from "@/utils/db";
 import { IUser } from "@/models/User";
 
@@ -12,9 +11,10 @@ async function fetchUsers() {
   }
 }
 
-export default async function Users() {
+export default async function About() {
   const result = await fetchUsers();
   const users = Array.isArray(result) ? result : [];
+  console.log(users[0]._id?.toString());
   return (
     <div>
       <h1>About Us</h1>
