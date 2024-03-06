@@ -20,10 +20,11 @@ const uri = process.env.MONGODB_URI as string;
  */
 export async function connectToDatabase() {
     return executeAsync(async () => {
-        // Connect to MongoDB with specified options
+        if(!mongoose.connection.readyState){
         await mongoose.connect(uri, {
             serverSelectionTimeoutMS: 5000,
         });
+        }
     });
     
 }
@@ -92,21 +93,8 @@ export async function getAllUsers() {
         await connectToDatabase();
         // Query the database for all user documents
         const users = await User?.find({});
-        // Log the result of the query
         return users;
     });
 }
 
 
-// add for adding car addCar.ts
-export async function addCar(brand: string, model: string, year: number, transmissionType: string, color: string, fuelType: string, engineCapacity: number, totalDoors: number, rentalPrice: number, mileage: number) {
-    return executeAsync(async () => {
-        await connectToDatabase();
-        // Create a new car document with the provided details
-        const newCar = new (Vehicle as mongoose.Model<IVehicle>)({ brand, model, year, transmissionType, color, fuelType, engineCapacity, totalDoors, rentalPrice, mileage });
-        // Save the new car document to the database
-        const result = await newCar.save();
-        // Log the result of the car creation
-        return result;
-    });
-}
