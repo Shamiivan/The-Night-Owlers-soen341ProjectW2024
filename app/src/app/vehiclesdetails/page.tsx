@@ -28,14 +28,17 @@ const VehicleDetails: React.FC = () => {
       cdb.connectDB();
       const documentId = '65e80d3dc03e69f034389091';
       cdb.readItem( '65e80d3dc03e69f034389091');
+     cdb.readAllcars()
+   //cdb.getallcars();
+  //   db.getAllUsers();
       //db.readItem('65e2e8b8307dc19abacdc792')
       //db.getUserById('65e2e8b8307dc19abacdc792')
       //cdb.connectToDatabase();
     //  console.log('ho'+cdb.getcarById( documentId));
      // cdb.getcarById( documentId);
-     console.log('hi'+cdbs.aa);
+    // console.log('hi'+cdbs.aa);
      //console.log.(cdbs.item)
-    cdbs.data
+ //   cdbs.data
 // const itemId=cdbs.item;
 /*
 async function fetchItem(itemId: string) {
@@ -63,6 +66,7 @@ async function fetchItem(itemId: string) {
     const response = await fetch(`http://localhost:3000/vehiclesdetails/${itemId}`);
     if (!response.ok) {
         throw new Error('Item not founddd');
+        
     }
     return await response.json(); 
   } catch (error) {

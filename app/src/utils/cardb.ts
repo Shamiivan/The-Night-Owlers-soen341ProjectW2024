@@ -4,12 +4,31 @@ import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import User, { IUser } from '@/models/User';
+import vehicle, {ICar} from '@/models/car';
 // MongoDB URL
+/**
+ * Connects to the MongoDB database using Mongoose.
+ * This function wraps the connection logic in an asynchronous operation
+ * and handles any errors that might occur during the connection process.
+ * @returns A promise that resolves when the connection is successful.
+ */
+dotenv.config();
 const url = 'mongodb+srv://nightOwlers:soen341@car-rental.kwm8q1v.mongodb.net/'
-
+const uri = process.env.MONGODB_URI as string;
 const dbName = 'test';
 
 const client = new MongoClient(url);
+
+export async function connectToDatabase() {
+    return executeAsync(async () => {
+        console.log('connectted successfullly');
+        // Connect to MongoDB with specified options
+        await mongoose.connect(uri, {
+            serverSelectionTimeoutMS: 5000,
+        });
+    });
+    
+}
 
 export async function connectDB() {
     try {
@@ -21,7 +40,21 @@ export async function connectDB() {
         process.exit(1);
     }
 }
+/**
+ * Creates a new user in the database.
+ * This function takes the user's first name, last name, password, email, and role
+ * as parameters, creates a new user document, and saves it to the database.
+ * @param name
+ * @param price
+ * @param escription
+ * @param automatic
+ * @param npeople
+ *  * @param nbags
+ *  * @param buttontext
+ *  * @param  gasoline
 
+ * @returns A promise that resolves with the created user document.
+ */
 
 export async function create_Item(item: { name: string }) {
     const db = await connectDB();
@@ -31,7 +64,11 @@ export async function create_Item(item: { name: string }) {
 }
 
 
-
+/**
+ * Retrieves a single user document by its ID.
+ * @param id - The ID of the user document to retrieve.
+ * @returns A promise that resolves with the user document or null if not found.
+ */
 export async function readItem(id: string) {
    const db = await connectDB();
     const collection = db.collection('car');
@@ -55,9 +92,49 @@ export async function readItem(id: string) {
 };
 
 
+export async function readAllcars() {
+    const db = await connectDB();
+    const collection = db.collection('car');
+    const cursor = collection.find({}); 
+
+    try {
+        console.log(cursor);
+        await cursor.forEach(item => console.log(item)); 
+    } catch (error) {
+        console.error("Error:", error);
+    }
+}
+
+/**
+ * Retrieves all user documents from the database.
+ * @returns A promise that resolves with an array of user documents.
+ */
+export async function getallcars() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        
+        console.log('very very good');
+        // Query the database for all user documents
+        const vehicles = await vehicle?.find({});
+        // Log the result of the query
+        console.log(vehicles);
+        return vehicles;
+    });
+}
+
+
 //11
    
-    
+export async function fetchAllUsers() {
+    try {
+        await connectToDatabase();
+      const users = await vehicle?.find({});
+      console.log(users);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+      
 
 /*
 export async function getcarById(id: string) {
