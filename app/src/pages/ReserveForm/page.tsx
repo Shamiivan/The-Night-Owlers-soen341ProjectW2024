@@ -2,8 +2,8 @@
 
 import "@/styles/global.css";
 import React, { useState, ChangeEvent } from 'react';
-import Navbar from '../components/ui/Navbar'
-import Footer from '../components/ui/Footer'
+import Navbar from '../../components/ui/Navbar'
+import Footer from '../../components/ui/Footer'
 import BillingAddress from '@/components/ui/BillingAddress'
 import Payment from '@/components/ui/Payment'
 import ReserveDetail from '@/components/ui/ReserveDetail'
