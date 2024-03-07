@@ -1,5 +1,6 @@
 "use client"
 
+import "@/styles/global.css";
 import Link from 'next/link';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
@@ -25,30 +26,30 @@ const ViewReservation: React.FC = () => {
       <div className='m-8 p-4 bg-blue-200 shadow-md rounded-md'>
         <div className='flex mb-4 p-4'>
           <div>
-            <div className='bg-blue-900 rounded-lg p-2 pl-5 m-2 text-white'>
+            <div className='bg-slate-200 rounded-lg p-2 pl-5 m-2'>
               <p className='font-medium'>Location:</p>
               <p>{exampleReservation.location}</p>
             </div>
             <div className='grid grid-cols-2'>
-              <div className='bg-blue-900 rounded-lg py-2 px-4 m-2 text-white'>
+              <div className='bg-slate-200 rounded-lg py-2 px-4 m-2'>
                 <p className='font-medium'>Start Date:</p>
                 <p>{exampleReservation.startDate}</p>
               </div>
-              <div className='bg-blue-900 rounded-lg py-2 px-4 m-2 text-white'>
+              <div className='bg-slate-200 rounded-lg py-2 px-4 m-2'>
                 <p className='font-medium'>End Date:</p>
                 <p>{exampleReservation.endDate}</p>
               </div>
             </div>
-            
+
           </div>
           <div className="flex-1 flex justify-center items-center">
             <img src="/path/to/your/image.jpg" alt="Car Image" className="object-cover rounded-full" />
           </div>
           <div className=''>
-            <p className='bg-blue-900 rounded-lg p-4 m-2 text-white font-medium'>Status: {exampleReservation.status}</p>
+            <p className='bg-slate-200 rounded-lg p-4 m-2  font-medium'>Status: {exampleReservation.status}</p>
           </div>
         </div>
-        <div className='bg-blue-900 rounded-lg py-6 pl-10 m-2 text-white'>
+        <div className='bg-slate-200 rounded-lg py-6 pl-10 m-2 '>
           <p className="flex text-xl font-semibold mb-2 pb-2 justify-center">Car Information</p>
           <div className='grid grid-cols-2 ml-10'>
             <p className="">Model Name: {exampleReservation.modelName}</p>
@@ -60,7 +61,6 @@ const ViewReservation: React.FC = () => {
         </div>
         <div className='flex justify-end m-2'>
         <Link href='/' className='mr-5'>
-          {/* Need linked page */}
             <Button>Modify</Button>
           </Link>
           <Link href='/'>

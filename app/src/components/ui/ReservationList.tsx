@@ -29,7 +29,7 @@ const ReservationList: React.FC<ReservationListProps> = ({ reservationsData }) =
       ) : (
         <div>
           {reservations.map((reservation) => (
-            <Link key={reservation.id} href={`./ViewReservation`}>
+            <Link key={reservation.id} href={`../ViewReservation/page`}>
                 {/* Replace the href with the actual link when available */}
                 {/* href={`/reservation-summary/${reservation.id}`} */}
                 <div className="p-4 grid grid-cols-6 gap-4 cursor-pointer">

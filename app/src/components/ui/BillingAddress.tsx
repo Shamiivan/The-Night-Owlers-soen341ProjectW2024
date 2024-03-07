@@ -1,32 +1,31 @@
 "use client"
 import React, { useState, ChangeEvent } from 'react';
 
-const BillingAddress = () => {
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [email, setEmail] = useState('');
-  const [contactNumber, setContactNumber] = useState('');
-  const [address, setAddress] = useState('');
+interface BillingAddressProps {
+  firstName: string;
+  lastName: string;
+  email: string;
+  contactNumber: string;
+  address: string;
+  onFirstNameChange: (value: string) => void;
+  onLastNameChange: (value: string) => void;
+  onEmailChange: (value: string) => void;
+  onContactNumberChange: (value: string) => void;
+  onAddressChange: (value: string) => void;
+}
 
-  const handleFirstNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setFirstName(event.target.value);
-  };
-
-  const handleLastNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setLastName(event.target.value);
-  };
-
-  const handleEmailChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
-  };
-
-  const handleContactNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setContactNumber(event.target.value);
-  };
-
-  const handleAddressChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setAddress(event.target.value);
-  };
+const BillingAddress: React.FC<BillingAddressProps> = ({
+  firstName,
+  lastName,
+  email,
+  contactNumber,
+  address,
+  onFirstNameChange,
+  onLastNameChange,
+  onEmailChange,
+  onContactNumberChange,
+  onAddressChange,
+  }) => {
 
   return (
     <form className='px-10  pb-10 border-2 border-black rounded-xl my-5'>
@@ -41,7 +40,7 @@ const BillingAddress = () => {
               placeholder="First name"
               className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
               value={firstName}
-              onChange={handleFirstNameChange}
+              onChange={(e) => onFirstNameChange(e.target.value)}
             />
           </div>
           <div>
@@ -51,7 +50,7 @@ const BillingAddress = () => {
               placeholder="Last name"
               className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
               value={lastName}
-              onChange={handleLastNameChange}
+              onChange={(e) => onLastNameChange(e.target.value)}
             />
           </div>
         </div>
@@ -63,7 +62,7 @@ const BillingAddress = () => {
               placeholder="Email"
               className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
               value={email}
-              onChange={handleEmailChange}
+              onChange={(e) => onEmailChange(e.target.value)}
             />
           </div>
           <div>
@@ -73,7 +72,7 @@ const BillingAddress = () => {
               placeholder="Contact Number"
               className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
               value={contactNumber}
-              onChange={handleContactNumberChange}
+              onChange={(e) => onContactNumberChange(e.target.value)}
             />
           </div>
         </div>
@@ -84,7 +83,7 @@ const BillingAddress = () => {
             placeholder="Address"
             className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300 w-50"
             value={address}
-            onChange={handleAddressChange}
+            onChange={(e) => onAddressChange(e.target.value)}
           />
         </div>
       </div>

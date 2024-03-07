@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import User, { IUser } from '@/models/User';
+import Reservation from '@/models/Reservation';
 
 
 // Load environment variables from .env file
@@ -25,7 +26,7 @@ export async function connectToDatabase() {
         });
         }
     });
-    
+
 }
 
 /**
@@ -96,4 +97,71 @@ export async function getAllUsers() {
     });
 }
 
-
+/**
+ * Creates a new reservation in the database.
+ * This function takes the reservation details, such as start time, end time,
+ * user information, and payment details, creates a new reservation document,
+ * and saves it to the database.
+ * @param startTime - The start time of the reservation.
+ * @param endTime - The end time of the reservation.
+ * @param startDate - The start date of the reservation.
+ * @param endDate - The end date of the reservation.
+ * @param img - The image of the reserved car.
+ * @param name - The name of the reserved car.
+ * @param price - The price of the reserved car.
+ * @param description - The description of the reserved car.
+ * @param automatic - Whether the car is automatic or not.
+ * @param nPeople - The number of people the car can accommodate.
+ * @param nBags - The number of bags the car can accommodate.
+ * @param firstName - The first name of the person making the reservation.
+ * @param lastName - The last name of the person making the reservation.
+ * @param email - The email address of the person making the reservation.
+ * @param contactNumber - The contact number of the person making the reservation.
+ * @param address - The billing address of the person making the reservation.
+ * @returns A promise that resolves with the created reservation document.
+ */
+export async function createReservation(
+    startTime: string,
+    startDate: string,
+    endTime: string,
+    endDate: string,
+    img: string,
+    name: string,
+    price: number,
+    description: string,
+    automatic: boolean,
+    nPeople: number,
+    nBags: number,
+    firstName: string,
+    lastName: string,
+    email: string,
+    contactNumber: string,
+    address: string,
+  ) {
+    return executeAsync(async () => {
+      await connectToDatabase();
+      // Create a new reservation document with the provided details
+      const newReservation = new (Reservation as mongoose.Model<IReservation>)({
+        startTime,
+        startDate,
+        endTime,
+        endDate,
+        img,
+        name,
+        price,
+        description,
+        automatic,
+        nPeople,
+        nBags,
+        firstName,
+        lastName,
+        email,
+        contactNumber,
+        address,
+      });
+      // Save the new reservation document to the database
+      const result = await newReservation.save();
+      // Log the result of the reservation creation
+      return result;
+    });
+  }
