@@ -33,50 +33,32 @@ export async function create_Item(item: { name: string }) {
 
 
 export async function readItem(id: string) {
-    const db = await connectDB();
+   const db = await connectDB();
     const collection = db.collection('car');
     const itemm = await collection.findOne({ _id: new ObjectId(id) });
-    const express= require('express');
-    const app=express();
-  //11
 
-const bodyParser = require('body-parser');
-
-app.use(bodyParser.json()); 
-
-
-app.get('/vehiclesdetails', async (req: { params: { id: any; }; }, res: { json: (arg0: WithId<mongoose.mongo.BSON.Document>) => void; status: (arg0: number) => { (): any; new(): any; send: { (arg0: string): void; new(): any; }; }; }) => {
-    const id = req.params.id; 
     try {
-        const db = await connectDB();
-        const collection = db.collection('car');
-        const item = await collection.findOne({ _id: new ObjectId(id) });
-        if (item) {
-            console.log("gooood");
-            res.json(item); 
-        } else {
-            res.status(404).send('Item not found');
-        }
+      //  const db = await connectDB();
+       // const collection = db.collection('car');
+       // const item = await collection.findOne({ _id: new ObjectId(id) });
+        if (itemm !== null) {
+            console.log(itemm.name);
+            const namee=itemm.name;
+          }
+    
+          
+          return itemm;
     } catch (error) {
         console.error("Error:", error);
-        res.status(500).send('Server error');
+        
     }
-});
+};
 
-const PORT = process.env.PORT || 3005;
-app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-});
+
 //11
-    if (itemm !== null) {
-        console.log(itemm.name);
-        const namee=itemm.name;
-      }
-
-      
-      return itemm;
+   
     
-}
+
 /*
 export async function getcarById(id: string) {
     return executeAsync(async () => {
