@@ -8,6 +8,22 @@ import Payment from '@/components/ui/Payment'
 import ReserveDetail from '@/components/ui/ReserveDetail'
 
 const ReserveForm = () => {
+  const Reserve = {
+    startTime: '12.00 pm',
+    startDate: '12-02-2024',
+    endTime: '12.00 pm',
+    endDate: '12-03-2024',
+    carData: {
+      img: 'car.jpg',
+      name: "Car Name",
+      price: 99,
+      description: "This is a great car with excellent features for your next trip.",
+      automatic: true,
+      nPeople: 4,
+      nBags: 2
+    }
+  };
+
   return (
     <main>
         <Navbar/>
@@ -16,12 +32,18 @@ const ReserveForm = () => {
           <p className='text-4xl font-semibold col-start-2 col-span-4'>Car Rental Form</p>
           <div className='col-start-7 col-span-2 border-2 border-black rounded-lg ml-3'>
             <p className='pl-4 pt-1 text-lg font-medium'>Start</p>
-            <p className='pl-4 pt-1 pb-1'>Date & time</p>
+            <div className='bg-slate-200 flex justify-around font-medium'>
+              <p className='p-2'>{Reserve.startTime}</p>
+              <p className='p-2'>{Reserve.startDate}</p>
+            </div>
           </div>
-          <p className='self-center justify-self-center'>Arrow</p>
+          <div></div>
           <div className='col-span-2 border-2 border-black rounded-lg ml-3'>
             <p className='pl-4 pt-1 text-lg font-medium'>End</p>
-            <p className='pl-4 pt-1 pb-1'>Date & time</p>
+            <div className='bg-slate-200 flex justify-around font-medium'>
+              <p className='p-2'>{Reserve.endTime}</p>
+              <p className='p-2'>{Reserve.endDate}</p>
+            </div>
           </div>
         </div>
         
@@ -32,7 +54,14 @@ const ReserveForm = () => {
             <Payment/>
           </div>
           <div className='mr-10'>
-            <ReserveDetail/>
+            <ReserveDetail
+              img={Reserve.carData.img}
+              name={Reserve.carData.name}
+              price={Reserve.carData.price}
+              description={Reserve.carData.description}
+              automatic={Reserve.carData.automatic}
+              nPeople={Reserve.carData.nPeople}
+            />
           </div>
         </div>
 
