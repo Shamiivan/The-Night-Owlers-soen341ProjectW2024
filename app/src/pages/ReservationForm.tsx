@@ -1,11 +1,14 @@
 "use client"
+
+import "@/styles/global.css";
 import React from 'react'
-import Navbar from '../../components/ui/Navbar'
-import Footer from '../../components/ui/Footer'
+import Navbar from '../components/ui/Navbar'
+import Footer from '../components/ui/Footer'
 import DriverDetail from '@/components/ui/DriverDetail'
 import BillingAddress from '@/components/ui/BillingAddress'
 import Payment from '@/components/ui/Payment'
 import ReserveDetail from '@/components/ui/ReserveDetail'
+import { Button } from "@/components/ui/button";
 
 const ReserveForm = () => {
   const Reserve = {
@@ -49,9 +52,14 @@ const ReserveForm = () => {
         
         <div className='grid grid-cols-2 gap-6'>
           <div className='ml-10'>
-            <DriverDetail/>
             <BillingAddress/>
             <Payment/>
+            <Button
+              type="submit"
+              className="w-full mt-4"
+            >
+              Process Payment
+            </Button>
           </div>
           <div className='mr-10'>
             <ReserveDetail
@@ -64,7 +72,7 @@ const ReserveForm = () => {
             />
           </div>
         </div>
-
+        
         <Footer/>
     </main>
   )

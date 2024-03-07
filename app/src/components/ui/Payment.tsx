@@ -94,13 +94,6 @@ const Payment = () => {
           />
         </div>
       </div>
-
-      <Button
-        type="submit"
-        className="w-full"
-      >
-        Process Payment
-      </Button>
     </form>
   );
 };
