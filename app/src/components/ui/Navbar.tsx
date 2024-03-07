@@ -42,11 +42,11 @@ const Navbar: React.FC = () => {
                 Contact
               </a>
             </li>
-            <li>
+            {/*<li>
               <Button>
                 fr
               </Button>
-            </li>
+            </li>*/}
             <li>
               <Button>
                 Login

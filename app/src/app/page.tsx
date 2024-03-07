@@ -18,7 +18,6 @@ export default async function Home() {
   return (
     <main>
       <Navbar />
-      <DeleteAccount/>
       <Footer />
     </main>
   );
