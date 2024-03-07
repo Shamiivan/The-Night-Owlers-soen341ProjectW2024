@@ -25,6 +25,6 @@ if (!User) {
     // Create the User model
     User = mongoose.model<IUser>('User', UserSchema);
 }
-
+console.log("User model:", User.name);
 export default User;
 export type { IUser };

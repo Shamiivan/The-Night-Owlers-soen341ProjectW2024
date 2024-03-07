@@ -9,7 +9,7 @@ const CreateUserForm = () => {
 
  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch('/api/createCustomer', {
+    const response = await fetch('/api/customer', {
       method: 'POST',
       body: JSON.stringify({ firstName, lastName, email, password }),
       headers: {
