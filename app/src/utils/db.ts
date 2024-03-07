@@ -3,7 +3,6 @@ import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import User, { IUser } from '@/models/User';
-import Reservation from '@/models/Reservation';
 
 
 // Load environment variables from .env file
