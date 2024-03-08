@@ -38,8 +38,7 @@ const id = params.id;
 
  return (
     <div>
-      User page
-      {id}
+  
       {/* Render user data if available */}
       {user ? (
           <UpdateUserForm 

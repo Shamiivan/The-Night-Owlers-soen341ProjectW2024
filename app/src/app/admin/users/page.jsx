@@ -117,9 +117,11 @@ export default function Users({
                 </TabsTrigger>
                 <TabsTrigger
                   value="unread"
-                  className="text-zinc-600 dark:text-zinc-200"
+                  className="text-zinc-200"
                 >
-                 <Button variant="secondary" className="">add user</Button>
+                 <Button variant="secondary" className="">
+                  Create Use
+                 </Button>
                 </TabsTrigger>
           
               </TabsList>
