@@ -14,7 +14,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       res.status(400).json({ success: false, error: 'Failed to create user' });
     }
  } else if (req.method === 'GET') {
-    const users = await User.find({ role: 'customer' });
+    const users = await User!.find({ role: 'customer' });
     res.status(200).json({ success: true, data: users });
  }
  else {
