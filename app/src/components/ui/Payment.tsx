@@ -28,7 +28,14 @@ const Payment = () => {
           id="cardNumber"
           name="cardNumber"
           value={cardNumber}
-          onChange={(e) => setCardNumber(e.target.value)}
+          onChange={(e) => {
+            let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+            input = input.slice(0, 16); // Limit to 16 digits
+            if (input.length > 4) {
+              input = input.match(/.{1,4}/g)!.join(' '); // Add a space after every 4 digits
+            }
+            setCardNumber(input);
+          }}
           placeholder="0000 0000 0000 0000"
           className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300 w-full"
         />
@@ -36,24 +43,36 @@ const Payment = () => {
 
       <div className="grid grid-cols-2 my-5">
         <div>
-          <p className=''>Expiration Date</p>
-          <input
-            type="date"
-            value={expirationDate}
-            onChange={(e) => setExpirationDate(e.target.value)}
-            className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
-          />
+        <p className=''>Expiration Date (MM/YYYY)</p>
+        <input
+          type="text"
+          placeholder="MM/YYYY"
+          value={expirationDate}
+          onChange={(e) => {
+            let input = e.target.value.replace(/\D/g, '');
+            input = input.slice(0, 6);
+            if (input.length > 2) {
+              input = input.slice(0, 2) + '/' + input.slice(2);
+            }
+            setExpirationDate(input);
+          }}
+      
+          className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
+          pattern="\d{2}/\d{4}"
+        />
         </div>
         <div>
           <p className=''>CVC</p>
           <input
-            type="number"
+            type="text"
             placeholder="000"
             value={cvc}
-            onChange={(e) => setCvc(e.target.value)}
+            onChange={(e) => {
+              const numericValue = e.target.value.replace(/\D/g, '');
+              setCvc(numericValue);
+            }}
             className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
-            min={100}
-            max={999}
+            maxLength={3}
           />
         </div>
       </div>
