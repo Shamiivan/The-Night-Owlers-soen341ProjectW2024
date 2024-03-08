@@ -3,17 +3,16 @@ import mongoose, { Document, Schema } from 'mongoose';
 // Define the IVehicle interface
 interface IVehicle extends Document {
     brand: string;
+    imageUrl: string;
+    category: string;
     vehicleModel: string;
     year: number;
-    transmissionType: {
-        automatic: boolean;
-        nPeople: number;
-        nBags: number;
-    };
+    automatic: boolean;
+    nPeople: number;
+    nBags: number;
     color: string;
     fuelType: string;
     engineCapacity: number;
-    totalDoors: number;
     rentalPrice: number;
     mileage: number;
 }
@@ -25,17 +24,16 @@ if (!Vehicle) {
     // Define the Vehicle schema
     const VehicleSchema = new Schema<IVehicle>({
         brand: { type: String, required: true },
+        imageUrl: { type: String, required: false },
+        category: { type: String, required: true },
         vehicleModel: { type: String, required: true },
         year: { type: Number, required: true },
-        transmissionType: {
-            automatic: { type: Boolean, required: true },
-            nPeople: { type: Number, required: true },
-            nBags: { type: Number, required: true },
-        },
+        automatic: { type: Boolean, required: true },
+        nPeople: { type: Number, required: true },
+        nBags: { type: Number, required: true },
         color: { type: String, required: true },
         fuelType: { type: String, required: true },
         engineCapacity: { type: Number, required: true },
-        totalDoors: { type: Number, required: true },
         rentalPrice: { type: Number, required: true },
         mileage: { type: Number, required: true },
     });
