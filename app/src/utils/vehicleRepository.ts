@@ -58,3 +58,47 @@ export async function getAllVehicles() {
     });
 }
 
+/**
+ * Retrieves a vehicle document by its ID from the database.
+ * @param id The ID of the vehicle to retrieve.
+ * @returns A promise that resolves with the vehicle document.
+ */
+
+export async function getVehicleById(id: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for the vehicle document
+        const vehicle = await Vehicle?.findById(id);
+        return vehicle;
+    });
+}
+
+/**
+ * Updates a vehicle document in the database.
+ * @param id The ID of the vehicle to update.
+ * @param updateFields An object containing the fields to update and their new values.
+ * @returns A promise that resolves with the updated vehicle document.
+ */
+export async function updateVehicle(id: string, updateFields: Partial<IVehicle>) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Find the vehicle document by its ID and update the specified fields
+        const result = await Vehicle?.findByIdAndUpdate(id, updateFields, { new: true });
+        return result;
+    });
+}
+
+/**
+ * Deletes a vehicle document from the database.
+ * @param id The ID of the vehicle to delete.
+ * @returns A promise that resolves with the deleted vehicle document.
+ */
+export async function deleteVehicle(id: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Find the vehicle document by its ID and delete it
+        const result = await Vehicle?.findByIdAndDelete(id);
+        return result;
+    });
+}
+
