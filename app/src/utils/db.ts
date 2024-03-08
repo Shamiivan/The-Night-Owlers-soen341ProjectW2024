@@ -116,3 +116,21 @@ export async function updateUser(id: string, updateFields: Partial<IUser>) {
         return updatedUser;
     });
 }
+
+/**
+ * Deletes a user document from the database.
+ * This function takes the user's ID as a parameter, finds the user document by its ID,
+ * and deletes it from the database.
+ * @param id - The ID of the user document to delete.
+ * @returns A promise that resolves with the result of the deletion operation.
+ */
+export async function deleteUser(id: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Find the user document by its ID and delete it
+        const result = await User?.findByIdAndDelete(id);
+        // Log the result of the deletion operation
+        console.log(`Deleted user with ID: ${id}`);
+        return result;
+    });
+}

@@ -1,5 +1,7 @@
 'use client'
+import { redirect } from 'next/navigation';
 import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import "@/styles/global.css";
 
 
@@ -12,6 +14,7 @@ interface userProps {
   }
 
 const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: userProps) => {
+  const router = useRouter();
 
  const [firstName, setFirstName] = useState(oldFirstName);
  const [lastName, setLastName] = useState(oldLastName);
@@ -29,7 +32,7 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
     });
     if (response.ok) {
       const data = await response.json();
-      console.log(data); // Handle the response data as needed
+      router.push("/admin/users");
     } else {
       console.error('Error updating user:', response.statusText);
     }

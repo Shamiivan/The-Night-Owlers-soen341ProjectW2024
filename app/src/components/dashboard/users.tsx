@@ -8,7 +8,7 @@ export default function UserList() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users`, {
           cache: "no-store",
         });
         if (!res.ok) {

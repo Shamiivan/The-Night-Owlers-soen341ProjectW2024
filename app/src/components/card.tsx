@@ -1,6 +1,8 @@
 import React from "react";
 import { Button } from "./ui/button";
 import Image from "./ui/Image";
+import Link from 'next/link';
+
 
 interface Props {
   name: string;
@@ -37,6 +39,7 @@ const Card: React.FC<Props> = (
         </div>
         <hr className="border-1 border-gray-300 my-4" />
       </div>
+   
       <Button>Make a reservation</Button>
     </div>
   );
