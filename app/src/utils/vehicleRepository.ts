@@ -45,3 +45,16 @@ export async function addVehicle(vehicle: IVehicle){
     });
 }
 
+/**
+ * Retrieves all user documents from the database.
+ * @returns A promise that resolves with an array of user documents.
+ */
+export async function getAllVehicles() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for all user documents
+        const vehicles = await Vehicle?.find({});
+        return vehicles;
+    });
+}
+
