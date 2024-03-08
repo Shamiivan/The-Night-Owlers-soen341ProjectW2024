@@ -1,7 +1,7 @@
 // pages/api/users/index.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import { getAllUsers, createUser } from "@/utils/db";
+import { getAllUsers, createUser } from "@/utils/userRepository";
 
 export async function GET() {
     const result = await getAllUsers();

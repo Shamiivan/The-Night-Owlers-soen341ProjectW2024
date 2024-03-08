@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { middleware } from '../../../../../middleware';
 import { IUser } from '@/models/User';
 
-import { getUserById, updateUser, getAllUsers, deleteUser, createUser } from "@/utils/db"; // Adjust the import path as necessary
+import { getUserById, updateUser, getAllUsers, deleteUser, createUser } from "@/utils/userRepository"; // Adjust the import path as necessary
 
 export async function GET(req: NextApiRequest, { params }: any, res: NextApiResponse) {
     const { userId } = params;
