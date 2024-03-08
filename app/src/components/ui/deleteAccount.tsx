@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { Button } from "./button";
 import Link from 'next/link';
+
 const DeleteAccount = () => {
   const [password, setPassword] = useState('');
   const [isDeleted, setIsDeleted] = useState(false);

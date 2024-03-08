@@ -15,7 +15,9 @@ async function fetchUsers() {
 export default async function Home() {
   const result = await fetchUsers();
   const users = Array.isArray(result) ? result : [];
-  console.log(users[0]._id?.toString());
+  if (users.length > 0 && users[0]._id) {
+    console.log(users[0]._id.toString());
+  }
   return (
     <main>
       <Navbar />

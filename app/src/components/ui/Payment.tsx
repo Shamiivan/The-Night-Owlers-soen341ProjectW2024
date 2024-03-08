@@ -1,53 +1,16 @@
 "use client"
 import React, { useState, ChangeEvent } from 'react';
-import { Button } from './button';
 
 const Payment = () => {
   const [cardNumber, setCardNumber] = useState('');
   const [cardholderName, setCardholderName] = useState('');
   const [expirationDate, setExpirationDate] = useState('');
   const [cvc, setCvc] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
 
-  const handleCardNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const cleanedInput = event.target.value.replace(/\D/g, '');
-    const formattedInput = cleanedInput.replace(/(\d{4})(?=\d)/g, '$1 ');
-
-    setCardNumber(formattedInput);
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    try {
-      const response = await fetch('/api/payment', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          cardNumber,
-          cardholderName,
-          expirationDate,
-          cvc,
-        }),
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to process payment');
-      }
-
-      // Handle a successful response from the backend
-      console.log('Payment processed successfully');
-    } catch (error) {
-      setErrorMessage('Error processing payment. Please try again.'); // Display a user-friendly error message
-    }
-  };
 
   return (
-    <form onSubmit={handleSubmit} className='px-10 pb-10 border-2 border-black rounded-xl'>
+    <form className='px-10 pb-10 border-2 border-black rounded-xl'>
       <h1 className='font-semibold'>How to pay</h1>
-      {errorMessage && <p className='text-red-500'>{errorMessage}</p>}
       <div className="my-5">
         <p className=''>Cardholder Name</p>
         <input
@@ -65,7 +28,14 @@ const Payment = () => {
           id="cardNumber"
           name="cardNumber"
           value={cardNumber}
-          onChange={handleCardNumberChange}
+          onChange={(e) => {
+            let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
+            input = input.slice(0, 16); // Limit to 16 digits
+            if (input.length > 4) {
+              input = input.match(/.{1,4}/g)!.join(' '); // Add a space after every 4 digits
+            }
+            setCardNumber(input);
+          }}
           placeholder="0000 0000 0000 0000"
           className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300 w-full"
         />
@@ -73,34 +43,39 @@ const Payment = () => {
 
       <div className="grid grid-cols-2 my-5">
         <div>
-          <p className=''>Expiration Date</p>
-          <input
-            type="date"
-            value={expirationDate}
-            onChange={(e) => setExpirationDate(e.target.value)}
-            className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
-          />
+        <p className=''>Expiration Date (MM/YYYY)</p>
+        <input
+          type="text"
+          placeholder="MM/YYYY"
+          value={expirationDate}
+          onChange={(e) => {
+            let input = e.target.value.replace(/\D/g, '');
+            input = input.slice(0, 6);
+            if (input.length > 2) {
+              input = input.slice(0, 2) + '/' + input.slice(2);
+            }
+            setExpirationDate(input);
+          }}
+      
+          className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
+          pattern="\d{2}/\d{4}"
+        />
         </div>
         <div>
           <p className=''>CVC</p>
           <input
-            type="number"
+            type="text"
             placeholder="000"
             value={cvc}
-            onChange={(e) => setCvc(e.target.value)}
+            onChange={(e) => {
+              const numericValue = e.target.value.replace(/\D/g, '');
+              setCvc(numericValue);
+            }}
             className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
-            min={100}
-            max={999}
+            maxLength={3}
           />
         </div>
       </div>
-
-      <Button
-        type="submit"
-        className="w-full"
-      >
-        Process Payment
-      </Button>
     </form>
   );
 };
