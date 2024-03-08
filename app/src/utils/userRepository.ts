@@ -25,7 +25,7 @@ export async function connectToDatabase() {
         });
         }
     });
-
+    
 }
 
 /**
@@ -95,4 +95,5 @@ export async function getAllUsers() {
         return users;
     });
 }
+
 

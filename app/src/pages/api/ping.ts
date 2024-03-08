@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { connectToDatabase, createUser, getAllUsers } from '@/utils/db';
+import { connectToDatabase, createUser, getAllUsers } from '@/utils/userRepository';
 import printError from "@/utils/print";
 import { get } from "http";
 export default async function handler(
