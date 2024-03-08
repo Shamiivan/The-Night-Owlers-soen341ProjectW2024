@@ -1,4 +1,5 @@
-import Card from "@/components/ui/card";
+import Card from "@/components/card";
+import "@/styles/global.css";
 
 export default function Vehicles() {
   const cardData = {

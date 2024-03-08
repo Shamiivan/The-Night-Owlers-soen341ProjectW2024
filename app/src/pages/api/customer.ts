@@ -13,7 +13,11 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     } else {
       res.status(400).json({ success: false, error: 'Failed to create user' });
     }
- } else {
+ } else if (req.method === 'GET') {
+    const users = await User.find({ role: 'customer' });
+    res.status(200).json({ success: true, data: users });
+ }
+ else {
     res.status(405).json({ success: false, error: 'Method not allowed' });
  }
 }
