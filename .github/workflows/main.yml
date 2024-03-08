@@ -1,3 +1,7 @@
+# Sample workflow for building and deploying a Next.js site to GitHub Pages
+#
+# To get started with Next.js see: https://nextjs.org/docs/getting-started
+#
 name: Deploy Next.js site to Pages
 
 on:
@@ -38,7 +42,7 @@ jobs:
           elif [ -f "${{ github.workspace }}/package.json" ]; then
             echo "manager=npm" >> $GITHUB_OUTPUT
             echo "command=ci" >> $GITHUB_OUTPUT
-            echo "runner=npm --no-install" >> $GITHUB_OUTPUT
+            echo "runner=npx --no-install" >> $GITHUB_OUTPUT
             exit 0
           else
             echo "Unable to determine package manager"
@@ -70,36 +74,18 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Upload artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: out
-          path: ./out
+          path: ./.next
 
   # Deployment job
   deploy:
     environment:
       name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    outputs:
-      # Explicitly define the output for page_url
-      page_url: ${{ steps.deployment.outputs.page_url }}
+    needs: build
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: out
-          path: ./out
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-
-  # Another job that needs the deployment output
-  another-job:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
-      - name: Access deployment output
-        run: |
-          echo "Deployment URL: ${{ needs.deploy.outputs.page_url }}"
