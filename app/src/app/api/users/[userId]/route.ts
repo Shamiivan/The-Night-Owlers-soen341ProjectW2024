@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { middleware } from '../../../../../middleware';
 import { IUser } from '@/models/User';
 
-import { getUserById, updateUser, getAllUsers, deleteUser } from "@/utils/db"; // Adjust the import path as necessary
+import { getUserById, updateUser, getAllUsers, deleteUser, createUser } from "@/utils/db"; // Adjust the import path as necessary
 
 export async function GET(req: NextApiRequest, { params }: any, res: NextApiResponse) {
     const { userId } = params;
@@ -19,14 +19,8 @@ export async function GET(req: NextApiRequest, { params }: any, res: NextApiResp
     }
 }
 
-// Define the type for the request object
-interface RequestWithParams extends Request {
-    params: {
-        id: string;
-    };
-}
 
-// Define the type for the updated user data
+
 interface UpdatedUserData {
     [key: string]: any;
 }

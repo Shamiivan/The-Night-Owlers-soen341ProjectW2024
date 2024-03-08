@@ -1,46 +1,32 @@
-'use client'
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import "@/styles/global.css";
+import { useRouter } from 'next/router';
 
-
-interface userProps {
-    oldFirstName: string;
-    oldLastName: string;
-    oldEmail: string;
-    oldPassword: string;
-    id: string;
-  }
-
-const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: userProps) => {
+const CreateUserForm = () => {
   const router = useRouter();
-
- const [firstName, setFirstName] = useState(oldFirstName);
- const [lastName, setLastName] = useState(oldLastName);
- const [email, setEmail] = useState(oldEmail);
- const [password, setPassword] = useState(oldPassword);
+ const [firstName, setFirstName] = useState('');
+ const [lastName, setLastName] = useState('');
+ const [email, setEmail] = useState('');
+ const [password, setPassword] = useState('');
 
  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ firstName, lastName, email, password, id}),
+    const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/`, {
+      method: 'POST',
+      body: JSON.stringify({ firstName, lastName, email, password }),
       headers: {
         'Content-Type': 'application/json',
       },
     });
-    if (response.ok) {
-      const data = await response.json();
-      router.push("/admin/users");
-    } else {
-      console.error('Error updating user:', response.statusText);
-    }
+    if (!response.ok) { throw new Error('Failed to delete user'); }
+    else if (response.ok) { router.push("/admin/users"); }
+
  };
 
  return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
       <div className="mb-4">
-        <label htmlFor={oldEmail} className="block text-sm font-medium text-gray-700">First name</label>
+        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name:</label>
         <input
           type="text"
           id="firstName"
@@ -76,17 +62,17 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-        </div>
-
+          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
       <button
         type="submit"
         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
-        Update User
+        Create User
       </button>
     </form>
  );
 };
 
-export default UpdateUserForm
+export default CreateUserForm;

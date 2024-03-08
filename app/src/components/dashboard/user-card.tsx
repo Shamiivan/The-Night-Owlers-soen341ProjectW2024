@@ -25,7 +25,7 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
         },
       });
 
-      if (!response.ok) {throw new Error('Failed to delete user');} 
+      if (!response.ok) { throw new Error('Failed to delete user'); }
       else if (response.ok) { router.push("/admin/users"); }
 
 

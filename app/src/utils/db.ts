@@ -57,7 +57,7 @@ export async function closeDatabaseConnection() {
  * @param role - The user's role, either "customer" or "admin".
  * @returns A promise that resolves with the created user document.
  */
-export async function createUser(firstName: string, lastName: string, password: string, email: string, role: "customer" | "admin") {
+export async function createUser(firstName: string, lastName: string,  email: string, password: string, role: "customer" | "admin") {
     return executeAsync(async () => {
         await connectToDatabase();
         // Create a new user document with the provided details

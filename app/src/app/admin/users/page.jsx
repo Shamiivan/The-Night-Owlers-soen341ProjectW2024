@@ -22,6 +22,8 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import UserList from "@/components/dashboard/users";
+import { Button } from "@/components/ui/button";
+import CreateUserForm from "@/pages/signUp";
 
 
 export default function Users({
@@ -117,8 +119,9 @@ export default function Users({
                   value="unread"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  Maybe Different View
+                 <Button variant="secondary" className="">add user</Button>
                 </TabsTrigger>
+          
               </TabsList>
             </div>
             <Separator />
@@ -134,7 +137,7 @@ export default function Users({
               <UserList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
-              <div className="bg-primary">Something</div>
+              <CreateUserForm />
             </TabsContent>
           </Tabs>
         </ResizablePanel>
