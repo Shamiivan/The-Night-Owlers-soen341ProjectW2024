@@ -9,13 +9,19 @@ async function fetchUsers() {
   if (result.success) {
     return result.value as IUser[];
   } else {
-    return result.error.message;
+    console.error("Error fetching users:", result.error.message);
+    return []; // Return an empty array on error
   }
 }
+
 export default async function Home() {
   const result = await fetchUsers();
   const users = Array.isArray(result) ? result : [];
-  console.log(users[0]._id?.toString());
+
+  if (users.length > 0 && users[0]._id) {
+    console.log(users[0]._id.toString());
+  }
+
   return (
     <main>
       <Navbar />
