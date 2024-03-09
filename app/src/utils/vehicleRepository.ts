@@ -9,7 +9,7 @@ import printError from '@/utils/print';
 // Load environment variables from .env file
 dotenv.config();
 // Retrieve the MongoDB URI from environment variables
-const uri = process.env.MONGODB_URI as string;
+const uri =  'mongodb+srv://nightOwlers:soen341@car-rental.kwm8q1v.mongodb.net/?retryWrites=true&w=majority&appName=car-rental';
 
 
 /**
@@ -44,4 +44,57 @@ export async function addVehicle(vehicle: IVehicle){
         return result;
     });
 }
+/**
+ * Retrieves all user documents from the database.
+ * @returns A promise that resolves with an array of user documents.
+ */
+export async function getAllVehicle() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for all user documents
+        const vehicles = await Vehicle?.find({});
+        console.log(vehicles);
+        
+        return vehicles;
+    });
+}
 
+export async function getAllVehiclePara() {
+    return executeAsync(async () => {
+        try {
+            await connectToDatabase();
+          
+        
+            const count = await Vehicle?.countDocuments({});
+            //console.log('length is'+aa);
+            
+            const vehiclee = await Vehicle?.find({}, { brand: 1, rentalPrice:1 });
+            const pricesArray =vehiclee?.map(vehicle => vehicle.rentalPrice);
+           
+       
+            if (vehiclee) {
+                return pricesArray
+              
+
+            } else {
+                console.log("No vehicle found."); 
+            }
+        } catch (error) {
+          
+            //console.error("An error occurred:", error.message);
+        }
+    });
+}
+
+
+export async function getNumVehicle() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        const count = await Vehicle?.countDocuments({});
+        console.log(`Total number of vehicles: ${count}`);;
+        
+        return count;
+    });
+}
+
+ 
