@@ -20,7 +20,7 @@ const uri = process.env.MONGODB_URI as string;
  */
 export async function connectToDatabase() {
     return executeAsync(async () => {
-        if(!mongoose.connection.readyState){
+        // Connect to MongoDB with specified options
         await mongoose.connect(uri, {
             serverSelectionTimeoutMS: 5000,
         });
@@ -65,6 +65,7 @@ export async function createUser(firstName: string, lastName: string,  email: st
         // Save the new user document to the database
         const result = await newUser.save();
         // Log the result of the user creation
+      
         return result;
     });
 }
@@ -79,6 +80,8 @@ export async function getUserById(id: string) {
         await connectToDatabase();
         // Query the database for the user document with the specified ID
         const user = await User?.findById(id);
+        console.log(user);
+          console.log("get car work");
         // Log the result of the query
         return user;
     });
@@ -93,9 +96,11 @@ export async function getAllUsers() {
         await connectToDatabase();
         // Query the database for all user documents
         const users = await User?.find({});
+        // Log the result of the query
         return users;
     });
 }
+<<<<<<< HEAD:app/src/utils/userRepository.ts
 
 /**
  * Updates a user document in the database.
@@ -134,3 +139,5 @@ export async function deleteUser(id: string) {
         return result;
     });
 }
+=======
+>>>>>>> 8415981294a3365cdbb0f8b472c23a21129cada6:app/src/utils/db.ts
