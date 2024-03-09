@@ -31,3 +31,36 @@ export async function autheticateUser(
 
     return {message : message};
 }
+
+
+
+/**
+ * Authenticates a user by checking their email and password against the database.
+ * @param email - The user's email address.
+ * @param password - The user's password.
+ * @returns A promise that resolves with the user document if authentication is successful, or null if authentication fails.
+ */
+export async function authenticate(email: string, password: string) {
+    await connectToDatabase();
+   
+    // Find the user document by email
+    const user = await User?.findOne({ email });
+   
+    if (!user) {
+       // User not found
+       return null;
+    }
+   
+    // Compare the provided password with the hashed password in the database
+    // const isMatch = await bcrypt.compare(password, user.password);
+    const isMatch = user.password === password;
+   
+    if (!isMatch) {
+       // Password does not match
+       return null;
+    }
+   
+    // Password matches, return the user document
+    return user;
+   }
+   
