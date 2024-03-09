@@ -6,7 +6,51 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "test": "jest --watch --coverage"
+  },
+  "jest": {
+    "testEnvironment": "jest-environment-jsdom",
+    "testMatch": [
+      "<rootDir>/src/**/*.test.(ts|tsx|js|jsx)",
+      "!<rootDir>/src/**/*.css"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx",
+      "ts",
+      "tsx",
+      "json"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1",
+      "\\.(css|less|scss|sass)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
+      "^.+\\.(ts|tsx)$": "ts-jest",
+      "\\.(css|less|scss|sass)$": "<rootDir>/cssTransform.js"
+    },
+    "preset": "ts-jest",
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/preset-env",
+      "@babel/preset-react",
+      "@babel/preset-typescript"
+    ],
+    "plugins": [
+      [
+        "@babel/plugin-proposal-decorators",
+        {
+          "legacy": true
+        }
+      ]
+    ]
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.0.4",
@@ -31,17 +75,35 @@
     "react-icons": "^5.0.1",
     "react-resizable-panels": "^2.0.11",
     "tailwind-merge": "^2.2.1",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "text-encoding-utf-8": "^1.0.2"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-decorators": "^7.24.0",
+    "@babel/preset-env": "^7.24.0",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@testing-library/jest-dom": "^6.4.2",
+    "@testing-library/react": "^14.2.1",
+    "@testing-library/user-event": "^14.5.2",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
+    "@types/react": "^18.2.64",
+    "@types/react-dom": "^18.2.21",
     "autoprefixer": "^10.0.1",
+    "babel-jest": "^29.7.0",
+    "babel-plugin-styled-components": "^2.1.4",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "identity-obj-proxy": "^3.0.0",
+    "jest": "^29.7.0",
+    "jest-environment-jsdom": "^29.7.0",
+    "jsdom": "^24.0.0",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.3.0",
+    "text-encoding": "^0.7.0",
+    "ts-jest": "^29.1.2",
     "typescript": "^5"
   }
 }

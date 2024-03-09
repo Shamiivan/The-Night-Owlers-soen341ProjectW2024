@@ -1,4 +1,5 @@
 'use client'
+import React from 'react';
 import { useState, useEffect } from 'react';
 import "@/styles/global.css";
 import { IUser } from "@/models/User";
