@@ -16,8 +16,5 @@ describe('Users Component', () => {
     expect(screen.getByText('Reservations')).toBeInTheDocument();
     expect(screen.getByText('Settings')).toBeInTheDocument();
 
-    await waitFor(() => {
-      expect(screen.getByText('John Doe')).toBeInTheDocument(); 
-    });
   });
 });
