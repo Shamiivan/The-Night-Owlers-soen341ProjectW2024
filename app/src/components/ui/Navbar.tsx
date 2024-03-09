@@ -47,10 +47,12 @@ const Navbar: React.FC = () => {
                 fr
               </Button>
             </li>
-            <li>
-              <Button>
-                Login
-              </Button>
+                <li>
+              <Link href="/signUp" passHref>
+                <Button className="your-button-classes">
+                  Login
+                </Button>
+              </Link>
             </li>
           </ul>
         </div>
