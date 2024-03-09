@@ -22,6 +22,8 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import UserList from "@/components/dashboard/users";
+import CreateVehicleForm from "@/components/dashboard/createVehicleForm";
+import VehicleList from "@/components/dashboard/vehicleList";
 
 
 export default function Vehicles({
@@ -119,7 +121,7 @@ export default function Vehicles({
                   value="unread"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  Maybe Different View
+                  Create Vehicle
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -133,10 +135,10 @@ export default function Vehicles({
               </form>
             </div>
             <TabsContent value="all" className="m-0">
-              <UserList />
+              <VehicleList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
-              <div className="bg-primary">Something</div>
+              <CreateVehicleForm />
             </TabsContent>
           </Tabs>
         </ResizablePanel>

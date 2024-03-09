@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import User, { IUser } from '@/models/User';
+import printError from '@/utils/print';
 
 
 // Load environment variables from .env file
@@ -56,7 +57,7 @@ export async function closeDatabaseConnection() {
  * @param role - The user's role, either "customer" or "admin".
  * @returns A promise that resolves with the created user document.
  */
-export async function createUser(firstName: string, lastName: string, password: string, email: string, role: "customer" | "admin") {
+export async function createUser(firstName: string, lastName: string,  email: string, password: string, role: "customer" | "admin") {
     return executeAsync(async () => {
         await connectToDatabase();
         // Create a new user document with the provided details
@@ -96,3 +97,41 @@ export async function getAllUsers() {
     });
 }
 
+
+/**
+ * Updates a user document in the database.
+ * This function takes the user's ID and an object containing the fields to be updated
+ * as parameters, finds the user document by its ID, updates the specified fields,
+ * and saves the updated document back to the database.
+ * @param id - The ID of the user document to update.
+ * @param updateFields - An object containing the fields to be updated.
+ * @returns A promise that resolves with the updated user document or null if not found.
+ */
+export async function updateUser(id: string, updateFields: Partial<IUser>) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Find the user document by its ID and update the specified fields
+        const updatedUser = await User?.findByIdAndUpdate(id, updateFields, { new: true });
+        // Log the result of the update operation
+        printError(updatedUser);
+        return updatedUser;
+    });
+}
+
+/**
+ * Deletes a user document from the database.
+ * This function takes the user's ID as a parameter, finds the user document by its ID,
+ * and deletes it from the database.
+ * @param id - The ID of the user document to delete.
+ * @returns A promise that resolves with the result of the deletion operation.
+ */
+export async function deleteUser(id: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Find the user document by its ID and delete it
+        const result = await User?.findByIdAndDelete(id);
+        // Log the result of the deletion operation
+        console.log(`Deleted user with ID: ${id}`);
+        return result;
+    });
+}

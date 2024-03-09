@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { createUser, getAllUsers } from '@/utils/db';
+import { createUser, getAllUsers } from '@/utils/userRepository';
 import User from '@/models/User';
 import { get } from 'http';
 
