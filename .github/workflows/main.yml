@@ -71,4 +71,4 @@ jobs:
       - name: Install dependencies
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Run Tests
-        run: npm test
+        run: npx jest
