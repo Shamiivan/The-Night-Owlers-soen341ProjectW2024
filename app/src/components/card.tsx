@@ -39,8 +39,9 @@ const Card: React.FC<Props> = (
         </div>
         <hr className="border-1 border-gray-300 my-4" />
       </div>
-   
-      <Button>Make a reservation</Button>
+      <Link href="/ReserveForm" passHref>
+        <Button>Make a reservation</Button>
+      </Link>
     </div>
   );
 };
