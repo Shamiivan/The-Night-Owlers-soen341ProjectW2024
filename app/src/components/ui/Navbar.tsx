@@ -48,9 +48,9 @@ const Navbar: React.FC = () => {
               </Button>
             </li>
             <li>
-              <Button>
-                Login
-              </Button>
+            <Button asChild> 
+              <Link href="/login">Login</Link>
+            </Button>
             </li>
           </ul>
         </div>
