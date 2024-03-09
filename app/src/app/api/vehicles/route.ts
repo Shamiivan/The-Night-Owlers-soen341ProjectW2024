@@ -1,21 +1,21 @@
 // pages/api/users/index.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import { addVehicle } from '@/utils/vehicleRepository';
+import { addVehicle, getAllVehicles } from '@/utils/vehicleRepository';
 import { IVehicle } from '@/models/Vehicle';
 
-// export async function GET() {
-//     const result = await getAllUsers();
-//     console.log(result);
-//     if (result.success) {
-//         return NextResponse.json({ success: true, value: result.value });
-//     } else if (result.error) {
-//         return NextResponse.json({ success: false, error: result.error.message });
-//     } else {
-//         // Handle unsupported methods or other conditions
-//         return  NextResponse.json({ success: false, error: 'Method not allowed' });
-//     }
-// }
+export async function GET() {
+    const result = await getAllVehicles();
+    console.log(result);
+    if (result.success) {
+        return NextResponse.json({ success: true, value: result.value });
+    } else if (result.error) {
+        return NextResponse.json({ success: false, error: result.error.message });
+    } else {
+        // Handle unsupported methods or other conditions
+        return  NextResponse.json({ success: false, error: 'Method not allowed' });
+    }
+}
 
 
 // POST function to create a new vehicle
