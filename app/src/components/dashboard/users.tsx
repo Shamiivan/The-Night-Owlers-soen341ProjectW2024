@@ -8,7 +8,7 @@ export default function UserList() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const res = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users`, {
           cache: "no-store",
         });
         if (!res.ok) {
@@ -25,13 +25,14 @@ export default function UserList() {
     };
 
     fetchUsers();
-  }, []); // Empty dependency array means this effect runs once on mount
+  }, []); 
 
   return (
     <div className="p-8 bg-ghost mb-2 space-y-8">
       {users.map((user) => (
         <UserCard
           key={user._id}
+          _id={user._id}
           firstName={user.firstName}
           lastName={user.lastName}
           email={user.email}
