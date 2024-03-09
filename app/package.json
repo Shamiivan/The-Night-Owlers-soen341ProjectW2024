@@ -7,8 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --coverage",
-    "test:watch": "jest --watchAll --coverage"
+    "test": "jest --watch --coverage"
   },
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
@@ -29,7 +28,8 @@
     },
     "transform": {
       "^.+\\.(js|jsx|ts|tsx)$": "babel-jest",
-      "^.+\\.(ts|tsx)$": "ts-jest"
+      "^.+\\.(ts|tsx)$": "ts-jest",
+      "\\.(css|less|scss|sass)$": "<rootDir>/cssTransform.js"
     },
     "preset": "ts-jest",
     "moduleDirectories": [
@@ -48,14 +48,6 @@
         "@babel/plugin-proposal-decorators",
         {
           "legacy": true
-        }
-      ],
-      [
-        "styled-components",
-        {
-          "ssr": true,
-          "displayName": true,
-          "preprocess": false
         }
       ]
     ]
@@ -104,6 +96,8 @@
     "jest-environment-jsdom": "^29.7.0",
     "jsdom": "^24.0.0",
     "postcss": "^8",
+    "prettier": "^3.2.5",
+    "prettier-plugin-tailwindcss": "^0.5.12",
     "tailwindcss": "^3.3.0",
     "text-encoding": "^0.7.0",
     "ts-jest": "^29.1.2",
