@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import "@/styles/global.css";
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const CreateUserForm = () => {
   const router = useRouter();
- const [firstName, setFirstName] = useState('');
- const [lastName, setLastName] = useState('');
- const [email, setEmail] = useState('');
- const [password, setPassword] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
- const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/`, {
       method: 'POST',
@@ -21,9 +21,9 @@ const CreateUserForm = () => {
     if (!response.ok) { throw new Error('Failed to delete user'); }
     else if (response.ok) { router.push("/admin/users"); }
 
- };
+  };
 
- return (
+  return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
       <div className="mb-4">
         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name:</label>
@@ -72,7 +72,7 @@ const CreateUserForm = () => {
         Create User
       </button>
     </form>
- );
+  );
 };
 
 export default CreateUserForm;
