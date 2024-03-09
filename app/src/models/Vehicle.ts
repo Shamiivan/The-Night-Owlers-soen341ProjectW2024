@@ -42,6 +42,5 @@ if (!Vehicle) {
     Vehicle = mongoose.model<IVehicle>('Vehicle', VehicleSchema);
 }
 
-console.log("Vehicle model:", Vehicle.name);
 export default Vehicle;
 export type { IVehicle };
