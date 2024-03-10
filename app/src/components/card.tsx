@@ -3,6 +3,9 @@ import { Button } from "./ui/button";
 import Image from "./ui/Image";
 import Link from 'next/link';
 
+const reservationDetails = {
+  // ... properties for reservationDetails
+};
 
 interface Props {
   img: string;
@@ -12,6 +15,7 @@ interface Props {
   automatic: boolean;
   nPeople: number;
   nBags: number;
+  reservationDetails?: any;
 }
 
 const Card: React.FC<Props> = (
@@ -44,6 +48,7 @@ const Card: React.FC<Props> = (
         href={{
           pathname: "/ReserveForm",
           query: {
+            ...(reservationDetails || {}),
             img,
             name,
             price,

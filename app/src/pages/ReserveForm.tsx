@@ -43,6 +43,10 @@ const ReserveForm: React.FC = () => {
   const nPeopleValue = nPeople ? (Array.isArray(nPeople) ? parseInt(nPeople[0], 10) : parseInt(nPeople, 10)) : 0;
   const nBagsValue = nBags ? (Array.isArray(nBags) ? parseInt(nBags[0], 10) : parseInt(nBags, 10)) : 0;
 
+  const isModify = Boolean(router.query && router.query.reservationDetails);
+  const heading = isModify ? 'Modify Reservation' : 'Car Rental Form';
+  const buttonLabel = isModify ? 'Modify' : 'Make Reservation';
+
   const handleSuccessPopup = () => {
     console.log('handleSuccessPopup called');
     setShowSuccessPopup(true);
@@ -58,8 +62,10 @@ const ReserveForm: React.FC = () => {
     e.preventDefault();
   
     try {
-      const response = await fetch('/api/reservations', {
-        method: 'POST',
+      const endpoint = isModify ? `/api/reservations/${router.query.reservationId}` : '/api/reservations';
+
+      const response = await fetch(endpoint, {
+        method: isModify ? 'PUT' : 'POST',
         body: JSON.stringify({
           startTime,
           startDate,
@@ -96,7 +102,7 @@ const ReserveForm: React.FC = () => {
         <Navbar/>
 
         <div className=' mt-6 grid grid-cols-12 items-center'>
-          <p className='text-4xl font-semibold col-start-2 col-span-4'>Car Rental Form</p>
+          <p className='text-4xl font-semibold col-start-2 col-span-4'>{heading}</p>
           <div className='col-start-7 col-span-2 border-2 border-black rounded-lg ml-3'>
             <p className='pl-4 pt-1 text-lg font-medium'>Pick-up time/date</p>
             <div className='bg-slate-200 flex justify-around font-medium'>
@@ -204,7 +210,7 @@ const ReserveForm: React.FC = () => {
             className="w-full mt-5"
             onClick={handleSubmit}
           >
-            Make Reservation
+            {buttonLabel}
           </Button>
           </div>
           <div className='mr-10'>
