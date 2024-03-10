@@ -15,7 +15,7 @@ const ReserveDetail: React.FC<Props> = (
   { img, name, price, description, automatic, nPeople},
 ) => {
   return (
-    <div className='px-10  pb-10 mt-8 border-2 border-black rounded-xl '>
+    <div className='px-10  pb-10 mt-5 border-2 border-black rounded-xl '>
         <h1 className='font-semibold'>ReserveDetail</h1>
         <div className='grid grid-cols-2 '>
           <img src={img} className="h-8 me-3" alt="Car Rental Logo"/>
