@@ -25,17 +25,12 @@ import UserList from "@/components/dashboard/users";
 import { Button } from "@/components/ui/button";
 import CreateUserForm from "@/pages/signUp";
 
-interface UsersProps {
-  defaultLayout?: number[];
-  defaultCollapsed?: boolean;
-  navCollapsedSize: any;
-}
 
 export default function Users({
   defaultLayout = [265, 440, 655],
   defaultCollapsed = false,
   navCollapsedSize,
-}: UsersProps) {
+}) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
 
   return (
@@ -125,7 +120,7 @@ export default function Users({
                   className="text-zinc-200"
                 >
                  <Button asChild variant="secondary" className="">
-                  Create Use
+                  Create User
                  </Button>
                 </TabsTrigger>
           

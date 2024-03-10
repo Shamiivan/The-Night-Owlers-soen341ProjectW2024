@@ -63,7 +63,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log(email);
     try {
       const res = await signIn("credentials", {
         email,
@@ -76,7 +76,9 @@ console.log(res);
         return;
       }
 
-      router.replace("dashboard");
+  
+
+      // router.replace("dashboard");
     } catch (error) {
       console.log(error);
     }
