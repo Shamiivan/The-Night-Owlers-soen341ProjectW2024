@@ -53,8 +53,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "14"
-      - name: Install Jest
-        run: npm install jest@latest
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
@@ -73,10 +71,14 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+      - name: Install Jest
+        run: npm install jest@latest
       - name: Install dependencies
         run: |
           npm install
           ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+      - name: Install Jest
+        run: npm install jest@latest
       - name: Run test
         run: npx jest
 
