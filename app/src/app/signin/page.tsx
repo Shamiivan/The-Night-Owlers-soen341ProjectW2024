@@ -2,11 +2,13 @@
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { set } from 'mongoose';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [error, setError] = useState(false);
+  const [result, setResult] = useState('');
   const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -18,16 +20,22 @@ export default function LoginPage() {
     });
     console.log(result);
     if (result?.error) {
-      setError(result.error);
+      setError(true);
+      setResult("Invalid Credentials");
     } else {
       // Redirect to the dashboard or home page after successful login
       console.log(result);
+      setError(false);
+      setResult("Sign in successful");
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen">
-      <form onSubmit={handleSubmit} className="w-full max-w-xs">
+      <form onSubmit={handleSubmit} className="w-full max-w-xs justify-center">
+        {result && <div className={`mb-4 rounded-md p-2 justify-center ${error ? 'bg-red-500' : 'bg-green-500'}`}>
+          <p className=" italic m-2 text-primary-foreground">{result}</p>
+        </div>}
         <div className="mb-4">
           <label htmlFor="email" className="block text-sm font-bold mb-2">
             Email
@@ -56,7 +64,7 @@ export default function LoginPage() {
             required
           />
         </div>
-        {error && <p className="text-red-500 text-xs italic">{error}</p>}
+
         <div className="flex items-center justify-between">
           <button
             type="submit"
