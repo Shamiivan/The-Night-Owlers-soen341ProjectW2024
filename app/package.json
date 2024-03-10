@@ -9,6 +9,12 @@
     "lint": "next lint",
     "test": "jest --watch --coverage"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "tag": "latest",
+    "access": "public",
+    "scope": "new-package-name"
+  },
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
     "testMatch": [
