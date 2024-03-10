@@ -12,14 +12,24 @@ interface Props {
   automatic: boolean;
   nPeople: number;
   nBags: number;
-  reservationDetails?: any;
+  reservationDetails?: {
+    img: string;
+    name: string;
+    price: number;
+    description: string;
+    automatic: boolean;
+    nPeople: number;
+    nBags: number;
+  };
 }
 
 const Card: React.FC<Props> = (
-  { img, name, price, description, automatic, nPeople, nBags },
+  { img, name, price, description, automatic, nPeople, nBags, reservationDetails},
 ) => {
   const router = useRouter();
   const query = router.query;
+  const isModify = router.query && router.query.modify === 'true';
+
   return (
     <div className="border rounded bg-secondary-foreground mx-2 max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4">
       <div className="group relative">
@@ -35,6 +45,7 @@ const Card: React.FC<Props> = (
             {name}
           </h2>
           <p className="text-xs pl-1 font-medium text-gray-300">${price}/day</p>
+          <p className="text-xs pl-1 font-medium text-gray-300">${query.price}</p>
         </div>
         <div className="mt-2 flex justify-between">
           <div>
@@ -45,9 +56,8 @@ const Card: React.FC<Props> = (
       </div>
       <Link
         href={{
-          pathname: "/ReserveForm",
+          pathname: isModify ? "/ModifyReservationPage" : "/ReserveForm",
           query: {
-            ...query,
             img,
             name,
             price,
@@ -55,6 +65,7 @@ const Card: React.FC<Props> = (
             automatic,
             nPeople,
             nBags,
+            ...(isModify ? { ...reservationDetails, modify: true } : {}),
           },
         }}
         passHref

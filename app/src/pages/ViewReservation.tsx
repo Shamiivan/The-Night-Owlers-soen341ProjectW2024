@@ -94,8 +94,16 @@ const ViewReservation: React.FC = () => {
     // Close the modify popup
     setShowModifyPopup(false);
 
-    const queryObject: UrlObject['query'] = { reservation: JSON.stringify(exampleReservation), modify: true };
-
+    const queryObject: UrlObject['query'] = {
+    modify: true,
+    img: exampleReservation.img,
+    name: exampleReservation.name,
+    price: exampleReservation.name,
+    description: exampleReservation.name,
+    automatic: exampleReservation.name,
+    nPeople: exampleReservation.name,
+    nBags: exampleReservation.name,
+  };
     // Redirect to the Vehicles page with reservation details
     router.push({
       pathname: '/vehicles',
@@ -143,7 +151,7 @@ const ViewReservation: React.FC = () => {
             <p className="">Model Name: {exampleReservation.modelName}</p>
             <p className="">Seat Count: {exampleReservation.seatCount}</p>
             <p className="">Fuel Type: {exampleReservation.fuelType}</p>
-            <p className="">Driver Name: {exampleReservation.driverName}</p>
+            <p className="">Person Name: {exampleReservation.driverName}</p>
           </div>
         </div>
         <div className='flex justify-end m-2'>

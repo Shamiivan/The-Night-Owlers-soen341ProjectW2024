@@ -1,15 +1,26 @@
 "use client"
 
 import "@/styles/global.css";
-import React, { useState, ChangeEvent } from 'react';
-import Navbar from '../components/ui/Navbar'
-import Footer from '../components/ui/Footer'
-import { useRouter } from 'next/router';
-import ReserveDetail from '@/components/ui/ReserveDetail'
+import React, { useState, useEffect } from 'react';
+import Navbar from '../components/ui/Navbar';
+import Footer from '../components/ui/Footer';
+import ReserveDetail from '@/components/ui/ReserveDetail';
 import { Button } from '@/components/ui/button';
+import { useRouter } from 'next/router';
 
-const ReserveForm: React.FC = () => {
+const ModifyReservationPage: React.FC = () => {
   const router = useRouter();
+
+  const {
+    img,
+    name,
+    price,
+    description,
+    automatic,
+    nPeople,
+    nBags,
+    modify,
+  } = router.query;
 
   const [startTime, setStartTime] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -22,15 +33,6 @@ const ReserveForm: React.FC = () => {
   const [address, setAddress] = useState('');
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  const {
-    img,
-    name,
-    price,
-    description,
-    automatic,
-    nPeople,
-    nBags,
-  } = router.query || {};
 
   const imgValue = img ? (Array.isArray(img) ? img[0] : img) : '';
   const nameValue = name ? (Array.isArray(name) ? name[0] : name) : '';
@@ -90,9 +92,8 @@ const ReserveForm: React.FC = () => {
 
   return (
     <main>
-        <Navbar/>
-
-        <div className=' mt-6 grid grid-cols-12 items-center'>
+      <Navbar />
+      <div className=' mt-6 grid grid-cols-12 items-center'>
           <p className='text-4xl font-semibold col-start-2 col-span-4'>Car Reservation</p>
           <div className='col-start-7 col-span-2 border-2 border-black rounded-lg ml-3'>
             <p className='pl-4 pt-1 text-lg font-medium'>Pick-up time/date</p>
@@ -137,7 +138,32 @@ const ReserveForm: React.FC = () => {
 
         <div className='grid grid-cols-2 gap-6'>
           <div className='ml-10'>
-          <form className='px-10  pb-10 border-2 border-black rounded-xl my-5'>
+            <ReserveDetail
+                img={imgValue}
+                name={nameValue}
+                price={priceValue}
+                description={descriptionValue}
+                automatic={automaticValue}
+                nPeople={nPeopleValue}
+                nBags={nBagsValue}
+                isModify={false}
+            />
+          </div>
+          <div className='mr-10'>
+            <ReserveDetail
+              img={imgValue}
+              name={nameValue}
+              price={priceValue}
+              description={descriptionValue}
+              automatic={automaticValue}
+              nPeople={nPeopleValue}
+              nBags={nBagsValue}
+              isModify={true}
+            />
+        </div>
+    </div>
+    <div className="mx-10">
+        <form className='px-10  pb-10 border-2 border-black rounded-xl my-5'>
             <h1 className='font-semibold'>Reservation Detail</h1>
 
             <div className="grid-rows-5 gap-4">
@@ -203,22 +229,10 @@ const ReserveForm: React.FC = () => {
           >
             Make a Reservation
           </Button>
-          </div>
-          <div className='mr-10'>
-            <ReserveDetail
-              img={imgValue}
-              name={nameValue}
-              price={priceValue}
-              description={descriptionValue}
-              automatic={automaticValue}
-              nPeople={nPeopleValue}
-              nBags={nBagsValue}
-              isModify={false}
-            />
-          </div>
         </div>
+        
 
-        <Footer/>
+        <Footer />
         {showSuccessPopup && (
         <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50'>
           <div className='bg-white p-4 rounded-md'>
@@ -231,7 +245,7 @@ const ReserveForm: React.FC = () => {
         </div>
         )}
     </main>
-  )
+  );
 }
 
-export default ReserveForm
+export default ModifyReservationPage;

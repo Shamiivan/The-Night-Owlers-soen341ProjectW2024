@@ -17,13 +17,13 @@ const Footer = () => {
                             <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Navigation Bar</h2>
                             <ul className="text-gray-500 dark:text-gray-400 font-medium">
                                 <li className="mb-4">
-                                    <a href="#" className="hover:underline">Rent</a>
+                                    <Link href="/" className="hover:underline">Home</Link>
                                 </li>
                                 <li className="mb-4">
-                                    <a href="#" className="hover:underline">Manage Reservation</a>
+                                    <Link href="/vehicles" className="hover:underline">Rent</Link>
                                 </li>
                                 <li className="mb-4">
-                                    <a href="#" className="hover:underline">Contact us</a>
+                                    <a href="/ReservationList" className="hover:underline">Manage Reservation</a>
                                 </li>
                                 {/*<li>
                                     <a href="#" className="hover:underline">Check-In/Out</a>

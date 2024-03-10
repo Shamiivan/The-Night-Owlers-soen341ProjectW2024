@@ -10,14 +10,17 @@ interface Props {
   automatic: boolean;
   nPeople: number;
   nBags: number;
+  isModify: boolean;
 }
 
 const ReserveDetail: React.FC<Props> = (
-  { img, name, price, description, automatic, nPeople},
+  { img, name, price, description, automatic, nPeople, isModify},
 ) => {
   return (
     <div className='px-10  pb-10 mt-5 border-2 border-black rounded-xl '>
-        <h1 className='font-semibold'>ReserveDetail</h1>
+        <h1 className='font-semibold'>
+          {isModify ? 'New Car' : 'Reserve Car Detail'}
+        </h1>
         <img src={img} className="w-fit my-3 rounded-sm" alt="Car"/>
         <div className='border-1 rounded-sm bg-slate-200 p-3'>
           <p className='text-xl font-semibold'>{name}</p>
