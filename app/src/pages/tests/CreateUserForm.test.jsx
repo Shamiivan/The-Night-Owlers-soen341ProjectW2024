@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import CreateUserForm from '@/components/dashboard/CreateUserForm';
+import CreateUserForm from '@/components/dashboard/createUserForm';
 
 // Mocking useRouter
 jest.mock('next/navigation', () => ({
