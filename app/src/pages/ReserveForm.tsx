@@ -9,21 +9,10 @@ import ReserveDetail from '@/components/ui/ReserveDetail'
 import { Button } from '@/components/ui/button';
 
 const ReserveForm: React.FC = () => {
-  const reserveData = {
-    startTime: '12.00 pm',
-    startDate: '12-02-2024',
-    endTime: '12.00 pm',
-    endDate: '12-03-2024',
-    img: 'car.jpg',
-    name: 'Car Name',
-    price: 99,
-    description: 'This is a great car with excellent features for your next trip.',
-    automatic: true,
-    nPeople: 4,
-    nBags: 2,
-  };
-
   const router = useRouter();
+
+
+
   const [startTime, setStartTime] = useState('');
   const [startDate, setStartDate] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -34,8 +23,25 @@ const ReserveForm: React.FC = () => {
   const [contactNumber, setContactNumber] = useState('');
   const [address, setAddress] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+
+  const {
+    img,
+    name,
+    price,
+    description,
+    automatic,
+    nPeople,
+    nBags,
+  } = router.query || {};
+
+  const imgValue = img ? (Array.isArray(img) ? img[0] : img) : '';
+  const nameValue = name ? (Array.isArray(name) ? name[0] : name) : '';
+  const priceValue = price ? (Array.isArray(price) ? parseFloat(price[0]) : parseFloat(price)) : 0;
+  const descriptionValue = description ? (Array.isArray(description) ? description[0] : description) : '';
+  const automaticValue = automatic ? (Array.isArray(automatic) ? automatic[0] === 'true' : automatic === 'true') : false;
+  const nPeopleValue = nPeople ? (Array.isArray(nPeople) ? parseInt(nPeople[0], 10) : parseInt(nPeople, 10)) : 0;
+  const nBagsValue = nBags ? (Array.isArray(nBags) ? parseInt(nBags[0], 10) : parseInt(nBags, 10)) : 0;
 
   const handleSuccessPopup = () => {
     setShowSuccessPopup(true);
@@ -67,13 +73,13 @@ const ReserveForm: React.FC = () => {
           email,
           contactNumber,
           address,
-          img: reserveData.img,
-          name: reserveData.name,
-          price: reserveData.price,
-          description: reserveData.description,
-          automatic: reserveData.automatic,
-          nPeople: reserveData.nPeople,
-          nBags: reserveData.nBags,
+          img,
+          name,
+          price,
+          description,
+          automatic,
+          nPeople,
+          nBags,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -211,27 +217,28 @@ const ReserveForm: React.FC = () => {
           </div>
           <div className='mr-10'>
             <ReserveDetail
-              img={reserveData.img}
-              name={reserveData.name}
-              price={reserveData.price}
-              description={reserveData.description}
-              automatic={reserveData.automatic}
-              nPeople={reserveData.nPeople}
+              img={imgValue}
+              name={nameValue}
+              price={priceValue}
+              description={descriptionValue}
+              automatic={automaticValue}
+              nPeople={nPeopleValue}
+              nBags={nBagsValue}
             />
           </div>
         </div>
 
         <Footer/>
         {showSuccessPopup && (
-          <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50'>
-            <div className='bg-white p-4 rounded-md'>
-              <p className='text-xl font-semibold mb-4'>Reservation Successful</p>
-              <p className='mb-4'>Your reservation has been successfully submitted.</p>
-              <div className='flex justify-end'>
-                <Button onClick={handleNavigateBack}>OK</Button>
-              </div>
+        <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50'>
+          <div className='bg-white p-4 rounded-md'>
+            <p className='text-xl font-semibold mb-4'>Reservation Successful</p>
+            <p className='mb-4'>Your reservation has been successfully submitted.</p>
+            <div className='flex justify-end'>
+              <Button onClick={handleNavigateBack}>OK</Button>
             </div>
           </div>
+        </div>
         )}
     </main>
   )

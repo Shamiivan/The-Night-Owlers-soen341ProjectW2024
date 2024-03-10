@@ -2,9 +2,11 @@ import Card from "@/components/card";
 import Footer from "@/components/ui/Footer";
 import Navbar from "@/components/ui/Navbar";
 import "@/styles/global.css";
+import Link from 'next/link';
 
 export default function Vehicles() {
   const cardData = {
+    img: "https://picsum.photos/200/300?grayscale",
     name: "Car Name",
     price: 99,
     description:
@@ -18,11 +20,11 @@ export default function Vehicles() {
       <Navbar/>
       <div className="flex">
         {/* filters */}
-        <div
+        {/*<div
           style={{ flexGrow: 1 }}
           className="rounded border p-4 m-1 flex flex-col"
         >
-          {/* FILTERS 1: CATEGORIES */}
+
           <div className="flex flex-col">
             <h3>Categories</h3>
             <ul className="list-disc">
@@ -32,13 +34,14 @@ export default function Vehicles() {
               <li>Vans</li>
             </ul>
           </div>
-        </div>
+        </div>*/}
 
         {/* CARS */}
         <div style={{ flexGrow: 2 }} className="p-4 m-1">
           <div className="flex flex-col">
             <div className="flex mb-8 justify-between">
               <Card
+                img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
                 description={cardData.description}
@@ -48,6 +51,7 @@ export default function Vehicles() {
               />
 
               <Card
+                img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
                 description={cardData.description}
@@ -57,6 +61,7 @@ export default function Vehicles() {
               />
 
               <Card
+                img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
                 description={cardData.description}
@@ -68,6 +73,7 @@ export default function Vehicles() {
 
             <div className="flex justify-between">
               <Card
+                img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
                 description={cardData.description}
@@ -77,6 +83,7 @@ export default function Vehicles() {
               />
 
               <Card
+                img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
                 description={cardData.description}
@@ -86,6 +93,7 @@ export default function Vehicles() {
               />
 
               <Card
+                img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
                 description={cardData.description}
