@@ -2,10 +2,7 @@ import React from "react";
 import { Button } from "./ui/button";
 import Image from "./ui/Image";
 import Link from 'next/link';
-
-const reservationDetails = {
-  // ... properties for reservationDetails
-};
+import { useRouter } from 'next/router';
 
 interface Props {
   img: string;
@@ -21,6 +18,8 @@ interface Props {
 const Card: React.FC<Props> = (
   { img, name, price, description, automatic, nPeople, nBags },
 ) => {
+  const router = useRouter();
+  const query = router.query;
   return (
     <div className="border rounded bg-secondary-foreground mx-2 max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4">
       <div className="group relative">
@@ -48,7 +47,7 @@ const Card: React.FC<Props> = (
         href={{
           pathname: "/ReserveForm",
           query: {
-            ...(reservationDetails || {}),
+            ...query,
             img,
             name,
             price,

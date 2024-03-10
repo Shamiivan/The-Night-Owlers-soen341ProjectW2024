@@ -10,15 +10,6 @@ export default function Vehicles() {
   const query = router.query;
   const isModify = router.query && router.query.modify === 'true';
   const heading = isModify ? 'Modify Reservation' : 'Available Vehicles';
-  const cardData1 = {
-    img: query.img,
-    name: query.name,
-    price: query.price,
-    description: query.description,
-    automatic: query.automatic,
-    nPeople: query.nPeople,
-    nBags: query.nBags
-  };
 
   const cardData = {
     img: "https://picsum.photos/200/300?grayscale",
@@ -58,7 +49,7 @@ export default function Vehicles() {
           <div className="flex flex-col">
             <div className="flex mb-8 justify-between">
               <Card
-                {...reservationDetails}
+                {...query}
                 img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
@@ -69,7 +60,7 @@ export default function Vehicles() {
               />
 
               <Card
-                {...reservationDetails}
+                {...query}
                 img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
@@ -80,7 +71,7 @@ export default function Vehicles() {
               />
 
               <Card
-                {...reservationDetails}
+                {...query}
                 img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
@@ -93,7 +84,7 @@ export default function Vehicles() {
 
             <div className="flex justify-between">
               <Card
-                {...reservationDetails}
+                {...query}
                 img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
@@ -104,7 +95,7 @@ export default function Vehicles() {
               />
 
               <Card
-                {...reservationDetails}
+                {...query}
                 img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
@@ -115,7 +106,7 @@ export default function Vehicles() {
               />
 
               <Card
-                {...reservationDetails}
+                {...query}
                 img={cardData.img}
                 name={cardData.name}
                 price={cardData.price}
