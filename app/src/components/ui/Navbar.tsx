@@ -44,7 +44,7 @@ const Navbar: React.FC = () => {
             </li>
             <li>
             <Button asChild>
-              <Link href="/login">Login</Link>
+              <Link href="/signin">Login</Link>
             </Button>
             </li>
             <li>

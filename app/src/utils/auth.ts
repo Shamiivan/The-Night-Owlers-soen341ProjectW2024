@@ -12,12 +12,12 @@ export const authOptions = {
           name: 'Credentials',
           credentials: {
             email: { label: "Email", type: "text", placeholder: "jsmith@example.com" },
-            password: { label: "Password", type: "password" }
+            password: { label: "Passwords", type: "password" }
           },
           authorize: async (credentials, req) => {
-            console.log(credentials);
             const { email, password } = credentials as { email: string, password: string };
             const user = await User?.findOne({ email : email });
+            
             
 
             if(!user || user.password !== password) { 
@@ -32,7 +32,7 @@ export const authOptions = {
         })
      ],
      pages: {
-        signIn: '/auth/login',
+        signIn: '/signin',
         signOut: '/auth/signout',
         error: '/auth/error',
         verifyRequest: '/auth/verify-request',
