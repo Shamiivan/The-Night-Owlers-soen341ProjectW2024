@@ -1,49 +1,10 @@
-// Import necessary modules
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import User, { IUser } from '@/models/User';
+import printError from '@/utils/print';
+import {connectToDatabase} from '@/utils/connectDb';
 
-
-// Load environment variables from .env file
-dotenv.config();
-// Retrieve the MongoDB URI from environment variables
-const uri = process.env.MONGODB_URI as string;
-
-
-/**
- * Connects to the MongoDB database using Mongoose.
- * This function wraps the connection logic in an asynchronous operation
- * and handles any errors that might occur during the connection process.
- * @returns A promise that resolves when the connection is successful.
- */
-export async function connectToDatabase() {
-    return executeAsync(async () => {
-        if(!mongoose.connection.readyState){
-        await mongoose.connect(uri, {
-            serverSelectionTimeoutMS: 5000,
-        });
-        }
-    });
-    
-}
-
-/**
- * Closes the database connection.
- * This function attempts to close the connection to the MongoDB database
- * and logs any errors that occur during the process.
- */
-export async function closeDatabaseConnection() {
-    try {
-        // Close the database connection
-        await mongoose.connection.close();
-        // Log a message indicating the connection has been closed
-        console.log("Closed the database connection");
-    } catch (error) {
-        // Log any errors that occur during the connection closure
-        console.error(error);
-    }
-}
 
 /**
  * Creates a new user in the database.
@@ -56,7 +17,7 @@ export async function closeDatabaseConnection() {
  * @param role - The user's role, either "customer" or "admin".
  * @returns A promise that resolves with the created user document.
  */
-export async function createUser(firstName: string, lastName: string, password: string, email: string, role: "customer" | "admin") {
+export async function createUser(firstName: string, lastName: string,  email: string, password: string, role: "customer" | "admin") {
     return executeAsync(async () => {
         await connectToDatabase();
         // Create a new user document with the provided details
@@ -96,4 +57,40 @@ export async function getAllUsers() {
     });
 }
 
+/**
+ * Updates a user document in the database.
+ * This function takes the user's ID and an object containing the fields to be updated
+ * as parameters, finds the user document by its ID, updates the specified fields,
+ * and saves the updated document back to the database.
+ * @param id - The ID of the user document to update.
+ * @param updateFields - An object containing the fields to be updated.
+ * @returns A promise that resolves with the updated user document or null if not found.
+ */
+export async function updateUser(id: string, updateFields: Partial<IUser>) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Find the user document by its ID and update the specified fields
+        const updatedUser = await User?.findByIdAndUpdate(id, updateFields, { new: true });
+        // Log the result of the update operation
+        printError(updatedUser);
+        return updatedUser;
+    });
+}
 
+/**
+ * Deletes a user document from the database.
+ * This function takes the user's ID as a parameter, finds the user document by its ID,
+ * and deletes it from the database.
+ * @param id - The ID of the user document to delete.
+ * @returns A promise that resolves with the result of the deletion operation.
+ */
+export async function deleteUser(id: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Find the user document by its ID and delete it
+        const result = await User?.findByIdAndDelete(id);
+        // Log the result of the deletion operation
+        console.log(`Deleted user with ID: ${id}`);
+        return result;
+    });
+}

@@ -1,4 +1,6 @@
 import Card from "@/components/card";
+import Footer from "@/components/ui/Footer";
+import Navbar from "@/components/ui/Navbar";
 import "@/styles/global.css";
 
 export default function Vehicles() {
@@ -13,6 +15,7 @@ export default function Vehicles() {
   };
   return (
     <main>
+      <Navbar/>
       <div className="flex">
         {/* filters */}
         <div
@@ -94,6 +97,7 @@ export default function Vehicles() {
           </div>
         </div>
       </div>
+      <Footer/>
     </main>
   );
 }

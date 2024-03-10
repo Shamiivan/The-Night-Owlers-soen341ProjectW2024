@@ -1,7 +1,8 @@
 import "@/styles/global.css";
+import React from 'react';
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
-import ReservationList from "@/components/ui/ReservationList";
+import ReservationList from "@/components/ui/ReserveList";
 
 export default function Home() {
   const user = {
