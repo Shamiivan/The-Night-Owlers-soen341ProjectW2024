@@ -49,7 +49,7 @@ const Navbar: React.FC = () => {
             </li>
             <li>
             <Button asChild>
-              <Link href="/signUp">Signin</Link>
+              <Link href="/signUp">Sign Up</Link>
             </Button>
             </li>
           </ul>
