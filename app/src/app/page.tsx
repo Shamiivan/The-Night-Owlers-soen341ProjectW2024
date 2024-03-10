@@ -3,7 +3,7 @@ import React from 'react';
 import Navbar from "../components/ui/Navbar";
 import Footer from "../components/ui/Footer";
 import { getAllUsers } from "../utils/userRepository";
-import { IUser } from "../models/User";
+import { IUser } from "@/models/user";
 
 async function fetchUsers() {
   const result = await getAllUsers();
