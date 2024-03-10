@@ -44,17 +44,14 @@ const ReserveForm: React.FC = () => {
   const nBagsValue = nBags ? (Array.isArray(nBags) ? parseInt(nBags[0], 10) : parseInt(nBags, 10)) : 0;
 
   const handleSuccessPopup = () => {
+    console.log('handleSuccessPopup called');
     setShowSuccessPopup(true);
   };
 
-  const hideSuccessPopup = () => {
-    setShowSuccessPopup(false);
-  };
-
   const handleNavigateBack = () => {
-    hideSuccessPopup();
-    // Use your preferred navigation method to go back to the main page
-    // Example using Next.js router
+    setShowSuccessPopup(false);
+
+    router.push('/');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -86,13 +83,8 @@ const ReserveForm: React.FC = () => {
         },
       });
   
-      if (!response.ok) {
-        throw new Error('Failed to submit reservation');
-      }
-  
-      console.log('Reservation submitted successfully');
-      // Add any additional logic or redirection after successful submission
       handleSuccessPopup();
+
     } catch (error) {
       console.error('Error submitting reservation:', error);
       setErrorMessage('Error submitting reservation. Please try again.');
@@ -235,7 +227,7 @@ const ReserveForm: React.FC = () => {
             <p className='text-xl font-semibold mb-4'>Reservation Successful</p>
             <p className='mb-4'>Your reservation has been successfully submitted.</p>
             <div className='flex justify-end'>
-              <Button onClick={handleNavigateBack}>OK</Button>
+              <Button onClick={handleNavigateBack}>Ok</Button>
             </div>
           </div>
         </div>
