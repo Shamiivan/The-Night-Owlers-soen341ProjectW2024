@@ -38,7 +38,7 @@
     "src/pages/tests/users.test.jsx",
     "src/app/admin/updateUser/[id]/page.tsx", 
     "src/components/dashboard/nav.tsx"  
-  ],
+, "src/app/admin/reservations/page.tsx"  ],
   "exclude": [
     "node_modules"
   ]
