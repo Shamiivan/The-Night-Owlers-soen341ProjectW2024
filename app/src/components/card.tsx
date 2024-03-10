@@ -12,19 +12,11 @@ interface Props {
   automatic: boolean;
   nPeople: number;
   nBags: number;
-  reservationDetails?: {
-    img: string;
-    name: string;
-    price: number;
-    description: string;
-    automatic: boolean;
-    nPeople: number;
-    nBags: number;
-  };
-}
+};
+
 
 const Card: React.FC<Props> = (
-  { img, name, price, description, automatic, nPeople, nBags, reservationDetails},
+  { img, name, price, description, automatic, nPeople, nBags},
 ) => {
   const router = useRouter();
   const query = router.query;
@@ -65,7 +57,15 @@ const Card: React.FC<Props> = (
             automatic,
             nPeople,
             nBags,
-            ...(isModify ? { ...reservationDetails, modify: true } : {}),
+            ...(isModify ? {
+              Rimg: query.img,
+              Rname: query.name,
+              Rprice: query.price,
+              Rdescritpion: query.description,
+              Rautomatic:query.automatic,
+              RnPeople: query.nPeople,
+              RnBags: query.nBags
+            } : {}),
           },
         }}
         passHref
