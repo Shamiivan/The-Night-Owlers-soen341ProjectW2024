@@ -7,6 +7,7 @@ import Footer from '@/components/ui/Footer';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { UrlObject } from 'url';
 
 const exampleReservation = {
   id: 'placeholder',
@@ -30,9 +31,14 @@ const exampleReservation = {
 const ViewReservation: React.FC = () => {
   const router = useRouter();
   const [showCancelPopup, setShowCancelPopup] = useState(false);
+  const [showModifyPopup, setShowModifyPopup] = useState(false);
 
   const handleCancelClick = () => {
     setShowCancelPopup(true);
+  };
+
+  const handleModifyClick = () => {
+    setShowModifyPopup(true);
   };
 
   const handleCancelConfirmation = () => {
@@ -65,12 +71,42 @@ const ViewReservation: React.FC = () => {
     setShowCancelPopup(false);
 
     // Redirect to the ReservationList page
-    router.push('/ReservationList');
+    router.push({
+      pathname: '/',
+      query: {
+        img,
+        name,
+        price,
+        description,
+        automatic,
+        nPeople,
+        nBags,
+      },
+    });
   };
 
-  const handleCancelCancel = () => {
+  
+
+  const handleModifyConfirmation = () => {
+    // Perform modification logic here (e.g., update reservation details)
+    console.log('Reservation modified. Perform modification logic here.');
+
+    // Close the modify popup
+    setShowModifyPopup(false);
+
+    const queryObject: UrlObject['query'] = { reservation: JSON.stringify(exampleReservation), modify: true };
+
+    // Redirect to the Vehicles page with reservation details
+    router.push({
+      pathname: '/vehicles',
+      query: queryObject
+    });
+  };
+
+  const handleStop = () => {
     // Close the cancel popup without taking any action
     setShowCancelPopup(false);
+    setShowModifyPopup(false);
   };
 
   return (
@@ -111,9 +147,7 @@ const ViewReservation: React.FC = () => {
           </div>
         </div>
         <div className='flex justify-end m-2'>
-          <Link href='/vehicles' className='mr-5'>
-            <Button>Modify</Button>
-          </Link>
+          <Button className='mr-2' onClick={handleModifyClick} >Modify</Button>
           <Button className='bg-red-500 hover:bg-red-400' onClick={handleCancelClick}>
             Cancel
           </Button>
@@ -126,7 +160,22 @@ const ViewReservation: React.FC = () => {
               <p className='mb-4'>Are you sure you want to cancel this reservation?</p>
               <div className='flex justify-end'>
                 <Button onClick={handleCancelConfirmation}>Yes</Button>
-                <Button onClick={handleCancelCancel} className='ml-2 bg-red-500 hover:bg-red-400'>
+                <Button onClick={handleStop} className='ml-2 bg-red-500 hover:bg-red-400'>
+                  No
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+        {/* Modification Popup */}
+        {showModifyPopup && (
+          <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50'>
+            <div className='bg-white p-4 rounded-md'>
+              <p className='text-xl font-semibold mb-4'>Confirm Modification</p>
+              <p className='mb-4'>Are you sure you want to modify this reservation?</p>
+              <div className='flex justify-end'>
+                <Button onClick={handleModifyConfirmation}>Yes</Button>
+                <Button onClick={handleStop} className='ml-2 bg-red-500 hover:bg-red-400'>
                   No
                 </Button>
               </div>

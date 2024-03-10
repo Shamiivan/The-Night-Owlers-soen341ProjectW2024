@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import Card from "@/components/card";
 import Footer from "@/components/ui/Footer";
 import Navbar from "@/components/ui/Navbar";
@@ -5,6 +6,10 @@ import "@/styles/global.css";
 import Link from 'next/link';
 
 export default function Vehicles() {
+  const router = useRouter();
+  const isModify = router.query && router.query.modify === 'true';
+  const heading = isModify ? 'Modify Reservation' : 'Available Vehicles';
+
   const cardData = {
     img: "https://picsum.photos/200/300?grayscale",
     name: "Car Name",
@@ -38,6 +43,7 @@ export default function Vehicles() {
 
         {/* CARS */}
         <div style={{ flexGrow: 2 }} className="p-4 m-1">
+          <p className="text-3xl font-semibold mb-4">{heading}</p>
           <div className="flex flex-col">
             <div className="flex mb-8 justify-between">
               <Card
