@@ -42,7 +42,7 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
+    console.log(email);
     try {
       const res = await signIn("credentials", {
         email,
@@ -55,7 +55,9 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
         return;
       }
 
-      router.replace("dashboard");
+  
+
+      // router.replace("dashboard");
     } catch (error) {
       console.log(error);
     }
@@ -63,7 +65,7 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
 
 
   return (
-    <div className={cn("grid gap-6", className)} {...props}>
+    <div className={cn("grid gap-6", className)}>
       <form onSubmit={handleSubmit}>
         <div className="grid gap-2">
           <div className="grid gap-1">
