@@ -15,6 +15,7 @@ interface IVehicle extends Document {
     engineCapacity: number;
     rentalPrice: number;
     mileage: number;
+    description:string;
 }
 
 // Check if the model is already compiled
@@ -23,6 +24,7 @@ let Vehicle: mongoose.Model<IVehicle> | undefined = mongoose.models.Vehicle as m
 if (!Vehicle) {
     // Define the Vehicle schema
     const VehicleSchema = new Schema<IVehicle>({
+        //VehiclerId : { type: Schema.Types.ObjectId, ref: 'vehicle', required: true },
         brand: { type: String, required: true },
         imageUrl: { type: String, required: false },
         category: { type: String, required: true },
@@ -36,6 +38,7 @@ if (!Vehicle) {
         engineCapacity: { type: Number, required: true },
         rentalPrice: { type: Number, required: true },
         mileage: { type: Number, required: true },
+        description: { type: String, required: true },
     });
 
     // Create the Vehicle model

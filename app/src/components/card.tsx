@@ -2,20 +2,47 @@ import React from "react";
 import { Button } from "./ui/button";
 import Image from "./ui/Image";
 import Link from 'next/link';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Separator } from "@radix-ui/react-separator";
 
+
+import { useRouter } from 'next/navigation';
 
 interface Props {
-  name: string;
+  brand: string;
   price: number;
   description: string;
   automatic: boolean;
   nPeople: number;
   nBags: number;
+  _id:string;
+  
 }
+export function Card({brand, price,description, _id }: Props) {
+  const router = useRouter();
+  const deleteUser = async () => {
+    try {
+      const response = await fetch(`/api/vehicles/${_id}`, {
+        method: 'DELETE',
+        body: JSON.stringify({ _id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
 
+      if (!response.ok) { throw new Error('Failed to delete user'); }
+      else if (response.ok) { router.push("/admin/vehicles"); }
+
+
+    } catch (error) {
+      console.error('Error deleting user:', error);
+      alert('Failed to delete user');
+    }
+  };
 const Card: React.FC<Props> = (
-  { name, price, description, automatic, nPeople, nBags },
+  { brand, price, description, automatic, nPeople, nBags },
 ) => {
+
   return (
     <div className="border rounded bg-secondary-foreground mx-2 max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4">
       <div className="group relative">
@@ -28,7 +55,7 @@ const Card: React.FC<Props> = (
         </div>
         <div className="flex flex-col">
           <h2 className="text-xl font-bold tracking-tight text-gray-800">
-            {name}
+            {brand}
           </h2>
           <p className="text-xs pl-1 font-medium text-gray-300">${price}/day</p>
         </div>
@@ -45,4 +72,5 @@ const Card: React.FC<Props> = (
   );
 };
 
+}
 export default Card;
