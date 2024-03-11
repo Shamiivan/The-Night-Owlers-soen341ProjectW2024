@@ -125,10 +125,10 @@ const ViewReservation: React.FC = () => {
       <div className='m-8 p-4 bg-blue-200 shadow-md rounded-md'>
         <div className='flex mb-4 p-4'>
           <div>
-            <div className='bg-slate-200 rounded-lg p-2 pl-5 m-2'>
+            {/*<div className='bg-slate-200 rounded-lg p-2 pl-5 m-2'>
               <p className='font-medium'>Location:</p>
               <p>{exampleReservation.location}</p>
-            </div>
+            </div>*/}
             <div className='grid grid-cols-2'>
               <div className='bg-slate-200 rounded-lg py-2 px-4 m-2'>
                 <p className='font-medium'>Start Date:</p>
@@ -143,9 +143,9 @@ const ViewReservation: React.FC = () => {
           <div className="flex-1 flex justify-center items-center">
               <img src={exampleReservation.img} alt="Car Image" className="object-cover rounded-full" />
           </div>
-          <div className=''>
+          {/*<div className=''>
             <p className='bg-slate-200 rounded-lg p-4 m-2 font-medium'>Status: {exampleReservation.status}</p>
-          </div>
+          </div>*/}
         </div>
         <div className='bg-slate-200 rounded-lg py-6 pl-10 m-2'>
           <p className="flex text-xl font-semibold mb-2 pb-2 justify-center">Car Information</p>
