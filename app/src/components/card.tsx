@@ -5,18 +5,26 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 
 interface Props {
-  img: string;
-  name: string;
-  price: number;
-  description: string;
+  brand: string;
+  imageUrl: string;
+  category: string;
+  vehicleModel: string;
+  year: number;
   automatic: boolean;
   nPeople: number;
   nBags: number;
+  color: string;
+  fuelType: string;
+  engineCapacity: number;
+  rentalPrice: number;
+  mileage: number;
+  _id: string;
+  description:string;
 };
 
 
 const Card: React.FC<Props> = (
-  { img, name, price, description, automatic, nPeople, nBags},
+  { brand, imageUrl, category, vehicleModel, year, automatic, nPeople, nBags, color, fuelType, engineCapacity, rentalPrice, mileage, _id,description},
 ) => {
   const router = useRouter();
   const query = router.query;
@@ -27,17 +35,17 @@ const Card: React.FC<Props> = (
       <div className="group relative">
         <div className="aspect-h-1 aspect-w-1 lg:aspect-none w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-40">
           <img
-            src= {img}
+            src= {imageUrl}
             alt="Front of men's Basic Tee in black."
             className="max-h-80 w-full object-fill object-center"
           />
         </div>
         <div className="flex flex-col">
           <h2 className="text-xl font-bold tracking-tight text-gray-800">
-            {name}
+            { brand}
           </h2>
-          <p className="text-xs pl-1 font-medium text-gray-300">${price}/day</p>
-          <p className="text-xs pl-1 font-medium text-gray-300">${query.price}</p>
+          <p className="text-xs pl-1 font-medium text-gray-300">${ rentalPrice}/day</p>
+        
         </div>
         <div className="mt-2 flex justify-between">
           <div>
@@ -50,17 +58,17 @@ const Card: React.FC<Props> = (
         href={{
           pathname: isModify ? "/ModifyReservationPage" : "/ReserveForm",
           query: {
-            img,
-            name,
-            price,
+            imageUrl,
+           brand,
+           rentalPrice,
             description,
             automatic,
             nPeople,
             nBags,
             ...(isModify ? {
-              Rimg: query.img,
-              Rname: query.name,
-              Rprice: query.price,
+              Rimg: query. imageUrl,
+              Rname: query.brand,
+              Rprice: query.rentalPrice,
               Rdescritpion: query.description,
               Rautomatic:query.automatic,
               RnPeople: query.nPeople,
