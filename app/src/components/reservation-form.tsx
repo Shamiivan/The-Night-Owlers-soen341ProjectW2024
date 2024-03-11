@@ -31,6 +31,7 @@ export function  ReservationForm ({vehicleId, category, vehicleModel} : reservat
   const [error, setError] = useState(false);
   const [result, setResult] = useState('');
   const router = useRouter();
+
   const [phone, setPhone] = useState('');
   const [pickupDate, setPickupDate] = useState('');
   const [returnDate, setReturnDate] = useState('');
@@ -47,8 +48,7 @@ export function  ReservationForm ({vehicleId, category, vehicleModel} : reservat
       
     } else{
       setIsAuthenticated(true);
-      setEmail(session?.user?.email as string);
-      console.log(email);
+      console.log(session);
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservation/${vehicleId}`, {
         method: 'POST',
         body: JSON.stringify({ email, password, vehicleId }),
@@ -72,7 +72,6 @@ export function  ReservationForm ({vehicleId, category, vehicleModel} : reservat
 
 // if user is not signed in, redirect to sign in page and have him redirected back 
 const handleLogin = async () => {}
-
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-2 text-center">
@@ -84,12 +83,12 @@ const handleLogin = async () => {}
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
-            <Label htmlFor="name">email</Label>
-            <Input id="name" onChange=() type="email" placeholder="Enter email" required />
+            <Label htmlFor="name">Name</Label>
+            <Input id="name" placeholder="Enter your name" required />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="email">Password</Label>
-            <Input id="password" placeholder="Enter your email" required type="password" />
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" placeholder="Enter your email" required type="email" />
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
