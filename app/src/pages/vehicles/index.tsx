@@ -4,6 +4,10 @@ import Footer from "@/components/ui/Footer";
 import Navbar from "@/components/ui/Navbar";
 import "@/styles/global.css";
 import Link from 'next/link';
+import VehicleList from "@/components/dashboard/vehicleList";
+import VehiclCard from "@/components/dashboard/vehicleCard";
+import VehicleCard from '@/components/dashboard/vehicleCard';
+import  VehicleShow from "@/components/dashboard/vehicleShow";
 
 export default function Vehicles() {
   const router = useRouter();
@@ -57,75 +61,7 @@ export default function Vehicles() {
         <div style={{ flexGrow: 2 }} className="p-4 m-1">
           <p className="text-3xl font-semibold mb-4">{heading}</p>
           <div className="flex flex-col">
-            <div className="flex mb-8 justify-between">
-              <Card
-                {...(isModify ? reservationDetails : {})}  
-                img={cardData.img}
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                {...(isModify ? reservationDetails : {})}  
-                img={cardData.img}
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                {...(isModify ? reservationDetails : {})}  
-                img={cardData.img}
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-            </div>
-
-            <div className="flex justify-between">
-              <Card
-                {...(isModify ? reservationDetails : {})}  
-                img={cardData.img}
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                {...(isModify ? reservationDetails : {})}  
-                img={cardData.img}
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                {...(isModify ? reservationDetails : {})}  
-                img={cardData.img}
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-            </div>
+      <VehicleShow/>
           </div>
         </div>
       </div>

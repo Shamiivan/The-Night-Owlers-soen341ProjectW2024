@@ -15,6 +15,7 @@ interface IVehicle extends Document {
     engineCapacity: number;
     rentalPrice: number;
     mileage: number;
+    description:string;
 }
 
 // Check if the model is already compiled
@@ -36,6 +37,7 @@ if (!Vehicle) {
         engineCapacity: { type: Number, required: true },
         rentalPrice: { type: Number, required: true },
         mileage: { type: Number, required: true },
+       description: { type: String, required: true },
     });
 
     // Create the Vehicle model
