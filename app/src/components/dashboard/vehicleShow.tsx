@@ -27,26 +27,26 @@ export default function VehicleShow() {
  }, []);
 
  return (
-    <div className="p-8 bg-ghost mb-2 space-y-8">
-      {vehicles.map((vehicle) => (
-     <Card
-     key={vehicle._id}
-     _id={vehicle._id}
-     brand={vehicle.brand}
-     imageUrl={vehicle.imageUrl}
-     category={vehicle.category}
-     vehicleModel={vehicle.vehicleModel}
-     year={vehicle.year}
-     automatic={vehicle.automatic}
-     nPeople={vehicle.nPeople}
-     nBags={vehicle.nBags}
-     color={vehicle.color}
-     fuelType={vehicle.fuelType}
-     engineCapacity={vehicle.engineCapacity}
-     rentalPrice={vehicle.rentalPrice}
-     mileage={vehicle.mileage}
-     description={vehicle.description}
-   />
+    <div className="p-8 bg-ghost mb-2 flex flex-wrap">
+        {vehicles.map((vehicle) => (
+      <Card
+      key={vehicle._id}
+      _id={vehicle._id}
+      brand={vehicle.brand}
+      imageUrl={vehicle.imageUrl}
+      category={vehicle.category}
+      vehicleModel={vehicle.vehicleModel}
+      year={vehicle.year}
+      automatic={vehicle.automatic}
+      nPeople={vehicle.nPeople}
+      nBags={vehicle.nBags}
+      color={vehicle.color}
+      fuelType={vehicle.fuelType}
+      engineCapacity={vehicle.engineCapacity}
+      rentalPrice={vehicle.rentalPrice}
+      mileage={vehicle.mileage}
+      description={vehicle.description}
+    />
       ))}
     </div>
  );

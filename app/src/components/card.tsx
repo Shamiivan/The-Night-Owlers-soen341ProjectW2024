@@ -31,7 +31,7 @@ const Card: React.FC<Props> = (
   const isModify = router.query && router.query.modify === 'true';
 
   return (
-    <div className="border rounded bg-secondary-foreground mx-2 max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4">
+    <div className="border rounded bg-secondary-foreground my-10 mx-5 max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4 w-full">
       <div className="group relative">
         <div className="aspect-h-1 aspect-w-1 lg:aspect-none w-full overflow-hidden rounded-md group-hover:opacity-75 lg:h-40">
           <img
