@@ -1,19 +1,11 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import { act } from 'react-dom/test-utils';
-import { useRouter } from 'next/router';
 
 // Mock the useRouter hook directly
 jest.mock('next/router');
 
 import UpdateUserForm from '@/components/dashboard/updateUserForm';
-
-// Mocking useRouter
-jest.mock('next/router', () => ({
-  useRouter: jest.fn(() => ({
-    push: jest.fn(),
-  })),
-}));
 
 // Mocking fetch to simulate API calls
 global.fetch = jest.fn(() =>
@@ -22,6 +14,12 @@ global.fetch = jest.fn(() =>
     json: () => Promise.resolve({}),
   })
 );
+
+jest.mock('next/navigation', () => ({
+  useRouter: () => ({
+    push: jest.fn(),
+  }),
+}));
 
 describe('UpdateUserForm', () => {
   it('renders without crashing', () => {
@@ -33,6 +31,7 @@ describe('UpdateUserForm', () => {
       id: 'user-id-123',
     };
     render(<UpdateUserForm {...userProps} />);
+    // Add additional assertions if needed
   });
 
   it('updates state on input change', () => {
@@ -45,10 +44,11 @@ describe('UpdateUserForm', () => {
     };
     const { getByLabelText } = render(<UpdateUserForm {...userProps} />);
     
-    const firstNameInput = getByLabelText('First name');
+    const firstNameInput = getByLabelText('First Name');
     fireEvent.change(firstNameInput, { target: { value: 'Jane' } });
 
     expect(firstNameInput.value).toBe('Jane');
+    // Add additional assertions if needed
   });
 
   it('submits the form and makes API call', async () => {
@@ -74,5 +74,6 @@ describe('UpdateUserForm', () => {
         })
       );
     });
+    // Add additional assertions if needed
   });
 });

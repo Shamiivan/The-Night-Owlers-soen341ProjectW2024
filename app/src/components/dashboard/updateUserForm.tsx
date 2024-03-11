@@ -40,7 +40,7 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
  return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
       <div className="mb-4">
-        <label htmlFor={oldEmail} className="block text-sm font-medium text-gray-700">First name</label>
+        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
         <input
           type="text"
           id="firstName"

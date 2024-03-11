@@ -19,7 +19,13 @@ const ModifyReservationPage: React.FC = () => {
     automatic,
     nPeople,
     nBags,
-    modify,
+    Rimg,
+    Rname,
+    Rprice,
+    Rdescription,
+    Rautomatic,
+    RnPeople,
+    RnBags,
   } = router.query;
 
   const [startTime, setStartTime] = useState('');
@@ -41,6 +47,13 @@ const ModifyReservationPage: React.FC = () => {
   const automaticValue = automatic ? (Array.isArray(automatic) ? automatic[0] === 'true' : automatic === 'true') : false;
   const nPeopleValue = nPeople ? (Array.isArray(nPeople) ? parseInt(nPeople[0], 10) : parseInt(nPeople, 10)) : 0;
   const nBagsValue = nBags ? (Array.isArray(nBags) ? parseInt(nBags[0], 10) : parseInt(nBags, 10)) : 0;
+  const RimgValue = Rimg ? (Array.isArray(Rimg) ? Rimg[0] : Rimg) : '';
+  const RnameValue = Rname ? (Array.isArray(Rname) ? Rname[0] : Rname) : '';
+  const RpriceValue = Rprice ? (Array.isArray(Rprice) ? parseFloat(Rprice[0]) : parseFloat(Rprice)) : 0;
+  const RdescriptionValue = Rdescription ? (Array.isArray(Rdescription) ? Rdescription[0] : Rdescription) : '';
+  const RautomaticValue = Rautomatic ? (Array.isArray(Rautomatic) ? Rautomatic[0] === 'true' : Rautomatic === 'true') : false;
+  const RnPeopleValue = RnPeople ? (Array.isArray(RnPeople) ? parseInt(RnPeople[0], 10) : parseInt(RnPeople, 10)) : 0;
+  const RnBagsValue = RnBags ? (Array.isArray(RnBags) ? parseInt(RnBags[0], 10) : parseInt(RnBags, 10)) : 0;
 
   const handleSuccessPopup = () => {
     console.log('handleSuccessPopup called');
@@ -94,7 +107,7 @@ const ModifyReservationPage: React.FC = () => {
     <main>
       <Navbar />
       <div className=' mt-6 grid grid-cols-12 items-center'>
-          <p className='text-4xl font-semibold col-start-2 col-span-4'>Car Reservation</p>
+          <p className='text-4xl font-semibold col-start-2 col-span-4'>Modify Reservation</p>
           <div className='col-start-7 col-span-2 border-2 border-black rounded-lg ml-3'>
             <p className='pl-4 pt-1 text-lg font-medium'>Pick-up time/date</p>
             <div className='bg-slate-200 flex justify-around font-medium'>
@@ -139,13 +152,13 @@ const ModifyReservationPage: React.FC = () => {
         <div className='grid grid-cols-2 gap-6'>
           <div className='ml-10'>
             <ReserveDetail
-                img={imgValue}
-                name={nameValue}
-                price={priceValue}
-                description={descriptionValue}
-                automatic={automaticValue}
-                nPeople={nPeopleValue}
-                nBags={nBagsValue}
+                img={RimgValue}
+                name={RnameValue}
+                price={RpriceValue}
+                description={RdescriptionValue}
+                automatic={RautomaticValue}
+                nPeople={RnPeopleValue}
+                nBags={RnBagsValue}
                 isModify={false}
             />
           </div>
@@ -169,8 +182,9 @@ const ModifyReservationPage: React.FC = () => {
             <div className="grid-rows-5 gap-4">
               <div className="grid grid-cols-2 my-5">
                 <div>
-                  <p className=''>First Name</p>
+                  <label htmlFor="firstName" className='block'>First Name</label>
                   <input
+                    id="firstName"
                     type="text"
                     placeholder="First name"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
@@ -179,8 +193,9 @@ const ModifyReservationPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <p className=''>Last Name</p>
+                  <label htmlFor="lirstName" className='block'>Last Name</label>
                   <input
+                    id="lastName"
                     type="text"
                     placeholder="Last name"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
@@ -191,9 +206,9 @@ const ModifyReservationPage: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 mb-5">
                 <div>
-                  <p className=''>Email</p>
+                  <label htmlFor="email" className='block'>Email</label>
                   <input
-                    type="email"
+                    id="email"
                     placeholder="Email"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
                     value={email}
@@ -201,8 +216,9 @@ const ModifyReservationPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <p className=''>Contact Number</p>
+                  <label htmlFor="contactNumber" className='block'>Contact Number</label>
                   <input
+                    id="contactNumber"
                     type="tel"
                     placeholder="Contact Number"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
@@ -212,8 +228,9 @@ const ModifyReservationPage: React.FC = () => {
                 </div>
               </div>
               <div>
-                <p className=''>Address</p>
+                <label htmlFor="address" className='block'>Address</label>
                 <input
+                  id="address"
                   type="text"
                   placeholder="Address"
                   className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300 w-50"
