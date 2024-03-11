@@ -121,7 +121,7 @@ const ReserveForm: React.FC = () => {
     if (!contactNumber.trim() ) {
       errors.contactNumber = 'Contact Number is required';
       isValid = false;
-    } else if (contactNumberDigits.length !== 13) {
+    } else if (contactNumberDigits.length !== 10) {
       errors.contactNumber = 'Invalid Contact Number';
       isValid = false;
     }
@@ -156,7 +156,7 @@ const ReserveForm: React.FC = () => {
           email,
           contactNumber,
           address,
-          vehicleId: typeof router.query?.vehicleId === 'number' ? router.query?.vehicleId : undefined,
+          formattedVehicleId,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -187,7 +187,7 @@ const ReserveForm: React.FC = () => {
               className={`p-2 w-full bg-slate-200 ${validationErrors.startTime && 'border-red-500'}`}
             />
             {validationErrors.startTime && (
-              <p className='text-red-500 font-semibold'>{validationErrors.startTime}</p>
+              <p className='text-red-500 font-semibold ml-2'>{validationErrors.startTime}</p>
             )}
           </div>
           <div className='col-start-7 col-span-2 border-2 border-black rounded-lg ml-3'>
@@ -201,7 +201,7 @@ const ReserveForm: React.FC = () => {
               className={`p-2 w-full bg-slate-200 ${validationErrors.startDate && 'border-red-500'}`}
             />
             {validationErrors.startDate && (
-              <p className='text-red-500 font-semibold'>{validationErrors.startDate}</p>
+              <p className='text-red-500 font-semibold ml-2'>{validationErrors.startDate}</p>
             )}
           </div>
 
@@ -216,7 +216,7 @@ const ReserveForm: React.FC = () => {
               className={`p-2 w-full bg-slate-200 ${validationErrors.endDate && 'border-red-500'}`}
             />
             {validationErrors.endTime && (
-              <p className='text-red-500 font-semibold'>{validationErrors.endTime}</p>
+              <p className='text-red-500 font-semibold ml-2'>{validationErrors.endTime}</p>
             )}
           </div>
           <div className='col-span-2 border-2 border-black rounded-lg ml-3'>
@@ -230,7 +230,7 @@ const ReserveForm: React.FC = () => {
               className={`p-2 w-full bg-slate-200 ${validationErrors.endDate && 'border-red-500'}`}
             />
             {validationErrors.endDate && (
-              <p className='text-red-500 font-semibold'>{validationErrors.endDate}</p>
+              <p className='text-red-500 font-semibold ml-2'>{validationErrors.endDate}</p>
             )}
           </div>
         </div>
@@ -248,7 +248,7 @@ const ReserveForm: React.FC = () => {
                     id="firstName"
                     type="text"
                     placeholder="First Name"
-                    className={`border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.firstName && 'border-red-500'}`}
+                    className={`w-11/12 border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.firstName && 'border-red-500'}`}
                     value={firstName}
                     onChange={(e) => setFirstName(e.target.value)}
                   />
@@ -262,7 +262,7 @@ const ReserveForm: React.FC = () => {
                     id="lastName"
                     type="text"
                     placeholder="Last Name"
-                    className={`border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.lastName && 'border-red-500'}`}
+                    className={`w-11/12 border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.lastName && 'border-red-500'}`}
                     value={lastName}
                     onChange={(e) => setLastName(e.target.value)}
                   />
@@ -278,7 +278,7 @@ const ReserveForm: React.FC = () => {
                     id="email"
                     type="email"
                     placeholder="name@example.com"
-                    className={`border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.email && 'border-red-500'}`}
+                    className={`w-11/12 border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.email && 'border-red-500'}`}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                   />
@@ -292,21 +292,10 @@ const ReserveForm: React.FC = () => {
                     id="contactNumber"
                     type="tel"
                     placeholder="Contact Number"
-                    className={`border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.contactNumber && 'border-red-500'}`}
+                    className={`w-11/12 border-2 border-black rounded-full p-1 pl-3 bg-gray-300 ${validationErrors.contactNumber && 'border-red-500'}`}
                     value={contactNumber}
-                    onChange={(e) => {
-                      let input = e.target.value.replace(/\D/g, ''); // Remove non-numeric characters
-                      input = input.slice(0, 13); // Limit to 10 digits
-                      if (input.length > 2) {
-                        input = input.slice(0, 3) + '-' + input.slice(2);
-                      }
-                      if (input.length > 6) {
-                        input = input.slice(0, 8) + '-' + input.slice(6);
-                      }
-                      setContactNumber(input);
-                    }}
+                    onChange={(e) => { setContactNumber(e.target.value) }}
                     maxLength={10}
-                    pattern="\d{2}-\d{4}-\d{4}"
                   />
                   {validationErrors.contactNumber && (
                     <p className='text-red-500 font-semibold'>{validationErrors.contactNumber}</p>
@@ -319,7 +308,7 @@ const ReserveForm: React.FC = () => {
                   id="address"
                   type="text"
                   placeholder="Address"
-                  className={`border-2 border-black rounded-full p-1 pl-3 bg-gray-300 w-50 ${validationErrors.address && 'border-red-500'}`}
+                  className={`w-1/2   border-2 border-black rounded-full p-1 pl-3 bg-gray-300 w-50 ${validationErrors.address && 'border-red-500'}`}
                   value={address}
                   onChange={(e) => setAddress(e.target.value)}
                 />
