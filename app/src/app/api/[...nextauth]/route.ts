@@ -45,7 +45,7 @@ export default NextAuth({
       return true
     },
     async redirect(url, baseUrl) {
-      // You can add your own logic here to control the redirection process
+      // You can add your own logic here to control the redirection processqQ
       // For example, you might redirect users to a different URL based on their role
       return baseUrl
     },

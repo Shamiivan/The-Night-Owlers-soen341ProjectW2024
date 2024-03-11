@@ -38,7 +38,7 @@
     "src/pages/tests/users.test.jsx",
     "src/app/admin/updateUser/[id]/page.tsx", 
     "src/components/dashboard/nav.tsx"  
-, "src/app/admin/reservations/page.jsx", "src/app/page.tsx", "src/pages/tests/CreateUserForm.test.jsx", "src/pages/tests/CreateVehicleForm.test.jsx", "src/pages/tests/UpdateUserForm.jsx", "src/pages/tests/UpdateVehicleForm.test.jsx"  ],
+, "src/app/admin/reservations/page.jsx", "src/app/page.tsx", "src/pages/tests/CreateUserForm.test.jsx", "src/pages/tests/CreateVehicleForm.test.jsx", "src/pages/tests/UpdateUserForm.test.jsx", "src/pages/tests/UpdateVehicleForm.test.jsx"  ],
   "exclude": [
     "node_modules"
   ]

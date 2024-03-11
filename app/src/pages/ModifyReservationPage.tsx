@@ -182,8 +182,9 @@ const ModifyReservationPage: React.FC = () => {
             <div className="grid-rows-5 gap-4">
               <div className="grid grid-cols-2 my-5">
                 <div>
-                  <p className=''>First Name</p>
+                  <label htmlFor="firstName" className='block'>First Name</label>
                   <input
+                    id="firstName"
                     type="text"
                     placeholder="First name"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
@@ -192,8 +193,9 @@ const ModifyReservationPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <p className=''>Last Name</p>
+                  <label htmlFor="lirstName" className='block'>Last Name</label>
                   <input
+                    id="lastName"
                     type="text"
                     placeholder="Last name"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
@@ -204,9 +206,9 @@ const ModifyReservationPage: React.FC = () => {
               </div>
               <div className="grid grid-cols-2 mb-5">
                 <div>
-                  <p className=''>Email</p>
+                  <label htmlFor="email" className='block'>Email</label>
                   <input
-                    type="email"
+                    id="email"
                     placeholder="Email"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
                     value={email}
@@ -214,8 +216,9 @@ const ModifyReservationPage: React.FC = () => {
                   />
                 </div>
                 <div>
-                  <p className=''>Contact Number</p>
+                  <label htmlFor="contactNumber" className='block'>Contact Number</label>
                   <input
+                    id="contactNumber"
                     type="tel"
                     placeholder="Contact Number"
                     className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300"
@@ -225,8 +228,9 @@ const ModifyReservationPage: React.FC = () => {
                 </div>
               </div>
               <div>
-                <p className=''>Address</p>
+                <label htmlFor="address" className='block'>Address</label>
                 <input
+                  id="address"
                   type="text"
                   placeholder="Address"
                   className="border-2 border-black rounded-full p-1 pl-3 bg-gray-300 w-50"
