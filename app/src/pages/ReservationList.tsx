@@ -4,7 +4,7 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 import ReservationList from "@/components/ui/ReserveList";
 
-export default function Home() {
+export default function Reservation() {
   const [user, setUser] = useState({
     name: '',
     userID: null

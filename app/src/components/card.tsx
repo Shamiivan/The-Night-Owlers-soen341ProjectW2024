@@ -42,7 +42,7 @@ const Card: React.FC<Props> = (
         </div>
         <div className="flex flex-col">
           <h2 className="text-xl font-bold tracking-tight text-gray-800">
-            { brand}
+            { brand} {vehicleModel}
           </h2>
           <p className="text-xs pl-1 font-medium text-gray-300">${ rentalPrice}/day</p>
         
