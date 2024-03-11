@@ -50,6 +50,7 @@ const Card: React.FC<Props> = (
           <div>
             <p className="mt-1 text-sm text-gray-500">{description}</p>
           </div>
+          <p className="mt-1 text-sm text-gray-500">{_id}</p>
         </div>
         <hr className="border-1 border-gray-300 my-4" />
       </div>
@@ -57,13 +58,7 @@ const Card: React.FC<Props> = (
         href={{
           pathname: isModify ? "/ModifyReservationPage" : "/ReserveForm",
           query: {
-            imageUrl,
-           brand,
-           rentalPrice,
-            description,
-            automatic,
-            nPeople,
-            nBags,
+            vehicleId: _id,
             ...(isModify ? {
               Rimg: query. imageUrl,
               Rname: query.brand,

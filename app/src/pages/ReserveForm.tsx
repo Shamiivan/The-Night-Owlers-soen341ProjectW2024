@@ -22,23 +22,9 @@ const ReserveForm: React.FC = () => {
   const [address, setAddress] = useState('');
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
-  const {
-    img,
-    name,
-    price,
-    description,
-    automatic,
-    nPeople,
-    nBags,
-  } = router.query || {};
+  const { vehicleId } = router.query || {};
+  const formattedVehicleId = typeof vehicleId === 'string' ? vehicleId : undefined;
 
-  const imgValue = img ? (Array.isArray(img) ? img[0] : img) : '';
-  const nameValue = name ? (Array.isArray(name) ? name[0] : name) : '';
-  const priceValue = price ? (Array.isArray(price) ? parseFloat(price[0]) : parseFloat(price)) : 0;
-  const descriptionValue = description ? (Array.isArray(description) ? description[0] : description) : '';
-  const automaticValue = automatic ? (Array.isArray(automatic) ? automatic[0] === 'true' : automatic === 'true') : false;
-  const nPeopleValue = nPeople ? (Array.isArray(nPeople) ? parseInt(nPeople[0], 10) : parseInt(nPeople, 10)) : 0;
-  const nBagsValue = nBags ? (Array.isArray(nBags) ? parseInt(nBags[0], 10) : parseInt(nBags, 10)) : 0;
   const emailRegex = /^[^\s@]+@[^\s@]+\.com+$/;
 
   const handleSuccessPopup = () => {
@@ -135,7 +121,7 @@ const ReserveForm: React.FC = () => {
     if (!contactNumber.trim() ) {
       errors.contactNumber = 'Contact Number is required';
       isValid = false;
-    } else if (contactNumberDigits.length !== 10) {
+    } else if (contactNumberDigits.length !== 13) {
       errors.contactNumber = 'Invalid Contact Number';
       isValid = false;
     }
@@ -170,13 +156,7 @@ const ReserveForm: React.FC = () => {
           email,
           contactNumber,
           address,
-          img,
-          name,
-          price,
-          description,
-          automatic,
-          nPeople,
-          nBags,
+          vehicleId: typeof router.query?.vehicleId === 'number' ? router.query?.vehicleId : undefined,
         }),
         headers: {
           'Content-Type': 'application/json',
@@ -357,16 +337,10 @@ const ReserveForm: React.FC = () => {
           </Button>
           </div>
           <div className='mr-10'>
-            <ReserveDetail
-              img={imgValue}
-              name={nameValue}
-              price={priceValue}
-              description={descriptionValue}
-              automatic={automaticValue}
-              nPeople={nPeopleValue}
-              nBags={nBagsValue}
-              isModify={false}
-            />
+          <ReserveDetail
+            isModify={false}
+            vehicleId={formattedVehicleId!}
+          />
           </div>
         </div>
 
