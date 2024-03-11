@@ -3,10 +3,6 @@ import Card from "@/components/card";
 import Footer from "@/components/ui/Footer";
 import Navbar from "@/components/ui/Navbar";
 import "@/styles/global.css";
-import Link from 'next/link';
-import VehicleList from "@/components/dashboard/vehicleList";
-import VehiclCard from "@/components/dashboard/vehicleCard";
-import VehicleCard from '@/components/dashboard/vehicleCard';
 import  VehicleShow from "@/components/dashboard/vehicleShow";
 
 export default function Vehicles() {
@@ -14,27 +10,6 @@ export default function Vehicles() {
   const query = router.query;
   const isModify = router.query && router.query.modify === 'true';
   const heading = isModify ? 'Modify Reservation' : 'Available Vehicles';
-
-  const reservationDetails = {
-    img: query.img,
-    name: query.name,
-    price: query.price,
-    description: query.description,
-    automatic: query.automatic,
-    nPeople: query.nPeople,
-    nBags: query.nBags,
-  };
-
-  const cardData = {
-    img: "https://picsum.photos/200/300?grayscale",
-    name: "Car Name",
-    price: 99,
-    description:
-      "This is a great car with excellent features for your next trip.",
-    automatic: true,
-    nPeople: 4,
-    nBags: 2
-  };
 
   return (
     <main>
