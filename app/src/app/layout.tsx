@@ -1,7 +1,6 @@
 // Import necessary types and utilities
 import type { Metadata } from "next"; // Importing the Metadata type from Next.js
 import "@/styles/global.css"; // Importing global styles
-import { getServerSession } from "next-auth";
 import SessionProvider from "@/app/Provider";
 
 import { cn } from "../lib/utils"; // Importing a utility function for class name concatenation
@@ -19,19 +18,19 @@ export  default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode; // Type definition for the children prop
 }>) {
-  const session = await getServerSession();
+  
   return (
     <html lang="en">
       <body className={cn(
           "min-h-screen bg-background font-sans antialiased", // Applying global styles and the Inter font
         )}>
-          <SessionProvider session={session}>
+          
           <div>
             <Navbar />
             {children}
             <Footer />
           </div>
-          </SessionProvider>
+          
       </body>
     </html>
   );

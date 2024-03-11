@@ -1,13 +1,17 @@
 import React from "react";
 import { Button } from "./button";
 import Link from 'next/link';
+import Image from 'next/image'
+
 
 const Navbar: React.FC = () => {
   return (
     <div className="bg-blue-300 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto py-4 px-20">
         <a href="" className="flex items-center">
-            <img src="" className="h-8" alt="Car Rental Logo" />
+        <div>
+    <Image src="/logo.png" alt="Car" width={"100"} height={100} />
+    </div>
         </a>
         <div></div>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
