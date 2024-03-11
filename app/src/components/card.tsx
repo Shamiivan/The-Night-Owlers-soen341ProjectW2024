@@ -37,7 +37,6 @@ const Card: React.FC<Props> = (
             {name}
           </h2>
           <p className="text-xs pl-1 font-medium text-gray-300">${price}/day</p>
-          <p className="text-xs pl-1 font-medium text-gray-300">${query.price}</p>
         </div>
         <div className="mt-2 flex justify-between">
           <div>
