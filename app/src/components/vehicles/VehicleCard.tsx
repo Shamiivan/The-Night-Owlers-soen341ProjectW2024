@@ -3,6 +3,8 @@ import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
 import { getSession } from "next-auth/react"
+import { ReservationButton } from "./ReservationButton"
+import Link  from "next/link"
 
 
 interface carProps {
@@ -43,7 +45,13 @@ export function VehicleCard({ brand, category, price, vehicleModel, image, id }:
                 <p className="text-gray-500 dark:text-gray-400">{brand}</p>
                 <h4 className="font-bold text-md md:text-xl">{price}</h4>
                 <div className="mt-4 flex space-x-2 items-center flex-row">
-                    <Button variant="secondary" className="text-primary-foreground mt-auto w-full">Rent Now</Button>
+                    <div className="mt-auto w-full">
+                <Link href={`/reservation/${id}`}>
+                <Button variant="secondary" className="text-primary-foreground mt-auto w-full">
+                    Make a reservation
+                </Button>
+                </Link>
+                </div>
                     <Button variant="ghost" className="mt-auto w-full">View More</Button>   
                 </div>
 

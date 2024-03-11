@@ -3,10 +3,14 @@ import React from 'react';
 import Navbar from "../components/ui/Navbar";
 import Footer from "../components/ui/Footer";
 import Image from 'next/image'
+import { SessionProvider } from "next-auth/react"
 
 
-export default async function Home() {
+export default async function Home(
+  
+) {
   return (
+    
     
     <main className="container mx-auto px-4 py-8">
     <h1 className="text-3xl font-bold text-center mb-8">
