@@ -2,6 +2,7 @@ import mongoose, { Document, Schema } from 'mongoose';
 
 // Define the IVehicle interface
 interface IVehicle extends Document {
+    id: string;
     brand: string;
     imageUrl: string;
     category: string;
