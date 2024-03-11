@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { useFormState, useFormStatus } from "react-dom";
 import { autheticateUser } from "@/actions/authetication"
 import Link from 'next/link';
+import Navbar from "@/components/ui/Navbar";
 
 
 const initialState = {
@@ -63,6 +64,8 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
 
 
   return (
+    <>
+    <Navbar />
     <div className={cn("grid gap-6", className)} {...props}>
       <form onSubmit={handleSubmit}>
         <div className="grid gap-2">
@@ -134,6 +137,6 @@ export default function UserAuthForm({ className, ...props }: UserAuthFormProps)
       </p>
 
     </div>
-
+    </>
   )
 }
