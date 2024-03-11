@@ -239,7 +239,7 @@ const ModifyReservationPage: React.FC = () => {
           <div className='ml-10'>
             <ReserveDetail
               isModify={false}
-              vehicleId={formattedVehicleId!}
+              vehicleId='65eab257e9452a4c005179ce' // Change to RformattedVehicleId later
             />
           </div>
           <div className='mr-10'>

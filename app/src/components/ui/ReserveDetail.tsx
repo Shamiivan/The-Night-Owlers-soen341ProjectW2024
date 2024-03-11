@@ -25,8 +25,6 @@ const ReserveDetail: React.FC<Props> = ({ isModify, vehicleId }) => {
       }
 
       const data = await response.json();
-      console.log('Response:', response);
-      console.log('Data:', data);
 
       if (data.success) {
         setVehicleDetails(data.value);
