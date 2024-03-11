@@ -36,12 +36,12 @@ export default async function Home() {
   
       <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-lg">
         <h2 className="text-2xl font-bold text-blue-600 mb-4">Best Pricing</h2>
-        <p className="text-gray-800">Welcome to the Best Pricing Car Rental App, your ultimate destination for affordable and convenient car rentals. Whether you're planning a weekend getaway, a business trip, or a family vacation, our app offers the best rates and a wide selection of vehicles to suit your needs.</p>
+        <p className="text-gray-800">Welcome to Omni Rental, your ultimate destination for affordable and convenient car rentals. Whether you're planning a weekend getaway, a business trip, or a family vacation, our app offers the best rates and a wide selection of vehicles to suit your needs.</p>
       </div>
   
       <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-lg">
         <h2 className="text-2xl font-bold text-blue-600 mb-4">Vast Collection of Cars</h2>
-        <p className="text-gray-800">Discover an unparalleled array of vehicles with our Vast Collection of Cars feature on the Best Pricing Car Rental App. Embrace the freedom to choose from an extensive selection of automobiles tailored to every journey imaginable. </p>
+        <p className="text-gray-800">Discover an unparalleled array of vehicles with our vast collection of cars. Embrace the freedom to choose from an extensive selection of automobiles tailored to every journey imaginable. </p>
       </div>
   
       <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-lg">
