@@ -24,7 +24,7 @@ import {
 import UserList from "@/components/dashboard/users";
 import { Button } from "@/components/ui/button";
 import CreateUserForm from "@/components/dashboard/createUserForm";
-import { AuthProvider } from "../../Provider";
+
 
 export default function Users({
   defaultLayout = [265, 440, 655],
@@ -34,7 +34,7 @@ export default function Users({
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
   
   return (
-    <AuthProvider>
+
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
@@ -105,46 +105,45 @@ export default function Users({
           />
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
-          <Tabs defaultValue="all">
-            <div className="flex items-center px-4 py-2">
-              <h1 className="text-xl font-bold">Dashboard</h1>
-              <TabsList className="ml-auto">
-                <TabsTrigger
-                  value="all"
-                  className="text-zinc-600 dark:text-zinc-200"
-                >
-                  Main view
-                </TabsTrigger>
-                <TabsTrigger
-                  value="unread"
-                  className="text-zinc-200"
-                >
-                  Create User
-                </TabsTrigger>
-          
-              </TabsList>
-            </div>
-            <Separator />
-            <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <form>
-                <div className="relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search" className="pl-8" />
-                </div>
-              </form>
-            </div>
-            <TabsContent value="all" className="m-0">
-              <UserList />
-            </TabsContent>
-            <TabsContent value="unread" className="m-0">
-              <CreateUserForm />
-            </TabsContent>
-          </Tabs>
-        </ResizablePanel>
+          <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
+            <Tabs defaultValue="all">
+              <div className="flex items-center px-4 py-2">
+                <h1 className="text-xl font-bold">Dashboard</h1>
+                <TabsList className="ml-auto">
+                  <TabsTrigger
+                    value="all"
+                    className="text-zinc-600 dark:text-zinc-200"
+                  >
+                    Main view
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="unread"
+                    className="text-zinc-200"
+                  >
+                    Create User
+                  </TabsTrigger>
+            
+                </TabsList>
+              </div>
+              <Separator />
+              <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <form>
+                  <div className="relative">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input placeholder="Search" className="pl-8" />
+                  </div>
+                </form>
+              </div>
+              <TabsContent value="all" className="m-0">
+                <UserList />
+              </TabsContent>
+              <TabsContent value="unread" className="m-0">
+                <CreateUserForm />
+              </TabsContent>
+            </Tabs>
+          </ResizablePanel>
         <ResizableHandle withHandle />
       </ResizablePanelGroup>
     </TooltipProvider>
-    </AuthProvider>
   );
 }

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import "@/styles/global.css";
 import { useRouter } from 'next/router';
+import { Button } from '../ui/button';
+import { Link } from 'lucide-react';
+import Footer from "@/components/ui/Footer";
 
 const CreateVehicleForm = () => {
     const [imageUrl, setImageUrl] = useState('');
@@ -45,7 +48,8 @@ const CreateVehicleForm = () => {
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
+        <div>
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto max-h-[650px] overflow-y-auto">
             {/* Brand */}
             <div className="mb-4">
                 <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>
@@ -59,12 +63,12 @@ const CreateVehicleForm = () => {
             </div>
             {/* Image URL */}
             <div className="mb-4">
-                <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>
+                <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Image URL</label>
                 <input
                     type="text"
                     id="imageUrl"
                     value={imageUrl}
-                    onChange={(e) => setBrand(e.target.value)}
+                    onChange={(e) => setImageUrl(e.target.value)}
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
@@ -202,14 +206,20 @@ const CreateVehicleForm = () => {
             </div>
             {/* Submit */}
             <div className="mb-4">
-                <button
-                    type="submit"
-                    className="w-full bg-indigo-500 text-white p-3 rounded-md font-medium hover:bg-indigo-600"
-                >
-                    Submit
-                </button>
+                <Link href='/admin/vehicles'>
+                    <Button
+                        type="submit"
+                        className="w-full bg-indigo-500 text-white p-3 rounded-md font-medium hover:bg-indigo-600"
+                    >
+                        Submit
+                    </Button>
+                </Link>
+
             </div>
         </form>
+
+        </div>
+
     );
 }
 export default CreateVehicleForm;
