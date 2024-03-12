@@ -94,3 +94,14 @@ export async function deleteUser(id: string) {
         return result;
     });
 }
+
+export async function countUsers() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Count all user documents in the database
+        const totalUsers = await User?.countDocuments({});
+        // Log the total count of users
+        console.log(`Total number of users: ${totalUsers}`);
+        return totalUsers;
+    });
+}

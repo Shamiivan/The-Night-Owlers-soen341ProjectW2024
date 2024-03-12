@@ -9,9 +9,9 @@ const Navbar: React.FC = () => {
     <div className="bg-blue-300 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto py-1 px-20">
         <a href="" className="flex items-center">
-        <div>
-    <Image src="/logo.png" alt="Car" width={"100"} height={100} />
-    </div>
+          <div>
+            <Image src="/logo.png" alt="Car" width={"100"} height={100} />
+          </div>
         </a>
         <div></div>
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">

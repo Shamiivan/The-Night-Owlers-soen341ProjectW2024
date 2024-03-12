@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/resizable";
 import UserList from "@/components/dashboard/users";
 import { Button } from "@/components/ui/button";
-import CreateUserForm from "@/components/signUp";
+import CreateUserForm from "@/components/dashboard/createUserForm";
 
 
 export default function Users({
@@ -32,7 +32,7 @@ export default function Users({
   navCollapsedSize,
 }) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
-
+  
   return (
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup

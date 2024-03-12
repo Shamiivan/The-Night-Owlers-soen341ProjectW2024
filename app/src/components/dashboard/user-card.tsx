@@ -32,7 +32,7 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
         if (!response.ok) {
           throw new Error('Failed to delete user');
         } else {
-          router.push("/admin/users");
+          window.location.reload();
         }
       } catch (error) {
         console.error('Error deleting user:', error);
@@ -41,7 +41,7 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
     }
   };
   return (
-    <div className="flex items-center">
+    <div className=" pb-5 flex items-center border-b-2">
         <Avatar className="h-9 w-9">
           <AvatarImage src="/avatars/01.png" alt="Avatar" />
           <AvatarFallback>OM</AvatarFallback>
