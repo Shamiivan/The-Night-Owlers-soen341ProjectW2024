@@ -24,7 +24,6 @@ import {
 import UserList from "@/components/dashboard/users";
 import CreateVehicleForm from "@/components/dashboard/createVehicleForm";
 import VehicleList from "@/components/dashboard/vehicleList";
-import { AuthProvider } from "../../Provider";
 
 
 export default function Vehicles({
@@ -35,7 +34,6 @@ export default function Vehicles({
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
 
   return (
-    <AuthProvider>
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
@@ -147,6 +145,6 @@ export default function Vehicles({
         <ResizableHandle withHandle />
       </ResizablePanelGroup>
     </TooltipProvider>
-    </AuthProvider>
+
   );
 }

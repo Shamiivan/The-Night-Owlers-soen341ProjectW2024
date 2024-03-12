@@ -24,7 +24,7 @@ import {
 import UserList from "@/components/dashboard/users";
 import { Button } from "@/components/ui/button";
 import CreateUserForm from "@/components/dashboard/createUserForm";
-
+import { AuthProvider } from "../../Provider";
 
 export default function Users({
   defaultLayout = [265, 440, 655],
@@ -34,6 +34,7 @@ export default function Users({
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
   
   return (
+    <AuthProvider>
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
@@ -144,5 +145,6 @@ export default function Users({
         <ResizableHandle withHandle />
       </ResizablePanelGroup>
     </TooltipProvider>
+    </AuthProvider>
   );
 }
