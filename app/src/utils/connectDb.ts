@@ -2,7 +2,6 @@
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
-import User, { IUser } from '@/models/User';
 import printError from '@/utils/print';
 
 

@@ -2,6 +2,7 @@ import React from 'react';
 import Navbar from "@/components/ui/Navbar";
 import Footer from '@/components/ui/Footer';
 import VehicleDetailCard from '@/components/VehicleDetailCard';
+import { Details } from '@/components/details';
 
 const VehicleDetails: React.FC = () => {
 
@@ -23,14 +24,15 @@ const VehicleDetails: React.FC = () => {
       };
       return (
         <div>
-          <Navbar />
+          {/* <Navbar />
           <VehicleDetailCard
             name="Honda Civic"
             carDescription="The Honda Civic is a line of cars manufactured by Honda. "
             carImage="https://www.honda.ca/en/civic_sedan"
             carInformation={carInformation}
           />
-      <Footer />
+      <Footer /> */}
+      <Details />
     </div>
   );
 };

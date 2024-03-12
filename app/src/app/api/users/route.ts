@@ -2,10 +2,12 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import { getAllUsers, createUser } from "@/utils/userRepository";
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/utils/auth";
 
 export async function GET() {
     const result = await getAllUsers();
-    console.log(result);
+
     if (result.success) {
         return NextResponse.json({ success: true, value: result.value });
     } else if (result.error) {
