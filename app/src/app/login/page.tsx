@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { useFormState, useFormStatus } from "react-dom";
 import { autheticateUser } from "@/actions/authetication"
 import Link from 'next/link';
+import Navbar from "@/components/ui/Navbar";
 import { toast } from "react-toastify";
 
 
@@ -86,6 +87,8 @@ console.log(res);
 
 
   return (
+    <>
+    <Navbar />
     <div className={cn("grid gap-6", className)}>
       <form onSubmit={handleLogin}>
         <div className="grid gap-2">
@@ -157,6 +160,6 @@ console.log(res);
       </p>
 
     </div>
-
+    </>
   )
 }

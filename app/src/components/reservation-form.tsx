@@ -85,7 +85,7 @@ const handleLogin = async () => {}
         <div className="grid grid-cols-2 gap-4">
           <div className="space-y-2">
             <Label htmlFor="name">email</Label>
-            <Input id="name" onChange=() type="email" placeholder="Enter email" required />
+            <Input id="name"  type="email" placeholder="Enter email" required />
           </div>
           <div className="space-y-2">
             <Label htmlFor="email">Password</Label>

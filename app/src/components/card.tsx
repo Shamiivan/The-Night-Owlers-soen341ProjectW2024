@@ -27,7 +27,6 @@ const Card: React.FC<Props> = (
   { brand, imageUrl, category, vehicleModel, year, automatic, nPeople, nBags, color, fuelType, engineCapacity, rentalPrice, mileage, _id,description},
 ) => {
   const router = useRouter();
-  const query = router.query;
   const isModify = router.query && router.query.modify === 'true';
 
   return (
@@ -42,10 +41,9 @@ const Card: React.FC<Props> = (
         </div>
         <div className="flex flex-col">
           <h2 className="text-xl font-bold tracking-tight text-gray-800">
-            { brand}
+            { brand} {vehicleModel}
           </h2>
-          <p className="text-xs pl-1 font-medium text-gray-300">${ rentalPrice}/day</p>
-        
+          <p className="text-xs pl-1 font-medium text-gray-300">${rentalPrice}/day</p>
         </div>
         <div className="mt-2 flex justify-between">
           <div>
@@ -58,23 +56,9 @@ const Card: React.FC<Props> = (
         href={{
           pathname: isModify ? "/ModifyReservationPage" : "/ReserveForm",
           query: {
-            imageUrl,
-           brand,
-           rentalPrice,
-            description,
-            automatic,
-            nPeople,
-            nBags,
-            ...(isModify ? {
-              Rimg: query. imageUrl,
-              Rname: query.brand,
-              Rprice: query.rentalPrice,
-              Rdescritpion: query.description,
-              Rautomatic:query.automatic,
-              RnPeople: query.nPeople,
-              RnBags: query.nBags
-            } : {}),
-          },
+            vehicleId: _id,
+            Rvehicle: router.query.vehicleId,
+          }
         }}
         passHref
       >
