@@ -1,9 +1,9 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Separator } from "@radix-ui/react-separator";
+import { Separator } from '@radix-ui/react-separator';
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-
+import React from 'react';
 
 
 interface userProps {

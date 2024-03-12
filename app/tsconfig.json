@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,9 +22,31 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ]
+    },
+    "target": "esnext"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/admin/users/page.jsx", "src/app/dashboard/page.jsx"],
-  "exclude": ["node_modules"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/admin/users/page.jsx",
+    "src/app/dashboard/page.jsx",
+    "src/pages/tests/users.test.jsx",
+    "src/app/admin/updateUser/[id]/page.tsx",
+    "src/components/dashboard/nav.tsx",
+    "src/app/admin/reservations/page.jsx",
+    "src/app/page.tsx",
+    "src/pages/tests/CreateUserForm.test.jsx",
+    "src/pages/tests/CreateVehicleForm.test.jsx",
+    "src/pages/tests/UpdateUserForm.jsx",
+    "src/pages/tests/UpdateVehicleForm.test.jsx",
+    "src/app/login/page.jsx" 
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
