@@ -21,15 +21,14 @@ const exampleReservation = {
   status: 'Checked In',
 };
 
-const vehicleId = '65eab257e9452a4c005179ce';
-
 const ViewReservation: React.FC = () => {
   const router = useRouter();
   const [showCancelPopup, setShowCancelPopup] = useState(false);
   const [showModifyPopup, setShowModifyPopup] = useState(false);
   const [vehicleDetails, setVehicleDetails] = useState<IVehicle | null>(null);
 
- const fetchVehicleDetails = async () => {
+  const vehicleId = router.query.vehicleId
+  const fetchVehicleDetails = async () => {
     try {
       if (!vehicleId) {
         console.error('Vehicle ID is undefined.');

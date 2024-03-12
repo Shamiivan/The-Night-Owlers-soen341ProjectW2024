@@ -3,17 +3,17 @@ import Card from "@/components/card";
 import Footer from "@/components/ui/Footer";
 import Navbar from "@/components/ui/Navbar";
 import "@/styles/global.css";
-import  VehicleShow from "@/components/dashboard/vehicleShow";
+import  VehicleShow from "@/components/ui/vehicleShow";
 
 export default function Vehicles() {
   const router = useRouter();
   const query = router.query;
-  const isModify = router.query && router.query.modify === 'true';
+  const isModify = query && query.modify === 'true';
   const heading = isModify ? 'Modify Reservation' : 'Available Vehicles';
 
   return (
     <main>
-      <Navbar/>
+      <Navbar />
       <div className="flex">
         {/* filters */}
         {/*<div
@@ -36,11 +36,11 @@ export default function Vehicles() {
         <div style={{ flexGrow: 2 }} className="p-4 m-1">
           <p className="text-3xl font-semibold mb-4">{heading}</p>
           <div className="flex flex-col">
-      <VehicleShow/>
+            <VehicleShow query={query} />
           </div>
         </div>
       </div>
-      <Footer/>
+      <Footer />
     </main>
   );
 }

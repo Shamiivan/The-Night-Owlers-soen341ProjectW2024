@@ -8,10 +8,20 @@ export default function Home() {
   
   const reservationsDataSets = [
     [
-      { img:'', id: 1, car: 'Car A', startDate: '2024-03-05', endDate: '2024-03-08', location:'Airport'},
+      { 
+        vehicleId: '65eab22de9452a4c005179c8',
+        startDate: '2024-04-05',
+        endDate: '2024-04-08',
+        driverName: 'John Doe',
+      }
     ],
     [
-      { img:'', id: 2, car: 'Car B', startDate: '2024-03-10', endDate: '2024-03-15', location:'Train station' },
+      {
+        vehicleId: '65eab257e9452a4c005179ce',
+        startDate: '2024-04-05',
+        endDate: '2024-04-08',
+        driverName: 'John Doe',
+      },
     ],
     // link to database
   ];

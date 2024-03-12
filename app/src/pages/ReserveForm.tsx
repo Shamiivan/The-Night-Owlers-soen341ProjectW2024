@@ -1,7 +1,7 @@
 "use client"
 
 import "@/styles/global.css";
-import React, { useState, ChangeEvent } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../components/ui/Navbar'
 import Footer from '../components/ui/Footer'
 import { useRouter } from 'next/router';
@@ -20,23 +20,11 @@ const ReserveForm: React.FC = () => {
   const [email, setEmail] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [address, setAddress] = useState('');
-  const [showSuccessPopup, setShowSuccessPopup] = useState(false);
 
   const { vehicleId } = router.query || {};
   const formattedVehicleId = typeof vehicleId === 'string' ? vehicleId : undefined;
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.com+$/;
-
-  const handleSuccessPopup = () => {
-    console.log('handleSuccessPopup called');
-    setShowSuccessPopup(true);
-  };
-
-  const handleNavigateBack = () => {
-    setShowSuccessPopup(false);
-
-    router.push('/');
-  };
 
   const [validationErrors, setValidationErrors] = useState({
     startTime: '',
@@ -142,32 +130,21 @@ const ReserveForm: React.FC = () => {
       return;
     }
 
-    try {
-
-      const response = await fetch('/api/reservations', {
-        method: 'POST',
-        body: JSON.stringify({
-          startTime,
-          startDate,
-          endTime,
-          endDate,
-          firstName,
-          lastName,
-          email,
-          contactNumber,
-          address,
-          formattedVehicleId,
-        }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-  
-      handleSuccessPopup();
-
-    } catch (error) {
-      console.error('Error submitting reservation:', error);
-    }
+    router.push({
+      pathname: '/ReserveConfirm',
+      query: {
+        startTime,
+        startDate,
+        endTime,
+        endDate,
+        firstName,
+        lastName,
+        email,
+        contactNumber,
+        address,
+        formattedVehicleId,
+      },
+    });
   };
 
   return (
@@ -332,19 +309,7 @@ const ReserveForm: React.FC = () => {
           />
           </div>
         </div>
-
         <Footer/>
-        {showSuccessPopup && (
-        <div className='fixed top-0 left-0 w-full h-full flex justify-center items-center bg-gray-800 bg-opacity-50'>
-          <div className='bg-white p-4 rounded-md'>
-            <p className='text-xl font-semibold mb-4'>Reservation Successful</p>
-            <p className='mb-4'>Your reservation has been successfully submitted.</p>
-            <div className='flex justify-end'>
-              <Button onClick={handleNavigateBack}>Ok</Button>
-            </div>
-          </div>
-        </div>
-        )}
     </main>
   )
 }
