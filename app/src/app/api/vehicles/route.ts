@@ -33,7 +33,8 @@ export async function POST(request: Request) {
         fuelType,
         engineCapacity,
         rentalPrice,
-        mileage
+        mileage,
+        description
     } = await request.json();
 
     const vehicle: IVehicle = {
@@ -49,7 +50,8 @@ export async function POST(request: Request) {
         fuelType,
         engineCapacity,
         rentalPrice,
-        mileage
+        mileage,
+        description
     };
     const result = await addVehicle(vehicle);
     console.log(result)
