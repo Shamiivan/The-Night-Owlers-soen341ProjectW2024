@@ -52,7 +52,6 @@ const Card: React.FC<Props> = (
         </div>
         <hr className="border-1 border-gray-300 my-4" />
       </div>
-      <p>{router.query.vehicleId}</p>
       <Link
         href={{
           pathname: isModify ? "/ModifyReservationPage" : "/ReserveForm",
