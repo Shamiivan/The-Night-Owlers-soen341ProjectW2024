@@ -1,14 +1,14 @@
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
-import User, { IUser } from '@/models/User';
+import User, { IUser } from '@/models/user';
 import printError from '@/utils/print';
 import {connectToDatabase} from '@/utils/connectDb';
 
 
 /**
  * Creates a new user in the database.
- * This function takes the user's first name, last name, password, email, and role
+ * This function takes the user's first name, last name, password, email and role
  * as parameters, creates a new user document, and saves it to the database.
  * @param firstName - The user's first name.
  * @param lastName - The user's last name.

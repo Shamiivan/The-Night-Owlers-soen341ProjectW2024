@@ -1,9 +1,9 @@
 import type { NextAuthOptions  } from "next-auth";
 // pages/api/auth/[...nextauth].js
 import Providers from 'next-auth/providers'
-import CredentialsProvider from 'next-auth/providers/credentials' 
+import CredentialsProvider from 'next-auth/providers/credentials'
 import { authenticate } from '@/actions/authetication'
-import User, { IUser } from "@/models/User";
+import User, { IUser } from "@/models/user";
 import printError from "@/utils/print";
 import {connectToDatabase} from '@/utils/connectDb';
 
@@ -20,10 +20,10 @@ export const authOptions = {
             const { email, password } = credentials as { email: string, password: string };
             await connectToDatabase();
             const user = await User?.findOne({ email : email });
-            
-            
 
-            if(!user || user.password !== password) { 
+
+
+            if(!user || user.password !== password) {
             printError(user);
             printError(password);
             printError("Invalid credentials");
@@ -46,5 +46,5 @@ export const authOptions = {
      secret: process.env.NEXTAUTH_SECRET,
 
 
-    
+
 } satisfies NextAuthOptions;

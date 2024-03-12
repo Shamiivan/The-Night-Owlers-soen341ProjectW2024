@@ -119,7 +119,7 @@ export default function Reservations({
                   value="unread"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  Maybe Different View
+                  Create Reservation
                 </TabsTrigger>
               </TabsList>
             </div>

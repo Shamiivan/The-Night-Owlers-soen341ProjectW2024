@@ -32,11 +32,11 @@ const Navbar: React.FC = () => {
               </a>
             </li>
             <li>
-              <a href="admin/users" className="block py-10 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-                Admin 
+              <a href="/admin/users" className="block py-10 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+                Admin
               </a>
             </li>
-            <li>
+            {/*<li>
               <a href="#Help" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                 Help
               </a>
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
               <a href="#Contact" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                 Contact
               </a>
-            </li>
+            </li>*/}
             <li>
             <Button asChild>
               <Link href="/signin">Login</Link>
@@ -53,7 +53,7 @@ const Navbar: React.FC = () => {
             </li>
             <li>
             <Button asChild className="bg-slate-500 hover:bg-blue-600">
-              <Link href="/signUp">Sign in</Link>
+              <Link href="/signup">Sign in</Link>
             </Button>
             </li>
           </ul>

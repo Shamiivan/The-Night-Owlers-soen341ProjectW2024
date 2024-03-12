@@ -23,7 +23,7 @@ import {
 } from "@/components/ui/resizable";
 import UserList from "@/components/dashboard/users";
 import { Button } from "@/components/ui/button";
-import CreateUserForm from "@/pages/signUp";
+import CreateUserForm from "@/components/signUp";
 
 
 export default function Users({
@@ -119,9 +119,7 @@ export default function Users({
                   value="unread"
                   className="text-zinc-200"
                 >
-                 <Button asChild variant="secondary" className="">
                   Create User
-                 </Button>
                 </TabsTrigger>
           
               </TabsList>

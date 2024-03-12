@@ -1,6 +1,7 @@
+"use client"
 import React, { useState } from 'react';
 import "@/styles/global.css";
-import Navbar from "../components/ui/Navbar";
+import Navbar from "./ui/Navbar";
 
 const CreateUserForm = () => {
   const [firstName, setFirstName] = useState('');
@@ -22,7 +23,6 @@ const CreateUserForm = () => {
   return (
 
     <div className="flex flex-col">
-      <Navbar />
 
       <div className="flex">
         <div className="w-1/2 bg-gradient-to-br from-gray-200 to-blue-200 shadow-md rounded px-8 py-6">

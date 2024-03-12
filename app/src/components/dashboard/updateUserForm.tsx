@@ -46,7 +46,7 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
           id="firstName"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
       <div className="mb-4">
@@ -56,7 +56,7 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
           id="lastName"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
       <div className="mb-4">
@@ -66,7 +66,7 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
       <div className="mb-4">
@@ -76,8 +76,9 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
           id="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-        </div>
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
 
       <button
         type="submit"
