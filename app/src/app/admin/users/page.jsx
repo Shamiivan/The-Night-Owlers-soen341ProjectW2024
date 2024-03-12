@@ -65,26 +65,24 @@ export default function Users({
           )}
         >
           <Separator />
-          <Nav
+          {/* add lable later */}
+          <Nav 
             isCollapsed={isCollapsed}
             links={[
               {
                 title: "Users",
-                label: "128",
                 icon: UsersRound,
                 variant: "default",
                 url: "/admin/users",
               },
               {
                 title: "Vehicles",
-                label: "9",
                 icon: CarIcon,
                 variant: "ghost",
                 url: "/admin/vehicles",
               },
               {
                 title: "Reservations",
-                label: "100",
                 icon: File,
                 variant: "ghost",
                 url : "/admin/reservations",
