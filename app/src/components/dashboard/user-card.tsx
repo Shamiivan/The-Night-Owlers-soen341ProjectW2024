@@ -16,22 +16,28 @@ interface userProps {
 export function UserCard({ firstName, lastName, email, _id }: userProps) {
   const router = useRouter();
   const deleteUser = async () => {
-    try {
-      const response = await fetch(`/api/users/${_id}`, {
-        method: 'DELETE',
-        body: JSON.stringify({ _id }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    // Display confirmation dialog
+    const isConfirmed = window.confirm(`Are you sure you want to delete ${firstName} ${lastName}?`);
 
-      if (!response.ok) { throw new Error('Failed to delete user'); }
-      else if (response.ok) { router.push("/admin/users"); }
+    if (isConfirmed) {
+      try {
+        const response = await fetch(`/api/users/${_id}`, {
+          method: 'DELETE',
+          body: JSON.stringify({ _id }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      alert('Failed to delete user');
+        if (!response.ok) {
+          throw new Error('Failed to delete user');
+        } else {
+          router.push("/admin/users");
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('Failed to delete user');
+      }
     }
   };
   return (

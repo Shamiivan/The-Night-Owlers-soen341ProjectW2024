@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UserCard } from "./user-card";
-import { IUser } from "@/models/User";
+import { IUser } from "@/models/user";
 
 export default function UserList() {
   const [users, setUsers] = useState<IUser[]>([]);

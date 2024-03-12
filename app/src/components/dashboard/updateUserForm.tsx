@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import "@/styles/global.css";
+import { Button } from '../ui/button';
 
 
 interface userProps {
@@ -15,29 +16,35 @@ interface userProps {
 const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: userProps) => {
   const router = useRouter();
 
- const [firstName, setFirstName] = useState(oldFirstName);
- const [lastName, setLastName] = useState(oldLastName);
- const [email, setEmail] = useState(oldEmail);
- const [password, setPassword] = useState(oldPassword);
+  const [firstName, setFirstName] = useState(oldFirstName);
+  const [lastName, setLastName] = useState(oldLastName);
+  const [email, setEmail] = useState(oldEmail);
+  const [password, setPassword] = useState(oldPassword);
 
- const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ firstName, lastName, email, password, id}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      router.push("/admin/users");
-    } else {
-      console.error('Error updating user:', response.statusText);
-    }
- };
+    const isConfirmed = window.confirm('Are you sure you want to update this user?');
 
- return (
+    if (isConfirmed) {
+      // Proceed with the form submission
+      const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ firstName, lastName, email, password, id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        router.push("/admin/users");
+      } else {
+        console.error('Error updating user:', response.statusText);
+      }
+    }
+  };
+
+  return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
       <div className="mb-4">
         <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
@@ -80,12 +87,12 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
         />
       </div>
 
-      <button
+      <Button
         type="submit"
         className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       >
         Update User
-      </button>
+      </Button>
     </form>
  );
 };
