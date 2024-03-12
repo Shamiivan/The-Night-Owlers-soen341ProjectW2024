@@ -3,7 +3,7 @@ import type { NextAuthOptions  } from "next-auth";
 import Providers from 'next-auth/providers'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { authenticate } from '@/actions/authetication'
-import User, { IUser } from "@/models/user";
+import User, { IUser } from "@/models/User";
 import printError from "@/utils/print";
 import {connectToDatabase} from '@/utils/connectDb';
 

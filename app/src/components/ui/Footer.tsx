@@ -23,7 +23,7 @@ const Footer = () => {
                                     <Link href="/vehicles" className="hover:underline">Rent</Link>
                                 </li>
                                 <li className="mb-4">
-                                    <a href="/ReservationList" className="hover:underline">Manage Reservation</a>
+                                    <a href="/viewreserve" className="hover:underline">Manage Reservation</a>
                                 </li>
                                 {/*<li>
                                     <a href="#" className="hover:underline">Check-In/Out</a>

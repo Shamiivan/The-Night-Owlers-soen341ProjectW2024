@@ -29,7 +29,7 @@ export async function VehicleIndex() {
       <div className="border rounded-lg">
         <div className="grid gap-1">
           <Label className="sr-only" htmlFor="search">Search</Label>
-          <Input className="rounded-t-lg" id="search" placeholder="Search by make or model" /> 
+          <Input className="rounded-t-lg" id="search" placeholder="Search by make or model" />
         </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
