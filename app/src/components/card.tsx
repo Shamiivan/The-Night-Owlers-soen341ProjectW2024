@@ -27,9 +27,7 @@ const Card: React.FC<Props> = (
   { brand, imageUrl, category, vehicleModel, year, automatic, nPeople, nBags, color, fuelType, engineCapacity, rentalPrice, mileage, _id,description},
 ) => {
   const router = useRouter();
-  const query = router.query;
   const isModify = router.query && router.query.modify === 'true';
-  const Rvehicle = router.query.vehicleId;
 
   return (
     <div className="border rounded bg-secondary-foreground my-10 mx-5 max-w-sm p-4 sm:px-4 sm:py-3 lg:max-w-sm lg:px-4 w-full">
@@ -51,20 +49,17 @@ const Card: React.FC<Props> = (
           <div>
             <p className="mt-1 text-sm text-gray-500">{description}</p>
           </div>
-          <p className="mt-1 text-sm text-gray-500">{_id}</p>
         </div>
         <hr className="border-1 border-gray-300 my-4" />
-
       </div>
+      <p>{router.query.vehicleId}</p>
       <Link
         href={{
           pathname: isModify ? "/ModifyReservationPage" : "/ReserveForm",
           query: {
             vehicleId: _id,
-            ...(isModify ? { 
-              isModify: "true",
-              Rvehicle: router.query.vehicleId } : {}),
-          },
+            Rvehicle: router.query.vehicleId,
+          }
         }}
         passHref
       >

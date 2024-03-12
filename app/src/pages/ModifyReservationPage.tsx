@@ -22,9 +22,9 @@ const ModifyReservationPage: React.FC = () => {
   const [contactNumber, setContactNumber] = useState('');
   const [address, setAddress] = useState('');
 
-  const { vehicleId, isModify, RvehicleId } = router.query || {};
+  const { vehicleId, Rvehicle } = router.query || {};
   const formattedVehicleId = typeof vehicleId === 'string' ? vehicleId : undefined;
-  const RformattedVehicleId = typeof RvehicleId === 'string' ? RvehicleId : undefined;
+  const RformattedVehicleId = typeof Rvehicle === 'string' ? Rvehicle : undefined;
   
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.com+$/;
@@ -219,7 +219,7 @@ const ModifyReservationPage: React.FC = () => {
           <div className='ml-10'>
             <ReserveDetail
               isModify={false}
-              vehicleId = '65eab22de9452a4c005179c8'
+              vehicleId = {RformattedVehicleId!}
             />
           </div>
           <div className='mr-10'>
