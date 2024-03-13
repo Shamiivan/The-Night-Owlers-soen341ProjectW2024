@@ -1,13 +1,11 @@
-// users.test.js
-
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen, waitFor  } from '@testing-library/react';
-import Users from '@/app/admin/users/page';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import Vehicles from '@/app/admin/vehicles/page';
 
-describe('Users Component', () => {
+describe('Vehicles Component', () => {
   it('should handle tab switch', async () => {
-    render(<Users />);
+    render(<Vehicles navCollapsedSize={undefined} />);
     
     // Verify that the component renders with the default layout
     expect(screen.getByText('Dashboard')).toBeInTheDocument();
@@ -15,6 +13,12 @@ describe('Users Component', () => {
     expect(screen.getByText('Vehicles')).toBeInTheDocument();
     expect(screen.getByText('Reservations')).toBeInTheDocument();
     expect(screen.getByText('Settings')).toBeInTheDocument();
+
+    // Click on the "Create Vehicle" tab trigger
+    fireEvent.click(screen.getByText('Create Vehicle'));
+
+    // Click on the "Main view" tab trigger to switch back to the default tab
+    fireEvent.click(screen.getByText('Main view'));
 
   });
 });
