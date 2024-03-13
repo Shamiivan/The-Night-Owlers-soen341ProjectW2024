@@ -36,6 +36,7 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
         console.error('Error deleting user:', error);
         alert('Failed to delete user');
       }
+      alert('Delete Information successfully!');
     }
   };
   return (

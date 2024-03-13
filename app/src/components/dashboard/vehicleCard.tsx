@@ -62,6 +62,7 @@ export default function VehicleCard({ brand, imageUrl, category, vehicleModel, y
       console.error('Error deleting vehicle:', error);
       alert('Failed to delete vehicle');
     }
+    alert('Delete Information successfully!');
  };
 
  return (

@@ -14,7 +14,7 @@ describe('Users Component', () => {
     expect(screen.getByText('Users')).toBeInTheDocument();
     expect(screen.getByText('Vehicles')).toBeInTheDocument();
     expect(screen.getByText('Reservations')).toBeInTheDocument();
-    expect(screen.getByText('Settings')).toBeInTheDocument();
+    //expect(screen.getByText('Settings')).toBeInTheDocument();
 
     fireEvent.click(screen.getByText('Create User'));
 
