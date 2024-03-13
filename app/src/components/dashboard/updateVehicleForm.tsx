@@ -2,6 +2,8 @@
 import React, { useState } from "react"
 import { useRouter } from "next/navigation"
 import "@/styles/global.css"
+import { Button } from '../ui/button';
+import Link from 'next/link';
 
 interface vehicleProps{
     oldBrand: string;
@@ -43,25 +45,29 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles/${id}`, {
-            method: 'PUT',
-            body: JSON.stringify({ brand: newBrand, imageUrl: newImageUrl, category: newCategory, vehicleModel: newVehicleModel, year: newYear, automatic: newAutomatic, nPeople: newNPeople, nBags: newNBags, color: newColor, fuelType: newFuelType, engineCapacity: newEngineCapacity, rentalPrice: newRentalPrice, mileage: newMileage, id}),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-        if (response.ok) {
-            const data = await response.json();
-            router.push("/admin/vehicles");
-        } else {
-            console.error('Error updating vehicle:', response.statusText);
+        const isConfirmed = window.confirm('Are you sure you want to update this vehicle?');
+
+        if (isConfirmed) {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles/${id}`, {
+                method: 'PUT',
+                body: JSON.stringify({ brand: newBrand, imageUrl: newImageUrl, category: newCategory, vehicleModel: newVehicleModel, year: newYear, automatic: newAutomatic, nPeople: newNPeople, nBags: newNBags, color: newColor, fuelType: newFuelType, engineCapacity: newEngineCapacity, rentalPrice: newRentalPrice, mileage: newMileage, id}),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                const data = await response.json();
+                router.push("/admin/vehicles");
+            } else {
+                console.error('Error updating vehicle:', response.statusText);
+            }
         }
     };
 
     return (
         <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
             <div className="mb-4">
-                <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand</label>
+                <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>
                 <input
                     type="text"
                     id="brand"
@@ -190,13 +196,20 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
+            <div className='flex justify-evenly'>
+               <Button
+                    type="submit"
+                    className=" bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                >
+                    Update Vehicle
+                </Button>
+                <Link href="/admin/users">
+                    <Button className=' py-2 px-4 '>
+                        Back
+                    </Button>
+                </Link> 
+            </div>
             
-            <button
-                type="submit"
-                className="w-full py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            >
-                Update Vehicle
-            </button>
         </form>
     );
 }

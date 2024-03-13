@@ -3,6 +3,7 @@ import { Separator } from "@radix-ui/react-separator";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import React from "react";
 
 interface IVehicle extends Document {
     brand: string;
@@ -40,6 +41,8 @@ interface VehicleProps {
 export default function VehicleCard({ brand, imageUrl, category, vehicleModel, year, automatic, nPeople, nBags, color, fuelType, engineCapacity, rentalPrice, mileage, _id }: VehicleProps) {
 
  const deleteVehicle = async () => {
+
+    const isConfirmed = window.confirm(`Are you sure you want to delete ${brand} ${vehicleModel}?`);
     try {
       const response = await fetch(`/api/vehicles/${_id}`, {
         method: 'DELETE',
@@ -49,7 +52,12 @@ export default function VehicleCard({ brand, imageUrl, category, vehicleModel, y
         },
       });
 
-
+      if (!response.ok) {
+        throw new Error('Failed to delete user');
+      } else {
+        window.location.reload();
+      }
+      
     } catch (error) {
       console.error('Error deleting vehicle:', error);
       alert('Failed to delete vehicle');
