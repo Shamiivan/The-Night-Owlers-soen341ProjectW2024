@@ -13,7 +13,7 @@ const rentalagreement = () => {
       };
   return (
     <div className="max-w-4xl mx-auto p-12 bg-slate-200">
-        <h1 className="text-3xl font-bold mb-4">Car Rental Agreement</h1>
+        <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
         <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
         <p>
             This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name], 

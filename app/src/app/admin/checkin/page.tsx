@@ -19,8 +19,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 
-import { Button } from "@/components/ui/button";
-import { CheckIn } from "@/components/dashboard/CheckInForm";
+import { CheckInForm } from "@/components/dashboard/CheckInForm";
 
 
 
@@ -107,7 +106,7 @@ export default function Users({
                 <h1 className="text-xl font-bold">Dashboard</h1>
               </div>
               <Separator />
-                <CheckIn />
+                <CheckInForm />
             </Tabs>
           </ResizablePanel>
         <ResizableHandle withHandle />
