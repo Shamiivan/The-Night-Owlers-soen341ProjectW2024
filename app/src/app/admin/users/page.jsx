@@ -63,7 +63,7 @@ export default function Users({
             "min-w-[50px] transition-all duration-300 ease-in-out",
           )}
         >
-          <Separator />
+          <div className="mt-6">
           {/* add lable later */}
           <Nav 
             isCollapsed={isCollapsed}
@@ -88,7 +88,9 @@ export default function Users({
               },
             ]}
           />
+          </div>
           <Separator />
+          <div className="mt-4">
           {/*<Nav
             isCollapsed={isCollapsed}
             links={[
@@ -100,6 +102,7 @@ export default function Users({
               },
             ]}
           />*/}
+          </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
           <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
