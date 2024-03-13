@@ -67,7 +67,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
+        <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10 bg-slate-200 p-8 rounded">
             <div className="mb-4">
                 <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>
                 <input
@@ -75,7 +75,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="brand"
                     value={newBrand}
                     onChange={(e) => setNewBrand(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -85,8 +85,9 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="imageUrl"
                     value={newImageUrl}
                     onChange={(e) => setNewImageUrl(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
+                <img src={newImageUrl} alt="Vehicle Image" className="mt-2 h-20 rounded-md shadow-md " />
             </div>
             <div className="mb-4">
                 <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category:</label>
@@ -95,7 +96,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="category"
                     value={newCategory}
                     onChange={(e) => setNewCategory(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -105,7 +106,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="vehicleModel"
                     value={newVehicleModel}
                     onChange={(e) => setNewVehicleModel(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -115,17 +116,17 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="year"
                     value={newYear}
                     onChange={(e) => setNewYear(parseInt(e.target.value))}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
-            <div className="mb-4">
-                <label htmlFor="automatic" className="block text-sm font-medium text-gray-700">Automatic:</label>
+            <div className="mb-4 flex">
+                <label htmlFor="automatic" className=" text-sm font-medium text-gray-700">Automatic:</label>
                 <input
                     type="checkbox"
                     id="automatic"
                     checked={newAutomatic}
                     onChange={(e) => setNewAutomatic(e.target.checked)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="ml-2 mt-1  rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -135,7 +136,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="nPeople"
                     value={newNPeople}
                     onChange={(e) => setNewNPeople(parseInt(e.target.value))}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -145,7 +146,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="nBags"
                     value={newNBags}
                     onChange={(e) => setNewNBags(parseInt(e.target.value))}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -155,7 +156,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="color"
                     value={newColor}
                     onChange={(e) => setNewColor(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -165,7 +166,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="fuelType"
                     value={newFuelType}
                     onChange={(e) => setNewFuelType(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -175,7 +176,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="engineCapacity"
                     value={newEngineCapacity}
                     onChange={(e) => setNewEngineCapacity(parseInt(e.target.value))}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -185,7 +186,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="rentalPrice"
                     value={newRentalPrice}
                     onChange={(e) => setNewRentalPrice(parseInt(e.target.value))}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className="mb-4">
@@ -195,7 +196,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="mileage"
                     value={newMileage}
                     onChange={(e) => setNewMileage(parseInt(e.target.value))}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             <div className='flex justify-evenly'>

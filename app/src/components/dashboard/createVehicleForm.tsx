@@ -77,7 +77,7 @@ const CreateVehicleForm = () => {
                     id="brand"
                     value={brand}
                     onChange={(e) => setBrand(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Image URL */}
@@ -88,8 +88,11 @@ const CreateVehicleForm = () => {
                     id="imageUrl"
                     value={imageUrl}
                     onChange={(e) => setImageUrl(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
+                {imageUrl && (
+                    <img src={imageUrl} alt="Vehicle Image" className="mt-2 h-20 rounded-md shadow-md" />
+                )}
             </div>
             {/* Vehicle Model */}
             <div className="mb-4">
@@ -99,7 +102,7 @@ const CreateVehicleForm = () => {
                     id="vehicleModel"
                     value={vehicleModel}
                     onChange={(e) => setVehicleModel(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Vehicle category */}
@@ -110,7 +113,7 @@ const CreateVehicleForm = () => {
                     id="category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Year */}
@@ -121,7 +124,7 @@ const CreateVehicleForm = () => {
                     id="year"
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Transmission Type */}
@@ -132,7 +135,7 @@ const CreateVehicleForm = () => {
                     id="automatic"
                     checked={automatic}
                     onChange={(e) => setAutomatic(e.target.checked)}
-                    className="mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Number of People */}
@@ -143,7 +146,7 @@ const CreateVehicleForm = () => {
                     id="nPeople"
                     value={nPeople}
                     onChange={(e) => setNPeople(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Number of Bags */}
@@ -154,7 +157,7 @@ const CreateVehicleForm = () => {
                     id="nBags"
                     value={nBags}
                     onChange={(e) => setNBags(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Color */}
@@ -165,7 +168,7 @@ const CreateVehicleForm = () => {
                     id="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Fuel Type */}
@@ -176,7 +179,7 @@ const CreateVehicleForm = () => {
                     id="fuelType"
                     value={fuelType}
                     onChange={(e) => setFuelType(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Engine Capacity */}
@@ -187,7 +190,7 @@ const CreateVehicleForm = () => {
                     id="engineCapacity"
                     value={engineCapacity}
                     onChange={(e) => setEngineCapacity(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Total Doors */}
@@ -198,7 +201,7 @@ const CreateVehicleForm = () => {
                     id="totalDoors"
                     value={totalDoors}
                     onChange={(e) => setTotalDoors(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Rental Price */}
@@ -209,7 +212,7 @@ const CreateVehicleForm = () => {
                     id="rentalPrice"
                     value={rentalPrice}
                     onChange={(e) => setRentalPrice(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Mileage */}
@@ -220,7 +223,7 @@ const CreateVehicleForm = () => {
                     id="mileage"
                     value={mileage}
                     onChange={(e) => setMileage(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Description */}
@@ -231,7 +234,7 @@ const CreateVehicleForm = () => {
                     name="description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                  />
             </div>
             {/* Submit */}
