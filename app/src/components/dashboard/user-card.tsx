@@ -16,38 +16,44 @@ interface userProps {
 export function UserCard({ firstName, lastName, email, _id }: userProps) {
   const router = useRouter();
   const deleteUser = async () => {
-    try {
-      const response = await fetch(`/api/users/${_id}`, {
-        method: 'DELETE',
-        body: JSON.stringify({ _id }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+    // Display confirmation dialog
+    const isConfirmed = window.confirm(`Are you sure you want to delete ${firstName} ${lastName}?`);
 
-      if (!response.ok) { throw new Error('Failed to delete user'); }
-      else if (response.ok) { router.push("/admin/users"); }
+    if (isConfirmed) {
+      try {
+        const response = await fetch(`/api/users/${_id}`, {
+          method: 'DELETE',
+          body: JSON.stringify({ _id }),
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
 
-
-    } catch (error) {
-      console.error('Error deleting user:', error);
-      alert('Failed to delete user');
+        if (!response.ok) {
+          throw new Error('Failed to delete user');
+        } else {
+          window.location.reload();
+        }
+      } catch (error) {
+        console.error('Error deleting user:', error);
+        alert('Failed to delete user');
+      }
     }
   };
   return (
-    <div className="flex items-center">
-      <Avatar className="h-9 w-9">
-        <AvatarImage src="/avatars/01.png" alt="Avatar" />
-        <AvatarFallback>OM</AvatarFallback>
-      </Avatar>
-      <div className="ml-4 space-y-1">
-        <p className="text-sm font-medium leading-none">
-          {firstName} {lastName}
-        </p>
-        <p className="text-sm text-muted-foreground">
-          {email}
-        </p>
-      </div>
+    <div className=" pb-5 flex items-center border-b-2">
+        <Avatar className="h-9 w-9">
+          <AvatarImage src="/avatars/01.png" alt="Avatar" />
+          <AvatarFallback>OM</AvatarFallback>
+        </Avatar>
+        <div className="ml-4 space-y-1">
+          <p className="text-sm font-medium leading-none">
+            {firstName} {lastName}
+          </p>
+          <p className="text-sm text-muted-foreground">
+            {email}
+          </p>
+        </div>
       <div className="ml-auto font-medium flex flex-row">
         <div className="mr-2">
           <Link href={`/admin/updateUser/${_id}`}>

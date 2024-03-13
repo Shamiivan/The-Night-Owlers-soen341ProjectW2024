@@ -64,26 +64,24 @@ export default function Reservations({
           )}
         >
           <Separator />
+          {/* add lable later */}
           <Nav
             isCollapsed={isCollapsed}
             links={[
               {
                 title: "Users",
-                label: "128",
                 icon: UsersRound,
                 variant: "ghost",
                 url : "/admin/users",
               },
               {
                 title: "Vehicles",
-                label: "9",
                 icon: CarIcon,
                 variant: "ghost",
                 url : "/admin/vehicles",
               },
               {
                 title: "Reservations",
-                label: "100",
                 icon: File,
                 variant: "default",
                 url : "/admin/reservations",
@@ -119,7 +117,7 @@ export default function Reservations({
                   value="unread"
                   className="text-zinc-600 dark:text-zinc-200"
                 >
-                  Maybe Different View
+                  Create Reservation
                 </TabsTrigger>
               </TabsList>
             </div>

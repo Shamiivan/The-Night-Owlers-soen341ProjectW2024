@@ -8,7 +8,7 @@ import {connectToDatabase} from '@/utils/connectDb';
 
 /**
  * Creates a new user in the database.
- * This function takes the user's first name, last name, password, email, and role
+ * This function takes the user's first name, last name, password, email and role
  * as parameters, creates a new user document, and saves it to the database.
  * @param firstName - The user's first name.
  * @param lastName - The user's last name.
@@ -92,5 +92,16 @@ export async function deleteUser(id: string) {
         // Log the result of the deletion operation
         console.log(`Deleted user with ID: ${id}`);
         return result;
+    });
+}
+
+export async function countUsers() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Count all user documents in the database
+        const totalUsers = await User?.countDocuments({});
+        // Log the total count of users
+        console.log(`Total number of users: ${totalUsers}`);
+        return totalUsers;
     });
 }

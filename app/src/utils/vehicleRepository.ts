@@ -27,7 +27,74 @@ export async function connectToDatabase() {
         }
     });
 
+
 }
+
+/**
+ * Creates a new vehicle in the database.
+ * This function takes various parameters to create a new vehicle document
+ * and saves it to the database.
+ * @param id - The unique identifier for the vehicle.
+ * @param brand - The brand of the vehicle.
+ * @param imageUrl - The URL of the image associated with the vehicle.
+ * @param category - The category to which the vehicle belongs.
+ * @param vehicleModel - The model of the vehicle.
+ * @param year - The manufacturing year of the vehicle.
+ * @param automatic - A boolean indicating whether the vehicle is automatic.
+ * @param nPeople - The number of people the vehicle can accommodate.
+ * @param nBags - The number of bags the vehicle can carry.
+ * @param color - The color of the vehicle.
+ * @param fuelType - The fuel type used by the vehicle.
+ * @param engineCapacity - The engine capacity of the vehicle.
+ * @param rentalPrice - The rental price of the vehicle.
+ * @param mileage - The mileage of the vehicle.
+ * @param description - Additional description or details about the vehicle.
+ * @returns A promise that resolves with the created vehicle document.
+ */
+export async function createVehicle(
+    brand: string,
+    imageUrl: string,
+    category: string,
+    vehicleModel: string,
+    year: number,
+    automatic: boolean,
+    nPeople: number,
+    nBags: number,
+    color: string,
+    fuelType: string,
+    engineCapacity: number,
+    rentalPrice: number,
+    mileage: number,
+    description: string
+    ){
+
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Create a new user document with the provided details
+        const newVehicle = new (Vehicle as mongoose.Model<IVehicle>)({
+            brand,
+            imageUrl,
+            category,
+            vehicleModel,
+            year,
+            automatic,
+            nPeople,
+            nBags,
+            color,
+            fuelType,
+            engineCapacity,
+            rentalPrice,
+            mileage,
+            description
+        });
+        // Save the new user document to the database
+        const result = await newVehicle.save();
+        // Log the result of the user creation
+        return result;
+    });
+}
+
+
 
 /**
  * Adds a new vehicle to the database.
