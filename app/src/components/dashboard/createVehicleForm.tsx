@@ -68,7 +68,7 @@ const CreateVehicleForm = () => {
 
     return (
         <div>
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto max-h-[650px] overflow-y-auto">
+        <form onSubmit={handleSubmit} className="p-10 mt-4 max-w-lg mx-auto max-h-[650px] overflow-y-auto bg-slate-200 rounded-lg">
             {/* Brand */}
             <div className="mb-4">
                 <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>

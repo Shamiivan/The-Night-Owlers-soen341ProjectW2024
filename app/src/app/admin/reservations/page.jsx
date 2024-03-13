@@ -21,7 +21,7 @@ import {
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import UserList from "@/components/dashboard/users";
+import ReservationList from "@/components/dashboard/reservation";
 
 
 export default function Reservations({
@@ -89,7 +89,7 @@ export default function Reservations({
             ]}
           />
           <Separator />
-          <Nav
+          {/*<Nav
             isCollapsed={isCollapsed}
             links={[
               {
@@ -99,7 +99,7 @@ export default function Reservations({
                 url : "/admin/settings",
               },
             ]}
-          />
+          />*/}
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
@@ -122,16 +122,17 @@ export default function Reservations({
               </TabsList>
             </div>
             <Separator />
-            <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <form>
-                <div className="relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search" className="pl-8" />
-                </div>
-              </form>
-            </div>
+            
             <TabsContent value="all" className="m-0">
-              <UserList />
+              <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <form>
+                  <div className="relative">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input placeholder="Search" className="pl-8" />
+                  </div>
+                </form>
+              </div>
+              <ReservationList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
               <div className="bg-primary">Something</div>

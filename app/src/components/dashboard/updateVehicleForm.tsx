@@ -54,6 +54,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                 headers: {
                     'Content-Type': 'application/json',
                 },
+            
             });
             if (response.ok) {
                 const data = await response.json();
@@ -61,6 +62,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
             } else {
                 console.error('Error updating vehicle:', response.statusText);
             }
+            alert('Information sent successfully!');
         }
     };
 

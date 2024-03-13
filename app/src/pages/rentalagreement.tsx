@@ -9,6 +9,7 @@ const rentalagreement = () => {
         const confirmed = window.confirm('Are you sure you want to continue?');
         if (confirmed) {
           // Add logic to handle continuation
+          alert('Information sent successfully!');
         }
       };
   return (
@@ -142,8 +143,7 @@ const rentalagreement = () => {
                 <Button onClick={handleContinue}>
                     Continue
                 </Button>
-                <Link href="/admin/checkin"
-                onClick={handleContinue}>
+                <Link href="/admin/checkin">
                     <Button className="bg-red-500 hover:bg-red-600">
                         Back
                     </Button>

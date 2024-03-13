@@ -91,7 +91,7 @@ export default function Vehicles({
             ]}
           />
           <Separator />
-          <Nav
+          {/*<Nav
             isCollapsed={isCollapsed}
             links={[
               {
@@ -101,7 +101,7 @@ export default function Vehicles({
                 url : "/admin/settings",
               },
             ]}
-          />
+          />*/}
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
@@ -124,15 +124,15 @@ export default function Vehicles({
               </TabsList>
             </div>
             <Separator />
-            <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <form>
-                <div className="relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search" className="pl-8" />
-                </div>
-              </form>
-            </div>
             <TabsContent value="all" className="m-0">
+              <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <form>
+                  <div className="relative">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input placeholder="Search" className="pl-8" />
+                  </div>
+                </form>
+              </div>
               <VehicleList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
