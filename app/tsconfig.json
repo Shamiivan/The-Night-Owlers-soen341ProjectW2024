@@ -35,17 +35,17 @@
     ".next/types/**/*.ts",
     "src/app/admin/users/page.jsx",
     "src/app/dashboard/page.jsx",
-    "src/pages/tests/AdminUsers.test.jsx",
+    "src/__test__/tests/AdminUsers.test.jsx",
     "src/app/admin/updateUser/[id]/page.tsx",
     "src/components/dashboard/nav.tsx",
     "src/app/admin/reservations/page.jsx",
     "src/app/page.tsx",
-    "src/pages/tests/CreateUserForm.test.jsx",
-    "src/pages/tests/CreateVehicleForm.test.jsx",
-    "src/pages/tests/UpdateUserForm.jsx",
-    "src/pages/tests/UpdateVehicleForm.test.jsx",
+    "src/__test__/tests/CreateUserForm.test.jsx",
+    "src/__test__/tests/CreateVehicleForm.test.jsx",
+    "src/__test__/tests/UpdateUserForm.jsx",
+    "src/__test__/tests/UpdateVehicleForm.test.jsx",
     "src/app/login/page.jsx"
-, "src/pages/tests/VehicleCard.test.jsx"  ],
+, "src/__test__/tests/VehicleCard.test.jsx"  ],
   "exclude": [
     "node_modules"
   ]
