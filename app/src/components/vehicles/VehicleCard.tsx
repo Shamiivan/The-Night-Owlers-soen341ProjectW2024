@@ -52,7 +52,9 @@ export function VehicleCard({ brand, category, price, vehicleModel, image, id }:
                 </Button>
                 </Link>
                 </div>
-                    <Button variant="ghost" className="mt-auto w-full">View More</Button>   
+                    <Link href={`/vehicles/${id}`}>
+                        <Button variant="ghost" className="mt-auto w-full">View More</Button>
+                    </Link>
                 </div>
 
             </CardContent>
