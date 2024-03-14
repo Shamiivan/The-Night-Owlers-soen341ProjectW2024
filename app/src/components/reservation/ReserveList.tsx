@@ -2,7 +2,6 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { IVehicle } from '@/models/Vehicle';
-import { useRouter } from 'next/router';
 
 interface Reservation {
   vehicleId: string,
@@ -18,7 +17,6 @@ interface ReservationListProps {
 const ReservationList: React.FC<ReservationListProps> = ({ reservationsData }) => {
   const [reservations, setReservations] = useState<Reservation[]>([]);
   const [vehicleDetails, setVehicleDetails] = useState<IVehicle | null>(null);
-  const router = useRouter();
 
   useEffect(() => {
     setReservations(reservationsData);
@@ -70,8 +68,8 @@ const ReservationList: React.FC<ReservationListProps> = ({ reservationsData }) =
               passHref
             >
               {vehicleDetails && (
-                <div className="p-4 grid grid-cols-6 gap-4 cursor-pointer">
-                  <img src={vehicleDetails.imageUrl} alt='car' className="w-full col-span-2 h-32 object-cover mb-4" />
+                <div className="p-4 w-full grid grid-cols-6 gap-4 cursor-pointer">
+                  <img src={vehicleDetails.imageUrl} alt='car' className="h-full col-span-2 h-32 object-cover flex items-center justify-center"/>
                   <div className="col-span-2 bg-slate-200 p-4 border-2 border-slate-300 rounded-md shadow-md">
                     <p className=" text-xl font-bold">{vehicleDetails.brand} {vehicleDetails.vehicleModel}</p>
                     <div className='mt-4'>

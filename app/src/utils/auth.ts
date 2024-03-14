@@ -2,6 +2,7 @@ import type { NextAuthOptions } from "next-auth";
 // pages/api/auth/[...nextauth].js
 import Providers from 'next-auth/providers'
 import CredentialsProvider from 'next-auth/providers/credentials'
+import CredentialsProvider from 'next-auth/providers/credentials'
 import { authenticate } from '@/actions/authetication'
 import User, { IUser } from "@/models/User";
 import printError from "@/utils/print";
@@ -61,6 +62,7 @@ export const authOptions = {
       return session;
     }
   }
+
 
 
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "@/styles/global.css";
-import { IUser } from "@/models/User";
+import { IUser } from '@/models/user';
 import UpdateUserForm from "@/components/dashboard/updateUserForm";
 
 
