@@ -56,7 +56,7 @@ const CreateVehicleForm = () => {
                 // Wait for a short time before redirecting to give the user time to see the success message
                 setTimeout(() => {
                   setShowSuccessPopup(false); // Close the success popup
-
+                  window.location.reload();
                 }, 2000);
               } else {
                 throw new Error('Failed to create user');
