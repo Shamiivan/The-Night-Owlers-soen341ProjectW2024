@@ -1,11 +1,10 @@
 import React from 'react';
-import { render, fireEvent, waitFor } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import UpdateUserForm from '@/components/dashboard/updateUserForm';
 
 // Mock the useRouter hook directly
 jest.mock('next/router');
-
-import UpdateUserForm from '@/components/dashboard/updateUserForm';
 
 // Mocking fetch to simulate API calls
 global.fetch = jest.fn(() =>

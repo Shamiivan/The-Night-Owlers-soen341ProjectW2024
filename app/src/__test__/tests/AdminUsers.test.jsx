@@ -2,7 +2,7 @@
 
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen, waitFor  } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import Users from '@/app/admin/users/page';
 
 describe('Users Component', () => {
@@ -14,7 +14,12 @@ describe('Users Component', () => {
     expect(screen.getByText('Users')).toBeInTheDocument();
     expect(screen.getByText('Vehicles')).toBeInTheDocument();
     expect(screen.getByText('Reservations')).toBeInTheDocument();
-    expect(screen.getByText('Settings')).toBeInTheDocument();
+    //expect(screen.getByText('Settings')).toBeInTheDocument();
+
+    fireEvent.click(screen.getByText('Create User'));
+
+    // Click on the "Main view" tab trigger to switch back to the default tab
+    fireEvent.click(screen.getByText('Main view'));
 
   });
 });

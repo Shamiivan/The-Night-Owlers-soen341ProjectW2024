@@ -3,6 +3,7 @@ import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { getSession } from "next-auth/react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import React from "react";
 
 async function fetchVehicles() {
   const response = await getAllVehicles();

@@ -37,7 +37,7 @@ export function VehicleCard({ brand, category, price, vehicleModel, image, id }:
                 alt="Car"
                 className="aspect-video object-cover rounded-t-xl"
                 height={310}
-                src="/placeholder.svg"
+                src={image}
                 width={500}
             />
             <CardContent className="flex-1 flex flex-col items-start p-2 md:p-2">

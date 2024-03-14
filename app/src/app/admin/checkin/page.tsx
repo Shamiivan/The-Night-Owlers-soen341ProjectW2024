@@ -3,8 +3,6 @@ import * as React from "react";
 import {
   CarIcon,
   File,
-  Search,
-  Send,
   Settings,
   UsersRound,
 } from "lucide-react";
@@ -12,17 +10,17 @@ import {
 import { Nav } from "@/components/dashboard/nav";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
-import { Input } from "@/components/ui/input";
 
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Tabs } from "@/components/ui/tabs";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
-import UserList from "@/components/dashboard/users";
-import CreateUserForm from "@/components/dashboard/createUserForm";
+
+import { CheckInForm } from "@/components/dashboard/CheckInForm";
+
 
 
 export default function Users({
@@ -63,7 +61,7 @@ export default function Users({
             "min-w-[50px] transition-all duration-300 ease-in-out",
           )}
         >
-          <div className="mt-6">
+          <Separator />
           {/* add lable later */}
           <Nav 
             isCollapsed={isCollapsed}
@@ -88,10 +86,8 @@ export default function Users({
               },
             ]}
           />
-          </div>
           <Separator />
-          <div className="mt-4">
-          {/*<Nav
+          <Nav
             isCollapsed={isCollapsed}
             links={[
               {
@@ -101,46 +97,16 @@ export default function Users({
                 url : "/admin/settings",
               },
             ]}
-          />*/}
-          </div>
+          />
         </ResizablePanel>
         <ResizableHandle withHandle />
           <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
             <Tabs defaultValue="all">
               <div className="flex items-center px-4 py-2">
                 <h1 className="text-xl font-bold">Dashboard</h1>
-                <TabsList className="ml-auto">
-                  <TabsTrigger
-                    value="all"
-                    className="text-zinc-600 dark:text-zinc-200"
-                  >
-                    Main view
-                  </TabsTrigger>
-                  <TabsTrigger
-                    value="unread"
-                    className="text-zinc-200"
-                  >
-                    Create User
-                  </TabsTrigger>
-            
-                </TabsList>
               </div>
               <Separator />
-              
-              <TabsContent value="all" className="m-0">
-                <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                  <form>
-                    <div className="relative">
-                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                      <Input placeholder="Search" className="pl-8" />
-                    </div>
-                  </form>
-                </div>
-                <UserList />
-              </TabsContent>
-              <TabsContent value="unread" className="m-0">
-                <CreateUserForm />
-              </TabsContent>
+                <CheckInForm />
             </Tabs>
           </ResizablePanel>
         <ResizableHandle withHandle />

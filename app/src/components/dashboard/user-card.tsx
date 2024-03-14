@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from '@radix-ui/react-separator';
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
-import { useRouter } from 'next/navigation';
 import React from 'react';
 
 
@@ -14,7 +13,6 @@ interface userProps {
 }
 
 export function UserCard({ firstName, lastName, email, _id }: userProps) {
-  const router = useRouter();
   const deleteUser = async () => {
     // Display confirmation dialog
     const isConfirmed = window.confirm(`Are you sure you want to delete ${firstName} ${lastName}?`);
@@ -38,6 +36,7 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
         console.error('Error deleting user:', error);
         alert('Failed to delete user');
       }
+      alert('Delete Information successfully!');
     }
   };
   return (
