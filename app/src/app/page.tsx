@@ -20,7 +20,7 @@ export default async function Home(
     </h1>
 
     
-    <div className="flex justify-center items-center h-screen bg-blue-500">
+    <div className="flex justify-center items-center h-screen bg-blue-500 rounded-xl shadow-md shadow-gray-500">
       
       <div className="flex flex-col justify-center items-start p-8 mr-4 text-white">
         <h1 className="text-3xl font-bold mb-4">Welcome to Omni Rental !</h1>
@@ -38,17 +38,17 @@ export default async function Home(
 
     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
   
-      <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-lg">
+      <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-md shadow-gray-500">
         <h2 className="text-2xl font-bold text-blue-600 mb-4">Best Pricing</h2>
         <p className="text-gray-800">Welcome to Omni Rental, your ultimate destination for affordable and convenient car rentals. Whether you're planning a weekend getaway, a business trip, or a family vacation, our app offers the best rates and a wide selection of vehicles to suit your needs.</p>
       </div>
   
-      <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-lg">
+      <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-md shadow-gray-500">
         <h2 className="text-2xl font-bold text-blue-600 mb-4">Vast Collection of Cars</h2>
         <p className="text-gray-800">Discover an unparalleled array of vehicles with our vast collection of cars. Embrace the freedom to choose from an extensive selection of automobiles tailored to every journey imaginable. </p>
       </div>
   
-      <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-lg">
+      <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-md shadow-gray-500">
         <h2 className="text-2xl font-bold text-blue-600 mb-4">Available in 32 countries</h2>
         <p className="text-gray-800">Embark on your global journey with confidence, as our car rental services extend their reach across an impressive 32 countries.</p>
       </div>

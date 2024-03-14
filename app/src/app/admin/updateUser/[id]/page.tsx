@@ -47,6 +47,7 @@ const id = params.id;
           oldLastName={user.lastName}
           oldEmail={user.email}
           oldPassword={user.password}
+          oldRole={user.role}
           id={user._id.toString()}
            />
  

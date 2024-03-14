@@ -36,6 +36,7 @@ export async function PUT(request: Request) {
         lastName: updatedUserData.lastName,
         email: updatedUserData.email,
         password: updatedUserData.password,
+        role: updatedUserData.role,
     };
     const id = updatedUserData.id;
 

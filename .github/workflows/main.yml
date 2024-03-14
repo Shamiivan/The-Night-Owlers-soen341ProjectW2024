@@ -66,6 +66,9 @@ jobs:
         with:
           path: |
             .next/cache
+            **/node_modules
+            ~/.npm
+            ~/.cache
           # Generate a new cache whenever packages or source files change.
           key: ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-${{ hashFiles('**.[jt]s', '**.[jt]sx') }}
           # If source files changed but packages didn't, rebuild from a prior cache.
@@ -76,6 +79,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
+          npm install @fortawesome/fontawesome-svg-core
           ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Install Jest
         run: npm install jest@latest

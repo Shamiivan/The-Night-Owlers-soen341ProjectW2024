@@ -33,9 +33,9 @@ export default async function RootLayout({
             "min-h-screen bg-background font-sans antialiased", // Applying global styles and the Inter font
           )}>
             
-            <div>
+            <div className="flex flex-col min-h-screen">
               <Navbar />
-              {children}
+              <main className="flex-grow">{children}</main>
               <Footer />
             </div>
             
