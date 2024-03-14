@@ -18,7 +18,7 @@
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
     "testMatch": [
-      "<rootDir>/src/__test__/tests/**/*.test.(ts|tsx|js|jsx)",
+     "<rootDir>/src/__test__/tests/*.test.(ts|tsx|js|jsx)",
       "!<rootDir>/src/**/*.css"
     ],
     "moduleFileExtensions": [
