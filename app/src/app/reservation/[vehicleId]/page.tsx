@@ -7,6 +7,7 @@ import { getVehicleById } from "@/utils/vehicleRepository";
 
 
 
+
 export default async function Reservation({params} : {params: {vehicleId: string}}){
 
     const vehicleId = params.vehicleId;
@@ -21,7 +22,9 @@ export default async function Reservation({params} : {params: {vehicleId: string
     const vehicle = getVehicle();    
     return (
         <div>
-            <ReservationForm />
+            <ReservationForm
+                vehicleId={vehicleId}
+             />
         </div>
     )
 }

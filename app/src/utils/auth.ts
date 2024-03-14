@@ -46,22 +46,17 @@ export const authOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     session: async ({ session, token, user }) => {
-      console.log("session", session);
-      console.log("token", token);
-      console.log("user", session.user?.email);
       const res = await getUserByEmail(session?.user?.email as string);
       if (res.success) {
         const userDetails = res.value;
 
         session.user = {
           ...session.user,
+          id: userDetails?._id.toString(),
           firstName: userDetails?.firstName,
           lastName: userDetails?.lastName,
           role: userDetails?.role,
         };
-        
-        console.log("session", session);
-
       }
       return session;
     }
