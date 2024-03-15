@@ -12,6 +12,7 @@ import { Label } from "@/components/ui/label"
 import { useFormState, useFormStatus } from "react-dom";
 import { autheticateUser } from "@/actions/authetication"
 import Link from 'next/link';
+import Navbar from "@/components/ui/Navbar";
 import { toast } from "react-toastify";
 
 
@@ -68,7 +69,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        redirect: true,
       });
 console.log(res);
       if (!res) {
@@ -86,6 +87,8 @@ console.log(res);
 
 
   return (
+    <>
+    <Navbar />
     <div className={cn("grid gap-6", className)}>
       <form onSubmit={handleLogin}>
         <div className="grid gap-2">
@@ -157,6 +160,6 @@ console.log(res);
       </p>
 
     </div>
-
+    </>
   )
 }

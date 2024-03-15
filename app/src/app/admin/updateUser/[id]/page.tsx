@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "@/styles/global.css";
-import { IUser } from "@/models/User";
+import { IUser } from '@/models/user';
 import UpdateUserForm from "@/components/dashboard/updateUserForm";
 
 
@@ -47,6 +47,7 @@ const id = params.id;
           oldLastName={user.lastName}
           oldEmail={user.email}
           oldPassword={user.password}
+          oldRole={user.role}
           id={user._id.toString()}
            />
  

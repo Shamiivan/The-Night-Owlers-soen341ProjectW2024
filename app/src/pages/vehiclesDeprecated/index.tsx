@@ -1,25 +1,26 @@
+import { useRouter } from 'next/router';
 import Card from "@/components/card";
+import Footer from "@/components/ui/Footer";
+import Navbar from "@/components/ui/Navbar";
 import "@/styles/global.css";
+import  VehicleShow from "@/components/ui/vehicleShow";
 
 export default function Vehicles() {
-  const cardData = {
-    name: "Car Name",
-    price: 99,
-    description:
-      "This is a great car with excellent features for your next trip.",
-    automatic: true,
-    nPeople: 4,
-    nBags: 2
-  };
+  const router = useRouter();
+  const query = router.query;
+  const isModify = query && query.modify === 'true';
+  const heading = isModify ? 'Modify Reservation' : 'Available Vehicles';
+
   return (
     <main>
+      <Navbar />
       <div className="flex">
         {/* filters */}
-        <div
+        {/*<div
           style={{ flexGrow: 1 }}
           className="rounded border p-4 m-1 flex flex-col"
         >
-          {/* FILTERS 1: CATEGORIES */}
+
           <div className="flex flex-col">
             <h3>Categories</h3>
             <ul className="list-disc">
@@ -29,71 +30,17 @@ export default function Vehicles() {
               <li>Vans</li>
             </ul>
           </div>
-        </div>
+        </div>*/}
 
         {/* CARS */}
         <div style={{ flexGrow: 2 }} className="p-4 m-1">
+          <p className="text-3xl font-semibold mb-4">{heading}</p>
           <div className="flex flex-col">
-            <div className="flex mb-8 justify-between">
-              <Card
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-            </div>
-
-            <div className="flex justify-between">
-              <Card
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-
-              <Card
-                name={cardData.name}
-                price={cardData.price}
-                description={cardData.description}
-                automatic={cardData.automatic}
-                nPeople={cardData.nPeople}
-                nBags={cardData.nBags}
-              />
-            </div>
+            <VehicleShow query={query} />
           </div>
         </div>
       </div>
+      <Footer />
     </main>
   );
 }

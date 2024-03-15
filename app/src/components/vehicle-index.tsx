@@ -3,6 +3,7 @@ import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { getSession } from "next-auth/react";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
+import React from "react";
 
 async function fetchVehicles() {
   const response = await getAllVehicles();
@@ -29,7 +30,7 @@ export async function VehicleIndex() {
       <div className="border rounded-lg">
         <div className="grid gap-1">
           <Label className="sr-only" htmlFor="search">Search</Label>
-          <Input className="rounded-t-lg" id="search" placeholder="Search by make or model" /> 
+          <Input className="rounded-t-lg" id="search" placeholder="Search by make or model" />
         </div>
       </div>
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">

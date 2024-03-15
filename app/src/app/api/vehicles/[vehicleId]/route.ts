@@ -43,6 +43,7 @@ export async function PUT(request: Request) {
         engineCapacity: updatedData?.engineCapacity,
         rentalPrice: updatedData?.rentalPrice,
         mileage: updatedData?.mileage,
+        description:updatedData?.description,
     };
     const id = updatedData.id;
 

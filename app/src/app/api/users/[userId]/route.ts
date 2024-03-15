@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from "next/server";
 import { middleware } from '../../../../../middleware';
-import { IUser } from '@/models/User';
+import { IUser } from '@/models/user';
 
 import { getUserById, updateUser, getAllUsers, deleteUser, createUser } from "@/utils/userRepository"; // Adjust the import path as necessary
 
@@ -36,6 +36,7 @@ export async function PUT(request: Request) {
         lastName: updatedUserData.lastName,
         email: updatedUserData.email,
         password: updatedUserData.password,
+        role: updatedUserData.role,
     };
     const id = updatedUserData.id;
 

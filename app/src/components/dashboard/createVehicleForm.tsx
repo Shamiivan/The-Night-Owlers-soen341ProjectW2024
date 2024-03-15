@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import "@/styles/global.css";
 import { useRouter } from 'next/router';
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import Footer from "@/components/ui/Footer";
 
 const CreateVehicleForm = () => {
     const [imageUrl, setImageUrl] = useState('');
@@ -17,35 +20,55 @@ const CreateVehicleForm = () => {
     const [totalDoors, setTotalDoors] = useState('');
     const [rentalPrice, setRentalPrice] = useState('');
     const [mileage, setMileage] = useState('');
-
+    const [description, setDescription] = useState('');
+    const [showSuccessPopup, setShowSuccessPopup] = useState(false);
+    
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles`, {
-            method: 'POST',
-            body: JSON.stringify({
-                brand,
-                imageUrl,
-                vehicleModel,
-                category,
-                year: parseInt(year),
-                automatic,
-                nPeople: parseInt(nPeople),
-                nBags: parseInt(nBags),
-                color,
-                fuelType,
-                engineCapacity: parseInt(engineCapacity),
-                totalDoors: parseInt(totalDoors),
-                rentalPrice: parseFloat(rentalPrice),
-                mileage: parseFloat(mileage),
-            }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
+        console.log("result")
+        try {
+            
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles`, {
+                method: 'POST',
+                body: JSON.stringify({
+                    brand,
+                    imageUrl,
+                    vehicleModel,
+                    category,
+                    year: parseInt(year),
+                    automatic,
+                    nPeople: parseInt(nPeople),
+                    nBags: parseInt(nBags),
+                    color: parseInt(nBags),
+                    fuelType,
+                    engineCapacity: parseInt(engineCapacity),
+                    totalDoors: parseInt(totalDoors),
+                    rentalPrice: parseFloat(rentalPrice),
+                    mileage: parseFloat(mileage),
+                    description
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
+            if (response.ok) {
+                setShowSuccessPopup(true);
+                // Wait for a short time before redirecting to give the user time to see the success message
+                setTimeout(() => {
+                  setShowSuccessPopup(false); // Close the success popup
+                  window.location.reload();
+                }, 2000);
+              } else {
+                throw new Error('Failed to create user');
+              }
+            } catch (error) {
+              console.error('Error creating user:', error);
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
+        <div>
+        <form onSubmit={handleSubmit} className="p-10 mt-4 max-w-lg mx-auto max-h-[650px] overflow-y-auto bg-slate-200 rounded-lg">
             {/* Brand */}
             <div className="mb-4">
                 <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>
@@ -54,19 +77,22 @@ const CreateVehicleForm = () => {
                     id="brand"
                     value={brand}
                     onChange={(e) => setBrand(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Image URL */}
             <div className="mb-4">
-                <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>
+                <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Image URL</label>
                 <input
                     type="text"
                     id="imageUrl"
                     value={imageUrl}
-                    onChange={(e) => setBrand(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    onChange={(e) => setImageUrl(e.target.value)}
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
+                {imageUrl && (
+                    <img src={imageUrl} alt="Vehicle Image" className="mt-2 h-20 rounded-md shadow-md" />
+                )}
             </div>
             {/* Vehicle Model */}
             <div className="mb-4">
@@ -76,7 +102,7 @@ const CreateVehicleForm = () => {
                     id="vehicleModel"
                     value={vehicleModel}
                     onChange={(e) => setVehicleModel(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Vehicle category */}
@@ -87,7 +113,7 @@ const CreateVehicleForm = () => {
                     id="category"
                     value={category}
                     onChange={(e) => setCategory(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Year */}
@@ -98,7 +124,7 @@ const CreateVehicleForm = () => {
                     id="year"
                     value={year}
                     onChange={(e) => setYear(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Transmission Type */}
@@ -109,7 +135,7 @@ const CreateVehicleForm = () => {
                     id="automatic"
                     checked={automatic}
                     onChange={(e) => setAutomatic(e.target.checked)}
-                    className="mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Number of People */}
@@ -120,7 +146,7 @@ const CreateVehicleForm = () => {
                     id="nPeople"
                     value={nPeople}
                     onChange={(e) => setNPeople(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Number of Bags */}
@@ -131,7 +157,7 @@ const CreateVehicleForm = () => {
                     id="nBags"
                     value={nBags}
                     onChange={(e) => setNBags(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Color */}
@@ -142,7 +168,7 @@ const CreateVehicleForm = () => {
                     id="color"
                     value={color}
                     onChange={(e) => setColor(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Fuel Type */}
@@ -153,7 +179,7 @@ const CreateVehicleForm = () => {
                     id="fuelType"
                     value={fuelType}
                     onChange={(e) => setFuelType(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Engine Capacity */}
@@ -164,7 +190,7 @@ const CreateVehicleForm = () => {
                     id="engineCapacity"
                     value={engineCapacity}
                     onChange={(e) => setEngineCapacity(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Total Doors */}
@@ -175,7 +201,7 @@ const CreateVehicleForm = () => {
                     id="totalDoors"
                     value={totalDoors}
                     onChange={(e) => setTotalDoors(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Rental Price */}
@@ -186,7 +212,7 @@ const CreateVehicleForm = () => {
                     id="rentalPrice"
                     value={rentalPrice}
                     onChange={(e) => setRentalPrice(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>
             {/* Mileage */}
@@ -197,19 +223,39 @@ const CreateVehicleForm = () => {
                     id="mileage"
                     value={mileage}
                     onChange={(e) => setMileage(e.target.value)}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
+            </div>
+            {/* Description */}
+            <div className="mb-4">
+                <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description:</label>
+                <textarea
+                    id="description"
+                    name="description"
+                    value={description}
+                    onChange={(e) => setDescription(e.target.value)}
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                 />
             </div>
             {/* Submit */}
             <div className="mb-4">
-                <button
-                    type="submit"
-                    className="w-full bg-indigo-500 text-white p-3 rounded-md font-medium hover:bg-indigo-600"
-                >
-                    Submit
-                </button>
+            <Button
+                type="submit"
+                className="w-full bg-indigo-500 text-white p-3 rounded-md font-medium hover:bg-indigo-600"
+            >
+                Submit
+            </Button>
             </div>
         </form>
+        {showSuccessPopup && (
+            <div className="fixed top-0 left-0 right-0 bottom-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-4 rounded-md">
+                <p className="text-green-600">User created successfully!</p>
+            </div>
+            </div>
+        )}
+        </div>
+
     );
 }
 export default CreateVehicleForm;

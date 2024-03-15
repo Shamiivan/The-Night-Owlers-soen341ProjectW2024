@@ -1,14 +1,15 @@
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
-import User, { IUser } from '@/models/User';
+import User, { IUser } from "@/models/User";
 import printError from '@/utils/print';
 import {connectToDatabase} from '@/utils/connectDb';
+import exp from 'constants';
 
 
 /**
  * Creates a new user in the database.
- * This function takes the user's first name, last name, password, email, and role
+ * This function takes the user's first name, last name, password, email and role
  * as parameters, creates a new user document, and saves it to the database.
  * @param firstName - The user's first name.
  * @param lastName - The user's last name.
@@ -58,6 +59,21 @@ export async function getAllUsers() {
 }
 
 /**
+ * Retrieves a single user document by its email address.
+ * @param email - The email address of the user document to retrieve.
+ * @returns A promise that resolves with the user document or null if not found.
+ */
+export async function getUserByEmail(email: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for the user document with the specified email address
+        const user = await User?.findOne({ email });
+        // Log the result of the query
+        return user;
+    });
+}
+
+/**
  * Updates a user document in the database.
  * This function takes the user's ID and an object containing the fields to be updated
  * as parameters, finds the user document by its ID, updates the specified fields,
@@ -92,5 +108,16 @@ export async function deleteUser(id: string) {
         // Log the result of the deletion operation
         console.log(`Deleted user with ID: ${id}`);
         return result;
+    });
+}
+
+export async function countUsers() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Count all user documents in the database
+        const totalUsers = await User?.countDocuments({});
+        // Log the total count of users
+        console.log(`Total number of users: ${totalUsers}`);
+        return totalUsers;
     });
 }

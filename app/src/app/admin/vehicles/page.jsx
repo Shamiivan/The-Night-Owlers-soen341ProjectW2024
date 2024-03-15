@@ -24,7 +24,6 @@ import {
 import UserList from "@/components/dashboard/users";
 import CreateVehicleForm from "@/components/dashboard/createVehicleForm";
 import VehicleList from "@/components/dashboard/vehicleList";
-import { AuthProvider } from "../../Provider";
 
 
 export default function Vehicles({
@@ -35,7 +34,6 @@ export default function Vehicles({
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
 
   return (
-    <AuthProvider>
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
@@ -67,35 +65,35 @@ export default function Vehicles({
               "min-w-[50px] transition-all duration-300 ease-in-out",
           )}
         >
-          <Separator />
+          <div className="mt-6">
+          {/* add lable later */}
           <Nav
             isCollapsed={isCollapsed}
             links={[
               {
                 title: "Users",
-                label: "128",
                 icon: UsersRound,
                 variant: "ghost",
                 url : "/admin/users",
               },
               {
                 title: "Vehicles",
-                label: "9",
                 icon: CarIcon,
                 variant: "default",
                 url : "/admin/vehicles",
               },
               {
                 title: "Reservations",
-                label: "100",
                 icon: File,
                 variant: "ghost",
                 url : "/admin/reservations",
               },
             ]}
           />
+          </div>
           <Separator />
-          <Nav
+          <div className="mt-4">
+          {/*<Nav
             isCollapsed={isCollapsed}
             links={[
               {
@@ -105,7 +103,8 @@ export default function Vehicles({
                 url : "/admin/settings",
               },
             ]}
-          />
+          />*/}
+          </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
@@ -128,15 +127,15 @@ export default function Vehicles({
               </TabsList>
             </div>
             <Separator />
-            <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <form>
-                <div className="relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search" className="pl-8" />
-                </div>
-              </form>
-            </div>
             <TabsContent value="all" className="m-0">
+              <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                <form>
+                  <div className="relative">
+                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                    <Input placeholder="Search" className="pl-8" />
+                  </div>
+                </form>
+              </div>
               <VehicleList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
@@ -147,6 +146,6 @@ export default function Vehicles({
         <ResizableHandle withHandle />
       </ResizablePanelGroup>
     </TooltipProvider>
-    </AuthProvider>
+
   );
 }

@@ -22,8 +22,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import UserList from "@/components/dashboard/users";
-import { Button } from "@/components/ui/button";
-import CreateUserForm from "@/pages/signUp";
+import CreateUserForm from "@/components/dashboard/createUserForm";
 
 
 export default function Users({
@@ -32,8 +31,9 @@ export default function Users({
   navCollapsedSize,
 }) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
-
+  
   return (
+
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
@@ -63,35 +63,35 @@ export default function Users({
             "min-w-[50px] transition-all duration-300 ease-in-out",
           )}
         >
-          <Separator />
-          <Nav
+          <div className="mt-6">
+          {/* add lable later */}
+          <Nav 
             isCollapsed={isCollapsed}
             links={[
               {
                 title: "Users",
-                label: "128",
                 icon: UsersRound,
                 variant: "default",
                 url: "/admin/users",
               },
               {
                 title: "Vehicles",
-                label: "9",
                 icon: CarIcon,
                 variant: "ghost",
                 url: "/admin/vehicles",
               },
               {
                 title: "Reservations",
-                label: "100",
                 icon: File,
                 variant: "ghost",
                 url : "/admin/reservations",
               },
             ]}
           />
+          </div>
           <Separator />
-          <Nav
+          <div className="mt-4">
+          {/*<Nav
             isCollapsed={isCollapsed}
             links={[
               {
@@ -101,48 +101,48 @@ export default function Users({
                 url : "/admin/settings",
               },
             ]}
-          />
+          />*/}
+          </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
-          <Tabs defaultValue="all">
-            <div className="flex items-center px-4 py-2">
-              <h1 className="text-xl font-bold">Dashboard</h1>
-              <TabsList className="ml-auto">
-                <TabsTrigger
-                  value="all"
-                  className="text-zinc-600 dark:text-zinc-200"
-                >
-                  Main view
-                </TabsTrigger>
-                <TabsTrigger
-                  value="unread"
-                  className="text-zinc-200"
-                >
-                 <Button asChild variant="secondary" className="">
-                  Create User
-                 </Button>
-                </TabsTrigger>
-          
-              </TabsList>
-            </div>
-            <Separator />
-            <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-              <form>
-                <div className="relative">
-                  <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                  <Input placeholder="Search" className="pl-8" />
+          <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
+            <Tabs defaultValue="all">
+              <div className="flex items-center px-4 py-2">
+                <h1 className="text-xl font-bold">Dashboard</h1>
+                <TabsList className="ml-auto">
+                  <TabsTrigger
+                    value="all"
+                    className="text-zinc-600 dark:text-zinc-200"
+                  >
+                    Main view
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="unread"
+                    className="text-zinc-200"
+                  >
+                    Create User
+                  </TabsTrigger>
+            
+                </TabsList>
+              </div>
+              <Separator />
+              
+              <TabsContent value="all" className="m-0">
+                <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+                  <form>
+                    <div className="relative">
+                      <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
+                      <Input placeholder="Search" className="pl-8" />
+                    </div>
+                  </form>
                 </div>
-              </form>
-            </div>
-            <TabsContent value="all" className="m-0">
-              <UserList />
-            </TabsContent>
-            <TabsContent value="unread" className="m-0">
-              <CreateUserForm />
-            </TabsContent>
-          </Tabs>
-        </ResizablePanel>
+                <UserList />
+              </TabsContent>
+              <TabsContent value="unread" className="m-0">
+                <CreateUserForm />
+              </TabsContent>
+            </Tabs>
+          </ResizablePanel>
         <ResizableHandle withHandle />
       </ResizablePanelGroup>
     </TooltipProvider>

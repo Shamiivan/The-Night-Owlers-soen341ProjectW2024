@@ -1,7 +1,7 @@
 // pages/api/users/index.ts
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import { addVehicle, getAllVehicles } from '@/utils/vehicleRepository';
+import { addVehicle, createVehicle, getAllVehicles } from '@/utils/vehicleRepository';
 import { IVehicle } from '@/models/Vehicle';
 
 export async function GET() {
@@ -33,14 +33,15 @@ export async function POST(request: Request) {
         fuelType,
         engineCapacity,
         rentalPrice,
-        mileage
+        mileage,
+        description
     } = await request.json();
 
-    const vehicle: IVehicle = {
+    const result = await createVehicle(
         brand,
         imageUrl,
-        category, 
         vehicleModel,
+        category,
         year,
         automatic,
         nPeople,
@@ -49,14 +50,14 @@ export async function POST(request: Request) {
         fuelType,
         engineCapacity,
         rentalPrice,
-        mileage
-    };
-    const result = await addVehicle(vehicle);
+        mileage,
+        description
+        );
     console.log(result)
     // Return a response indicating success or failure
     if (result.success) {
-        return NextResponse.json({ message: 'User created successfully', value: result.value });
+        return NextResponse.json({ message: 'Vehicle created successfully', value: result.value });
     } else {
-        return NextResponse.json({ message: 'Failed to create user', error: result.error }, { status: 500 });
+        return NextResponse.json({ message: 'Failed to create vehicle', error: result.error }, { status: 500 });
     }
 }

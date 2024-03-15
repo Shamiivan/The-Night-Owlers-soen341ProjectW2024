@@ -2,51 +2,68 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import "@/styles/global.css";
-
+import { Button } from '../ui/button';
+import Link from 'next/link';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 interface userProps {
     oldFirstName: string;
     oldLastName: string;
     oldEmail: string;
     oldPassword: string;
+    oldRole: string;
     id: string;
   }
 
-const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: userProps) => {
+const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, oldRole, id}: userProps) => {
   const router = useRouter();
 
- const [firstName, setFirstName] = useState(oldFirstName);
- const [lastName, setLastName] = useState(oldLastName);
- const [email, setEmail] = useState(oldEmail);
- const [password, setPassword] = useState(oldPassword);
+  const [firstName, setFirstName] = useState(oldFirstName);
+  const [lastName, setLastName] = useState(oldLastName);
+  const [email, setEmail] = useState(oldEmail);
+  const [password, setPassword] = useState(oldPassword);
+  const [role, setRole] = useState(oldRole);
+  const [showPassword, setShowPassword] = useState(false);
 
- const handleSubmit = async (e: React.FormEvent) => {
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+};
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/${id}`, {
-      method: 'PUT',
-      body: JSON.stringify({ firstName, lastName, email, password, id}),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-    if (response.ok) {
-      const data = await response.json();
-      router.push("/admin/users");
-    } else {
-      console.error('Error updating user:', response.statusText);
-    }
- };
+    const isConfirmed = window.confirm('Are you sure you want to update this user?');
 
- return (
+    if (isConfirmed) {
+      // Proceed with the form submission
+      const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/${id}`, {
+        method: 'PUT',
+        body: JSON.stringify({ firstName, lastName, email, password, role, id }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        router.push("/admin/users");
+      } else {
+        console.error('Error updating user:', response.statusText);
+      }
+      alert('Information sent successfully!');
+    }
+  };
+
+  return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
       <div className="mb-4">
-        <label htmlFor={oldEmail} className="block text-sm font-medium text-gray-700">First name</label>
+        <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name</label>
         <input
           type="text"
           id="firstName"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
       <div className="mb-4">
@@ -56,7 +73,7 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
           id="lastName"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
       <div className="mb-4">
@@ -66,25 +83,59 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, id}: 
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" />
-        </div>
-
-      <button
+          <label htmlFor="password" className="block text-sm font-medium text-gray-700">Password:</label>
+          <div className="relative">
+              <input
+                  type={showPassword ? "text" : "password"}
+                  id="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-2 pr-10 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+              />
+              <button
+                  type="button"
+                  className="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-500 focus:outline-none"
+                  onClick={togglePasswordVisibility}
+              >
+                  <FontAwesomeIcon icon={showPassword ? faEye : faEyeSlash} />
+              </button>
+          </div>
+      </div>
+      <div className="mb-4">
+        <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+          Role:
+          <span className='ml-2 bg-slate-300 px-2 rounded-xl text-sm font-medium shadow-sm shadow-black'>
+            Currently: {oldRole}
+          </span>
+        </label>
+        <select
+          id="role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="pl-2 m-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        >
+          <option value="" disabled selected>Select a role</option>
+          <option value="customer">Customer</option>
+          <option value="admin">Admin</option>
+        </select>
+      </div>
+      <div className='flex justify-evenly'>
+        <Button
         type="submit"
-        className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-      >
-        Update User
-      </button>
+        className=" bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Update User
+        </Button>
+        <Link href="/admin/users">
+          <Button className=' py-2 px-4 '>
+              Back
+          </Button>
+        </Link>
+      </div>
     </form>
  );
 };

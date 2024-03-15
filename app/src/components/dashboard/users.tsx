@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { UserCard } from "./user-card";
-import { IUser } from "@/models/User";
+import { IUser } from "@/models/user";
 
 export default function UserList() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -25,10 +25,10 @@ export default function UserList() {
     };
 
     fetchUsers();
-  }, []); 
+  }, []);
 
   return (
-    <div className="p-8 bg-ghost mb-2 space-y-8">
+    <div className="p-8 bg-ghost mb-2 space-y-8 max-h-[650px] overflow-y-auto">
       {users.map((user) => (
         <UserCard
           key={user._id}
