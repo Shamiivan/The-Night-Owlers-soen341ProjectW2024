@@ -1,8 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import { getAllReservations, createReservation } from "@/utils/reservationRepository";
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/utils/auth";
 
 export async function GET() {
     const result = await getAllReservations();

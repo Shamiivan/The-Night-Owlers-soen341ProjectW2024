@@ -22,8 +22,6 @@ export const authOptions = {
         await connectToDatabase();
         const user = await User?.findOne({ email: email });
 
-
-
         if (!user || user.password !== password) {
           printError(user);
           printError(password);
