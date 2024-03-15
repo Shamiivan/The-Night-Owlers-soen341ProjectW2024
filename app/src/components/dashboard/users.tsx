@@ -25,7 +25,7 @@ export default function UserList() {
     };
 
     fetchUsers();
-  }, []); 
+  }, []);
 
   return (
     <div className="p-8 bg-ghost mb-2 space-y-8 max-h-[650px] overflow-y-auto">
