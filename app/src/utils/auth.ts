@@ -57,7 +57,9 @@ export const authOptions = {
         };
       }
       return session;
-    }
+    }, 
+    signIn: async ({user, account, profile}) => {
+      return `${process.env.NEXT_PUBLIC_ADMIN_URL}/`;    }
   }
 
 

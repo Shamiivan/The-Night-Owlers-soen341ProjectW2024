@@ -2,6 +2,8 @@ import React from "react";
 import { Button } from "./button";
 import Link from 'next/link';
 import Image from 'next/image'
+import {UserNav}  from "@/components/navbar/user-nav";
+import { icons } from "lucide-react";
 
 
 const Navbar: React.FC = () => {
@@ -46,11 +48,10 @@ const Navbar: React.FC = () => {
                 Contact
               </a>
             </li>*/}
-            <li>
-            <Button asChild>
-              <Link href="/signin">Login</Link>
-            </Button>
-            </li>
+                 <li>
+            <UserNav/>
+              </li>
+          
             <li>
             <Button asChild className="bg-slate-500 hover:bg-blue-600">
               <Link href="/signup">Sign in</Link>
