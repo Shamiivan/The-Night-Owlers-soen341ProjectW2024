@@ -40,7 +40,9 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
     }
   };
   return (
+    
     <div className=" pb-5 flex items-center border-b-2">
+      <p>{_id}</p>
         <Avatar className="h-9 w-9">
           <AvatarImage src="/avatars/01.png" alt="Avatar" />
           <AvatarFallback>OM</AvatarFallback>
