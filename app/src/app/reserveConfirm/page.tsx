@@ -1,6 +1,6 @@
 // ConfirmationPage.tsx
 
-'use clien'
+'use client'
 import "@/styles/global.css";
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/ui/Navbar';
