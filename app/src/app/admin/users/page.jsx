@@ -65,7 +65,7 @@ export default function Users({
         >
           <div className="mt-6">
           {/* add lable later */}
-          <Nav 
+          <Nav
             isCollapsed={isCollapsed}
             links={[
               {

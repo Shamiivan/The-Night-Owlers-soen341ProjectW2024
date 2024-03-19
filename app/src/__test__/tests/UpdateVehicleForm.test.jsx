@@ -3,6 +3,8 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import UpdateVehicleForm from '@/components/dashboard/updateVehicleForm';
 
+let alertMock;
+
 // Mock the useRouter hook directly
 jest.mock('next/router');
 
@@ -42,6 +44,12 @@ describe('UpdateVehicleForm', () => {
     id: '123',
   };
 
+  afterEach(() => {
+    if (alertMock) {
+      alertMock.mockRestore();
+    }
+  });
+  
   it('renders without crashing', () => {
   render(<UpdateVehicleForm {...vehicleProps} />);
   // Add additional assertions if needed
@@ -69,5 +77,7 @@ describe('UpdateVehicleForm', () => {
       body: expect.anything(),
       headers: expect.anything(),
     });
+
+    alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
   });
 });

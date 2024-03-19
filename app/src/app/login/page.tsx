@@ -69,7 +69,7 @@ export default function UserAuthForm({ className }: UserAuthFormProps) {
       const res = await signIn("credentials", {
         email,
         password,
-        redirect: false,
+        redirect: true,
       });
 console.log(res);
       if (!res) {
