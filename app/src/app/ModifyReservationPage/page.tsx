@@ -6,7 +6,7 @@ import Navbar from '../../components/ui/Navbar';
 import Footer from '../../components/ui/Footer';
 import ReserveDetail from '@/components/ui/ReserveDetail';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/router';
+import { useRouter, NextRouter } from 'next/router';
 
 const ModifyReservationPage: React.FC = () => {
   const router = useRouter();

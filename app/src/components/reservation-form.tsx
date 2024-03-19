@@ -8,7 +8,7 @@ import { useSession } from "next-auth/react"
 import { useState, useEffect, use } from "react"
 
 interface ReservationFormProps {
-  vehicleId : string;
+  vehicleId : string; 
 }
 
 
@@ -35,6 +35,8 @@ export function ReservationForm(
     });
     console.log(response);
   }
+
+
 
   return (
     <div className="mx-auto max-w-3xl space-y-8">

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { UserCard } from "./user-card";
 import { IUser } from "@/models/user";
+import { getAllUsers } from "@/utils/userRepository";
 
 export default function UserList() {
   const [users, setUsers] = useState<IUser[]>([]);
@@ -16,6 +17,7 @@ export default function UserList() {
         }
 
         const data = await res.json();
+        
         const users = Array.isArray(data.value) ? data.value : [];
         setUsers(users);
       } catch (error) {
