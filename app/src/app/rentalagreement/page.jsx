@@ -4,7 +4,6 @@ import "@/styles/global.css";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from 'react';
 import SignatureCanvas from "react-signature-canvas";
-import React from 'react'
 import { useRouter } from "next/navigation";
 
 const RentalAgreement = () => {
@@ -24,13 +23,13 @@ const RentalAgreement = () => {
       };
 
   return (
-    <div className="max-w-4xl mx-auto p-12 bg-slate-200">
+    <div className="mx-auto max-w-screen-lg p-10 bg-slate-200">
         <form onSubmit={handleContinue}>
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
         <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
         <p>
-            This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name], 
-            located at [Address], hereinafter referred to as the "Rental Company," 
+            This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
+            located at [Address], hereinafter referred to as the "Rental Company,"
             and the individual or entity identified below, hereinafter referred to as the "Renter":
         </p>
 
@@ -143,11 +142,11 @@ const RentalAgreement = () => {
                 </div>
                 <div className="mt-2 grid grid-cols-6">
                     <label className="w-24">Print Name:</label>
-                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                    <input type="text" className="border rounded-md py-1 px-2"/>
                 </div>
                 <div className="mt-2 grid grid-cols-6">
                     <label className="w-24">Date:</label>
-                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                    <input type="text" className="border rounded-md py-1 px-2"/>
                 </div>
                 <div className="flex justify-between mt-8">
                     <Button onClick={handleContinue}>
@@ -159,7 +158,7 @@ const RentalAgreement = () => {
                         </Button>
                     </Link>
                 </div>
-        </div>
+            </div>
         </form>
     </div>
   )

@@ -41,8 +41,8 @@ export function CheckInForm() {
             <div className="m-10 py-10 px-10 flex flex-col border-2 rounded-lg bg-slate-200 shadow-md">
                 <p className="text-2xl font-semibold mb-4">Check-In Form</p>
                 <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-5 ">
-                        <div className=" col-span-2 flex flex-col">
+                    <div className="grid grid-cols-2 gap-8">
+                        <div className="flex flex-col">
                             <label className="mb-2 font-semibold">Name:</label>
                             <input
                                 type="text"
@@ -52,29 +52,31 @@ export function CheckInForm() {
                                 required
                             />
                         </div>
-                        <div className="col-start-4 flex flex-col mr-2">
-                            <label className="mb-2 font-semibold">Pick Up Time:</label>
-                            <input
-                                type="time"
-                                value={pickupTime}
-                                onChange={(e) => setPickupTime(e.target.value)}
-                                className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
-                                required
-                            />
-                        </div>
-                        <div className="flex flex-col ml-2">
-                            <label className="mb-2 font-semibold">Pick Up Date:</label>
-                            <input
-                                type="date"
-                                value={pickupDate}
-                                onChange={(e) => setPickupDate(e.target.value)}
-                                className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
-                                required
-                            />
+                        <div className="grid grid-cols-2 gap-4">
+                            <div className="flex flex-col ">
+                                <label className="mb-2 font-semibold">Pick Up Time:</label>
+                                <input
+                                    type="time"
+                                    value={pickupTime}
+                                    onChange={(e) => setPickupTime(e.target.value)}
+                                    className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
+                                    required
+                                />
+                            </div>
+                            <div className="flex flex-col ">
+                                <label className="mb-2 font-semibold">Pick Up Date:</label>
+                                <input
+                                    type="date"
+                                    value={pickupDate}
+                                    onChange={(e) => setPickupDate(e.target.value)}
+                                    className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
+                                    required
+                                />
+                            </div>
                         </div>
                     </div>
-                    <div className="grid grid-cols-5 justify-between mb-6">
-                        <div className="col-span-2 flex flex-col w-full">
+                    <div className="grid grid-cols-2 justify-between mb-6 gap-8">
+                        <div className="flex flex-col w-full">
                             <label className="mb-2 font-semibold">Driver's License:</label>
                             <input
                                 type="text"
@@ -84,7 +86,7 @@ export function CheckInForm() {
                                 required
                             />
                         </div>
-                        <div className="col-span-2 col-start-4 flex flex-col w-full">
+                        <div className="col-start-4 flex flex-col w-full">
                             <label className="mb-2 font-semibold">Credit Card:</label>
                             <input
                                 type="text"

@@ -50,7 +50,7 @@
     "src/pages/rentalagreement.jsx",
     "src/components/dashboard/CheckInForm.jsx",
     "src/app/admin/checkin/page.jsx"
-  ],
+, "src/app/rentalagreement/page.jsx"  ],
   "exclude": [
     "node_modules"
   ]
