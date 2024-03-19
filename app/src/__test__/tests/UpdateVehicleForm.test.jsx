@@ -3,10 +3,11 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import UpdateVehicleForm from '@/components/dashboard/updateVehicleForm';
 
+let alertMock;
+
 // Mock the useRouter hook directly
 jest.mock('next/router');
 
-global.alert = jest.fn();
 // Mocking fetch to simulate API calls
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -43,6 +44,12 @@ describe('UpdateVehicleForm', () => {
     id: '123',
   };
 
+  afterEach(() => {
+    if (alertMock) {
+      alertMock.mockRestore();
+    }
+  });
+  
   it('renders without crashing', () => {
   render(<UpdateVehicleForm {...vehicleProps} />);
   // Add additional assertions if needed
