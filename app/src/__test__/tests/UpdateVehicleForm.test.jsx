@@ -6,6 +6,7 @@ import UpdateVehicleForm from '@/components/dashboard/updateVehicleForm';
 // Mock the useRouter hook directly
 jest.mock('next/router');
 
+global.alert = jest.fn();
 // Mocking fetch to simulate API calls
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -69,5 +70,7 @@ describe('UpdateVehicleForm', () => {
       body: expect.anything(),
       headers: expect.anything(),
     });
+
+    alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
   });
 });

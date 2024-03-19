@@ -6,6 +6,7 @@ import UpdateUserForm from '@/components/dashboard/updateUserForm';
 // Mock the useRouter hook directly
 jest.mock('next/router');
 
+global.alert = jest.fn();
 // Mocking fetch to simulate API calls
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -32,7 +33,7 @@ describe('UpdateUserForm', () => {
       id: 'user-id-123',
     };
     render(<UpdateUserForm {...userProps} />);
-    // Add additional assertions if needed
+
   });
 
   it('updates state on input change', () => {
@@ -78,6 +79,8 @@ describe('UpdateUserForm', () => {
   
     // Reset the mock
     window.confirm.mockRestore();
+
+    alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
   });
   
   it('does not make API call when not confirmed', async () => {

@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import ModifyReservationPage from '@/app/ModifyReservationPage/page';
+import { customRender } from '@/__mocks__/mockNextAuth';
 
 // Mock the useRouter hook directly
 jest.mock('next/router');
@@ -30,12 +31,12 @@ jest.mock('next/router', () => ({
 
 describe('ModifyReservationPage', () => {
   it('renders without crashing', () => {
-    render(<ModifyReservationPage />);
+    customRender(<ModifyReservationPage />);
     // Add additional assertions if needed
   });
 
   it('updates state on input change', () => {
-    const { getByLabelText } = render(<ModifyReservationPage />);
+    const { getByLabelText } = customRender(<ModifyReservationPage />);
     
     // Replace 'First Name', 'Last Name', 'Email' with the actual labels in your component
     const firstNameInput = getByLabelText('First Name');
@@ -46,7 +47,7 @@ describe('ModifyReservationPage', () => {
   });
 
   it('submits the form and makes API call', async () => {
-    const { getByLabelText, getByText } = render(<ModifyReservationPage />);
+    const { getByLabelText, getByText } = customRender(<ModifyReservationPage />);
     
     const submitButton = getByText('Modify');
     fireEvent.click(submitButton);
