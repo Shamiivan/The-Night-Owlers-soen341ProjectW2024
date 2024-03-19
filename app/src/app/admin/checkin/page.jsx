@@ -61,33 +61,34 @@ export default function Users({
             "min-w-[50px] transition-all duration-300 ease-in-out",
           )}
         >
+          <div className="mt-6">
+            {/* add lable later */}
+            <Nav 
+              isCollapsed={isCollapsed}
+              links={[
+                {
+                  title: "Users",
+                  icon: UsersRound,
+                  variant: "default",
+                  url: "/admin/users",
+                },
+                {
+                  title: "Vehicles",
+                  icon: CarIcon,
+                  variant: "ghost",
+                  url: "/admin/vehicles",
+                },
+                {
+                  title: "Reservations",
+                  icon: File,
+                  variant: "ghost",
+                  url : "/admin/reservations",
+                },
+              ]}
+            />
+          </div>
           <Separator />
-          {/* add lable later */}
-          <Nav 
-            isCollapsed={isCollapsed}
-            links={[
-              {
-                title: "Users",
-                icon: UsersRound,
-                variant: "default",
-                url: "/admin/users",
-              },
-              {
-                title: "Vehicles",
-                icon: CarIcon,
-                variant: "ghost",
-                url: "/admin/vehicles",
-              },
-              {
-                title: "Reservations",
-                icon: File,
-                variant: "ghost",
-                url : "/admin/reservations",
-              },
-            ]}
-          />
-          <Separator />
-          <Nav
+          {/*<Nav
             isCollapsed={isCollapsed}
             links={[
               {
@@ -97,7 +98,7 @@ export default function Users({
                 url : "/admin/settings",
               },
             ]}
-          />
+          />*/}
         </ResizablePanel>
         <ResizableHandle withHandle />
           <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>

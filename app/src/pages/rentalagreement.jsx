@@ -1,17 +1,79 @@
 import { Button } from "@/components/ui/button";
 import "@/styles/global.css";
 import Link from "next/link";
-import React from 'react'
+import React, { useRef, useState, useEffect } from 'react';
+import { useRouter } from 'next/router';
+import SignatureCanvas from "react-signature-canvas";
 
+const RentalAgreement = () => {
+    const rentalCompanySignatureRef = useRef(null);
+    const renterSignatureRef = useRef(null);
+    const router = useRouter();
+    const { reservationId } = router.query;
 
-const rentalagreement = () => {
-    const handleContinue = () => {
+    const [reservationData, setReservationData] = useState(null);
+    const [loading, setLoading] = useState(true);
+
+    {/*useEffect(() => {
+        if (reservationId) {
+            // Fetch reservation data based on the reservationId
+            fetch(`/api/reservations/${reservationId}`)
+                .then(response => response.json())
+                .then(data => {
+                    setReservationData(data);
+                    setLoading(false);
+                })
+                .catch(error => {
+                    console.error('Error fetching reservation data:', error);
+                    setLoading(false);
+                });
+        }
+    }, [reservationId]);
+
+    
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (!reservationData) {
+        return <p>No reservation data found.</p>;
+    }
+
+*/}const handleContinue = async () => {
         const confirmed = window.confirm('Are you sure you want to continue?');
         if (confirmed) {
-          // Add logic to handle continuation
-          alert('Information sent successfully!');
+            const rentalCompanySignature = rentalCompanySignatureRef.current.toDataURL();
+            const renterSignature = renterSignatureRef.current.toDataURL();
+
+            // Construct the data object to be submitted to the database
+            const data = {
+                reservationId,
+                rentalCompanySignature,
+                renterSignature
+            };
+
+            // Submit the data to the database
+            try {
+                const response = await fetch('/api/rental-agreement', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(data),
+                });
+
+                if (response.ok) {
+                    alert('Information sent successfully!');
+                } else {
+                    alert('Failed to submit information to the database.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Failed to submit information to the database.');
+            }
         }
-      };
+    };
   return (
     <div className="max-w-4xl mx-auto p-12 bg-slate-200">
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
@@ -105,53 +167,53 @@ const rentalagreement = () => {
         </p>
 
         <div className="mb-6">
-            <p className="mb-2 font-semibold">Rental Company:</p>
             <form>
-            <div className="mb-2 flex items-center">
-                <label className="w-24">Signature:</label>
-                <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
-            </div>
-            <div className="mb-2 flex items-center">
-                <label className="w-24">Print Name:</label>
-                <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
-            </div>
-            <div className="mb-2 flex items-center">
-                <label className="w-24">Date:</label>
-                <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
-            </div>
-            </form>
-        </div>
-
-        <div>
-            <p className="mb-2 font-semibold">Renter:</p>
-            <form>
-            <div className="mb-2 flex items-center">
-                <label className="w-24">Signature:</label>
-                <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
-            </div>
-            <div className="mb-2 flex items-center">
-                <label className="w-24">Print Name:</label>
-                <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
-            </div>
-            <div className="mb-2 flex items-center">
-                <label className="w-24">Date:</label>
-                <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
-            </div>
-            </form>
-
-            <div className="flex justify-between mt-8">
-                <Button onClick={handleContinue}>
-                    Continue
-                </Button>
-                <Link href="/admin/checkin">
-                    <Button className="bg-red-500 hover:bg-red-600">
-                        Back
+                <p className="mb-2 text-lg font-semibold">Rental Company:</p>
+                <div className="grid grid-cols-6">
+                    <label className="w-24">Signature:</label>
+                    <SignatureCanvas
+                    ref={rentalCompanySignatureRef}
+                    canvasProps={{ className: "border rounded-md bg-white h-32" }}
+                    />
+                </div>
+                <div className="mt-2 grid grid-cols-6">
+                    <label className="w-24">Print Name:</label>
+                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                </div>
+                <div className="mt-2 grid grid-cols-6">
+                    <label className="w-24">Date:</label>
+                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                </div>
+                <p className="mt-6 mb-2 text-lg font-semibold">Renter:</p>
+                <div className="mt-2 grid grid-cols-6">
+                    <label className="w-24">Signature:</label>
+                    <SignatureCanvas
+                        ref={renterSignatureRef}
+                        canvasProps={{ className: "border rounded-md bg-white h-32" }}
+                    />
+                </div>
+                <div className="mt-2 grid grid-cols-6">
+                    <label className="w-24">Print Name:</label>
+                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                </div>
+                <div className="mt-2 grid grid-cols-6">
+                    <label className="w-24">Date:</label>
+                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                </div>
+                <div className="flex justify-between mt-8">
+                    <Button onClick={handleContinue}>
+                        Continue
                     </Button>
-                </Link>
-            </div>
+                    <Link href="/admin/checkin">
+                        <Button className="bg-red-500 hover:bg-red-600">
+                            Back
+                        </Button>
+                    </Link>
+                </div>
+            </form>
         </div>
     </div>
   )
 }
 
-export default rentalagreement
+export default RentalAgreement

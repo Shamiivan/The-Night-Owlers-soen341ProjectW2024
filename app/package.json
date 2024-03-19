@@ -18,7 +18,7 @@
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
     "testMatch": [
-     "<rootDir>/src/__test__/tests/*.test.(ts|tsx|js|jsx)",
+      "<rootDir>/src/__test__/tests/*.test.(ts|tsx|js|jsx)",
       "!<rootDir>/src/**/*.css"
     ],
     "moduleFileExtensions": [
@@ -89,6 +89,7 @@
     "react-dom": "^18",
     "react-icons": "^5.0.1",
     "react-resizable-panels": "^2.0.11",
+    "react-signature-canvas": "^1.0.6",
     "react-toastify": "^10.0.4",
     "tailwind-merge": "^2.2.1",
     "tailwindcss-animate": "^1.0.7",
