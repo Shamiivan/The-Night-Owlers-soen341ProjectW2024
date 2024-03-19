@@ -20,7 +20,7 @@ import Link from 'next/link';
 import { LogoutButton } from "@/components/navbar/logout";
 import { Session } from "inspector";
 import { SessionProvider } from "next-auth/react";
-
+import React from "react";
 
 
 export function UserNav() {
