@@ -1,16 +1,15 @@
 "use client"
 
 import "@/styles/global.css";
-import React, { useState, useEffect } from 'react';
-import Navbar from '../components/ui/Navbar';
-import Footer from '../components/ui/Footer';
-import ReserveDetail from '@/components/ui/ReserveDetail';
-import { Button } from '@/components/ui/button';
+import React, { useState } from 'react';
+import Navbar from '../../components/ui/Navbar'
+import Footer from '../../components/ui/Footer'
 import { useRouter } from 'next/router';
+import ReserveDetail from '@/components/ui/ReserveDetail'
+import { Button } from '@/components/ui/button';
 
-const ModifyReservationPage: React.FC = () => {
+const ReserveForm: React.FC = () => {
   const router = useRouter();
-  const allQueryParams = router.query;
 
   const [startTime, setStartTime] = useState('');
   const [startDate, setStartDate] = useState('');
@@ -22,10 +21,8 @@ const ModifyReservationPage: React.FC = () => {
   const [contactNumber, setContactNumber] = useState('');
   const [address, setAddress] = useState('');
 
-  const { vehicleId, Rvehicle } = router.query || {};
+  const { vehicleId } = router.query || {};
   const formattedVehicleId = typeof vehicleId === 'string' ? vehicleId : undefined;
-  const RformattedVehicleId = typeof Rvehicle === 'string' ? Rvehicle : undefined;
-  
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.com+$/;
 
@@ -150,12 +147,12 @@ const ModifyReservationPage: React.FC = () => {
     });
   };
 
-
   return (
     <main>
-      <Navbar />
-      <div className=' mt-6 grid grid-cols-12 items-center mx-10'>
-          <p className='text-4xl font-semibold col-span-4'>Modify Reservation</p>
+        <Navbar/>
+
+        <div className=' mt-6 grid grid-cols-12 items-center mx-10'>
+          <p className='text-4xl font-semibold col-span-4'>Car Reservation</p>
           <div className='col-start-5 col-span-2 border-2 border-black rounded-lg ml-3'>
             <label htmlFor="startTime"className='pl-4 pt-1 text-lg font-medium'>Pick-up time</label>
             <input
@@ -167,7 +164,7 @@ const ModifyReservationPage: React.FC = () => {
               className={`p-2 w-full bg-slate-200 ${validationErrors.startTime && 'border-red-500'}`}
             />
             {validationErrors.startTime && (
-              <p className='text-red-500 font-semibold  ml-2'>{validationErrors.startTime}</p>
+              <p className='text-red-500 font-semibold ml-2'>{validationErrors.startTime}</p>
             )}
           </div>
           <div className='col-start-7 col-span-2 border-2 border-black rounded-lg ml-3'>
@@ -214,23 +211,10 @@ const ModifyReservationPage: React.FC = () => {
             )}
           </div>
         </div>
-
+ 
         <div className='grid grid-cols-2 gap-6'>
           <div className='ml-10'>
-            <ReserveDetail
-              isModify={false}
-              vehicleId = {RformattedVehicleId!}
-            />
-          </div>
-          <div className='mr-10'>
-            <ReserveDetail
-              isModify={true}
-              vehicleId = {formattedVehicleId!}
-            />
-        </div>
-      </div>
-      <div className="mx-10">
-        <form className='px-10  pb-10 border-2 border-black rounded-xl my-5'>
+          <form className='px-10  pb-10 border-2 border-black rounded-xl my-5'>
             <h1 className='font-semibold'>Reservation Detail</h1>
 
             <div className="grid-rows-5 gap-4">
@@ -315,13 +299,19 @@ const ModifyReservationPage: React.FC = () => {
             className="w-full mt-5"
             onClick={handleSubmit}
           >
-            Modify
+            Make a Reservation
           </Button>
+          </div>
+          <div className='mr-10'>
+          <ReserveDetail
+            isModify={false}
+            vehicleId={formattedVehicleId!}
+          />
+          </div>
         </div>
-        <Footer />
-
+        <Footer/>
     </main>
-  );
+  )
 }
 
-export default ModifyReservationPage;
+export default ReserveForm

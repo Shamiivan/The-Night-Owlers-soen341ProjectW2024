@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import '@testing-library/jest-dom';
-import ModifyReservationPage from '@/pages/ModifyReservationPage';
+import ModifyReservationPage from '@/app/ModifyReservationPage/page';
 
 // Mock the useRouter hook directly
 jest.mock('next/router');
