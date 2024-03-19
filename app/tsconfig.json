@@ -26,7 +26,8 @@
         "./src/*"
       ]
     },
-    "target": "esnext"
+    "target": "esnext",
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
@@ -44,10 +45,10 @@
     "src/__test__/tests/CreateVehicleForm.test.jsx",
     "src/__test__/tests/UpdateUserForm.jsx",
     "src/__test__/tests/UpdateVehicleForm.test.jsx",
-    "src/app/login/page.jsx"
-, "src/__test__/tests/VehicleCard.test.jsx"  ],
+    "src/app/login/page.jsx",
+    "src/__test__/tests/VehicleCard.test.jsx"
+  ],
   "exclude": [
     "node_modules"
   ]
-}  
-
+}

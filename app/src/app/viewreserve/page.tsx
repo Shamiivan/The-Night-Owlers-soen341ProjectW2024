@@ -3,7 +3,7 @@ import "@/styles/global.css";
 import React, { useEffect, useState } from 'react';
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
-import ReservationList from "@/components/reservation/ReserveList";
+import ReservationList from "@/components/reservations/ReserveList";
 
 export default function Home() {
   
