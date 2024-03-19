@@ -11,12 +11,13 @@ interface ReservationFormProps {
   vehicleId : string;
 }
 
+
 export function ReservationForm(
-  vehicleId: string 
+{vehicleId} : ReservationFormProps
 ) {
 
   const { data: session } = useSession();
-  const user = session?.user;
+  const user = session?.user as any;
   const [pickupDate, setPickupDate] = useState("");
   const [pickupTime, setPickupTime] = useState("");
   const [returnDate, setReturnDate] = useState("");
@@ -27,7 +28,7 @@ export function ReservationForm(
     e.preventDefault();
     const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations`, {
       method: 'POST',
-      body: JSON.stringify({ pickupDate, pickupTime, returnDate, returnTime, comments, userId: user?.id, vehicleId : vehicleId }),
+      body: JSON.stringify({ pickupDate, pickupTime, returnDate, returnTime, comments, userId: user.id, vehicleId : vehicleId }),
       headers: {
         'Content-Type': 'application/json',
       },

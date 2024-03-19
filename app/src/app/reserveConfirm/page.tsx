@@ -1,14 +1,16 @@
 // ConfirmationPage.tsx
+
+'use clien'
 import "@/styles/global.css";
 import React, { useState, useEffect } from 'react';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
-import { useRouter } from 'next/router';
+import { useRouter, NextRouter } from 'next/router';
 import { Button } from "@/components/ui/button";
 import { IVehicle } from '@/models/Vehicle';
 
 const ConfirmationPage: React.FC = () => {
-  const router = useRouter();
+  const router = useRouter() as NextRouter;
   const { startTime,
     startDate,
     endTime,
