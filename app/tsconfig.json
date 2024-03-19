@@ -47,7 +47,7 @@
     "src/__test__/tests/UpdateVehicleForm.test.jsx",
     "src/app/login/page.jsx",
     "src/__test__/tests/VehicleCard.test.jsx"
-  ],
+, "src/app/viewreserve/[userId]/page.jsx", "src/components/reservations/ReserveCard.jsx"  ],
   "exclude": [
     "node_modules"
   ]

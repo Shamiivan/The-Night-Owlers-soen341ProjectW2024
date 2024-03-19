@@ -135,3 +135,13 @@ export async function deleteReservation(id: string) {
     });
 
 }
+
+export async function getReservationsByUserId(userId: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Retrieve reservations with the specified userId from the database
+        const reservations = await Reservation?.find({ userId: userId });
+        // Log the result of the retrieval
+        return reservations;
+    });
+}

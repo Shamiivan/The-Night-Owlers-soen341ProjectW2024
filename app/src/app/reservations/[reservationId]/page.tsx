@@ -5,7 +5,6 @@ import { IUser } from "@/models/user";
 import { IReservation } from "@/models/Reservation";
 import { getReservationById } from "@/utils/reservationRepository";
 
-
 export default async function ReservationConfirmationPage({ params }) {
     const userId = params.userId;
     const reservationId = params.reservationId;
@@ -31,16 +30,19 @@ export default async function ReservationConfirmationPage({ params }) {
     await fetchUser();
     await fetchReservation();
 
-
+    // Conditional rendering
     return (
-        {user? && reservation ? (
-            <div>
-                <h1>Reservation Confirmation</h1>
-            </div>
-        ) : (
-            <div>
-                <p>Loading user and reservation data...</p>
-            </div>
-        )}
-    )
+        <div>
+            {user && reservation ? (
+                <div>
+                    <h1>Reservation Confirmation</h1>
+                    {/* Display user and reservation data here */}
+                </div>
+            ) : (
+                <div>
+                    <p>Loading user and reservation data...</p>
+                </div>
+            )}
+        </div>
+    );
 }

@@ -83,7 +83,7 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, returnD
         <div className="ml-4 space-y-1">
             <p className="text-sm font-medium leading-none">
             {/* Here you may display the vehicle information */}
-            Vehicle ID: {vehicleId}
+            Vehicle ID: {vehicleId} {userId}
             </p>
             <p className="text-sm text-muted-foreground">
             {/* Here you may display other details like pickup and return dates */}
