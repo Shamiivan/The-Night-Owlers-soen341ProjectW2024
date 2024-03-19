@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema } from "mongoose";
-// todo : add start time and return time , and credicard information
 export interface IReservation extends Document {
     userId: mongoose.Types.ObjectId;
     vehicleId: mongoose.Types.ObjectId;
