@@ -3,6 +3,7 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import UpdateUserForm from '@/components/dashboard/updateUserForm';
 
+let alertMock;
 // Mock the useRouter hook directly
 jest.mock('next/router');
 
@@ -32,9 +33,15 @@ describe('UpdateUserForm', () => {
       id: 'user-id-123',
     };
     render(<UpdateUserForm {...userProps} />);
-    // Add additional assertions if needed
+
   });
 
+  afterEach(() => {
+    if (alertMock) {
+      alertMock.mockRestore();
+    }
+  });
+  
   it('updates state on input change', () => {
     const userProps = {
       oldFirstName: 'John',
@@ -78,6 +85,8 @@ describe('UpdateUserForm', () => {
   
     // Reset the mock
     window.confirm.mockRestore();
+
+    alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
   });
   
   it('does not make API call when not confirmed', async () => {

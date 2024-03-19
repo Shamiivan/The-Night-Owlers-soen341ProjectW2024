@@ -4,8 +4,7 @@ import "@/styles/global.css";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from 'react';
 import SignatureCanvas from "react-signature-canvas";
-import React from 'react'
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/navigation"; 
 
 const RentalAgreement = () => {
     const rentalCompanySignatureRef = useRef(null);
@@ -159,7 +158,7 @@ const RentalAgreement = () => {
                         </Button>
                     </Link>
                 </div>
-        </div>
+            </div>
         </form>
     </div>
   )

@@ -3,7 +3,7 @@ import { render, fireEvent, waitFor } from '@testing-library/react';
 import CreateVehicleForm from '@/components/dashboard/createVehicleForm';
 
 // Mocking useRouter
-jest.mock('next/router', () => ({
+jest.mock('next/navigation', () => ({
   useRouter: () => ({
     route: '/',
     pathname: '',
