@@ -1,30 +1,23 @@
-import mongoose, {Document, Schema} from "mongoose";
-
-interface IReservation extends Document {
- userId: mongoose.Types.ObjectId;
- vehicleId: mongoose.Types.ObjectId;
- pickupDate: Date;
- returnDate: Date;
- status :"available" | "reserved" | "rented" | "returned";
+import mongoose, { Document, Schema } from "mongoose";
+export interface IReservation extends Document {
+    userId: mongoose.Types.ObjectId;
+    vehicleId: mongoose.Types.ObjectId;
+    pickupDate: Date;
+    returnDate: Date;
+    comments: string;
+    status: "available" | "reserved" | "rented" | "returned";
 }
+let Reservation: mongoose.Model<IReservation> | undefined = mongoose.models.Reservation as mongoose.Model<IReservation> | undefined;
+if(!Reservation) {
 
-let Reservation: mongoose.Model<IReservation> | undefined = mongoose.models.User as mongoose.Model<IReservation> | undefined;
-
-if (!Reservation) {
-    // Define the User schema
-    const ReservationSchema = new Schema({
-        userId : { type: Schema.Types.ObjectId, ref: 'User', required: true },
-        vehicleId : { type: Schema.Types.ObjectId, ref: 'Vehicle', required: true },
-        pickupDate : { type: Date, required: true },
-        returnDate : { type: Date, required: true },
-        status : { type: String, required: true, enum: ["available", "reserved", "rented", "returned"] },
-        });
-
-    // Create the User model
-    Reservation = mongoose.model<IReservation>('Reservation', ReservationSchema);
-
+const ReservationSchema = new Schema({
+    userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
+    vehicleId: { type: Schema.Types.ObjectId, ref: 'Vehicle', required: true },
+    pickupDate: { type: Date, required: true },
+    returnDate: { type: Date, required: true },
+    comments: { type: String, required: false },
+    status: { type: String, required: true, enum: ["available", "reserved", "rented", "returned"] },
+}, { timestamps: true }); // Enable automatic timestamping  of createdAt and updatedAt fields
+    Reservation = mongoose.model<IReservation>("Reservation", ReservationSchema);
 }
-
-console.log("Reservation model:", Reservation.name);
 export default Reservation;
-export type { IReservation };
