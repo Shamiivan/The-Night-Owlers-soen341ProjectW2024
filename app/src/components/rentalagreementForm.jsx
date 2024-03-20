@@ -8,16 +8,57 @@ import { useRouter } from "next/navigation";
 
 
 export default function RentalAgreementForm({ user, vehicle, reservation }) {
+
+    const [rentalName, setRentalName] = useState();
+    const [rentalDate, setRentalDate] = useState();
+    const [renterName, setRenterName] = useState();
+    const [renterDate, setRenterDate] = useState();
+
     const rentalCompanySignatureRef = useRef(null);
     const renterSignatureRef = useRef(null);
     const router = useRouter();
 
-    const handleContinue = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const confirmed = window.confirm('Are you sure you want to continue?');
-        if (confirmed) {
-            alert('Information sent successfully!');
+
+        // Convert signature canvas to base64 image data
+        const rentalCompanySignature = rentalCompanySignatureRef.current.toDataURL();
+        const renterSignature = renterSignatureRef.current.toDataURL();
+
+        // Prepare form data
+        const formData = {
+            rentalCompanySignature,
+            renterSignature,
+            // Add any other form fields here
+        };
+
+        try {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id }`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    rentalCompanySignature,
+                    rentalName,
+                    rentalDate,
+                    renterSignature,
+                    renterName,
+                    renterDate,
+                    status: 'rented',
+                }),
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit rental agreement');
+            }
+
+            // If successful, display success message and navigate to reservations page
+            alert('Rental agreement submitted successfully!');
             router.push('/admin/reservations');
+        } catch (error) {
+            console.error('Error submitting rental agreement:', error);
+            alert('Failed to submit rental agreement');
         }
     };
 
@@ -31,9 +72,10 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
     // Convert milliseconds to days
     const returnPeriodInDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
+    
   return (
     <div className="mx-auto max-w-screen-lg p-10 bg-slate-200">
-        <form onSubmit={handleContinue}>
+        <form onSubmit={handleSubmit}>
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
         <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
         <p>
@@ -153,12 +195,22 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
                     />
                 </div>
                 <div className="mt-2 grid grid-cols-6">
-                    <label className="w-24">Print Name:</label>
-                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                    <label htmlFor="rentalName" className="w-24">Print Name:</label>
+                    <input
+                        type="text"
+                        id="rentalName"
+                        value={rentalName}
+                        onChange={(e) => setRentalName(e.target.value)}
+                        className="border rounded-md py-1 px-2"/>
                 </div>
                 <div className="mt-2 grid grid-cols-6">
-                    <label className="w-24">Date:</label>
-                    <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
+                    <label htmlFor="rentalDate" className="w-24">Date:</label>
+                    <input
+                        type="text"
+                        id="rentalDate"
+                        value={rentalDate}
+                        onChange={(e) => setRentalDate(e.target.value)}
+                        className="border rounded-md py-1 px-2"/>
                 </div>
                 <p className="mt-6 mb-2 text-lg font-semibold">Renter:</p>
                 <div className="mt-2 grid grid-cols-6">
@@ -169,15 +221,25 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
                     />
                 </div>
                 <div className="mt-2 grid grid-cols-6">
-                    <label className="w-24">Print Name:</label>
-                    <input type="text" className="border rounded-md py-1 px-2"/>
+                    <label htmlFor="renterName" className="w-24">Print Name:</label>
+                    <input
+                        type="text"
+                        id="renterName"
+                        value={renterName}
+                        onChange={(e) => setRenterName(e.target.value)}
+                        className="border rounded-md py-1 px-2"/>
                 </div>
                 <div className="mt-2 grid grid-cols-6">
-                    <label className="w-24">Date:</label>
-                    <input type="text" className="border rounded-md py-1 px-2"/>
+                    <label htmlFor="renterDate" className="w-24">Date:</label>
+                    <input
+                        type="text"
+                        id="renterDate"
+                        value={renterDate}
+                        onChange={(e) => setRenterDate(e.target.value)}
+                        className="border rounded-md py-1 px-2"/>
                 </div>
                 <div className="flex justify-between mt-8">
-                    <Button onClick={handleContinue}>
+                    <Button type="submit">
                         Continue
                     </Button>
                     <Link href="/admin/reservations">

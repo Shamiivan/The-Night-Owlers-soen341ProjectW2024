@@ -5,50 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from "react";
 
-interface ReservationProps {
-    userId: string;
-    vehicleId: string;
-    pickupDate: Date;
-    returnDate: Date;
-    status: string;
-    _id: string;
-}
-
-export default function ReservationCard({ userId, vehicleId, pickupDate, returnDate, status, _id }: ReservationProps) {
-
-    const [userData, setUserData] = useState<any>(null);
-    const [vehicleData, setVehicleData] = useState<any>(null);
-  
-    useEffect(() => {
-      const fetchUserData = async () => {
-        try {
-          const res = await fetch(`/api/users/${userId}`);
-          if (!res.ok) {
-            throw new Error("Failed to fetch user data");
-          }
-          const data = await res.json();
-          setUserData(data);
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      };
-  
-      const fetchVehicleData = async () => {
-        try {
-          const res = await fetch(`/api/vehicles/${vehicleId}`);
-          if (!res.ok) {
-            throw new Error("Failed to fetch vehicle data");
-          }
-          const data = await res.json();
-          setVehicleData(data);
-        } catch (error) {
-          console.error("Error fetching vehicle data:", error);
-        }
-      };
-  
-      fetchUserData();
-      fetchVehicleData();
-    }, [userId, vehicleId]);
+export default function ReservationCard({ userId, vehicleId, pickupDate, returnDate, status, user, vehicle, _id }) {
 
     const deleteReservation = async () => {
 

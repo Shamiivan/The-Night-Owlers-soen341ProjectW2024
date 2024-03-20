@@ -1,124 +1,56 @@
-'use client'
-import { Button } from "@/components/ui/button";
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import "@/styles/global.css";
+import React from 'react';
+import CheckinForm from "@/components/dashboard/checkinForm";
+import { getReservationById } from "@/utils/reservationRepository";
+import { getUserById } from "@/utils/userRepository";
+import { getVehicleById } from "@/utils/vehicleRepository";
 
-export default  function CheckIn({params}){
-    console.log(params.reservationId);
-    const id  = params.reservationId;
+async function fetchReservation(id) {
+    const response = await getReservationById(id);
+    if (response.success) {
+        return response.value;
+    } else {
+        return null;
+    }
+}
 
-    const [name, setName] = useState('');
-    const [pickupTime, setPickupTime] = useState('');
-    const [pickupDate, setPickupDate] = useState('');
-    const [driverLicense, setDriverLicense] = useState('');
-    const [creditCard, setCreditCard] = useState('');
-    const [damageReported, setDamageReported] = useState(false);
-    const router = useRouter();
+async function fetchUser(id) {
+    const response = await getUserById(id);
+    if (response.success) {
+        return response.value;
+    } else {
+        return null;
+    }
+}
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+async function fetchVehicle(id) {
+    const response = await getVehicleById(id);
+    if (response.success) {
+        return response.value;
+    } else {
+        return null;
+    }
+}
 
-        if (!name || !pickupTime || !pickupDate || !driverLicense || !creditCard) {
-            alert('Please fill out all required fields.');
-            return;
-        }
+export default async function CheckIn({ params }){
+    const reservation = await fetchReservation(params.reservationId);
 
-        const formData = {
-            name,
-            pickupTime,
-            pickupDate,
-            driverLicense,
-            creditCard,
-            damageReported
-        };
-        // Pass the form data as query parameters
-        router.push(`/rentalagreement/${id}`);
-    };
+    const user = await fetchUser(reservation.userId);
+    const vehicle = await fetchVehicle(reservation.vehicleId);
+
+    // Check if reservation is null or undefined
+    if (!reservation) {
+        return <div>Loading...</div>; // Handle loading state
+    }
 
     return (
         <div>
-            <div className="m-10 py-10 px-10 flex flex-col border-2 rounded-lg bg-slate-200 shadow-md">
-                <div className="flex justify-between mb-6">
-                    <p className="text-2xl font-semibold mb-4">Check-In Form</p>
-                    <p className="text-md font-semibold mb-4 border-2 bg-white px-2 rounded-xl shadow-md">Reservation ID: {id}</p>
-                </div>
-                <form onSubmit={handleSubmit}>
-                    <div className="grid grid-cols-2 gap-8">
-                        <div className="flex flex-col">
-                            <label className="mb-2 font-semibold">Name:</label>
-                            <input
-                                type="text"
-                                value={name}
-                                onChange={(e) => setName(e.target.value)}
-                                className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
-                                required
-                            />
-                        </div>
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="flex flex-col ">
-                                <label className="mb-2 font-semibold">Pick Up Time:</label>
-                                <input
-                                    type="time"
-                                    value={pickupTime}
-                                    onChange={(e) => setPickupTime(e.target.value)}
-                                    className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
-                                    required
-                                />
-                            </div>
-                            <div className="flex flex-col ">
-                                <label className="mb-2 font-semibold">Pick Up Date:</label>
-                                <input
-                                    type="date"
-                                    value={pickupDate}
-                                    onChange={(e) => setPickupDate(e.target.value)}
-                                    className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
-                                    required
-                                />
-                            </div>
-                        </div>
-                    </div>
-                    <div className="grid grid-cols-2 justify-between mb-6 gap-8">
-                        <div className="flex flex-col w-full">
-                            <label className="mb-2 font-semibold">Driver's License:</label>
-                            <input
-                                type="text"
-                                value={driverLicense}
-                                onChange={(e) => setDriverLicense(e.target.value)}
-                                className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-md"
-                                required
-                            />
-                        </div>
-                        <div className="flex flex-col w-full">
-                            <label className="mb-2 font-semibold">Credit Card:</label>
-                            <input
-                                type="text"
-                                value={creditCard}
-                                onChange={(e) => setCreditCard(e.target.value)}
-                                className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-md"
-                                required
-                            />
-                        </div>
-                    </div>
-                    <div className="mb-4">
-                        <label className="font-semibold">
-                        Damage Reported:
-                        <input
-                            type="checkbox"
-                            checked={damageReported}
-                            onChange={(e) => setDamageReported(e.target.checked)}
-                            className="ml-2"
-                        />
-                        </label>
-                    </div>
-                    <div className="mt-10 flex justify-between">
-                        <Button type="submit">Check In</Button>
-                        <Link href='/admin/reservations'>
-                          <Button className="bg-red-500 hover:bg-red-400">Back</Button>
-                        </Link> 
-                    </div>
-                </form>
-            </div>
+            {/* Render other properties as needed */}
+            <CheckinForm
+                user={user}
+                vehicle={vehicle}
+                reservation={reservation}
+            />
         </div>
     );
 }
