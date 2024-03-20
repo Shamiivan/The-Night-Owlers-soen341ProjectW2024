@@ -1,30 +1,41 @@
-import { useRouter } from "next/navigation";
+'use client'
+import { Button } from "@/components/ui/button";
+import "@/styles/global.css";
+import Link from "next/link";
 import React, { useRef, useState, useEffect } from 'react';
+import SignatureCanvas from "react-signature-canvas";
+import { useRouter } from "next/navigation";
 
-const rentalagreementForm = () => {
-    const [reservationInfo, setReservationInfo] = useState({});
-    const [renterInfo, setRenterInfo] = useState({});
-    const [vehicleInfo, setVehicleInfo] = useState({});
+
+export default function RentalAgreementForm({ user, vehicle, reservation }) {
     const rentalCompanySignatureRef = useRef(null);
     const renterSignatureRef = useRef(null);
     const router = useRouter();
 
-    const handleContinue = async (e) => {
+    const handleContinue = (e) => {
         e.preventDefault();
         const confirmed = window.confirm('Are you sure you want to continue?');
         if (confirmed) {
-            // Add logic to handle continuation
             alert('Information sent successfully!');
-            router.push('/admin/reservations'); // Use router.push for navigation
+            router.push('/admin/reservations');
         }
     };
+
+
+    const pickupDate = new Date(reservation.pickupDate);
+    const returnDate = new Date(reservation.returnDate);
+
+    // Calculate the difference in milliseconds
+    const timeDifference = returnDate.getTime() - pickupDate.getTime();
+
+    // Convert milliseconds to days
+    const returnPeriodInDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
   return (
     <div className="mx-auto max-w-screen-lg p-10 bg-slate-200">
         <form onSubmit={handleContinue}>
-            <p>{renterInfo.id}</p>
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
-        <p className="mb-4">Rental Agreement Number: {params.reservationId}</p>
+        <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
         <p>
             This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
             located at [Address], hereinafter referred to as the "Rental Company,"
@@ -34,34 +45,53 @@ const rentalagreementForm = () => {
         <div className="mb-8">
             <h2 className="text-xl font-bold mb-2">1. Renter's Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
-                    <p>Name: {renterInfo.name}</p>
-                    <p>Address: {renterInfo.address}</p>
-                    <p>Contact Number:</p>
-                    <p>Email Address:</p>
-                    <p>Driver's License Number:</p>
+                    <p>Name: </p>
+                    <p>{user.firstName} {user.lastName} </p>
+                    <p>Address: </p>
+                    <p>{user.address}</p>
+                    <p>Contact Number: </p>
+                    <p>{user.phone}</p>
+                    <p>Email Address: </p>
+                    <p>{user.email} </p>
+                    <p>Driver's License Number: </p>
+                    <p>{user.license}</p>
                 </div>
             <div>
                 <h2 className="text-xl font-bold mb-2">2. Vehicle Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
-                    <p>Make:</p>
-                    <p> Model:</p>
-                    <p>Year:</p>
-                    <p>License Plate Number:</p>
+                    <p>Make: </p>
+                    <p>{vehicle.brand}</p>
+                    <p>Model: </p>
+                    <p>{vehicle.vehicleModel}</p>
+                    <p>Year: </p>
+                    <p>{vehicle.year}</p>
+                    <p>License Plate Number: </p>
+                    <p>{vehicle.licensePlate}</p>
                     <p>Vehicle Identification Number (VIN):</p>
-                    <p>Color:</p>
+                    <p>{vehicle.VIN}</p>
+                    <p>Color: </p>
+                    <p>{vehicle.color}</p>
                 </div>
             </div>
             <div>
                 <h2 className="text-xl font-bold mb-2">3. Rental Details:</h2>
                 <div className="grid grid-cols-2 gap-4">
-                    <p>Rental Start Date:</p>
+                    <p>Rental Start Date: </p>
+                    <p>{reservation.pickupDate.toLocaleString()}</p>
                     <p>Rental End Date:</p>
+                    <p> {reservation.returnDate.toLocaleString()}</p>
                     <p>Pick-up Location:</p>
+                    <p>****</p>
                     <p>Drop-off Location:</p>
+                    <p>****</p>
                     <p>Rental Period:</p>
-                    <p>Mileage Limit (if applicable):</p>
-                    <p>Rental Rate:</p>
+                    <p> {returnPeriodInDays} days</p>
+                    <p>Mileage Limit (if applicable): </p>
+                    <p>{vehicle.mileage}</p>
+                    <p>Rental Rate: </p>
+                    <p>${vehicle.rentalPrice}/day</p>
                     <p>Additional Services (if any):</p>
+                    <p>****</p>
                 </div>
             </div>
         </div>
@@ -161,5 +191,3 @@ const rentalagreementForm = () => {
     </div>
   )
 }
-
-export default rentalagreementForm

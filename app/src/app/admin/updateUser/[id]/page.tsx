@@ -39,7 +39,6 @@ const id = params.id;
 
  return (
     <div>
-      <p>{params.id}</p>
       <div>
         {/* Render user data if available */}
       {user ? (
