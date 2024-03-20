@@ -1,10 +1,13 @@
-
+'use client'
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
 
-export function CheckInForm() {
+export default  function CheckIn({params}){
+    console.log(params.reservationId);
+    const id  = params.reservationId;
+
     const [name, setName] = useState('');
     const [pickupTime, setPickupTime] = useState('');
     const [pickupDate, setPickupDate] = useState('');
@@ -30,16 +33,16 @@ export function CheckInForm() {
             damageReported
         };
         // Pass the form data as query parameters
-        router.push({
-            pathname: '/rentalagreement',
-            query: formData
-        });
+        router.push(`/rentalagreement/${id}`);
     };
 
     return (
         <div>
             <div className="m-10 py-10 px-10 flex flex-col border-2 rounded-lg bg-slate-200 shadow-md">
-                <p className="text-2xl font-semibold mb-4">Check-In Form</p>
+                <div className="flex justify-between mb-6">
+                    <p className="text-2xl font-semibold mb-4">Check-In Form</p>
+                    <p className="text-md font-semibold mb-4 border-2 bg-white px-2 rounded-xl shadow-md">Reservation ID: {id}</p>
+                </div>
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-8">
                         <div className="flex flex-col">
@@ -86,7 +89,7 @@ export function CheckInForm() {
                                 required
                             />
                         </div>
-                        <div className="col-start-4 flex flex-col w-full">
+                        <div className="flex flex-col w-full">
                             <label className="mb-2 font-semibold">Credit Card:</label>
                             <input
                                 type="text"
@@ -108,8 +111,11 @@ export function CheckInForm() {
                         />
                         </label>
                     </div>
-                    <div className="mt-10 flex flex-col items-center">
+                    <div className="mt-10 flex justify-between">
                         <Button type="submit">Check In</Button>
+                        <Link href='/admin/reservations'>
+                          <Button className="bg-red-500 hover:bg-red-400">Back</Button>
+                        </Link> 
                     </div>
                 </form>
             </div>

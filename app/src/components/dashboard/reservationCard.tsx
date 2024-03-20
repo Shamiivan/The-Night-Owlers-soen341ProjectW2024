@@ -81,7 +81,8 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, returnD
             <AvatarFallback>{/* Here you may show an avatar fallback */}</AvatarFallback>
         </Avatar>
         <div className="ml-4 space-y-1">
-            <p className="text-sm font-medium leading-none">
+          <p className="text-sm font-medium leading-none">Reservation ID: {_id}</p>
+            <p className="text-sm text-muted-foreground">
             {/* Here you may display the vehicle information */}
             Vehicle ID: {vehicleId}
             </p>
@@ -92,6 +93,9 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, returnD
         </div>
         <div className="ml-auto font-medium flex flex-row">
             <div className="mr-2">
+            <Link href={`/admin/checkin/${_id}`}>
+                <Button variant="link">Check In</Button>
+            </Link>
             <Link href={`/admin/updateReservation/${_id}`}>
                 <Button variant="link">Update</Button>
             </Link>

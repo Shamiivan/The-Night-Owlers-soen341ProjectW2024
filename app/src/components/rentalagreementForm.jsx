@@ -1,32 +1,30 @@
-'use client'
-import { Button } from "@/components/ui/button";
-import "@/styles/global.css";
-import Link from "next/link";
-import React, { useRef, useState, useEffect } from 'react';
-import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
+import React, { useRef, useState, useEffect } from 'react';
 
-const RentalAgreement = () => {
+const rentalagreementForm = () => {
+    const [reservationInfo, setReservationInfo] = useState({});
+    const [renterInfo, setRenterInfo] = useState({});
+    const [vehicleInfo, setVehicleInfo] = useState({});
     const rentalCompanySignatureRef = useRef(null);
     const renterSignatureRef = useRef(null);
-
     const router = useRouter();
 
-    const handleContinue = (e) => {
+    const handleContinue = async (e) => {
         e.preventDefault();
         const confirmed = window.confirm('Are you sure you want to continue?');
         if (confirmed) {
-          // Add logic to handle continuation
-          alert('Information sent successfully!');
-          router.push('/admin/reservations'); // Use router.push for navigation
+            // Add logic to handle continuation
+            alert('Information sent successfully!');
+            router.push('/admin/reservations'); // Use router.push for navigation
         }
-      };
+    };
 
   return (
     <div className="mx-auto max-w-screen-lg p-10 bg-slate-200">
         <form onSubmit={handleContinue}>
+            <p>{renterInfo.id}</p>
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
-        <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
+        <p className="mb-4">Rental Agreement Number: {params.reservationId}</p>
         <p>
             This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
             located at [Address], hereinafter referred to as the "Rental Company,"
@@ -36,8 +34,8 @@ const RentalAgreement = () => {
         <div className="mb-8">
             <h2 className="text-xl font-bold mb-2">1. Renter's Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
-                    <p>Name:</p>
-                    <p>Address:</p>
+                    <p>Name: {renterInfo.name}</p>
+                    <p>Address: {renterInfo.address}</p>
                     <p>Contact Number:</p>
                     <p>Email Address:</p>
                     <p>Driver's License Number:</p>
@@ -152,7 +150,7 @@ const RentalAgreement = () => {
                     <Button onClick={handleContinue}>
                         Continue
                     </Button>
-                    <Link href="/admin/checkin">
+                    <Link href="/admin/reservations">
                         <Button className="bg-red-500 hover:bg-red-600">
                             Back
                         </Button>
@@ -164,4 +162,4 @@ const RentalAgreement = () => {
   )
 }
 
-export default RentalAgreement
+export default rentalagreementForm
