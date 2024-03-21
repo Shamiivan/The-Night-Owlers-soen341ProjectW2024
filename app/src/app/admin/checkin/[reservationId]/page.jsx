@@ -55,6 +55,7 @@ export default async function CheckIn({ params }){
                 damageReported={user.damageReported}
                 driverLicense={reservation.driverlicense}
                 creditCard={reservation.creditcard}
+                status={reservation.status}
                 id={reservation._id.toString()}
 
             />

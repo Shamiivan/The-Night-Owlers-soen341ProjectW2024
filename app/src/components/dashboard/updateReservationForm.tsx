@@ -4,8 +4,6 @@ import { useRouter } from 'next/navigation';
 import "@/styles/global.css";
 import { Button } from '../ui/button';
 import Link from 'next/link';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 interface ReservationProps {
     oldUserId: string;
@@ -52,7 +50,23 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
       // Proceed with the form submission
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, status, name, driverlicense, creditcard, damageReported, id }),
+        body: JSON.stringify({
+          userId,
+          vehicleId,
+          pickupDate,
+          pickupTime,
+          returnDate,
+          returnTime,
+          pickupLocation,
+          returnLocation,
+          comments,
+          status,
+          name,
+          driverlicense,
+          creditcard,
+          damageReported,
+          id
+        }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -215,7 +229,7 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
           type="checkbox"
           id="damageReported"
           checked={damageReported}
-          onChange={(e) => setDamageReported(e.target.checked)} 
+          onChange={(e) => setDamageReported(e.target.checked)}
           className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>

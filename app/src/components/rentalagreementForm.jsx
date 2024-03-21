@@ -6,34 +6,7 @@ import React, { useRef, useState, useEffect } from 'react';
 import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
 
-interface User {
-    firstName: string;
-    lastName: string;
-    address: string;
-    phone: string;
-    email: string;
-    license: string;
-  }
-
-  interface Vehicle {
-    brand: string;
-    vehicleModel: string;
-    year: number;
-    licensePlate: string;
-    VIN: string;
-    color: string;
-    mileage: number;
-    rentalPrice: number;
-  }
-
-  interface Reservation {
-    id: string;
-    pickupDate: Date;
-    returnDate: Date;
-    addition: string;
-  }
-
-export default function RentalAgreementForm({ 
+export default function RentalAgreementForm({
         firstname,
         lastname,
         address,
@@ -56,48 +29,47 @@ export default function RentalAgreementForm({
         addition
     }) {
 
-    const [rentalName, setRentalName] = useState<string | undefined>(); // Added type annotation for state variables
-    const [rentalDate, setRentalDate] = useState<string | undefined>(); // Added type annotation for state variables
-    const [renterName, setRenterName] = useState<string | undefined>(); // Added type annotation for state variables
-    const [renterDate, setRenterDate] = useState<string | undefined>(); // Added type annotation for state variables
-
-    const rentalCompanySignatureRef = useRef<SignatureCanvas | null>(null); // Added type annotation for ref
-    const renterSignatureRef = useRef<SignatureCanvas | null>(null); // Added type annotation for ref
+    const [rentalName, setRentalName] = useState();
+    const [rentalDate, setRentalDate] = useState();
+    const [renterName, setRenterName] = useState();
+    const [renterDate, setRenterDate] = useState();
+    const rentalCompanySignatureRef = useRef(null);
+    const renterSignatureRef = useRef(null);
     const router = useRouter();
-
-    const handleSubmit = async (e: React.FormEvent) => {
+    const status = "rented";
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const isConfirmed = window.confirm('Are you sure you want to update this reservations?');
-
+        const rentalCompanySignature = rentalCompanySignatureRef.current?.toDataURL();
+        const renterSignature = renterSignatureRef.current?.toDataURL();
+        console.log(rentalCompanySignature, rentalName, rentalDate, renterSignature, renterName, renterDate);
+        const isConfirmed = window.confirm('Are you sure you want to check in this reservations?');
+        
         if (isConfirmed) {
-            const rentalCompanySignature = rentalCompanySignatureRef.current?.toDataURL();
-            const renterSignature = renterSignatureRef.current?.toDataURL();
-            console.log(rentalCompanySignature, rentalName, rentalDate, renterSignature, renterName, renterDate);
-
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    rentalCompanySignature,
+          // Proceed with the form submission
+          const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
                     rentalName,
                     rentalDate,
-                    renterSignature,
                     renterName,
                     renterDate,
-                    status: 'rented',
+                    rentalCompanySignature,
+                    renterSignature,
+                    status,
                 }),
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-
-            if (response.ok) {
-                alert('Rental agreement submitted successfully!');
-                router.push('/admin/reservations');
-            } else {
-                console.error('Error updating reservations:', response.statusText);
-            }
-            alert('Information sent successfully!');
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            router.push("/admin/reservations");
+          } else {
+            console.error('Error updating reservations:', response.statusText);
+          }
+          alert('Rental agreement submitted successfully!');
         }
     };
 

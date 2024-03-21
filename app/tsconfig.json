@@ -51,8 +51,10 @@
     "src/components/dashboard/CheckInForm.jsx",
     "src/app/admin/checkin/[reservationId]/page.jsx",
     "src/app/rentalagreement/[reservationId]/page.jsx",
-    "src/components/dashboard/reservationCard.jsx"
-, "src/app/admin/updateReservation/[id]/page.tsx", "src/components/rentalagreementForm.tsx"  ],
+    "src/components/dashboard/reservationCard.jsx",
+    "src/app/admin/updateReservation/[id]/page.tsx",
+    "src/components/rentalagreementForm.jsx"
+  ],
   "exclude": [
     "node_modules"
   ]

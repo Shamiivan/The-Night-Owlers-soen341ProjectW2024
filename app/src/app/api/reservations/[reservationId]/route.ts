@@ -39,7 +39,13 @@ export async function PUT(request: Request) {
     name: updatedReservationData.name,
     driverlicense: updatedReservationData.driverlicense,
     creditcard: updatedReservationData.creditcard,
-    damageReported: updatedReservationData.damageReported
+    damageReported: updatedReservationData.damageReported,
+    rentalName: updatedReservationData.rentalName,
+    rentalDate: updatedReservationData.rentalDate,
+    renterName: updatedReservationData.renterName,
+    renterDate: updatedReservationData.renterDate,
+    rentalCompanySignature: updatedReservationData.rentalCompanySignature,
+    renterSignature: updatedReservationData.renterSignature
 
   };
   const id = updatedReservationData.id;

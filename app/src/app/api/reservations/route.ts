@@ -31,7 +31,13 @@ export async function POST(request: Request) {
         damageReported,
         userId,
         vehicleId,
-        status 
+        status,
+        rentalName,
+        rentalDate,
+        renterName,
+        renterDate,
+        rentalCompanySignature,
+        renterSignature
     }= await request.json();
     
     const result = await createReservation(
@@ -48,7 +54,13 @@ export async function POST(request: Request) {
         damageReported,
         userId,
         vehicleId,
-        status
+        status,
+        rentalName,
+        rentalDate,
+        renterName,
+        renterDate,
+        rentalCompanySignature,
+        renterSignature
         );
     console.log(result);
     // Return a response indicating success or failure

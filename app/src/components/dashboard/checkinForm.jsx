@@ -7,7 +7,7 @@ import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
 
 
-export default function CheckinForm({ firstname, lastname, pickupTime, pickupDate, dropoffTime, damageReported, driverLicense, creditCard, id}) {
+export default function CheckinForm({ firstname, lastname, pickupTime, pickupDate, dropoffTime, damageReported, driverLicense, creditCard, status, id}) {
 
     const [checkname, setName] = useState('');
     const [newpickupTime, setPickupTime] = useState('');
@@ -27,10 +27,12 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
 
         if (checkname !== `${firstname} ${lastname}`) {
             alert("Driver's name does not match the reservation data. Please verify.");
+            return;
         }
 
         if (checkdriverLicense !== driverLicense ) {
             alert('Driver\'s license does not match the reservation data. Please verify.');
+            return;
         }
 
         if (checkcreditCard !== creditCard) {
@@ -38,18 +40,13 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
             return;
         }
 
-        pickupDate = newpickupDate;
-        pickupTime = newpickupTime;
-        damageReported = newdamageReported;
-
-
         try {
             const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id }`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    newpickupTime,
-                    newpickupDate,
-                    newdamageReported,
+                    pickupDate: newpickupDate,
+                    pickupTime: newpickupTime,
+                    damageReported: newdamageReported,
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,7 +73,7 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-8">
                         <div className="flex flex-col">
-                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name:</label>
+                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name: {firstname} {lastname}</label>
                             <input
                                 id="checkname"
                                 type="text"
