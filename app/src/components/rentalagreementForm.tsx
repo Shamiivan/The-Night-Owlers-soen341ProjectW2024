@@ -6,76 +6,112 @@ import React, { useRef, useState, useEffect } from 'react';
 import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
 
+interface User {
+    firstName: string;
+    lastName: string;
+    address: string;
+    phone: string;
+    email: string;
+    license: string;
+  }
 
-export default function RentalAgreementForm({ user, vehicle, reservation }) {
+  interface Vehicle {
+    brand: string;
+    vehicleModel: string;
+    year: number;
+    licensePlate: string;
+    VIN: string;
+    color: string;
+    mileage: number;
+    rentalPrice: number;
+  }
 
-    const [rentalName, setRentalName] = useState();
-    const [rentalDate, setRentalDate] = useState();
-    const [renterName, setRenterName] = useState();
-    const [renterDate, setRenterDate] = useState();
+  interface Reservation {
+    id: string;
+    pickupDate: Date;
+    returnDate: Date;
+    addition: string;
+  }
 
-    const rentalCompanySignatureRef = useRef(null);
-    const renterSignatureRef = useRef(null);
+export default function RentalAgreementForm({ 
+        firstname,
+        lastname,
+        address,
+        phone,
+        email,
+        license,
+        brand,
+        model,
+        year,
+        licensePlate,
+        VIN,
+        color,
+        pickupDate,
+        returnDate,
+        pickupLocation,
+        returnLocation,
+        mileage,
+        price,
+        id,
+        addition
+    }) {
+
+    const [rentalName, setRentalName] = useState<string | undefined>(); // Added type annotation for state variables
+    const [rentalDate, setRentalDate] = useState<string | undefined>(); // Added type annotation for state variables
+    const [renterName, setRenterName] = useState<string | undefined>(); // Added type annotation for state variables
+    const [renterDate, setRenterDate] = useState<string | undefined>(); // Added type annotation for state variables
+
+    const rentalCompanySignatureRef = useRef<SignatureCanvas | null>(null); // Added type annotation for ref
+    const renterSignatureRef = useRef<SignatureCanvas | null>(null); // Added type annotation for ref
     const router = useRouter();
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Convert signature canvas to base64 image data
-        const rentalCompanySignature = rentalCompanySignatureRef.current.toDataURL();
-        const renterSignature = renterSignatureRef.current.toDataURL();
-        const status = "rented";
-        console.log(rentalCompanySignature, rentalName, rentalDate, renterSignature, renterName, renterDate, status)
-        
-        try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
+        const isConfirmed = window.confirm('Are you sure you want to update this reservations?');
+
+        if (isConfirmed) {
+            const rentalCompanySignature = rentalCompanySignatureRef.current?.toDataURL();
+            const renterSignature = renterSignatureRef.current?.toDataURL();
+            console.log(rentalCompanySignature, rentalName, rentalDate, renterSignature, renterName, renterDate);
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    //rentalCompanySignature,
-                    //rentalName,
-                    //rentalDate,
-                    //renterSignature,
-                    //renterName,
-                    //renterDate,
-                    status,
+                    rentalCompanySignature,
+                    rentalName,
+                    rentalDate,
+                    renterSignature,
+                    renterName,
+                    renterDate,
+                    status: 'rented',
                 }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
             });
 
-            if (!response.ok) {
-                throw new Error('Failed to submit rental agreement');
+            if (response.ok) {
+                alert('Rental agreement submitted successfully!');
+                router.push('/admin/reservations');
+            } else {
+                console.error('Error updating reservations:', response.statusText);
             }
-
-            // If successful, display success message and navigate to reservations page
-            alert('Rental agreement submitted successfully!');
-            router.push('/admin/reservations');
-        } catch (error) {
-            console.error('Error submitting rental agreement:', error);
-            alert('Failed to submit rental agreement');
+            alert('Information sent successfully!');
         }
     };
 
-
-    const pickupDate = new Date(reservation.pickupDate);
-    const returnDate = new Date(reservation.returnDate);
-
-    // Calculate the difference in milliseconds
     const timeDifference = returnDate.getTime() - pickupDate.getTime();
-
-    // Convert milliseconds to days
     const returnPeriodInDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
-    
   return (
     <div className="mx-auto max-w-screen-lg p-10 bg-slate-200">
-        <form onSubmit={handleSubmit}>
+        
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
-        <p className="mb-4">Rental Agreement Number: {reservation._id}</p>
+        <p className="mb-4">Rental Agreement Number: {id}</p>
         <p>
             This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
-            located at [Address], hereinafter referred to as the "Rental Company,"
+            located at {pickupLocation}, hereinafter referred to as the "Rental Company,"
             and the individual or entity identified below, hereinafter referred to as the "Renter":
         </p>
 
@@ -83,52 +119,52 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
             <h2 className="text-xl font-bold mb-2">1. Renter's Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Name: </p>
-                    <p>{user.firstName} {user.lastName} </p>
+                    <p>{firstname} {lastname} </p>
                     <p>Address: </p>
-                    <p>{user.address}</p>
+                    <p>{address}</p>
                     <p>Contact Number: </p>
-                    <p>{user.phone}</p>
+                    <p>{phone}</p>
                     <p>Email Address: </p>
-                    <p>{user.email} </p>
+                    <p>{email} </p>
                     <p>Driver's License Number: </p>
-                    <p>{user.license}</p>
+                    <p>{license}</p>
                 </div>
             <div>
                 <h2 className="text-xl font-bold mb-2">2. Vehicle Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Make: </p>
-                    <p>{vehicle.brand}</p>
+                    <p>{brand}</p>
                     <p>Model: </p>
-                    <p>{vehicle.vehicleModel}</p>
+                    <p>{model}</p>
                     <p>Year: </p>
-                    <p>{vehicle.year}</p>
+                    <p>{year}</p>
                     <p>License Plate Number: </p>
-                    <p>{vehicle.licensePlate}</p>
+                    <p>{licensePlate}</p>
                     <p>Vehicle Identification Number (VIN):</p>
-                    <p>{vehicle.VIN}</p>
+                    <p>{VIN}</p>
                     <p>Color: </p>
-                    <p>{vehicle.color}</p>
+                    <p>{color}</p>
                 </div>
             </div>
             <div>
                 <h2 className="text-xl font-bold mb-2">3. Rental Details:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Rental Start Date: </p>
-                    <p>{reservation.pickupDate.toLocaleDateString('es-ES')}</p>
+                    <p>{pickupDate.toLocaleDateString('es-ES')}</p>
                     <p>Rental End Date:</p>
-                    <p> {reservation.returnDate.toLocaleDateString('es-ES')}</p>
+                    <p> {returnDate.toLocaleDateString('es-ES')}</p>
                     <p>Pick-up Location:</p>
-                    <p>****</p>
+                    <p>{pickupLocation}</p>
                     <p>Drop-off Location:</p>
-                    <p>****</p>
+                    <p>{returnLocation}</p>
                     <p>Rental Period:</p>
                     <p> {returnPeriodInDays} days</p>
                     <p>Mileage Limit (if applicable): </p>
-                    <p>{vehicle.mileage}</p>
+                    <p>{mileage}</p>
                     <p>Rental Rate: </p>
-                    <p>${vehicle.rentalPrice}/day</p>
+                    <p>${price}/day</p>
                     <p>Additional Services (if any):</p>
-                    <p>****</p>
+                    <p>{!addition? "None" : addition}</p>
                 </div>
             </div>
         </div>
@@ -179,7 +215,7 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
         <p className="mb-8">
             The parties hereto have executed this Agreement as of the date first written above.
         </p>
-
+        <form onSubmit={handleSubmit}>
         <div className="mb-6">
                 <p className="mb-2 text-lg font-semibold">Rental Company:</p>
                 <div className="grid grid-cols-6">
@@ -196,7 +232,8 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
                         id="rentalName"
                         value={rentalName}
                         onChange={(e) => setRentalName(e.target.value)}
-                        className="border rounded-md py-1 px-2"/>
+                        className="border rounded-md py-1 px-2"
+                    />
                 </div>
                 <div className="mt-2 grid grid-cols-6">
                     <label htmlFor="rentalDate" className="w-24">Date:</label>
@@ -205,9 +242,10 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
                         id="rentalDate"
                         value={rentalDate}
                         onChange={(e) => setRentalDate(e.target.value)}
-                        className="border rounded-md py-1 px-2"/>
+                        className="border rounded-md py-1 px-2"
+                    />
                 </div>
-                <p className="mt-6 mb-2 text-lg font-semibold">Renter:</p>
+                <p className="mt-6 mb-2 text-lg font-semibold">Rente:</p>
                 <div className="mt-2 grid grid-cols-6">
                     <label className="w-24">Signature:</label>
                     <SignatureCanvas
@@ -222,7 +260,8 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
                         id="renterName"
                         value={renterName}
                         onChange={(e) => setRenterName(e.target.value)}
-                        className="border rounded-md py-1 px-2"/>
+                        className="border rounded-md py-1 px-2"
+                    />
                 </div>
                 <div className="mt-2 grid grid-cols-6">
                     <label htmlFor="renterDate" className="w-24">Date:</label>
@@ -231,7 +270,8 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
                         id="renterDate"
                         value={renterDate}
                         onChange={(e) => setRenterDate(e.target.value)}
-                        className="border rounded-md py-1 px-2"/>
+                        className="border rounded-md py-1 px-2"
+                    />
                 </div>
                 <div className="flex justify-between mt-8">
                     <Button type="submit">

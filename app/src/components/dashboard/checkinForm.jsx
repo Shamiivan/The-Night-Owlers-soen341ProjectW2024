@@ -7,45 +7,59 @@ import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
 
 
-export default function CheckinForm({ user, vehicle, reservation }) {
+export default function CheckinForm({ firstname, lastname, pickupTime, pickupDate, dropoffTime, damageReported, driverLicense, creditCard, id}) {
 
-    const [name, setName] = useState('');
-    const [pickupTime, setPickupTime] = useState('');
-    const [pickupDate, setPickupDate] = useState('');
-    const [driverLicense, setDriverLicense] = useState('');
-    const [creditCard, setCreditCard] = useState('');
-    const [damageReported, setDamageReported] = useState(false);
+    const [checkname, setName] = useState('');
+    const [newpickupTime, setPickupTime] = useState('');
+    const [newpickupDate, setPickupDate] = useState('');
+    const [checkdriverLicense, setDriverLicense] = useState('');
+    const [checkcreditCard, setCreditCard] = useState('');
+    const [newdamageReported, setDamageReported] = useState(false);
     const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!name || !pickupTime || !pickupDate || !driverLicense || !creditCard) {
+        if (!checkname || !newpickupTime || !newpickupDate || !checkdriverLicense || !checkcreditCard) {
             alert('Please fill out all required fields.');
             return;
         }
 
+        if (checkname !== `${firstname} ${lastname}`) {
+            alert("Driver's name does not match the reservation data. Please verify.");
+        }
+
+        if (checkdriverLicense !== driverLicense ) {
+            alert('Driver\'s license does not match the reservation data. Please verify.');
+        }
+
+        if (checkcreditCard !== creditCard) {
+            alert('Credit card number does not match the reservation data. Please verify.');
+            return;
+        }
+
+        pickupDate = newpickupDate;
+        pickupTime = newpickupTime;
+        damageReported = newdamageReported;
+
+
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id }`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id }`, {
                 method: 'PUT',
+                body: JSON.stringify({
+                    newpickupTime,
+                    newpickupDate,
+                    newdamageReported,
+                }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    name,
-                    pickupTime,
-                    pickupDate,
-                    driverLicense,
-                    creditCard,
-                    damageReported,
-                    reservationId: reservation._id
-                }),
             });
 
             if (!response.ok) {
                 throw new Error('Failed to check in');
             }
-            router.push(`/rentalagreement/${reservation._id}`);
+            router.push(`/rentalagreement/${id}`);
         } catch (error) {
             console.error('Error checking in:', error);
             alert('Failed to check in');
@@ -57,15 +71,16 @@ export default function CheckinForm({ user, vehicle, reservation }) {
             <div className="m-10 py-10 px-10 flex flex-col border-2 rounded-lg bg-slate-200 shadow-md">
                 <div className="flex justify-between mb-6">
                     <p className="text-2xl font-semibold mb-4">Check-In Form</p>
-                    <p className="text-md font-semibold mb-4 border-2 bg-white px-2 rounded-xl shadow-md">Reservation ID: {reservation._id}</p>
+                    <p className="text-md font-semibold mb-4 border-2 bg-white px-2 rounded-xl shadow-md">Reservation ID: {id}</p>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-8">
                         <div className="flex flex-col">
-                            <label className="mb-2 font-semibold">Name:</label>
+                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name:</label>
                             <input
+                                id="checkname"
                                 type="text"
-                                value={name}
+                                value={checkname}
                                 onChange={(e) => setName(e.target.value)}
                                 className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                 required
@@ -73,20 +88,22 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                         </div>
                         <div className="grid grid-cols-2 gap-4">
                             <div className="flex flex-col ">
-                                <label className="mb-2 font-semibold">Pick Up Time:</label>
+                                <label htmlFor="newpickupTime" className="mb-2 font-semibold">Pick Up Time:</label>
                                 <input
+                                    id="newpickupTime"
                                     type="time"
-                                    value={pickupTime}
+                                    value={newpickupTime}
                                     onChange={(e) => setPickupTime(e.target.value)}
                                     className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                     required
                                 />
                             </div>
                             <div className="flex flex-col ">
-                                <label className="mb-2 font-semibold">Pick Up Date:</label>
+                                <label htmlFor="newpickupDate" className="mb-2 font-semibold">Pick Up Date:</label>
                                 <input
+                                    id="newpickupDate"
                                     type="date"
-                                    value={pickupDate}
+                                    value={newpickupDate}
                                     onChange={(e) => setPickupDate(e.target.value)}
                                     className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                     required
@@ -96,20 +113,22 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                     </div>
                     <div className="grid grid-cols-2 justify-between mb-6 gap-8">
                         <div className="flex flex-col w-full">
-                            <label className="mb-2 font-semibold">Driver's License:</label>
+                            <label htmlFor="checkdriverLicense" className="mb-2 font-semibold">Driver's License: {driverLicense}</label>
                             <input
+                                id="checkdriverLicense"
                                 type="text"
-                                value={driverLicense}
+                                value={checkdriverLicense}
                                 onChange={(e) => setDriverLicense(e.target.value)}
                                 className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                 required
                             />
                         </div>
                         <div className="flex flex-col w-full">
-                            <label className="mb-2 font-semibold">Credit Card:</label>
+                            <label htmlFor="checkcreditCard" className="mb-2 font-semibold">Credit Card: {creditCard}</label>
                             <input
+                                id="checkcreditCard"
                                 type="text"
-                                value={creditCard}
+                                value={checkcreditCard}
                                 onChange={(e) => setCreditCard(e.target.value)}
                                 className="w-full mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                 required
@@ -117,11 +136,12 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                         </div>
                     </div>
                     <div className="mb-4">
-                        <label className="font-semibold">
+                        <label htmlFor="newdamageReported" className="font-semibold">
                         Damage Reported:
                         <input
+                            id="newdamageReported"
                             type="checkbox"
-                            checked={damageReported}
+                            checked={newdamageReported}
                             onChange={(e) => setDamageReported(e.target.checked)}
                             className="ml-2"
                         />
@@ -131,7 +151,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                         <Button type="submit">Check In</Button>
                         <Link href='/admin/reservations'>
                           <Button className="bg-red-500 hover:bg-red-400">Back</Button>
-                        </Link> 
+                        </Link>
                     </div>
                 </form>
             </div>

@@ -37,9 +37,9 @@ import exp from "constants";
 export async function createReservation(
     userId: string,
     vehicleId: string,
-    pickupDate: string,
+    pickupDate: Date,
     pickupTime: string,
-    returnDate: string,
+    returnDate: Date,
     returnTime: string,
     pickupLocation: string,
     returnLocation: string,

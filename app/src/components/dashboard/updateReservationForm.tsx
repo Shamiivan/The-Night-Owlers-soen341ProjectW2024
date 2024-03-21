@@ -36,7 +36,7 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
   const [returnTime, setReturnTime] = useState(oldReturnTime);
   const [pickupLocation, setPickupLocation] = useState(oldPickupLocation);
   const [returnLocation, setReturnLocation] = useState(oldReturnLocation);
-  const [comment, setComment] = useState(oldComment);
+  const [comments, setComment] = useState(oldComment);
   const [status, setStatus] = useState(oldStatus);
   const [name, setName] = useState(oldName);
   const [driverlicense, setDriverlicense] = useState(oldDriverlicense);
@@ -52,7 +52,7 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
       // Proceed with the form submission
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comment, status, name, driverlicense, creditcard, damageReported, id }),
+        body: JSON.stringify({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, status, name, driverlicense, creditcard, damageReported, id }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -151,24 +151,33 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Comment:</label>
+        <label htmlFor="comments" className="block text-sm font-medium text-gray-700">Comment:</label>
         <input
           type="text"
-          id="comment"
-          value={comment}
+          id="comments"
+          value={comments}
           onChange={(e) => setComment(e.target.value)}
           className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
       <div className="mb-4">
-        <label htmlFor="status" className="block text-sm font-medium text-gray-700">Status:</label>
-        <input
-          type="text"
+        <label htmlFor="role" className="block text-sm font-medium text-gray-700">
+          Status:
+          <span className='ml-2 bg-slate-300 px-2 rounded-xl text-sm font-medium shadow-sm shadow-black'>
+            Currently: {oldStatus}
+          </span>
+        </label>
+        <select
           id="status"
-          value={status}
+          value={status} // Use the value prop instead of selected on option
           onChange={(e) => setStatus(e.target.value)}
-          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-        />
+          className="pl-2 m-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        >
+          <option value="" disabled>Select a status</option>
+          <option value="reserved">Reserved</option>
+          <option value="rented">Rented</option>
+          <option value="returned">Returned</option>
+        </select>
       </div>
       <div className="mb-4">
         <label htmlFor='name' className="block text-sm font-medium text-gray-700">Name:</label>
