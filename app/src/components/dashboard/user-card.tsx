@@ -58,8 +58,6 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
           <Link href={`/admin/updateUser/${_id}`}>
             <Button variant="link">Update</Button>
           </Link>
-
-
         </div>
         <div className="mr-2">
           <Button variant="destructive" onClick={deleteUser}>Delete</Button>
