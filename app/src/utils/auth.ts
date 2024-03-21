@@ -1,24 +1,32 @@
 import type { NextAuthOptions } from "next-auth";
 // pages/api/auth/[...nextauth].js
-import Providers from 'next-auth/providers'
-import CredentialsProvider from 'next-auth/providers/credentials'
-import { authenticate } from '@/actions/authetication'
-import User, { IUser } from "@/models/User";
+import Providers from "next-auth/providers";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { authenticate } from "@/actions/authetication";
+import User from "@/models/user";
 import printError from "@/utils/print";
-import { connectToDatabase } from '@/utils/connectDb';
+import { connectToDatabase } from "@/utils/connectDb";
 import { getUserByEmail } from "@/utils/userRepository";
+import NextAuth from "next-auth";
+import type { NextAuthConfig } from "next-auth";
 
-
-export const authOptions = {
+const authOptions = {
   providers: [
     CredentialsProvider({
-      name: 'Credentials',
+      name: "Credentials",
       credentials: {
-        email: { label: "Email", type: "text", placeholder: "jsmith@example.com" },
-        password: { label: "Passwords", type: "password" }
+        email: {
+          label: "Email",
+          type: "text",
+          placeholder: "jsmith@example.com",
+        },
+        password: { label: "Passwords", type: "password" },
       },
       authorize: async (credentials, req) => {
-        const { email, password } = credentials as { email: string, password: string };
+        const { email, password } = credentials as {
+          email: string;
+          password: string;
+        };
         await connectToDatabase();
         const user = await User?.findOne({ email: email });
 
@@ -29,17 +37,23 @@ export const authOptions = {
           return null;
         }
 
-        const res = { id: user?._id, firstName: user?.firstName, lastName: user?.lastName, email: user?.email, role: user?.role }
-        return res
-
-      }
-    })
+        const res = {
+          id: user?._id,
+          firstName: user?.firstName,
+          lastName: user?.lastName,
+          email: user?.email,
+          role: user?.role,
+        };
+        return res;
+      },
+    }),
   ],
+  basePath: "/api/auth",
   pages: {
-    signIn: '/signin',
-    signOut: '/auth/signout',
-    error: '/auth/error',
-    verifyRequest: '/auth/verify-request',
+    signIn: "/signin",
+    signOut: "/auth/signout",
+    error: "/auth/error",
+    verifyRequest: "/auth/verify-request",
   },
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
@@ -57,12 +71,15 @@ export const authOptions = {
         };
       }
       return session;
-    }, 
-    signIn: async ({user, account, profile}) => {
-      return `${process.env.NEXT_PUBLIC_ADMIN_URL}/`;    }
-  }
+    },
+    authorized({ request, auth }) {
+      const { pathname } = request.nextUrl;
+      if (pathname === "/admin/users") return !!auth;
+      return true;
+    },
+  },
+} satisfies NextAuthConfig;
 
+export const { handlers, auth, signIn, SignOut } = NextAuth(authOptions);
+export { authOptions };
 
-
-
-} satisfies NextAuthOptions;
