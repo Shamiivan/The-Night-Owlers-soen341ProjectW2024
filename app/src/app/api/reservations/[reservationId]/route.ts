@@ -26,11 +26,21 @@ export async function PUT(request: Request) {
   const updatedReservationData: UpdatedReservationData = await request.json();
   console.log("UPDATED ", updatedReservationData);
   const updateFields: Partial<IReservation> = {
-    vehicleId: updatedReservationData.vehicle,
-    userId: updatedReservationData.user,
-    pickupDate: updatedReservationData.startDate,
-    returnDate: updatedReservationData.endDate,
+    vehicleId: updatedReservationData.vehicleId,
+    userId: updatedReservationData.userId,
+    pickupDate: updatedReservationData.pickupDate,
+    returnDate: updatedReservationData.returnDate,
+    pickupTime: updatedReservationData.pickupTime,
+    returnTime: updatedReservationData.returnTime,
+    pickupLocation: updatedReservationData.pickupLocation,
+    returnLocation: updatedReservationData.returnLocation,
+    comments: updatedReservationData.comments,
     status: updatedReservationData.status,
+    name: updatedReservationData.name,
+    driverlicense: updatedReservationData.driverlicense,
+    creditcard: updatedReservationData.creditcard,
+    damageReported: updatedReservationData.damageReported
+
   };
   const id = updatedReservationData.id;
   const result = await updateReservation(id, updateFields);
@@ -38,5 +48,20 @@ export async function PUT(request: Request) {
     return NextResponse.json({ message: "Reservation updated successfully" });
   } else {
     return NextResponse.json({ message: "Failed to update reservation", error: result.error }, { status: 500 });
+  }
+}
+
+// DELETE function to delete a reservation by their ID
+export async function DELETE(request: Request) {
+  const body = await request.json();
+  console.log(body._id);
+
+  const result = await deleteReservation(body._id);
+  
+  // Return a response indicating success or failure
+  if (result.success) {
+      return NextResponse.json({ message: 'Reservation deleted successfully' });
+  } else {
+      return NextResponse.json({ message: 'Failed to delete reservation', error: result.error }, { status: 500 });
   }
 }
