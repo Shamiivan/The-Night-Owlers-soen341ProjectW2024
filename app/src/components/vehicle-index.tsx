@@ -24,7 +24,7 @@ export async function VehicleIndex() {
         {/* Title and Subtitle */}
         <h1 className="text-3xl font-bold text-primary tracking-tighter sm:text-5xl">Rent a Car</h1>
         <p className="max-w-[600px] text-gray-500 text-xl md:text-xl lg:text-2xl xl:text-3xl dark:text-gray-400">
-          Find the perfect vehicle for your next adventure. Enter the make or model to get started.
+          Find the perfect vehicle for your next adventure.
         </p>
       </div>
       <div className="flex flex-col md:flex-row gap-4 md:gap-2 mt-4 items-center">
