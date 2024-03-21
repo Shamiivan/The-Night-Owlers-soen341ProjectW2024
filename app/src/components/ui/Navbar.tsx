@@ -1,10 +1,9 @@
 import React from "react";
 import { Button } from "./button";
-import Link from 'next/link';
-import Image from 'next/image'
-import {UserNav}  from "@/components/navbar/user-nav";
+import Link from "next/link";
+import Image from "next/image";
+import { UserNav } from "@/components/navbar/user-nav";
 import { icons } from "lucide-react";
-
 
 const Navbar: React.FC = () => {
   return (
@@ -19,22 +18,34 @@ const Navbar: React.FC = () => {
         <div className="hidden w-full md:block md:w-auto" id="navbar-default">
           <ul className="font-medium flex flex-col p-4 md:p-0 mt-4  md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 items-center">
             <li>
-              <a href="/" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              <a
+                href="/"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
                 Home
               </a>
             </li>
             <li>
-            <Link href="/vehicles" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
-              Rent
-            </Link>
-          </li>
+              <Link
+                href="/vehicles"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
+                Rent
+              </Link>
+            </li>
             <li>
-              <a href="/viewreserve" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              <a
+                href="/viewreserve"
+                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
                 Manage
               </a>
             </li>
             <li>
-              <a href="/admin/users" className="block py-10 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
+              <a
+                href="/admin/users"
+                className="block py-10 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+              >
                 Admin
               </a>
             </li>
@@ -48,19 +59,13 @@ const Navbar: React.FC = () => {
                 Contact
               </a>
             </li>*/}
-                 <li>
-            <UserNav/>
-              </li>
-          
             <li>
-            <Button asChild className="bg-slate-500 hover:bg-blue-600">
-              <Link href="/signup">Sign in</Link>
-            </Button>
+              <UserNav />
             </li>
           </ul>
         </div>
       </div>
     </div>
-)};
+  );
+};
 export default Navbar;
-
