@@ -1,133 +1,97 @@
 'use client'
-import React, {useState} from 'react';
-import { useRouter } from 'next/navigation';
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
+import { Textarea } from "@/components/ui/textarea"
+import { Button } from "@/components/ui/button"
 import { useSession } from "next-auth/react"
+import { useState, useEffect, use } from "react"
 
-import {
-  SelectValue,
-  SelectTrigger,
-  SelectItem,
-  SelectContent,
-  Select
-} from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
-
-
-interface reservationProps {
-  vehicleId: string;
-  category: string;
-  vehicleModel: string;
+interface ReservationFormProps {
+  vehicleId : string; 
 }
 
 
-// Define the component with TypeScript
-export function  ReservationForm ({vehicleId, category, vehicleModel} : reservationProps){
-  const { data: session, status, update } = useSession()
-  const [email, setEmail] = useState('');
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState(false);
-  const [result, setResult] = useState('');
-  const router = useRouter();
-  const [phone, setPhone] = useState('');
-  const [pickupDate, setPickupDate] = useState('');
-  const [returnDate, setReturnDate] = useState('');
-  const [model, setModel] = useState('');
+export function ReservationForm(
+{vehicleId} : ReservationFormProps
+) {
 
-  const handleReservation = async () => {
-    // if (!session) {
-    //     // If there is no session, redirect the user to the sign-in page or show a modal/pop-up to log in
-    //     window.location.href = '/signin';
-    //     return; // Stop further execution
-    // }
-    if(!session){
-      setIsAuthenticated(false);
-      
-    } else{
-      setIsAuthenticated(true);
-      setEmail(session?.user?.email as string);
-      console.log(email);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservation/${vehicleId}`, {
-        method: 'POST',
-        body: JSON.stringify({ email, password, vehicleId }),
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (response.ok) {
-        const data = await response.json();
-        router.push("/admin/users");
-      } else {
-        console.error('Error updating user:', response.statusText);
-      }
-    }
+  const { data: session } = useSession();
+  const user = session?.user as any;
+  const [pickupDate, setPickupDate] = useState("");
+  const [pickupTime, setPickupTime] = useState("");
+  const [returnDate, setReturnDate] = useState("");
+  const [returnTime, setReturnTime] = useState("");
+  const [comments, setComments] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations`, {
+      method: 'POST',
+      body: JSON.stringify({ pickupDate, pickupTime, returnDate, returnTime, comments, userId: user.id, vehicleId : vehicleId }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    console.log(response);
+  }
 
 
-    // If there's a session, proceed with the reservation logic
-    // console.log("Making reservation for", id);
-    // Here, you would typically call an API route or perform some action to record the reservation
-};
-
-// if user is not signed in, redirect to sign in page and have him redirected back 
-const handleLogin = async () => {}
 
   return (
-    <div className="mx-auto max-w-3xl space-y-6">
+    <div className="mx-auto max-w-3xl space-y-8">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-bold">Reserve Your Vehicle</h1>
-        <p className="text-gray-500 dark:text-gray-400">
-          Enter your information to reserve your vehicle
-        </p>
+
+        {session ? ( 
+          <h1 className="text-3xl font-bold">Car Rental Reservation for {user.firstName} {user.lastName}</h1>
+        ) : (
+          <h1 className="text-3xl font-bold">Please sign in to make a reservation</h1>
+        )  
+        }
+        <p className="text-gray-500 dark:text-gray-400">Enter your information to make a reservation</p>
       </div>
-      <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="name">email</Label>
-            <Input id="name"  type="email" placeholder="Enter email" required />
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="email">Password</Label>
-            <Input id="password" placeholder="Enter your email" required type="password" />
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="space-y-2">
-            <Label htmlFor="phone">Phone</Label>
-            <Input id="phone" placeholder="Enter your phone" required type="tel" />
-          </div>
-          <div className="space-y-2">
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="pickup-date">Pickup date</Label>
-                <Input id="pickup-date" required type="date" />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="return-date">Return date</Label>
-                <Input id="return-date" required type="date" />
-              </div>
+      <div>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="grid grid-cols-2 gap-4">
+            <div className="space-y-2">
+              <Label htmlFor="pickup-date">Pickup date</Label>
+              <Input id="pickup-date" 
+              value={pickupDate}
+              onChange={(e) => setPickupDate(e.target.value)}
+              required type="date" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="pickup-time">Pickup time</Label>
+              <Input id="pickup-time"
+              value={pickupTime}
+              onChange={(e) => setPickupTime(e.target.value)}
+              required type="time" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="return-date">Return date</Label>
+              <Input id="return-date" 
+              value={returnDate}
+              onChange={(e) => setReturnDate(e.target.value)}
+              required type="date" />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="return-time">Return time</Label>
+              <Input id="return-time" 
+              value={returnTime}
+              onChange={(e) => setReturnTime(e.target.value)}
+              required type="time" />
             </div>
           </div>
-        </div>
-        <div className="space-y-2">
-          <Label htmlFor="model">Model</Label>
-          <Select id="model">
-            <SelectTrigger>
-              <SelectValue placeholder="Select a model" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="mustang">Ford Mustang</SelectItem>
-              <SelectItem value="camaro">Chevrolet Camaro</SelectItem>
-              <SelectItem value="challenger">Dodge Challenger</SelectItem>
-              <SelectItem value="corvette">Chevrolet Corvette</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-        <Button className="w-full" type="submit">
-          Submit
-        </Button>
+          <div className="space-y-2">
+            <Label htmlFor="comments">Additional comments or requests</Label>
+            <Textarea id="comments"
+            value={comments}
+            onChange={(e) => setComments(e.target.value)} 
+            placeholder="Enter your comments or requests" />
+          </div>
+          <Button type="submit">Confirm Reservation</Button>
+        </form>
       </div>
     </div>
-  );
-};
+  )
+}

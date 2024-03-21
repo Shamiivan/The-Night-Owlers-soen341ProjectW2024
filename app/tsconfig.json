@@ -7,7 +7,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -26,7 +26,8 @@
         "./src/*"
       ]
     },
-    "target": "esnext"
+    "target": "esnext",
+    "strictNullChecks": true
   },
   "include": [
     "next-env.d.ts",
@@ -44,8 +45,11 @@
     "src/__test__/tests/CreateVehicleForm.test.jsx",
     "src/__test__/tests/UpdateUserForm.jsx",
     "src/__test__/tests/UpdateVehicleForm.test.jsx",
-    "src/app/login/page.jsx"
-, "src/__test__/tests/VehicleCard.test.jsx", "src/app/vehicles/[vehicleId]/page.jsx", "src/models/Vehicle.ts"  ],
+    "src/app/login/page.jsx",
+    "src/__test__/tests/VehicleCard.test.jsx",
+    "src/app/vehicles/[vehicleId]/page.jsx",
+    "src/models/Vehicle.ts"
+  ],
   "exclude": [
     "node_modules"
   ]

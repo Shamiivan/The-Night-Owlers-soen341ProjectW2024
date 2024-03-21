@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
-import User, { IUser } from '@/models/User';
+import User, { IUser } from "@/models/User";
 import printError from '@/utils/print';
 import {connectToDatabase} from '@/utils/connectDb';
+import exp from 'constants';
 
 
 /**
@@ -54,6 +55,21 @@ export async function getAllUsers() {
         // Query the database for all user documents
         const users = await User?.find({});
         return users;
+    });
+}
+
+/**
+ * Retrieves a single user document by its email address.
+ * @param email - The email address of the user document to retrieve.
+ * @returns A promise that resolves with the user document or null if not found.
+ */
+export async function getUserByEmail(email: string) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for the user document with the specified email address
+        const user = await User?.findOne({ email });
+        // Log the result of the query
+        return user;
     });
 }
 

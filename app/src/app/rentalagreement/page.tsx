@@ -1,66 +1,34 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import "@/styles/global.css";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { getVehicleById } from "@/utils/vehicleRepository";
-import { getUserById } from "@/utils/userRepository";
+import { useRouter } from "next/navigation";
 
 const RentalAgreement = ({ reservation_id }) => {
-  const [vehicle, setVehicle] = useState(null);
-  const [user, setUser] = useState(null);
+ 
+    const router = useRouter();
 
-  useEffect(() => {
-    async function fetchData() {
-      try {
-        // Fetch reservation data using reservation_id
-        const reservationResponse = await getReservationById(reservation_id);
-        if (reservationResponse.success) {
-          const { vehicle_id, user_id } = reservationResponse.value;
-
-          // Fetch vehicle data using vehicle_id
-          const vehicleResponse = await getVehicleById(vehicle_id);
-          if (vehicleResponse.success) {
-            setVehicle(vehicleResponse.value);
-          } else {
-            console.error("Failed to fetch vehicle:", vehicleResponse.error);
-          }
-
-          // Fetch user data using user_id
-          const userResponse = await getUserById(user_id);
-          if (userResponse.success) {
-            setUser(userResponse.value);
-          } else {
-            console.error("Failed to fetch user:", userResponse.error);
-          }
-        } else {
-          console.error("Failed to fetch reservation:", reservationResponse.error);
+    const handleContinue = (e) => {
+        e.preventDefault();
+        const confirmed = window.confirm('Are you sure you want to continue?');
+        if (confirmed) {
+          // Add logic to handle continuation
+          alert('Information sent successfully!');
+          router.push('/admin/reservations'); // Use router.push for navigation
         }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    }
-
-    fetchData();
-  }, [reservation_id]);
-
-  const handleContinue = () => {
-    const confirmed = window.confirm('Are you sure you want to continue?');
-    if (confirmed) {
-      // Add logic to handle continuation
-      alert('Information sent successfully!');
-    }
-  };
+      };
 
   return (
     <div className="max-w-4xl mx-auto p-12 bg-slate-200">
-      <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
-      <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
-      <p>
-        This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
-        located at [Address], hereinafter referred to as the "Rental Company,"
-        and the individual or entity identified below, hereinafter referred to as the "Renter":
-      </p>
-
+        <form onSubmit={handleContinue}>
+        <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
+        <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
+        <p>
+            This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name], 
+            located at [Address], hereinafter referred to as the "Rental Company," 
+            and the individual or entity identified below, hereinafter referred to as the "Renter":
+        </p>
       <div className="mb-8">
         <h2 className="text-xl font-bold mb-2">1. Renter's Information:</h2>
         <div className="grid grid-cols-2 gap-4">
@@ -122,7 +90,6 @@ const RentalAgreement = ({ reservation_id }) => {
           The Renter acknowledges receiving and reviewing a copy of the vehicle's insurance coverage and agrees to comply with all insurance requirements during the rental period.
         </li>
       </ul>
-
       <h2 className="text-xl font-bold mb-2">5. Indemnification:</h2>
       <p className="mb-8">
         The Renter agrees to indemnify and hold harmless the Rental Company, its employees, agents, and affiliates from any claims, liabilities, damages, or expenses arising out of or related to the Renter's use of the vehicle.
@@ -179,7 +146,7 @@ const RentalAgreement = ({ reservation_id }) => {
         </form>
 
         <div className="flex justify-between mt-8">
-          <Button onClick={handleContinue}>
+          <Button>
             Continue
           </Button>
           <Link href="/admin/checkin">
@@ -189,6 +156,7 @@ const RentalAgreement = ({ reservation_id }) => {
           </Link>
         </div>
       </div>
+      </form>
     </div>
   );
 };
