@@ -82,7 +82,7 @@ To set up the Car-Rental Web Application locally, follow these steps:
 
 ## Usage ##
 This section will be updated in the future
-```
+
 To run the Car-Rental Web Application and explore its features, follow these steps:
 
 **Accessing the Website**
@@ -104,6 +104,6 @@ To run the Car-Rental Web Application and explore its features, follow these ste
 - Explore the following key features of our Car-Rental Web Application:
 - Vehicle Catalog: Browse our extensive catalogue of rental vehicles, including cars, SUVs, vans, and trucks.
 - Reservation Management: Easily start, view, modify, or cancel reservations based on your preferences.
-```
+
 ## Wiki
 Explore our [Wiki](https://github.com/Shamiivan/The-Night-Owlers-soen341ProjectW2024/wiki) for additional information, including team rules, management guidelines, and detailed project documentation.
