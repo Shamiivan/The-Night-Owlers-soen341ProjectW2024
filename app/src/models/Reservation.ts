@@ -51,6 +51,7 @@ const ReservationSchema = new Schema({
 }, { timestamps: true }); // Enable automatic timestamping  of createdAt and updatedAt fields
     Reservation = mongoose.model<IReservation>("Reservation", ReservationSchema);
 }
+
 console.log("Reservation model:", Reservation.name);
 export default Reservation;
 export type { IReservation };
