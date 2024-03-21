@@ -47,6 +47,9 @@ export default function VehiclePage({params} : {params: {vehicleId: string}}) {
                     oldEngineCapacity={vehicle.engineCapacity}
                     oldRentalPrice={vehicle.rentalPrice}
                     oldMileage={vehicle.mileage}
+                    oldDescription={vehicle.description}
+                    oldLicensePlate={vehicle.licensePlate}
+                    oldVIN={vehicle.VIN}
                     id={vehicle._id.toString()}
                 />
             ) : (

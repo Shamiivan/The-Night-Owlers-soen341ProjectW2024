@@ -12,17 +12,21 @@ interface userProps {
     oldLastName: string;
     oldEmail: string;
     oldPassword: string;
+    oldAddress: string;
+    oldPhone: string;
     oldRole: string;
     id: string;
   }
 
-const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, oldRole, id}: userProps) => {
+const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, oldAddress, oldPhone, oldRole, id}: userProps) => {
   const router = useRouter();
 
   const [firstName, setFirstName] = useState(oldFirstName);
   const [lastName, setLastName] = useState(oldLastName);
   const [email, setEmail] = useState(oldEmail);
   const [password, setPassword] = useState(oldPassword);
+  const [address, setAddress] = useState(oldAddress);
+  const [phone, setPhone] = useState(oldPhone);
   const [role, setRole] = useState(oldRole);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -38,7 +42,7 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, oldRo
       // Proceed with the form submission
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ firstName, lastName, email, password, role, id }),
+        body: JSON.stringify({ firstName, lastName, email, password, address, phone, role, id }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -83,6 +87,26 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, oldRo
           id="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address:</label>
+        <input
+          type="text"
+          id="address"
+          value={address}
+          onChange={(e) => setAddress(e.target.value)}
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number:</label>
+        <input
+          type="phone"
+          id="phone"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
           className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>

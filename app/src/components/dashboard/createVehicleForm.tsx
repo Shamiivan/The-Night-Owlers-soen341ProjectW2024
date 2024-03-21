@@ -20,6 +20,8 @@ const CreateVehicleForm = () => {
     const [totalDoors, setTotalDoors] = useState('');
     const [rentalPrice, setRentalPrice] = useState('');
     const [mileage, setMileage] = useState('');
+    const [licensePlate, setLicensePlate] = useState('');
+    const [VIN, setVIN] = useState('');
     const [description, setDescription] = useState('');
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     
@@ -45,6 +47,8 @@ const CreateVehicleForm = () => {
                     totalDoors: parseInt(totalDoors),
                     rentalPrice: parseFloat(rentalPrice),
                     mileage: parseFloat(mileage),
+                    licensePlate,
+                    VIN,
                     description
                 }),
                 headers: {
@@ -223,6 +227,26 @@ const CreateVehicleForm = () => {
                     id="mileage"
                     value={mileage}
                     onChange={(e) => setMileage(e.target.value)}
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="licensePlate" className="block text-sm font-medium text-gray-700">License Plate:</label>
+                <input
+                    type="text"
+                    id="licensePlate"
+                    value={licensePlate}
+                    onChange={(e) => setLicensePlate(e.target.value)}
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="VIN" className="block text-sm font-medium text-gray-700">VIN:</label>
+                <input
+                    type="text"
+                    id="VIN"
+                    value={VIN}
+                    onChange={(e) => setVIN(e.target.value)}
                     className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>

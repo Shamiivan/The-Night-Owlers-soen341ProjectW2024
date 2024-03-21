@@ -6,6 +6,7 @@ import printError from "@/utils/print";
 import { connectToDatabase } from "@/utils/connectDb";
 import exp from "constants";
 
+
 /** 
  * Creates a new reservation in the database.
  * This function takes the user's
@@ -22,44 +23,76 @@ import exp from "constants";
  * @param pickupTime - The time the car will be picked up.
  * @param returnDate - The date the car will be returned.
  * @param returnTime - The time the car will be returned.
+ * @param pickupLocation - The pickup location.
+ * @param returnLocation - The return location.
  * @param comments - Additional comments or requests.
+ * @param name - The name of the user.
+ * @param driverlicense - The driver's license number.
+ * @param creditcard - The credit card number.
+ * @param damageReported - A boolean indicating whether the damage was reported.
+ * @param status - The status of the reservation.
+ * @param rentalName - The name of the rental company.
+ * @param rentalDate - The date the reservation was made.
+ * @param renterName - The name of the renter.
+ * @param renterDate - The date the reservation was made.
+ * @param rentalCompanySignature - The signature of the rental company.
+ * @param renterSignature - The signature of the renter.
  * @param userId - The ID of the user making the reservation.
  * @param vehicleId - The ID of the vehicle being reserved.
  */
 
 export async function createReservation(
-    pickupDate: string,
-    pickupTime: string,
-    returnDate: string,
-    returnTime: string,
-    comments: string,
     userId: string,
-    vehicleId: string
+    vehicleId: string,
+    pickupDate: Date,
+    pickupTime: string,
+    returnDate: Date,
+    returnTime: string,
+    pickupLocation: string,
+    returnLocation: string,
+    comments: string,
+    name: string,
+    driverlicense: string,
+    creditcard: string,
+    damageReported: boolean,
+    status: "reserved",
+    rentalName: string,
+    rentalDate: Date,
+    renterName: string,
+    renterDate: Date,
+    rentalCompanySignature: String,
+    renterSignature: String,
 ) {
     return executeAsync(async () => {
         console.log("Creating reservation");
         await connectToDatabase();
         const userIdObj = new mongoose.Types.ObjectId(userId);
-        const vehicleIdString = vehicleId.vehicleId;
-        const vehicleIdObj = new mongoose.Types.ObjectId(vehicleIdString);
+        const vehicleIdObj = new mongoose.Types.ObjectId(vehicleId);
         console.log(userIdObj);
         console.log(vehicleIdObj);
-        
-        const pickupDateTime = new Date(`${pickupDate}T${pickupTime}`);
-        const returnDateTime = new Date(`${returnDate}T${returnTime}`);
 
-        console.log(pickupDateTime);
-        console.log(returnDateTime);
         // Create a new reservation document with the provided details
         const newReservation = new (Reservation as mongoose.Model<IReservation>)({
             userId: userIdObj,
             vehicleId: vehicleIdObj,
-            pickupDate: pickupDateTime,
-            pickupTime: pickupDateTime,
-            returnDate: returnDateTime,
-            returnTime: returnDateTime,
+            pickupDate,
+            pickupTime,
+            returnDate,
+            returnTime,
+            pickupLocation,
+            returnLocation,
             comments,
-            status: "reserved",
+            name,
+            driverlicense,
+            creditcard,
+            damageReported,
+            status,
+            rentalName,
+            rentalDate,
+            renterName,
+            renterDate,
+            rentalCompanySignature,
+            renterSignature,
 
         });
         // Save the new reservation document to the database

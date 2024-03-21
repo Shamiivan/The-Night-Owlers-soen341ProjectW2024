@@ -19,13 +19,16 @@ interface vehicleProps{
     oldEngineCapacity: number;
     oldRentalPrice: number;
     oldMileage: number;
+    oldLicensePlate: string;
+    oldVIN: string;
+    oldDescription: string;
     id: string;
 }
 
 const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory, 
     oldVehicleModel,oldYear, oldAutomatic,oldNPeople,
     oldNBags, oldColor, oldFuelType, oldEngineCapacity,
-    oldRentalPrice, oldMileage, id}: vehicleProps) => {
+    oldRentalPrice, oldMileage, oldLicensePlate, oldVIN, oldDescription, id}: vehicleProps) => {
 
     const [newBrand, setNewBrand] = useState(oldBrand);
     const [newImageUrl, setNewImageUrl] = useState(oldImageUrl);
@@ -40,6 +43,9 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
     const [newEngineCapacity, setNewEngineCapacity] = useState(oldEngineCapacity);
     const [newRentalPrice, setNewRentalPrice] = useState(oldRentalPrice);
     const [newMileage, setNewMileage] = useState(oldMileage);
+    const [newLicensePlate, setNewLicensePlate] = useState(oldLicensePlate);
+    const [newVIN, setNewVIN] = useState(oldVIN);
+    const [newDescription, setNewDescription] = useState(oldDescription);
     const router = useRouter();
     
 
@@ -50,7 +56,7 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
         if (isConfirmed) {
             const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles/${id}`, {
                 method: 'PUT',
-                body: JSON.stringify({ brand: newBrand, imageUrl: newImageUrl, category: newCategory, vehicleModel: newVehicleModel, year: newYear, automatic: newAutomatic, nPeople: newNPeople, nBags: newNBags, color: newColor, fuelType: newFuelType, engineCapacity: newEngineCapacity, rentalPrice: newRentalPrice, mileage: newMileage, id}),
+                body: JSON.stringify({ brand: newBrand, imageUrl: newImageUrl, category: newCategory, vehicleModel: newVehicleModel, year: newYear, automatic: newAutomatic, nPeople: newNPeople, nBags: newNBags, color: newColor, fuelType: newFuelType, engineCapacity: newEngineCapacity, rentalPrice: newRentalPrice, mileage: newMileage, licensePlate: newLicensePlate, VIN: newVIN, id}),
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -196,6 +202,26 @@ const UpdateVehicleForm = ({ oldBrand, oldImageUrl, oldCategory,
                     id="mileage"
                     value={newMileage}
                     onChange={(e) => setNewMileage(parseInt(e.target.value))}
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="licensePlate" className="block text-sm font-medium text-gray-700">Liense Plate:</label>
+                <input
+                    type="text"
+                    id="licensePlate"
+                    value={newLicensePlate}
+                    onChange={(e) => setNewLicensePlate(e.target.value)}
+                    className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                />
+            </div>
+            <div className="mb-4">
+                <label htmlFor="VIN" className="block text-sm font-medium text-gray-700">VIN:</label>
+                <input
+                    type="text"
+                    id="VIN"
+                    value={newVIN}
+                    onChange={(e) => setNewVIN(e.target.value)}
                     className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
                 />
             </div>

@@ -33,12 +33,11 @@ export default function ReservationsList() {
         <ReservationCard
             key={reservation._id}
             _id={reservation._id}
-            userId={reservation.userId.toString()}
-            vehicleId={reservation.vehicleId.toString()}
+            userId={reservation.userId}
+            vehicleId={reservation.vehicleId}
             pickupDate={reservation.pickupDate}
             returnDate={reservation.returnDate}
             status={reservation.status}
-
         />
       ))}
 
