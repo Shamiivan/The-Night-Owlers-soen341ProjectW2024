@@ -46,7 +46,9 @@
     "src/__test__/tests/UpdateUserForm.jsx",
     "src/__test__/tests/UpdateVehicleForm.test.jsx",
     "src/app/login/page.jsx",
-    "src/__test__/tests/VehicleCard.test.jsx"
+    "src/__test__/tests/VehicleCard.test.jsx",
+    "src/app/vehicles/[vehicleId]/page.jsx",
+    "src/models/Vehicle.ts"
   ],
   "exclude": [
     "node_modules"
