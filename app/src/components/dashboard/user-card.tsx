@@ -40,7 +40,6 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
     }
   };
   return (
-    
     <div className=" pb-5 flex items-center border-b-2">
         <Avatar className="h-9 w-9">
           <AvatarImage src="/avatars/01.png" alt="Avatar" />
@@ -56,14 +55,9 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
         </div>
       <div className="ml-auto font-medium flex flex-row">
         <div className="mr-2">
-          <Link href={`/user/${_id}`}>
-            <Button variant="link">View</Button>
-          </Link>
           <Link href={`/admin/updateUser/${_id}`}>
             <Button variant="link">Update</Button>
           </Link>
-
-
         </div>
         <div className="mr-2">
           <Button variant="destructive" onClick={deleteUser}>Delete</Button>
