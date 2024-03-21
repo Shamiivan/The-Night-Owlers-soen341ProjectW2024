@@ -1,33 +1,56 @@
 import React from 'react';
 import ReservationCard from '@/components/reservations/ReserveCard';
-import { getReservationsByUserId } from '@/utils/reservationRepository';
+import { getReservationsByUserId, getAllReservations } from '@/utils/reservationRepository';
+import { getUserById } from '@/utils/userRepository';
 
 async function fetchUserReservations(userId) {
-  const response = await getReservationsByUserId(userId);
+  console.log('Fetching reservations for user:', userId);
+  const response = await getAllReservations();
+  console.log('Fetch reservations response:', response);
   if (response.success) {
+    console.log('Successfully fetched reservations');
     return response.value;
   } else {
+    console.log('Failed to fetch reservations, returning empty array');
     return [];
   }
 }
 
+
+async function fetchUser(userId) {
+  const response = await getUserById(userId);
+  if (response.success) {
+    return response.value;
+  } else {
+    return null;
+  }
+}
+
+
 export default async function ViewReserve({ params }) {
 
-  const reservations = await fetchUserReservations(params);
+  const reservations = await fetchUserReservations(params.userId);
+  const user = await fetchUser(params.userId);
 
   return (
     <div>
-      <h1 className="text-2xl font-bold mb-4">All Reservations</h1>
+      <div className="flex flex-col items-center justify-center gap-2 text-center">
+        <h1 className="text-3xl font-bold text-primary tracking-tighter sm:text-5xl">View Reservations</h1>
+        <p>(click on the reservation to view details)</p>
+      </div>
+      <p className="text-xl font-bold tracking-tighter ml-10">{user.firstName} {user.lastName}</p>
+      
       <div className="container mx-auto mt-8">
         {reservations.map((reservation) => (
           <ReservationCard
-            key={reservation._id} // Assuming reservation has _id property
+            key={reservation._id}
             userId={reservation.userId}
             vehicleId={reservation.vehicleId}
             pickupDate={reservation.pickupDate}
             returnDate={reservation.returnDate}
             comments={reservation.comments}
             status={reservation.status}
+            id={reservation._id}
           />
         ))}
       </div>

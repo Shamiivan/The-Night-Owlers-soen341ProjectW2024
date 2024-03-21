@@ -169,6 +169,12 @@ export async function deleteReservation(id: string) {
 
 }
 
+
+/**
+ * Retrieves all reservations for a given user ID.
+ * @param userId The ID of the user whose reservations to retrieve.
+ * @returns An array of Reservation objects, representing the user's reservations.
+ */
 export async function getReservationsByUserId(userId: string) {
     return executeAsync(async () => {
         await connectToDatabase();
