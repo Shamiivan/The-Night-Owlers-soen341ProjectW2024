@@ -47,26 +47,9 @@ export default async function RentalAgreement({ params }) {
         <div>
             {/* Render other properties as needed */}
             <RentalAgreementForm
-                firstname={user.firstName}
-                lastname={user.lastName}
-                address={user.address}
-                phone={user.phone}
-                email={user.email}
-                license={reservation.license}
-                brand={vehicle.brand}
-                model={vehicle.vehicleModel}
-                year={vehicle.year}
-                licensePlate={vehicle.licensePlate}
-                VIN={vehicle.VIN}
-                color={vehicle.color}
-                pickupDate={reservation.pickupDate}
-                returnDate={reservation.returnDate}
-                pickupLocation={reservation.pickupLocation}
-                returnLocation={reservation.returnLocation}
-                mileage={vehicle.mileage}
-                price={vehicle.rentalPrice}
-                addition={reservation.addition}
-                id={reservation._id.toString()}
+                user={user}
+                vehicle={vehicle}
+                reservation={reservation}
             />
         </div>
     );

@@ -7,7 +7,7 @@ import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
 
 
-export default function CheckinForm({ firstname, lastname, pickupTime, pickupDate, dropoffTime, damageReported, driverLicense, creditCard, status, id}) {
+export default function CheckinForm({ user, vehicle, reservation }) {
 
     const [checkname, setName] = useState('');
     const [newpickupTime, setPickupTime] = useState('');
@@ -16,36 +16,49 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
     const [checkcreditCard, setCreditCard] = useState('');
     const [newdamageReported, setDamageReported] = useState(false);
     const router = useRouter();
+    const  fullname = `${user.firstName} ${user.lastName}`;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
+        
         if (!checkname || !newpickupTime || !newpickupDate || !checkdriverLicense || !checkcreditCard) {
             alert('Please fill out all required fields.');
             return;
         }
 
-        if (checkname !== `${firstname} ${lastname}`) {
+        if (checkname !== fullname) {
             alert("Driver's name does not match the reservation data. Please verify.");
             return;
         }
 
-        if (checkdriverLicense !== driverLicense ) {
+        if (checkdriverLicense !== reservation.driverlicense ) {
             alert('Driver\'s license does not match the reservation data. Please verify.');
             return;
         }
 
-        if (checkcreditCard !== creditCard) {
+        if (checkcreditCard !== reservation.creditcard) {
             alert('Credit card number does not match the reservation data. Please verify.');
             return;
         }
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id }`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id }`, {
                 method: 'PUT',
                 body: JSON.stringify({
+                    userId: reservation.userId,
+                    vehicleId: reservation.vehicleId,
                     pickupDate: newpickupDate,
                     pickupTime: newpickupTime,
+                    returnDate: reservation.returnDate,
+                    returnTime: reservation.returnTime,
+                    pickupLocation: reservation.pickupLocation,
+                    returnLocation: reservation.returnLocation,
+                    comments: reservation.comments,
+                    status: reservation.status,
+                    name: checkname,
+                    driverlicense: checkdriverLicense,
+                    creditcard: checkcreditCard,
                     damageReported: newdamageReported,
                 }),
                 headers: {
@@ -56,7 +69,7 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
             if (!response.ok) {
                 throw new Error('Failed to check in');
             }
-            router.push(`/rentalagreement/${id}`);
+            router.push(`/rentalagreement/${reservation._id}`);
         } catch (error) {
             console.error('Error checking in:', error);
             alert('Failed to check in');
@@ -68,12 +81,12 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
             <div className="m-10 py-10 px-10 flex flex-col border-2 rounded-lg bg-slate-200 shadow-md">
                 <div className="flex justify-between mb-6">
                     <p className="text-2xl font-semibold mb-4">Check-In Form</p>
-                    <p className="text-md font-semibold mb-4 border-2 bg-white px-2 rounded-xl shadow-md">Reservation ID: {id}</p>
+                    <p className="text-md font-semibold mb-4 border-2 bg-white px-2 rounded-xl shadow-md">Reservation ID: {reservation._id}</p>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className="grid grid-cols-2 gap-8">
                         <div className="flex flex-col">
-                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name: {firstname} {lastname}</label>
+                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name: {fullname}</label>
                             <input
                                 id="checkname"
                                 type="text"
@@ -110,7 +123,7 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
                     </div>
                     <div className="grid grid-cols-2 justify-between mb-6 gap-8">
                         <div className="flex flex-col w-full">
-                            <label htmlFor="checkdriverLicense" className="mb-2 font-semibold">Driver's License: {driverLicense}</label>
+                            <label htmlFor="checkdriverLicense" className="mb-2 font-semibold">Driver's License: {reservation.driverlicense}</label>
                             <input
                                 id="checkdriverLicense"
                                 type="text"
@@ -121,7 +134,7 @@ export default function CheckinForm({ firstname, lastname, pickupTime, pickupDat
                             />
                         </div>
                         <div className="flex flex-col w-full">
-                            <label htmlFor="checkcreditCard" className="mb-2 font-semibold">Credit Card: {creditCard}</label>
+                            <label htmlFor="checkcreditCard" className="mb-2 font-semibold">Credit Card: {reservation.creditcard}</label>
                             <input
                                 id="checkcreditCard"
                                 type="text"

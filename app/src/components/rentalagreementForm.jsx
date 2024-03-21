@@ -7,26 +7,9 @@ import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
 
 export default function RentalAgreementForm({
-        firstname,
-        lastname,
-        address,
-        phone,
-        email,
-        license,
-        brand,
-        model,
-        year,
-        licensePlate,
-        VIN,
-        color,
-        pickupDate,
-        returnDate,
-        pickupLocation,
-        returnLocation,
-        mileage,
-        price,
-        id,
-        addition
+        user,
+        vehicle,
+        reservation,
     }) {
 
     const [rentalName, setRentalName] = useState();
@@ -47,16 +30,29 @@ export default function RentalAgreementForm({
         
         if (isConfirmed) {
           // Proceed with the form submission
-          const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
             method: 'PUT',
             body: JSON.stringify({
+                    userId: user.id,
+                    vehicleId: vehicle.id,
+                    pickupDate: reservation.pickupDate,
+                    pickupTime: reservation.pickupTime,
+                    returnDate: reservation.returnDate,
+                    returnTime: reservation.returnTime,
+                    pickupLocation: reservation.pickupLocation,
+                    returnLocation: reservation.returnLocation,
+                    comments: reservation.comments,
+                    status,
+                    driverlicense: reservation.driverlicense,
+                    creditcard: reservation.creditcard,
+                    damageReported: reservation.damageReported,
                     rentalName,
                     rentalDate,
                     renterName,
                     renterDate,
                     rentalCompanySignature,
                     renterSignature,
-                    status,
+                    id: reservation._id,
                 }),
             headers: {
               'Content-Type': 'application/json',
@@ -73,17 +69,17 @@ export default function RentalAgreementForm({
         }
     };
 
-    const timeDifference = returnDate.getTime() - pickupDate.getTime();
+    const timeDifference = reservation.returnDate.getTime() - reservation.pickupDate.getTime();
     const returnPeriodInDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
   return (
     <div className="mx-auto max-w-screen-lg p-10 bg-slate-200">
         
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
-        <p className="mb-4">Rental Agreement Number: {id}</p>
+        <p className="mb-4">Rental Agreement Number: {reservation._id}</p>
         <p>
             This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
-            located at {pickupLocation}, hereinafter referred to as the "Rental Company,"
+            located at {reservation.pickupLocation}, hereinafter referred to as the "Rental Company,"
             and the individual or entity identified below, hereinafter referred to as the "Renter":
         </p>
 
@@ -91,52 +87,52 @@ export default function RentalAgreementForm({
             <h2 className="text-xl font-bold mb-2">1. Renter's Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Name: </p>
-                    <p>{firstname} {lastname} </p>
+                    <p>{user.firstname} {user.lastname} </p>
                     <p>Address: </p>
-                    <p>{address}</p>
+                    <p>{user.address}</p>
                     <p>Contact Number: </p>
-                    <p>{phone}</p>
+                    <p>{user.phone}</p>
                     <p>Email Address: </p>
-                    <p>{email} </p>
+                    <p>{user.email} </p>
                     <p>Driver's License Number: </p>
-                    <p>{license}</p>
+                    <p>{reservation.driverlicense}</p>
                 </div>
             <div>
                 <h2 className="text-xl font-bold mb-2">2. Vehicle Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Make: </p>
-                    <p>{brand}</p>
+                    <p>{vehicle.brand}</p>
                     <p>Model: </p>
-                    <p>{model}</p>
+                    <p>{vehicle.vehicleModel}</p>
                     <p>Year: </p>
-                    <p>{year}</p>
+                    <p>{vehicle.year}</p>
                     <p>License Plate Number: </p>
-                    <p>{licensePlate}</p>
+                    <p>{vehicle.licensePlate}</p>
                     <p>Vehicle Identification Number (VIN):</p>
-                    <p>{VIN}</p>
+                    <p>{vehicle.VIN}</p>
                     <p>Color: </p>
-                    <p>{color}</p>
+                    <p>{vehicle.color}</p>
                 </div>
             </div>
             <div>
                 <h2 className="text-xl font-bold mb-2">3. Rental Details:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Rental Start Date: </p>
-                    <p>{pickupDate.toLocaleDateString('es-ES')}</p>
+                    <p>{reservation.pickupDate.toLocaleDateString('es-ES')}</p>
                     <p>Rental End Date:</p>
-                    <p> {returnDate.toLocaleDateString('es-ES')}</p>
+                    <p> {reservation.returnDate.toLocaleDateString('es-ES')}</p>
                     <p>Pick-up Location:</p>
-                    <p>{pickupLocation}</p>
+                    <p>{reservation.pickupLocation}</p>
                     <p>Drop-off Location:</p>
-                    <p>{returnLocation}</p>
+                    <p>{reservation.returnLocation}</p>
                     <p>Rental Period:</p>
                     <p> {returnPeriodInDays} days</p>
                     <p>Mileage Limit (if applicable): </p>
-                    <p>{mileage}</p>
+                    <p>{vehicle.mileage}</p>
                     <p>Rental Rate: </p>
-                    <p>${price}/day</p>
+                    <p>${vehicle.price}/day</p>
                     <p>Additional Services (if any):</p>
-                    <p>{!addition? "None" : addition}</p>
+                    <p>{!vehicle.addition? "None" : vehicle.addition}</p>
                 </div>
             </div>
         </div>

@@ -47,17 +47,9 @@ export default async function CheckIn({ params }){
         <div>
             {/* Render other properties as needed */}
             <CheckinForm
-                firstname={user.firstName}
-                lastname={user.lastName}
-                pickupTime={reservation.pickupTime}
-                pickupDate={reservation.pickupDate}
-                dropoffTime={user.dropoffTime}
-                damageReported={user.damageReported}
-                driverLicense={reservation.driverlicense}
-                creditCard={reservation.creditcard}
-                status={reservation.status}
-                id={reservation._id.toString()}
-
+                user={user}
+                vehicle={vehicle}
+                reservation={reservation}
             />
         </div>
     );
