@@ -114,11 +114,11 @@ const UpdateUserForm = ({ oldFirstName,oldLastName, oldEmail, oldPassword, oldRo
         </label>
         <select
           id="role"
-          value={role}
+          value={role} // Use the value prop instead of selected on option
           onChange={(e) => setRole(e.target.value)}
           className="pl-2 m-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         >
-          <option value="" disabled selected>Select a role</option>
+          <option value="" disabled>Select a role</option>
           <option value="customer">Customer</option>
           <option value="admin">Admin</option>
         </select>

@@ -1,7 +1,4 @@
-import exp from "constants";
 import mongoose, { Document, Schema } from "mongoose";
-import { comment } from "postcss";
-
 export interface IReservation extends Document {
     userId: mongoose.Types.ObjectId;
     vehicleId: mongoose.Types.ObjectId;

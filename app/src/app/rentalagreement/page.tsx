@@ -1,19 +1,27 @@
+'use client'
 import { Button } from "@/components/ui/button";
 import "@/styles/global.css";
 import Link from "next/link";
 import React from 'react'
-
+import { useRouter } from "next/navigation"; // Import useRouter from "next/navigation"
 
 const rentalagreement = () => {
-    const handleContinue = () => {
+
+    const router = useRouter();
+
+    const handleContinue = (e) => {
+        e.preventDefault();
         const confirmed = window.confirm('Are you sure you want to continue?');
         if (confirmed) {
           // Add logic to handle continuation
           alert('Information sent successfully!');
+          router.push('/admin/reservations'); // Use router.push for navigation
         }
       };
+
   return (
     <div className="max-w-4xl mx-auto p-12 bg-slate-200">
+        <form onSubmit={handleContinue}>
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
         <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
         <p>
@@ -106,7 +114,6 @@ const rentalagreement = () => {
 
         <div className="mb-6">
             <p className="mb-2 font-semibold">Rental Company:</p>
-            <form>
             <div className="mb-2 flex items-center">
                 <label className="w-24">Signature:</label>
                 <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
@@ -119,12 +126,10 @@ const rentalagreement = () => {
                 <label className="w-24">Date:</label>
                 <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
             </div>
-            </form>
         </div>
 
         <div>
             <p className="mb-2 font-semibold">Renter:</p>
-            <form>
             <div className="mb-2 flex items-center">
                 <label className="w-24">Signature:</label>
                 <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
@@ -137,7 +142,6 @@ const rentalagreement = () => {
                 <label className="w-24">Date:</label>
                 <input type="text" className="ml-2 border rounded-md py-1 px-2"/>
             </div>
-            </form>
 
             <div className="flex justify-between mt-8">
                 <Button onClick={handleContinue}>
@@ -150,6 +154,7 @@ const rentalagreement = () => {
                 </Link>
             </div>
         </div>
+        </form>
     </div>
   )
 }

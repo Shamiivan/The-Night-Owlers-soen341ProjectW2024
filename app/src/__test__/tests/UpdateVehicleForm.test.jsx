@@ -1,7 +1,9 @@
-import React from "react";
-import { render, screen, fireEvent } from "@testing-library/react";
-import "@testing-library/jest-dom";
-import UpdateVehicleForm from "@/components/dashboard/updateVehicleForm";
+import React from 'react';
+import { render, screen, fireEvent } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import UpdateVehicleForm from '@/components/dashboard/updateVehicleForm';
+
+let alertMock;
 
 // Mock the useRouter hook directly
 jest.mock("next/router");
@@ -41,9 +43,15 @@ describe("UpdateVehicleForm", () => {
     id: "123",
   };
 
-  it("renders without crashing", () => {
-    render(<UpdateVehicleForm {...vehicleProps} />);
-    // Add additional assertions if needed
+  afterEach(() => {
+    if (alertMock) {
+      alertMock.mockRestore();
+    }
+  });
+  
+  it('renders without crashing', () => {
+  render(<UpdateVehicleForm {...vehicleProps} />);
+  // Add additional assertions if needed
   });
 
   it("updates state on input change", () => {
@@ -67,13 +75,12 @@ describe("UpdateVehicleForm", () => {
     fireEvent.submit(screen.getByRole("button", { name: /update vehicle/i }));
 
     // Ensure that the API endpoint is called with the correct data
-    expect(global.fetch).toHaveBeenCalledWith(
-      `${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles/123`,
-      {
-        method: "PUT",
-        body: expect.anything(),
-        headers: expect.anything(),
-      },
-    );
+    expect(global.fetch).toHaveBeenCalledWith(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles/123`, {
+      method: 'PUT',
+      body: expect.anything(),
+      headers: expect.anything(),
+    });
+
+    alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
   });
 });
