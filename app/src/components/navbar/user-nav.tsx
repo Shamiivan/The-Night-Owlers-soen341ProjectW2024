@@ -42,7 +42,7 @@ export function UserNav() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <a href={`/admin/updateUser/${user?.id}`}>Update Profile</a>
+                <a href={`/user/${user?.id}`}>Profile</a>
               </DropdownMenuItem>
 
               <DropdownMenuItem>Manage reservations</DropdownMenuItem>

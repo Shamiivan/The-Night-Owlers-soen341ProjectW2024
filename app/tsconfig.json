@@ -47,8 +47,13 @@
     "src/__test__/tests/UpdateVehicleForm.test.jsx",
     "src/app/login/page.jsx",
     "src/__test__/tests/VehicleCard.test.jsx",
-    "src/app/vehicles/[vehicleId]/page.jsx",
-    "src/models/Vehicle.ts"
+    "src/pages/rentalagreement.jsx",
+    "src/components/dashboard/CheckInForm.jsx",
+    "src/app/admin/checkin/[reservationId]/page.jsx",
+    "src/app/rentalagreement/[reservationId]/page.jsx",
+    "src/components/dashboard/reservationCard.jsx",
+    "src/app/admin/updateReservation/[id]/page.tsx",
+    "src/components/rentalagreementForm.jsx"
   ],
   "exclude": [
     "node_modules"

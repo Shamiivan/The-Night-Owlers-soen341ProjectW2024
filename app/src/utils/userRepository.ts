@@ -15,14 +15,16 @@ import exp from 'constants';
  * @param lastName - The user's last name.
  * @param password - The user's password.
  * @param email - The user's email address.
+ * @param address - The user's address.
+ * @param phone - The user's phone number.
  * @param role - The user's role, either "customer" or "admin".
  * @returns A promise that resolves with the created user document.
  */
-export async function createUser(firstName: string, lastName: string,  email: string, password: string, role: "customer" | "admin") {
+export async function createUser(firstName: string, lastName: string,  email: string, password: string, address: string, phone: string, role: "customer" | "admin") {
     return executeAsync(async () => {
         await connectToDatabase();
         // Create a new user document with the provided details
-        const newUser = new (User as mongoose.Model<IUser>)({ firstName, lastName, password, email, role });
+        const newUser = new (User as mongoose.Model<IUser>)({ firstName, lastName, password, email, address, phone, role });
         // Save the new user document to the database
         const result = await newUser.save();
         // Log the result of the user creation

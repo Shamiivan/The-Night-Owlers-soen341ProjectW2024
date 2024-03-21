@@ -26,7 +26,7 @@ interface UpdatedData {
 
 
 export async function PUT(request: Request) {
-    // Parse the request body to get the updated user data
+    // Parse the request body to get the updated vehicle data
     const updatedData: UpdatedData = await request.json();
     console.log("UPDATED ", updatedData);
     const updatedFields: Partial<IVehicle> = {
@@ -44,21 +44,23 @@ export async function PUT(request: Request) {
         rentalPrice: updatedData?.rentalPrice,
         mileage: updatedData?.mileage,
         description:updatedData?.description,
+        licensePlate: updatedData?.licensePlate,
+        VIN: updatedData?.VIN
     };
     const id = updatedData.id;
 
-    // Update the user data in database or external API
+    // Update the vehicle data in database or external API
     const result = await updateVehicle(id, updatedFields);
 
     // Return a response indicating success or failure
     if (result.success) {
-        return NextResponse.json({ message: 'User updated successfully' });
+        return NextResponse.json({ message: 'Vehicl updated successfully' });
     } else {
-        return NextResponse.json({ message: 'Failed to update user', error: result.error }, { status: 500 });
+        return NextResponse.json({ message: 'Failed to update vehicl', error: result.error }, { status: 500 });
     }
 }
 
-// DELETE function to delete a user by their ID
+// DELETE function to delete a vehicl by their ID
 export async function DELETE(request: Request) {
     const body = await request.json();
     console.log(body._id);
@@ -67,8 +69,8 @@ export async function DELETE(request: Request) {
     
     // Return a response indicating success or failure
     if (result.success) {
-        return NextResponse.json({ message: 'User deleted successfully' });
+        return NextResponse.json({ message: 'Vehicle deleted successfully' });
     } else {
-        return NextResponse.json({ message: 'Failed to delete user', error: result.error }, { status: 500 });
+        return NextResponse.json({ message: 'Failed to delete vehicl', error: result.error }, { status: 500 });
     }
 }

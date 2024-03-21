@@ -34,7 +34,9 @@ export async function POST(request: Request) {
         engineCapacity,
         rentalPrice,
         mileage,
-        description
+        description,
+        licensePlate,
+        VIN
     } = await request.json();
 
     const result = await createVehicle(
@@ -51,7 +53,9 @@ export async function POST(request: Request) {
         engineCapacity,
         rentalPrice,
         mileage,
-        description
+        description,
+        licensePlate,
+        VIN
         );
     console.log(result)
     // Return a response indicating success or failure

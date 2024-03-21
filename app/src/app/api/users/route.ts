@@ -22,9 +22,9 @@ export async function GET() {
 // POST function to create a new user
 export async function POST(request: Request) {
     // Parse the request body to get the new user data
-    const {firstName, lastName, email, password  }= await request.json();
+    const {firstName, lastName, email, password, address, phone  }= await request.json();
 
-    const result = await createUser(firstName, lastName, email, password, "customer");
+    const result = await createUser(firstName, lastName, email, password, address, phone, "customer");
     // Return a response indicating success or failure
     if (result.success) {
         return NextResponse.json({ message: 'User created successfully', value: result.value });
