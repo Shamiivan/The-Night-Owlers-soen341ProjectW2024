@@ -17,8 +17,52 @@ export async function GET() {
 
 export async function POST(request: Request) {
     // Parse the request body to get the new reservation data
-    const {pickupDate, pickupTime, returnDate, returnTime, comments, userId,  vehicleId }= await request.json();
-    const result = await createReservation(pickupDate, pickupTime, returnDate, returnTime, comments, userId, vehicleId);
+    const {
+        pickupDate,
+        pickupTime,
+        returnDate,
+        returnTime,
+        pickupLocation,
+        returnLocation,
+        comments,
+        name,
+        driverlicense,
+        creditcard,
+        damageReported,
+        userId,
+        vehicleId,
+        status,
+        rentalName,
+        rentalDate,
+        renterName,
+        renterDate,
+        rentalCompanySignature,
+        renterSignature
+    }= await request.json();
+    
+    const result = await createReservation(
+        pickupDate,
+        pickupTime,
+        returnDate,
+        returnTime,
+        pickupLocation,
+        returnLocation,
+        comments,
+        name,
+        driverlicense,
+        creditcard,
+        damageReported,
+        userId,
+        vehicleId,
+        status,
+        rentalName,
+        rentalDate,
+        renterName,
+        renterDate,
+        rentalCompanySignature,
+        renterSignature
+        );
+    console.log(result);
     // Return a response indicating success or failure
     if (result.success) {
         return NextResponse.json({ message: 'Reservation created successfully', value: result.value });

@@ -39,14 +39,16 @@ const id = params.id;
 
  return (
     <div>
-  
-      {/* Render user data if available */}
+      <div>
+        {/* Render user data if available */}
       {user ? (
           <UpdateUserForm 
           oldFirstName={user.firstName}
           oldLastName={user.lastName}
           oldEmail={user.email}
           oldPassword={user.password}
+          oldAddress={user.address}
+          oldPhone={user.phone}
           oldRole={user.role}
           id={user._id.toString()}
            />
@@ -54,6 +56,8 @@ const id = params.id;
       ) : (
         <p>Loading user data...</p>
       )}
+      </div>
+      
     </div>
  );
 }

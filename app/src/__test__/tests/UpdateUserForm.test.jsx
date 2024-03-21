@@ -3,10 +3,10 @@ import { render, screen, fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom';
 import UpdateUserForm from '@/components/dashboard/updateUserForm';
 
+let alertMock;
 // Mock the useRouter hook directly
 jest.mock('next/router');
 
-global.alert = jest.fn();
 // Mocking fetch to simulate API calls
 global.fetch = jest.fn(() =>
   Promise.resolve({
@@ -36,6 +36,12 @@ describe('UpdateUserForm', () => {
 
   });
 
+  afterEach(() => {
+    if (alertMock) {
+      alertMock.mockRestore();
+    }
+  });
+  
   it('updates state on input change', () => {
     const userProps = {
       oldFirstName: 'John',
