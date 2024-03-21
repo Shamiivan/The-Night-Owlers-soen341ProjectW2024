@@ -41,9 +41,15 @@ export function UserNav() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
+              <DropdownMenuItem>
+                <a href={`/user/${user?.id}`}>Profile</a>
+              </DropdownMenuItem>
+
               <DropdownMenuItem>Manage reservations</DropdownMenuItem>
             </DropdownMenuGroup>
+
             <DropdownMenuSeparator />
+
             <DropdownMenuItem>
               <button onClick={() => signOut()}>Logout</button>
             </DropdownMenuItem>

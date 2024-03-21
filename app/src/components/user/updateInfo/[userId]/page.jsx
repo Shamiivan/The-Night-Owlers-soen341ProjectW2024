@@ -17,8 +17,8 @@ const UpdateUserForm = ({ oldImage, oldFirstName, oldLastName, oldEmail, oldPass
   const [address, setAddress] = useState(oldAddress);
   const [role, setRole] = useState(oldRole);
   const [showPassword, setShowPassword] = useState(false);
-  const [editMode, setEditMode] = useState(false); // Initially set to edit mode
-  
+  const [editMode, setEditMode] = useState(false); 
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -42,7 +42,8 @@ const UpdateUserForm = ({ oldImage, oldFirstName, oldLastName, oldEmail, oldPass
       // Proceed with the form submission
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/${id}`, {
         method: 'PUT',
-        body: JSON.stringify({ image, firstName, lastName, email, password, phone, address, role, id }),
+        body: JSON.stringify({ firstName, lastName, email, password, role, id }),
+
         headers: {
           'Content-Type': 'application/json',
         },
