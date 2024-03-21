@@ -43,16 +43,18 @@ export function VehicleCard({ brand, category, price, vehicleModel, image, id }:
             <CardContent className="flex-1 flex flex-col items-start p-2 md:p-2">
                 <h3 className="font-bold text-xl">{vehicleModel}</h3>
                 <p className="text-gray-500 dark:text-gray-400">{brand}</p>
-                <h4 className="font-bold text-md md:text-xl">{price}</h4>
+                <h4 className="font-bold text-md md:text-xl">${price}/day</h4>
                 <div className="mt-4 flex space-x-2 items-center flex-row">
                     <div className="mt-auto w-full">
-                <Link href={`/reservation/${id}`}>
-                <Button variant="secondary" className="text-primary-foreground mt-auto w-full">
-                    Make a reservation
-                </Button>
-                </Link>
-                </div>
-                    <Button variant="ghost" className="mt-auto w-full">View More</Button>   
+                        <Link href={`/reservation/${id}`}>
+                            <Button variant="secondary" className="text-primary-foreground mt-auto w-full">
+                                Make a reservation
+                            </Button>
+                        </Link>
+                    </div>
+                    <Link href={`/vehicles/${id}`}>
+                        <Button variant="ghost" className="mt-auto w-full">View More</Button>
+                    </Link>
                 </div>
 
             </CardContent>
