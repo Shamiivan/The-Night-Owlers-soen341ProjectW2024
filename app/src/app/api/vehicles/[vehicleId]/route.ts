@@ -44,6 +44,8 @@ export async function PUT(request: Request) {
         rentalPrice: updatedData?.rentalPrice,
         mileage: updatedData?.mileage,
         description:updatedData?.description,
+        licensePlate: updatedData?.licensePlate,
+        VIN: updatedData?.VIN
     };
     const id = updatedData.id;
 

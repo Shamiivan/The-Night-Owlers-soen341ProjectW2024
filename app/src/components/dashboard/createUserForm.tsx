@@ -12,6 +12,8 @@ const CreateUserForm = () => {
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
   const [showSuccessPopup, setShowSuccessPopup] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -25,7 +27,7 @@ const CreateUserForm = () => {
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/users/`, {
         method: 'POST',
-        body: JSON.stringify({ firstName, lastName, email, password }),
+        body: JSON.stringify({ firstName, lastName, email, password, address, phone }),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -48,7 +50,7 @@ const CreateUserForm = () => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-10 mt-10 bg-slate-200 rounded-md shadow-md">
+      <form onSubmit={handleSubmit} className="max-w-lg mx-auto p-10 my-6 bg-slate-200 rounded-md shadow-md">
         <div className="mb-4">
           <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">First Name:</label>
           <input
@@ -76,6 +78,26 @@ const CreateUserForm = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
+            className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="address" className="block text-sm font-medium text-gray-700">Address:</label>
+          <input
+            type="address"
+            id="address"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
+            className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="phone" className="block text-sm font-medium text-gray-700">Phone Number:</label>
+          <input
+            type="text"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
             className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
           />
         </div>

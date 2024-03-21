@@ -24,29 +24,24 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
         // Convert signature canvas to base64 image data
         const rentalCompanySignature = rentalCompanySignatureRef.current.toDataURL();
         const renterSignature = renterSignatureRef.current.toDataURL();
-
-        // Prepare form data
-        const formData = {
-            rentalCompanySignature,
-            renterSignature,
-            // Add any other form fields here
-        };
-
+        const status = "rented";
+        console.log(rentalCompanySignature, rentalName, rentalDate, renterSignature, renterName, renterDate, status)
+        
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id }`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
                 method: 'PUT',
+                body: JSON.stringify({
+                    //rentalCompanySignature,
+                    //rentalName,
+                    //rentalDate,
+                    //renterSignature,
+                    //renterName,
+                    //renterDate,
+                    status,
+                }),
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({
-                    rentalCompanySignature,
-                    rentalName,
-                    rentalDate,
-                    renterSignature,
-                    renterName,
-                    renterDate,
-                    status: 'rented',
-                }),
             });
 
             if (!response.ok) {
@@ -77,7 +72,7 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
     <div className="mx-auto max-w-screen-lg p-10 bg-slate-200">
         <form onSubmit={handleSubmit}>
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
-        <p className="mb-4">Rental Agreement Number: [Unique Rental Agreement Number]</p>
+        <p className="mb-4">Rental Agreement Number: {reservation._id}</p>
         <p>
             This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
             located at [Address], hereinafter referred to as the "Rental Company,"
@@ -119,9 +114,9 @@ export default function RentalAgreementForm({ user, vehicle, reservation }) {
                 <h2 className="text-xl font-bold mb-2">3. Rental Details:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Rental Start Date: </p>
-                    <p>{reservation.pickupDate.toLocaleString()}</p>
+                    <p>{reservation.pickupDate.toLocaleDateString('es-ES')}</p>
                     <p>Rental End Date:</p>
-                    <p> {reservation.returnDate.toLocaleString()}</p>
+                    <p> {reservation.returnDate.toLocaleDateString('es-ES')}</p>
                     <p>Pick-up Location:</p>
                     <p>****</p>
                     <p>Drop-off Location:</p>

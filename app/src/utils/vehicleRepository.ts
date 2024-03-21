@@ -49,6 +49,8 @@ export async function connectToDatabase() {
  * @param rentalPrice - The rental price of the vehicle.
  * @param mileage - The mileage of the vehicle.
  * @param description - Additional description or details about the vehicle.
+ * @param licensePlate - The license plate of the vehicle.
+ * @param VIN - The vehicle identification number.
  * @returns A promise that resolves with the created vehicle document.
  */
 export async function createVehicle(
@@ -65,7 +67,9 @@ export async function createVehicle(
     engineCapacity: number,
     rentalPrice: number,
     mileage: number,
-    description: string
+    description: string,
+    licensePlate: string,
+    VIN: string
     ){
 
     return executeAsync(async () => {
@@ -85,7 +89,9 @@ export async function createVehicle(
             engineCapacity,
             rentalPrice,
             mileage,
-            description
+            description,
+            licensePlate,
+            VIN
         });
         // Save the new user document to the database
         const result = await newVehicle.save();

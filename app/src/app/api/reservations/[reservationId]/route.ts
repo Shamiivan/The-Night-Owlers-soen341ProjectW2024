@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
-import { middleware } from "../../../../middleware";
-import { IReservation } from "@/models/reservation";
+import { middleware } from "../../../../../middleware";
+import { IReservation } from "@/models/Reservation";
 import { getReservationById, updateReservation, getAllReservations, deleteReservation, createReservation } from "@/utils/reservationRepository";
 
 export async function GET(req: NextApiRequest, { params }: any, res: NextApiResponse) {
@@ -26,10 +26,10 @@ export async function PUT(request: Request) {
   const updatedReservationData: UpdatedReservationData = await request.json();
   console.log("UPDATED ", updatedReservationData);
   const updateFields: Partial<IReservation> = {
-    vehicle: updatedReservationData.vehicle,
-    user: updatedReservationData.user,
-    startDate: updatedReservationData.startDate,
-    endDate: updatedReservationData.endDate,
+    vehicleId: updatedReservationData.vehicle,
+    userId: updatedReservationData.user,
+    pickupDate: updatedReservationData.startDate,
+    returnDate: updatedReservationData.endDate,
     status: updatedReservationData.status,
   };
   const id = updatedReservationData.id;

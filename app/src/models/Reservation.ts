@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema } from "mongoose";
-export interface IReservation extends Document {
+interface IReservation extends Document {
     userId: mongoose.Types.ObjectId;
     vehicleId: mongoose.Types.ObjectId;
     pickupDate: Date;
@@ -20,4 +20,6 @@ const ReservationSchema = new Schema({
 }, { timestamps: true }); // Enable automatic timestamping  of createdAt and updatedAt fields
     Reservation = mongoose.model<IReservation>("Reservation", ReservationSchema);
 }
+console.log("Reservation model:", Reservation.name);
 export default Reservation;
+export type { IReservation };

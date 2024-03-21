@@ -32,36 +32,39 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, returnD
     };
 
     return (
-        <div className="flex items-center">
-        <Avatar className="h-9 w-9">
-            {/* You may customize the Avatar component to show a user's avatar */}
-            <AvatarFallback>{/* Here you may show an avatar fallback */}</AvatarFallback>
-        </Avatar>
-        <div className="ml-4 space-y-1">
-          <p className="text-sm font-medium leading-none">Reservation ID: {_id}</p>
-            <p className="text-sm text-muted-foreground">
-            {/* Here you may display the vehicle information */}
-            Vehicle ID: {vehicleId}
-            </p>
-            <p className="text-sm text-muted-foreground">
-            {/* Here you may display other details like pickup and return dates */}
-            Status: {status}
-            </p>
-        </div>
-        <div className="ml-auto font-medium flex flex-row">
-            <div className="mr-2">
-            <Link href={`/admin/checkin/${_id}`}>
-                <Button variant="link">Check In</Button>
-            </Link>
-            <Link href={`/admin/updateReservation/${_id}`}>
-                <Button variant="link">Update</Button>
-            </Link>
+        <div className="flex items-center ">
+            <Avatar className="h-9 w-9">
+                {/* You may customize the Avatar component to show a user's avatar */}
+                <AvatarFallback>{/* Here you may show an avatar fallback */}</AvatarFallback>
+            </Avatar>
+            <div className="ml-4 space-y-1">
+            <p className="text-sm font-medium leading-none">Reservation ID: {_id}</p>
+                <p className="text-sm text-muted-foreground">
+                    Vehicle ID: {vehicleId}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                    User ID: {userId}
+                </p>
+                <p className="text-sm text-muted-foreground">
+                    Status: {status}
+                </p>
             </div>
-            <div className="mr-2">
-            <Button variant="destructive" onClick={deleteReservation}>Delete</Button>
+            <div className="ml-auto font-medium flex flex-row">
+                <div className="mr-2">
+                    <Link href={`/admin/checkin/${_id}`}>
+                        <Button>Check In</Button>
+                    </Link>
+                </div>
+                <div>
+                    <Link href={`/admin/updateReservation/${_id}`}>
+                        <Button variant="link">Update</Button>
+                    </Link>
+                </div>
+                <div className="mr-2">
+                <Button variant="destructive" onClick={deleteReservation}>Delete</Button>
+                </div>
             </div>
-        </div>
-        <Separator />
+            <Separator />
         </div>
     );
 }
