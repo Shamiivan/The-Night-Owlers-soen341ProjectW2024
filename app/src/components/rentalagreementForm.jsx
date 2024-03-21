@@ -20,14 +20,19 @@ export default function RentalAgreementForm({
     const renterSignatureRef = useRef(null);
     const router = useRouter();
     const status = "rented";
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        if (rentalCompanySignatureRef.current.isEmpty() || renterSignatureRef.current.isEmpty()) {
+            alert('Please sign the rental agreement!');
+            return;
+        }
 
         const rentalCompanySignature = rentalCompanySignatureRef.current?.toDataURL();
         const renterSignature = renterSignatureRef.current?.toDataURL();
         console.log(rentalCompanySignature, rentalName, rentalDate, renterSignature, renterName, renterDate);
         const isConfirmed = window.confirm('Are you sure you want to check in this reservations?');
-        
+
         if (isConfirmed) {
           // Proceed with the form submission
           const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
@@ -201,16 +206,18 @@ export default function RentalAgreementForm({
                         value={rentalName}
                         onChange={(e) => setRentalName(e.target.value)}
                         className="border rounded-md py-1 px-2"
+                        required
                     />
                 </div>
                 <div className="mt-2 grid grid-cols-6">
                     <label htmlFor="rentalDate" className="w-24">Date:</label>
                     <input
-                        type="text"
+                        type="date"
                         id="rentalDate"
                         value={rentalDate}
                         onChange={(e) => setRentalDate(e.target.value)}
                         className="border rounded-md py-1 px-2"
+                        required
                     />
                 </div>
                 <p className="mt-6 mb-2 text-lg font-semibold">Rente:</p>
@@ -229,16 +236,18 @@ export default function RentalAgreementForm({
                         value={renterName}
                         onChange={(e) => setRenterName(e.target.value)}
                         className="border rounded-md py-1 px-2"
+                        required
                     />
                 </div>
                 <div className="mt-2 grid grid-cols-6">
                     <label htmlFor="renterDate" className="w-24">Date:</label>
                     <input
-                        type="text"
+                        type="date"
                         id="renterDate"
                         value={renterDate}
                         onChange={(e) => setRenterDate(e.target.value)}
                         className="border rounded-md py-1 px-2"
+                        required
                     />
                 </div>
                 <div className="flex justify-between mt-8">
