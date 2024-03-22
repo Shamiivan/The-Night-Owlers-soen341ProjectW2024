@@ -17,7 +17,7 @@ async function fetchVehicle(id) {
 }
 
 
-export default async function ReservationList({ userId, vehicleId, pickupDate, returnDate, comments, status, id}) {
+export default async function ReservationList({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, comments, status, id}) {
 
     const session = getSession();
     let vehicleData = null;
@@ -65,8 +65,8 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, r
         }
     };
 
-    const formattedPickupDate = pickupDate.toLocaleDateString('es-ES');
-    const formattedReturnDate = returnDate.toLocaleDateString('es-ES');
+    const formattedPickupDate = pickupDate.toLocaleDateString();
+    const formattedReturnDate = returnDate.toLocaleDateString();
 
     return (
         <div className="bg-blue-100 shadow-md rounded-lg p-6 m-8">

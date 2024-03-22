@@ -21,19 +21,25 @@ interface UpdatedReservationData {
   [key: string]: any;
 }
 
+
 export async function PUT(request: Request) {
   console.log(request);
   const updatedReservationData: UpdatedReservationData = await request.json();
+  const pickupDate = updatedReservationData.pickupDate.split('T')[0];
+  const pickupTime = updatedReservationData.pickupTime;
+  const returnDate = updatedReservationData.returnDate.split('T')[0];
+  const returnTime = updatedReservationData.returnTime;
+  const pickupDateTime = new Date(`${pickupDate}T${pickupTime}`);
+  const returnDateTime = new Date(`${returnDate}T${returnTime}`);
   console.log("UPDATED ", updatedReservationData);
   const updateFields: Partial<IReservation> = {
     vehicleId: updatedReservationData.vehicleId,
     userId: updatedReservationData.userId,
-    pickupDate: updatedReservationData.pickupDate,
-    returnDate: updatedReservationData.returnDate,
-    pickupTime: updatedReservationData.pickupTime,
-    returnTime: updatedReservationData.returnTime,
+    pickupDateTime: new Date(`${pickupDate}T${pickupTime}`),
+    returnDateTime: new Date(`${returnDate}T${returnTime}`),
     pickupLocation: updatedReservationData.pickupLocation,
     returnLocation: updatedReservationData.returnLocation,
+    totalPrice: updatedReservationData.totalPrice,
     comments: updatedReservationData.comments,
     status: updatedReservationData.status,
     name: updatedReservationData.name,

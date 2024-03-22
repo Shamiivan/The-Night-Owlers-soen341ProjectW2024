@@ -13,7 +13,15 @@ import exp from "constants";
  *  phone number, car color, 
  * pickup date, pickup time, 
  * return date, return time, 
+ * pickup location,
+ * return location,
+ * total price,
  * comments, 
+ * name,
+ * driver license number,
+ * credit card number,
+ * damage reported,
+ * status,
  * user ID, 
  * and vehicle ID as parameters, 
  * creates a new reservation document, and saves it to the database.
@@ -25,6 +33,7 @@ import exp from "constants";
  * @param returnTime - The time the car will be returned.
  * @param pickupLocation - The pickup location.
  * @param returnLocation - The return location.
+ * @param totalPrice - The total price of the reservation.
  * @param comments - Additional comments or requests.
  * @param name - The name of the user.
  * @param driverlicense - The driver's license number.
@@ -44,12 +53,13 @@ import exp from "constants";
 export async function createReservation(
     userId: string,
     vehicleId: string,
-    pickupDate: Date,
+    pickupDate: string,
     pickupTime: string,
-    returnDate: Date,
+    returnDate: string,
     returnTime: string,
     pickupLocation: string,
     returnLocation: string,
+    totalPrice: number,
     comments: string,
     name: string,
     driverlicense: string,
@@ -71,16 +81,20 @@ export async function createReservation(
         console.log(userIdObj);
         console.log(vehicleIdObj);
 
+        const pickupDateTime = new Date(`${pickupDate}T${pickupTime}`);
+        const returnDateTime = new Date(`${returnDate}T${returnTime}`);
+
+        console.log(pickupDateTime);
+        console.log(returnDateTime);
         // Create a new reservation document with the provided details
         const newReservation = new (Reservation as mongoose.Model<IReservation>)({
             userId: userIdObj,
             vehicleId: vehicleIdObj,
-            pickupDate,
-            pickupTime,
-            returnDate,
-            returnTime,
+            pickupDateTime: pickupDateTime,
+            returnDateTime: returnDateTime,
             pickupLocation,
             returnLocation,
+            totalPrice,
             comments,
             name,
             driverlicense,

@@ -3,12 +3,11 @@ import mongoose, { Document, Schema } from "mongoose";
 interface IReservation extends Document {
     userId: mongoose.Types.ObjectId;
     vehicleId: mongoose.Types.ObjectId;
-    pickupDate: Date;
-    returnDate: Date;
-    pickupTime: string;
-    returnTime: string;
+    pickupDateTime: Date;
+    returnDateTime: Date;
     pickupLocation: string;
     returnLocation: string;
+    totalPrice: number;
     comments: string;
     status: "available" | "reserved" | "rented" | "returned";
     name: string;
@@ -29,12 +28,11 @@ if(!Reservation) {
 const ReservationSchema = new Schema({
     userId: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     vehicleId: { type: Schema.Types.ObjectId, ref: 'Vehicle', required: true },
-    pickupDate: { type: Date, required: true },
-    pickupTime: { type: String, required: true },
-    returnDate: { type: Date, required: true },
-    returnTime: { type: String, required: true },
+    pickupDateTime: { type: Date, required: true },
+    returnDateTime: { type: Date, required: true },
     pickupLocation: { type: String, required: true },
     returnLocation: { type: String, required: true },
+    totalPrice: { type: Number, required: true },
     comments: { type: String, required: false },
     status: { type: String, required: true, enum: ["available", "reserved", "rented", "returned"] },
     name: { type: String, required: false },

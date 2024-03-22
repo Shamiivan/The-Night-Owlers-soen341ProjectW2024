@@ -14,6 +14,7 @@ interface ReservationProps {
     oldReturnTime: string;
     oldPickupLocation: string;
     oldReturnLocation: string;
+    oldtotalPrice: number;
     oldComment: string;
     oldStatus: string;
     oldName: string;
@@ -23,7 +24,7 @@ interface ReservationProps {
     id: string;
   }
 
-const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPickupTime, oldReturnDate, oldReturnTime, oldPickupLocation, oldReturnLocation, oldComment, oldStatus, oldName, oldDriverlicense, oldCreditcard, oldDamageReported,id }: ReservationProps) => {
+const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPickupTime, oldReturnDate, oldReturnTime, oldPickupLocation, oldReturnLocation, oldtotalPrice, oldComment, oldStatus, oldName, oldDriverlicense, oldCreditcard, oldDamageReported,id }: ReservationProps) => {
   const router = useRouter();
 
   const [userId, setUserId] = useState(oldUserId);
@@ -34,6 +35,7 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
   const [returnTime, setReturnTime] = useState(oldReturnTime);
   const [pickupLocation, setPickupLocation] = useState(oldPickupLocation);
   const [returnLocation, setReturnLocation] = useState(oldReturnLocation);
+  const [totalPrice, setTotalPrice] = useState(oldtotalPrice);
   const [comments, setComment] = useState(oldComment);
   const [status, setStatus] = useState(oldStatus);
   const [name, setName] = useState(oldName);
@@ -41,12 +43,13 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
   const [creditcard, setCreditcard] = useState(oldCreditcard);
   const [damageReported, setDamageReported] = useState(oldDamageReported);
 
-
   const handleSubmit = async (e: React.FormEvent) => {
+    console.log('Updating reservation:', id);
     e.preventDefault();
     const isConfirmed = window.confirm('Are you sure you want to update this reservations?');
 
     if (isConfirmed) {
+      console.log('User confirmed update');
       // Proceed with the form submission
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
         method: 'PUT',
@@ -59,6 +62,7 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
           returnTime,
           pickupLocation,
           returnLocation,
+          totalPrice,
           comments,
           status,
           name,
@@ -72,15 +76,18 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
         },
       });
 
+      console.log('Response from server:', response);
       if (response.ok) {
         const data = await response.json();
+        console.log('Data received from server:', data);
         router.push("/admin/reservations");
+        alert('Information sent successfully!');
       } else {
         console.error('Error updating reservations:', response.statusText);
       }
-      alert('Information sent successfully!');
     }
   };
+
 
   return (
     <form onSubmit={handleSubmit} className="max-w-lg mx-auto mt-10">
@@ -161,6 +168,16 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
           id="returnLocation"
           value={returnLocation}
           onChange={(e) => setReturnLocation(e.target.value)}
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
+      <div className="mb-4">
+        <label htmlFor="totalPrice" className="block text-sm font-medium text-gray-700">Total Price:</label>
+        <input
+          type="number"
+          id="totalPrice"
+          value={totalPrice}
+          onChange={(e) => setTotalPrice(parseInt(e.target.value))}
           className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
