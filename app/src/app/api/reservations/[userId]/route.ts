@@ -1,13 +1,23 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
+import { middleware } from "../../../../../middleware";
 import { IReservation } from "@/models/Reservation";
-import {getReservationsByUserId} from "@/utils/reservationRepository";
+import {
+  getReservationById,
+  updateReservation,
+  getAllReservations,
+  deleteReservation,
+  createReservation,
+} from "@/utils/reservationRepository";
 
-export async function GET(req: NextApiRequest, { params }: any, res: NextApiResponse) {
-  const { userId } = params;
-  console.log("Thus is th the reservationId:")
-  console.log();
-  const result = await getReservationsByUserId(userId as string);
+export async function GET(
+  req: NextApiRequest,
+  { params }: any,
+  res: NextApiResponse,
+) {
+  const { reservationId } = params;
+  const result = await getReservationById(reservationId as string);
+  console.log(result);
   if (result.success) {
     return NextResponse.json({ success: true, value: result.value });
   } else if (result.error) {
@@ -16,4 +26,3 @@ export async function GET(req: NextApiRequest, { params }: any, res: NextApiResp
     return NextResponse.json({ success: false, error: "Method not allowed" });
   }
 }
-

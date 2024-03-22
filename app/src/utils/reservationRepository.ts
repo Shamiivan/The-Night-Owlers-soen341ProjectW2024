@@ -193,9 +193,9 @@ export async function getReservationsByUserId(userId: string) {
     console.log(idObj);
 
     // Retrieve reservations with the specified userId from the database
-    const reservations = await Reservation?.find({ userId: idObj }); 
-      console.log(reservations); 
-
+    const reservations = await Reservation?.find({ userId: idObj })
+    .populate('userId')
+    .exec();
     // Log the result of the retrieval
     return reservations;
   });
