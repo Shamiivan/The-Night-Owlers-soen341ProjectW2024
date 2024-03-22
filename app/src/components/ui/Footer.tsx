@@ -22,9 +22,6 @@ const Footer = () => {
                                 <li className="mb-4">
                                     <Link href="/vehicles" className="hover:underline">Rent</Link>
                                 </li>
-                                <li className="mb-4">
-                                    <a href="/viewreserve" className="hover:underline">Manage Reservation</a>
-                                </li>
                                 {/*<li>
                                     <a href="#" className="hover:underline">Check-In/Out</a>
                                 </li>*/}
