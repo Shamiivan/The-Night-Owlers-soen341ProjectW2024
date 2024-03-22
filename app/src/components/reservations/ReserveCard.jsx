@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { getSession } from "next-auth/react";
 import Link  from "next/link";
 import React from "react";
 import "@/styles/global.css";
@@ -18,24 +17,14 @@ async function fetchVehicle(id) {
 
 
 export default async function ReservationList({ userId, vehicleId, pickupDate, returnDate, comments, status, id}) {
-
-    const session = getSession();
-    let vehicleData = null;
-    if (session) {
-        try {
-            vehicleData = await fetchVehicle(vehicleId);
-        } catch (error) {
-            console.error('Error fetching vehicle data:', error);
-            // Optionally, you can display an error message to the user
-            vehicleData = null;
-        }
-    }
+ 
+    let vehicleData = vehicleId;
 
     if (!vehicleData) {
         return (
             <div className="flex items-center justify-center">
                 <div className="">
-                    Vehicle data not available
+
                 </div>
             </div>
         );
@@ -67,10 +56,11 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, r
 
     const formattedPickupDate = pickupDate.toLocaleDateString('es-ES');
     const formattedReturnDate = returnDate.toLocaleDateString('es-ES');
+    console.log(pickupDate);
 
     return (
-        <div className="bg-blue-100 shadow-md rounded-lg p-6 m-8">
-            <Image src={vehicleData.imageUrl} alt="Car Image" width={200} height={200} className="rounded-lg"/>
+        <div className="bg-blue-100 shadow-md rounded-md p-6 m-8">
+            <Image src="https://s7d1.scene7.com/is/image/scom/RAB_default_frontwheelturned_left?$1950wa$" alt="Car Image" width={200} height={200} className="rounded-lg"/>
             <p>{vehicleData.brand} {vehicleData.vehicleModel}</p>
             <p className="text-gray-500 dark:text-gray-400">Pickup Date: {formattedPickupDate}</p>
             <p className="text-gray-500 dark:text-gray-400">Return Date: {formattedReturnDate}</p>

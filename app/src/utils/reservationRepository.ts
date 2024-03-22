@@ -4,6 +4,8 @@ import dotenv from "dotenv";
 import Reservation, { IReservation } from "@/models/Reservation";
 import printError from "@/utils/print";
 import { connectToDatabase } from "@/utils/connectDb";
+import User from "@/models/user";
+import Vehicle from "@/models/Vehicle";
 import exp from "constants";
 
 /**
@@ -196,11 +198,14 @@ export async function getReservationsByUserId(userId: string) {
   return executeAsync(async () => {
     await connectToDatabase();
     const idObj = new mongoose.Types.ObjectId(userId);
-    console.log(idObj);
+    await User?.init();
+    await Vehicle?.init();
+
 
     // Retrieve reservations with the specified userId from the database
     const reservations = await Reservation?.find({ userId: idObj })
     .populate('userId')
+    .populate('vehicleId')
     .exec();
     // Log the result of the retrieval
     return reservations;

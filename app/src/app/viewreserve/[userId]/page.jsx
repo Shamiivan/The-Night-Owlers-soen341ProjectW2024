@@ -1,11 +1,11 @@
 import React from 'react';
 import ReservationCard from '@/components/reservations/ReserveCard';
 import { getReservationsByUserId, getAllReservations } from '@/utils/reservationRepository';
-import { getUserById } from '@/utils/userRepository';
+
+
 
 async function fetchUserReservations(userId) {
-  console.log('Fetching reservations for user:', userId);
-  const response = await getAllReservations();
+  const response = await getReservationsByUserId(userId);
   console.log('Fetch reservations response:', response);
   if (response.success) {
     console.log('Successfully fetched reservations');
@@ -30,16 +30,14 @@ async function fetchUser(userId) {
 export default async function ViewReserve({ params }) {
 
   const reservations = await fetchUserReservations(params.userId);
-  const user = await fetchUser(params.userId);
+  const user = reservations[0].userId;
 
   return (
     <div>
       <div className="flex flex-col items-center justify-center gap-2 text-center">
-        <h1 className="text-3xl font-bold text-primary tracking-tighter sm:text-5xl">View Reservations</h1>
-        <p>(click on the reservation to view details)</p>
-      </div>
-      <p className="text-xl font-bold tracking-tighter ml-10">{user.firstName} {user.lastName}</p>
-      
+        <h1 className="text-3xl font-bold text-primary tracking-tighter sm:text-5xl">Hey {user.firstName}</h1>
+        <p>Here are the cars you've reserved. You can click on a reservation to view more details.</p>
+      </div>      
       <div className="container mx-auto mt-8">
         {reservations.map((reservation) => (
           <ReservationCard

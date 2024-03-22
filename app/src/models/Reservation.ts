@@ -47,7 +47,7 @@ if (!Reservation) {
       damageReported: { type: Boolean },
       rentalName: { type: String },
       rentalDate: { type: Date },
-      renterName: { type: String },
+      renterName: { type: String},
       renterDate: { type: Date },
       rentalCompanySignature: { type: String },
       renterSignature: { type: String },
