@@ -1,5 +1,4 @@
 import { Button } from "@/components/ui/button";
-import { getSession } from "next-auth/react";
 import Link  from "next/link";
 import React from "react";
 import "@/styles/global.css";
@@ -35,7 +34,7 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, p
         return (
             <div className="flex items-center justify-center">
                 <div className="">
-                    Vehicle data not available
+
                 </div>
             </div>
         );
@@ -69,8 +68,8 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, p
     const formattedReturnDate = returnDate.toLocaleDateString();
 
     return (
-        <div className="bg-blue-100 shadow-md rounded-lg p-6 m-8">
-            <Image src={vehicleData.imageUrl} alt="Car Image" width={200} height={200} className="rounded-lg"/>
+        <div className="bg-blue-100 shadow-md rounded-md p-6 m-8">
+            <Image src="https://s7d1.scene7.com/is/image/scom/RAB_default_frontwheelturned_left?$1950wa$" alt="Car Image" width={200} height={200} className="rounded-lg"/>
             <p>{vehicleData.brand} {vehicleData.vehicleModel}</p>
             <p className="text-gray-500 dark:text-gray-400">Pickup Date: {formattedPickupDate}</p>
             <p className="text-gray-500 dark:text-gray-400">Return Date: {formattedReturnDate}</p>

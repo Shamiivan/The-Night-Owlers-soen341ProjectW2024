@@ -17,7 +17,7 @@ export default async function Home() {
       <div className="flex justify-center items-center h-screen bg-blue-500 rounded-xl shadow-md shadow-gray-500">
         <div className="flex flex-col justify-center items-start p-8 mr-4 text-white">
           <h1 className="text-3xl font-bold mb-4">Welcome to Omni Rental !</h1>
-          <p className="text-lg">
+        <p className="text-lg">
             At Omni Rental, we provide you with a seamless and convenient way to
             find the perfect vehicle for your needs. Whether you're planning a
             road trip, a business journey, or simply need a reliable ride for

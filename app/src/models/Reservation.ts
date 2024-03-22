@@ -50,6 +50,5 @@ const ReservationSchema = new Schema({
     Reservation = mongoose.model<IReservation>("Reservation", ReservationSchema);
 }
 
-console.log("Reservation model:", Reservation.name);
 export default Reservation;
 export type { IReservation };

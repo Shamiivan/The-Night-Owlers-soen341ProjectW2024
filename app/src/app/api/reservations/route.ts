@@ -1,18 +1,24 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NextResponse } from "next/server";
-import { getAllReservations, createReservation } from "@/utils/reservationRepository";
+import {
+  getAllReservations,
+  createReservation,
+  addReservation,
+} from "@/utils/reservationRepository";
+import type { IReservation } from "@/models/Reservation";
+import mongoose from "mongoose";
 
 export async function GET() {
-    const result = await getAllReservations();
+  const result = await getAllReservations();
 
-    if (result.success) {
-        return NextResponse.json({ success: true, value: result.value });
-    } else if (result.error) {
-        return NextResponse.json({ success: false, error: result.error.message });
-    } else {
-        // Handle unsupported methods or other conditions
-        return  NextResponse.json({ success: false, error: 'Method not allowed' });
-    }
+  if (result.success) {
+    return NextResponse.json({ success: true, value: result.value });
+  } else if (result.error) {
+    return NextResponse.json({ success: false, error: result.error.message });
+  } else {
+    // Handle unsupported methods or other conditions
+    return NextResponse.json({ success: false, error: "Method not allowed" });
+  }
 }
 
 export async function POST(request: Request) {
