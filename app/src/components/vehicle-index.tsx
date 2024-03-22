@@ -19,7 +19,7 @@ export async function VehicleIndex() {
   const data = await fetchVehicles();
   console.log(data);
   return (
-    <div className="max-w-6xl mx-auto px-4 lg:px-6 space-y-6">
+    <div className="max-w-6xl mx-auto px-4 lg:px-6 space-y-6 mb-8">
       <div className="flex flex-col items-center justify-center gap-2 text-center">
         {/* Title and Subtitle */}
         <h1 className="text-3xl font-bold text-primary tracking-tighter sm:text-5xl">Rent a Car</h1>

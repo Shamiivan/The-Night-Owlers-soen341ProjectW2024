@@ -29,8 +29,6 @@ export async function PUT(request: Request) {
   const pickupTime = updatedReservationData.pickupTime;
   const returnDate = updatedReservationData.returnDate.split('T')[0];
   const returnTime = updatedReservationData.returnTime;
-  const pickupDateTime = new Date(`${pickupDate}T${pickupTime}`);
-  const returnDateTime = new Date(`${returnDate}T${returnTime}`);
   console.log("UPDATED ", updatedReservationData);
   const updateFields: Partial<IReservation> = {
     vehicleId: updatedReservationData.vehicleId,
