@@ -46,11 +46,17 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, p
 
     return (
         <div className="bg-blue-100 shadow-md rounded-md p-6 m-8">
-            <Image src="https://s7d1.scene7.com/is/image/scom/RAB_default_frontwheelturned_left?$1950wa$" alt="Car Image" width={200} height={200} className="rounded-lg"/>
-            <p>{vehicleData.brand} {vehicleData.vehicleModel}</p>
-            <p className="text-gray-500 dark:text-gray-400">Pickup Date: {formattedPickupDate}</p>
-            <p className="text-gray-500 dark:text-gray-400">Return Date: {formattedReturnDate}</p>
-            <p className="text-gray-500 dark:text-gray-400">Status: {status}</p>
+            <div className="grid grid-cols-2">
+                <div className="flex items-center justify-center">
+                    <Image src={vehicleData.imageUrl} alt="Car Image" width={200} height={200} className="rounded-lg"/>
+                </div>
+                <div>
+                    <p>{vehicleData.brand} {vehicleData.vehicleModel}</p>
+                    <p className="text-gray-500 dark:text-gray-400">Pickup Date: {formattedPickupDate}</p>
+                    <p className="text-gray-500 dark:text-gray-400">Return Date: {formattedReturnDate}</p>
+                    <p className="text-gray-500 dark:text-gray-400">Status: {status}</p>
+                </div>
+            </div>
             <div className="mt-4 flex space-x-2 items-center flex-row">
                 <Link href={`/viewReservationDetail/${id}`} className="mt-auto w-full">
                     <Button>

@@ -7,13 +7,16 @@ import { useRouter } from "next/navigation";
 import Image from 'next/image';
 
 export default function ReservationDetailCard ({ reservation, vehicle, user }) {
-  const router = useRouter();
-
-  const [editMode, setEditMode] = useState(false);
-
-  const toggleEditMode = () => {
-    setEditMode(prevMode => !prevMode);
-  };
+    const router = useRouter();
+    const [editMode, setEditMode] = useState(false);
+    const pickupDate = reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toLocaleDateString('en-US') : "";
+    const pickupTime = reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : '';
+    const returnDate = reservation.returnDateTime ? new Date(reservation.returnDateTime).toLocaleDateString('en-US') : "";
+    const returnTime = reservation.returnDateTime ? new Date(reservation.returnDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : '';
+    
+    const toggleEditMode = () => {
+        setEditMode(prevMode => !prevMode);
+    };
 
   return (
     <div className="p-6 max-w-[700px] mx-auto bg-gray-50 dark:bg-gray-900 space-y-8">
@@ -27,12 +30,12 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
             </div>
         <div className="grid grid-cols-2 gap-4">
             <div>
-                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-t-lg border-b-2">Pick Up Date: {reservation.pickupDate.toLocaleDateString('es-ES')}</p>
-                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg border-b-2">Pick Up Time: {reservation.pickupTime}</p>
+                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-t-lg border-b-2">Pick Up Date: {pickupDate}</p>
+                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg border-b-2">Pick Up Time: {pickupTime}</p>
             </div>
             <div>
-                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-t-lg border-b-2">Return Date: {reservation.returnDate.toLocaleDateString('es-ES')}</p>
-                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg border-b-2">Return Time: {reservation.returnTime}</p>
+                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-t-lg border-b-2">Return Date: {returnDate}</p>
+                <p className="text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-b-lg border-b-2">Return Time: {returnTime}</p>
             </div>
         </div>
         </div>
@@ -67,4 +70,5 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
     </div>
   );
 }
+
 
