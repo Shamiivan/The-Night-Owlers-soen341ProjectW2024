@@ -5,6 +5,7 @@ import "@/styles/global.css";
 import { getVehicleById } from "@/utils/vehicleRepository";
 import Image from 'next/image';
 import DeleteReservation from "@/components/user/deleteReservation";
+import { getSession } from "next-auth/react"
 
 async function fetchVehicle(id) {
     const response = await getVehicleById(id);
@@ -40,30 +41,6 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, p
         );
     }
 
-    const deleteReservation = async () => {
-
-        const isConfirmed = window.confirm(`Are you sure you want to delete this reservation?`);
-        try {
-        const response = await fetch(`/api/reservations/${_id}`, {
-            method: 'DELETE',
-            body: JSON.stringify({ _id }),
-            headers: {
-            'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to delete reservation');
-        } else {
-            window.location.reload();
-        }
-
-        } catch (error) {
-        console.error('Error deleting reservation:', error);
-        alert('Failed to delete reservation');
-        }
-    };
-
     const formattedPickupDate = pickupDate.toLocaleDateString();
     const formattedReturnDate = returnDate.toLocaleDateString();
 
@@ -81,7 +58,8 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, p
                     </Button>
                 </Link>
                 <div>
-                    <DeleteReservation  />
+                    <DeleteReservation 
+                     id = {id}/>
                 </div>
             </div>
         </div>

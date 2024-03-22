@@ -83,8 +83,8 @@ export default function RentalAgreementForm({
         <p className="text-3xl font-bold mb-4">Car Rental Agreement</p>
         <p className="mb-4">Rental Agreement Number: {reservation._id}</p>
         <p>
-            This Rental Agreement ("Agreement") is entered into between [Car Rental Agency Name],
-            located at {reservation.pickupLocation}, hereinafter referred to as the "Rental Company,"
+            This Rental Agreement "Vehicle Rental Agreement" is entered into between "The Night Owlers",
+            located at 1455 Blvd. De Maisonneuve Ouest, Montreal, Quebec H3G 1M8, hereinafter referred to as the "Rental Company,"
             and the individual or entity identified below, hereinafter referred to as the "Renter":
         </p>
 
@@ -142,7 +142,7 @@ export default function RentalAgreementForm({
             </div>
         </div>
         <h2 className="text-xl font-bold mb-2">4. Rental Terms and Conditions:</h2>
-        <ul>
+        <ul className="list-disc list-inside">
             <li>
                 The Renter acknowledges receiving the vehicle described above in good condition and agrees to return it to the Rental Company in the same condition, subject to normal wear and tear.
             </li>
@@ -250,7 +250,7 @@ export default function RentalAgreementForm({
                         required
                     />
                 </div>
-                <div className="flex justify-between mt-8">
+                <div className="flex justify-between mt-4">
                     <Button type="submit">
                         Continue
                     </Button>

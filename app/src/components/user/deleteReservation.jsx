@@ -3,14 +3,14 @@ import "@/styles/global.css";
 import React from 'react'
 import { Button } from "@/components/ui/button";
 
-export default function DeleteReservation() {
+export default function DeleteReservation({id}) {
     const deleteReserve = async () => {
 
         const isConfirmed = window.confirm(`Are you sure you want to delete this reservation?`);
         try {
-        const response = await fetch(`/api/reservations/${_id}`, {
+        const response = await fetch(`/api/reservations/${id}`, {
             method: 'DELETE',
-            body: JSON.stringify({ _id }),
+            body: JSON.stringify({ _id: id }),
             headers: {
             'Content-Type': 'application/json',
             },
@@ -20,6 +20,7 @@ export default function DeleteReservation() {
             throw new Error('Failed to delete reservation');
         } else {
             window.location.reload();
+            alert('Reservation deleted successfully!');
         }
 
         } catch (error) {

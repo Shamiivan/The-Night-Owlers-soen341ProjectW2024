@@ -8,8 +8,10 @@ import { getVehicleById } from "@/utils/vehicleRepository";
 async function fetchReservation(id) {
     const response = await getReservationById(id);
     if (response.success) {
+        console.log('Fetched reservation:', response.value);
         return response.value;
     } else {
+        console.log('Failed to fetch reservation:', response.error);
         return null;
     }
 }
@@ -17,8 +19,10 @@ async function fetchReservation(id) {
 async function fetchUser(id) {
     const response = await getUserById(id);
     if (response.success) {
+        console.log('Fetched user:', response.value);
         return response.value;
     } else {
+        console.log('Failed to fetch user:', response.error);
         return null;
     }
 }
@@ -26,8 +30,10 @@ async function fetchUser(id) {
 async function fetchVehicle(id) {
     const response = await getVehicleById(id);
     if (response.success) {
+        console.log('Fetched vehicle:', response.value);
         return response.value;
     } else {
+        console.log('Failed to fetch vehicle:', response.error);
         return null;
     }
 }
