@@ -4,6 +4,7 @@ import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
 import Vehicle, { IVehicle } from '@/models/Vehicle';
 import printError from '@/utils/print';
+import Reservation from '@/models/Reservation';
 
 
 // Load environment variables from .env file
@@ -70,7 +71,7 @@ export async function createVehicle(
     description: string,
     licensePlate: string,
     VIN: string
-    ){
+) {
 
     return executeAsync(async () => {
         await connectToDatabase();
@@ -107,12 +108,12 @@ export async function createVehicle(
  * @param vehicle The vehicle object to be added.
  * @returns A promise that resolves with the created vehicle document.
  */
-export async function addVehicle(vehicle: IVehicle){
+export async function addVehicle(vehicle: IVehicle) {
     return executeAsync(async () => {
         // Ensure the database connection is established
         await connectToDatabase();
         // Create a new vehicle document using the Vehicle model
-        const newVehicle = new (Vehicle as mongoose.Model<IVehicle>) (vehicle);
+        const newVehicle = new (Vehicle as mongoose.Model<IVehicle>)(vehicle);
         const result = await newVehicle.save();
         return result;
     });
@@ -172,6 +173,42 @@ export async function deleteVehicle(id: string) {
         // Find the vehicle document by its ID and delete it
         const result = await Vehicle?.findByIdAndDelete(id);
         return result;
+    });
+}
+
+/**
+ * Retrieves a list of vehicles that are available for reservation within the specified date range.
+ * @async
+ * @function
+ * @param {string} pickupDate - The pickup date in ISO format (YYYY-MM-DD).
+ * @param {string} returnDate - The return date in ISO format (YYYY-MM-DD).
+ * @returns {Promise<Array<Vehicle>>} A promise that resolves to an array of available vehicles.
+ * @throws {Error} If there's an error querying the database.
+ *  */
+export async function getAvailableVehicles(pickupDate, returnDate) {
+    return executeAsync(async () => {
+        // Convert dates to JavaScript Date objects
+        const startDate = new Date(pickupDate);
+        const endDate = new Date(returnDate);
+
+        // Query reservations that overlap with the specified date range
+        const overlappingReservations = await Reservation?.find({
+            $or: [
+                { pickupDate: { $lte: startDate }, returnDate: { $gte: startDate } },
+                { pickupDate: { $lte: endDate }, returnDate: { $gte: endDate } },
+                { pickupDate: { $gte: startDate }, returnDate: { $lte: endDate } },
+            ],
+        });
+
+        // Extract vehicle IDs from overlapping reservations
+        const reservedVehicleIds = overlappingReservations?.map(reservation => reservation.vehicleId);
+
+        // Query all vehicles and filter out those that are reserved
+        const allVehicles = await Vehicle?.find({});
+        const availableVehicles = allVehicles?.filter(vehicle => !reservedVehicleIds?.includes(vehicle._id));
+
+        // Return the available vehicles
+        return availableVehicles;
     });
 }
 
