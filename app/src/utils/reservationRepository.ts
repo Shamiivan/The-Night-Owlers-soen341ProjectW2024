@@ -11,12 +11,20 @@ import exp from "constants";
 /**
  * Creates a new reservation in the database.
  * This function takes the user's
- *  phone number, car color,
- * pickup date, pickup time,
- * return date, return time,
- * comments,
- * user ID,
- * and vehicle ID as parameters,
+ *  phone number, car color, 
+ * pickup date, pickup time, 
+ * return date, return time, 
+ * pickup location,
+ * return location,
+ * total price,
+ * comments, 
+ * name,
+ * driver license number,
+ * credit card number,
+ * damage reported,
+ * status,
+ * user ID, 
+ * and vehicle ID as parameters, 
  * creates a new reservation document, and saves it to the database.
  * @param phone - The user's phone number.
  * @param color - The color of the car to reserve.
@@ -26,6 +34,7 @@ import exp from "constants";
  * @param returnTime - The time the car will be returned.
  * @param pickupLocation - The pickup location.
  * @param returnLocation - The return location.
+ * @param totalPrice - The total price of the reservation.
  * @param comments - Additional comments or requests.
  * @param name - The name of the user.
  * @param driverlicense - The driver's license number.
@@ -57,26 +66,27 @@ export async function addReservation(reservationInfo: Partial<IReservation>) {
   });
 }
 export async function createReservation(
-  userId: string,
-  vehicleId: string,
-  pickupDate: Date,
-  pickupTime: string,
-  returnDate: Date,
-  returnTime: string,
-  pickupLocation: string,
-  returnLocation: string,
-  comments: string,
-  name: string,
-  driverlicense: string,
-  creditcard: string,
-  damageReported: boolean,
-  status: "reserved",
-  rentalName: string,
-  rentalDate: Date,
-  renterName: string,
-  renterDate: Date,
-  rentalCompanySignature: String,
-  renterSignature: String,
+    userId: string,
+    vehicleId: string,
+    pickupDate: string,
+    pickupTime: string,
+    returnDate: string,
+    returnTime: string,
+    pickupLocation: string,
+    returnLocation: string,
+    totalPrice: number,
+    comments: string,
+    name: string,
+    driverlicense: string,
+    creditcard: string,
+    damageReported: boolean,
+    status: "reserved",
+    rentalName: string,
+    rentalDate: Date,
+    renterName: string,
+    renterDate: Date,
+    rentalCompanySignature: String,
+    renterSignature: String,
 ) {
   return executeAsync(async () => {
     console.log("Creating reservation");
@@ -86,28 +96,33 @@ export async function createReservation(
     console.log(userIdObj);
     console.log(vehicleIdObj);
 
+    const pickupDateTime = new Date(`${pickupDate}T${pickupTime}`);
+    const returnDateTime = new Date(`${returnDate}T${returnTime}`);
+
+    console.log(pickupDateTime);
+    console.log(returnDateTime);
     // Create a new reservation document with the provided details
     const newReservation = new (Reservation as mongoose.Model<IReservation>)({
-      userId: userIdObj,
-      vehicleId: vehicleIdObj,
-      pickupDate,
-      pickupTime,
-      returnDate,
-      returnTime,
-      pickupLocation,
-      returnLocation,
-      comments,
-      name,
-      driverlicense,
-      creditcard,
-      damageReported,
-      status,
-      rentalName,
-      rentalDate,
-      renterName,
-      renterDate,
-      rentalCompanySignature,
-      renterSignature,
+        userId: userIdObj,
+        vehicleId: vehicleIdObj,
+        pickupDateTime: pickupDateTime,
+        returnDateTime: returnDateTime,
+        pickupLocation,
+        returnLocation,
+        totalPrice,
+        comments,
+        name,
+        driverlicense,
+        creditcard,
+        damageReported,
+        status,
+        rentalName,
+        rentalDate,
+        renterName,
+        renterDate,
+        rentalCompanySignature,
+        renterSignature,
+
     });
     // Save the new reservation document to the database
     const result = await newReservation.save();
@@ -125,8 +140,13 @@ export async function createReservation(
 export async function getAllReservations() {
   return executeAsync(async () => {
     await connectToDatabase();
+    await User?.init();
+    await Vehicle?.init();
     // Retrieve all reservation documents from the database
-    const result = await Reservation?.find();
+    const result = await Reservation?.find()
+    .populate('userId')
+    .populate('vehicleId')
+    .exec();
     // Log the result of the retrieval
     return result;
   });
@@ -141,8 +161,11 @@ export async function getAllReservations() {
 export async function getReservationById(id: string) {
   return executeAsync(async () => {
     await connectToDatabase();
+
+
     // Retrieve the reservation document with the specified ID from the database
     const result = await Reservation?.findById(id);
+
     // Log the result of the retrieval
     return result;
   });
@@ -212,4 +235,4 @@ export async function getReservationsByUserId(userId: string) {
   });
 }
 
-//
+

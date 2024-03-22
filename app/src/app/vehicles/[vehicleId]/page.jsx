@@ -33,7 +33,7 @@ export default async function ViewVehicle({ params }) {
   }
 
   return (
-    <div className='mt-10 max-w-6xl mx-auto px-4 lg:px-6 space-y-6'>
+    <div className='mt-10 max-w-6xl mx-auto px-4 lg:px-6 space-y-6  mb-8'>
       <div className="flex flex-col items-center justify-center gap-2 text-center">
         <h1 className="text-3xl font-bold text-primary tracking-tighter sm:text-5xl">Car Detail</h1>
       </div>

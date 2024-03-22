@@ -17,16 +17,6 @@ async function fetchUserReservations(userId) {
 }
 
 
-async function fetchUser(userId) {
-  const response = await getUserById(userId);
-  if (response.success) {
-    return response.value;
-  } else {
-    return null;
-  }
-}
-
-
 export default async function ViewReserve({ params }) {
 
   const reservations = await fetchUserReservations(params.userId);
@@ -42,10 +32,12 @@ export default async function ViewReserve({ params }) {
         {reservations.map((reservation) => (
           <ReservationCard
             key={reservation._id}
-            userId={reservation.userId}
-            vehicleId={reservation.vehicleId}
-            pickupDate={reservation.pickupDate}
-            returnDate={reservation.returnDate}
+            userId={reservation.userId._id}
+            vehicleId={reservation.vehicleId._id}
+            pickupDate={reservation.pickupDateTime ? new Date(reservation.pickupDateTime) : new Date()}
+            pickupTime={reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
+            returnDate={reservation.returnDateTime ? new Date(reservation.returnDateTime) : new Date()}
+            returnTime={reservation.returnDateTime ? new Date(reservation.returnDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
             comments={reservation.comments}
             status={reservation.status}
             id={reservation._id}
