@@ -18,6 +18,8 @@ export async function GET() {
 export async function POST(request: Request) {
     // Parse the request body to get the new reservation data
     const {
+        userId,
+        vehicleId,
         pickupDate,
         pickupTime,
         returnDate,
@@ -29,8 +31,6 @@ export async function POST(request: Request) {
         driverlicense,
         creditcard,
         damageReported,
-        userId,
-        vehicleId,
         status,
         rentalName,
         rentalDate,
@@ -39,8 +39,10 @@ export async function POST(request: Request) {
         rentalCompanySignature,
         renterSignature
     }= await request.json();
-    
+
     const result = await createReservation(
+        userId,
+        vehicleId,
         pickupDate,
         pickupTime,
         returnDate,
@@ -52,8 +54,6 @@ export async function POST(request: Request) {
         driverlicense,
         creditcard,
         damageReported,
-        userId,
-        vehicleId,
         status,
         rentalName,
         rentalDate,

@@ -92,7 +92,7 @@ export default function RentalAgreementForm({
             <h2 className="text-xl font-bold mb-2">1. Renter's Information:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Name: </p>
-                    <p>{user.firstname} {user.lastname} </p>
+                    <p>{user.firstName} {user.lastName} </p>
                     <p>Address: </p>
                     <p>{user.address}</p>
                     <p>Contact Number: </p>
@@ -135,7 +135,7 @@ export default function RentalAgreementForm({
                     <p>Mileage Limit (if applicable): </p>
                     <p>{vehicle.mileage}</p>
                     <p>Rental Rate: </p>
-                    <p>${vehicle.price}/day</p>
+                    <p>${vehicle.rentalPrice}/day</p>
                     <p>Additional Services (if any):</p>
                     <p>{!vehicle.addition? "None" : vehicle.addition}</p>
                 </div>
