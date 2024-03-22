@@ -1,11 +1,11 @@
 
 import React from 'react';
 import { VehicleIndex } from "@/components/vehicle-index";
-import { getAvailableVehicles, getAllVehicles } from '@/utils/vehicleRepository';
+import { getAllVehicles, getAvailableVehiclesByLocation, ensureAllVehiclesHaveLocation} from '@/utils/vehicleRepository';
 import { SearchBar } from '@/components/vehicles/SearchBar';
 
-const fetchAvailableVehicles = async (pickUpDate:string, returnDate:string) => {
-  const response = await getAvailableVehicles(pickUpDate, returnDate);
+const fetchAvailableVehicles = async (pickUpDate:string, returnDate:string, locationId: string) => {
+  const response = await getAvailableVehiclesByLocation(pickUpDate, returnDate, locationId);
   if(response.success) {
     return response.value;
    } else{
@@ -26,9 +26,14 @@ const fetchAllVehicles = async () =>{
 export default async function Vehicles({searchParams}) {
   
   let vehicles = await fetchAllVehicles();
-  if(searchParams.pickUpDate !== '' && searchParams.returnDate !== ''){
+  console.log(searchParams.pickUpDate);
+  console.log(searchParams.returnDate);
+
+  if(searchParams.pickUpDate !== '' && searchParams.returnDate !== ''
+  && searchParams.pickUpDate !== undefined && searchParams.returnDate !== undefined && searchParams.location !== undefined
+  ){
     console.log("new vehicles");
-    vehicles = await fetchAvailableVehicles(searchParams.pickUpDate, searchParams.returnDate);
+    vehicles = await fetchAvailableVehicles(searchParams.pickUpDate, searchParams.returnDate, searchParams.location);
   }
   
  return (

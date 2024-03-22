@@ -15,6 +15,7 @@ export function SearchBar() {
     const searchParams = useSearchParams();
     const [pickupDate, setPickupDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
+    const [location, setLocation] = useState("");
 
 
     const handleSubmit = (e) => {
@@ -22,7 +23,12 @@ export function SearchBar() {
         const current = new URLSearchParams(Array.from(searchParams?.entries() ?? []));
         current.set("pickUpDate", pickupDate);
         current.set("returnDate", returnDate);
-        // cast to string
+        if(location ==="London"){
+            current.set("location", "65fddf402caecab370f74937");
+        }else if(location ==="Montreal"){
+            current.set("location", "65fde5fd2caecab370f74961")
+        }
+
         const search = current.toString();
         console.log(search);
         // or const query = `${'?'.repeat(search.length && 1)}${search}`;
@@ -71,7 +77,11 @@ export function SearchBar() {
                 <Label className="text-sm" htmlFor="location">
                     Pick-up location
                 </Label>
-                <Input id="location" placeholder="Enter a location" />
+                <select id="location" value={location} onChange={(e) => setLocation(e.target.value)}>
+                    <option value="">Select a location</option>
+                    <option value="Montreal">Montreal</option>
+                    <option value="London">London</option>
+                </select>
             </div>
             <div className="grid gap-2">
                 <Label className="text-sm" htmlFor="start">
