@@ -35,8 +35,11 @@ export default function ReservationsList() {
             _id={reservation._id}
             userId={reservation.userId}
             vehicleId={reservation.vehicleId}
-            pickupDate={reservation.pickupDate}
-            returnDate={reservation.returnDate}
+            pickupDate={reservation.pickupDateTime ? new Date(reservation.pickupDateTime) : new Date()}
+            pickupTime={reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
+            returnDate={reservation.returnDateTime ? new Date(reservation.returnDateTime) : new Date()}
+            returnTime={reservation.returnDateTime ? new Date(reservation.returnDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
+            
             status={reservation.status}
         />
       ))}

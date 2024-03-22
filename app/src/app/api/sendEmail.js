@@ -5,13 +5,13 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: 'Method Not Allowed' });
   }
 
-  const { to, subject, text } = req.body;
+  const { toEmail, subject, text } = req.body;
 
   // Set your SendGrid API key
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
   const msg = {
-    to,
+    to: toEmail,
     from: process.env.SENDGRID_SENDER_EMAIL,
     subject,
     text,
@@ -25,3 +25,4 @@ export default async function handler(req, res) {
     return res.status(500).json({ success: false, message: 'Failed to send email' });
   }
 }
+

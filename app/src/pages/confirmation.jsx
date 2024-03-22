@@ -7,11 +7,12 @@ import { SessionProvider } from "next-auth/react";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { getSession } from "next-auth/react";
 
 export default function ConfirmPage({ session }) {
   const router = useRouter();
   const user = session?.user;
-
+  const email = user?.email;
   const { userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, creditcard } = router.query;
 
   const pickupTimestamp = Date.parse(`${pickupDate}T00:00`);
@@ -31,8 +32,8 @@ export default function ConfirmPage({ session }) {
     if (!confirmation) return;
 
     const emailContent = {
-      to: 'recipient@example.com', // Change to the recipient's email address
-      subject: 'Reservation Confirmation', // Email subject
+      to: `${email}`, 
+      subject: 'Reservation Confirmation',
       text: `Reservation details:\n
         Pickup Date: ${pickupDate}\n
         Pickup Time: ${pickupTime}\n
@@ -42,7 +43,9 @@ export default function ConfirmPage({ session }) {
         Return Location: ${returnLocation}\n
         Comments: ${comments}\n
         Driver's License: ${driverlicense}\n
-        Total Price: $${totalPrice.toFixed(2)}`,
+        Total Price: $${totalPrice.toFixed(2)}\n
+        Click the link below to cancel the reservation: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/cancel/${userId}/${vehicleId}/${pickupDate}/${pickupTime}`,
+
 
     };
 
@@ -71,19 +74,24 @@ export default function ConfirmPage({ session }) {
         }
       });
 
-      const res = await fetch('/api/sendEmail', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(emailContent),
-      });
-
-
       if (response.ok) {
         const data = await response.json();
-        window.alert('Reservation created successfully!');
-        router.push('/');
+        const res = await fetch('/api/sendEmail', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailContent),
+        });
+
+        if (res.ok) {
+          window.alert('Reservation created successfully!\nConfirmation email sent to your inbox.');
+          router.push('/');
+        } else {
+          console.error('Failed to send confirmation email');
+          window.alert('Reservation created successfully!\nFailed to send confirmation email');
+        }
+
       } else{
         throw new Error('Failed to create reservation');
       }
