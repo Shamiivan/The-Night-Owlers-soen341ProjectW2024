@@ -54,9 +54,9 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, r
         }
     };
 
-    const formattedPickupDate = pickupDate.toLocaleDateString('es-ES');
-    const formattedReturnDate = returnDate.toLocaleDateString('es-ES');
-    console.log(pickupDate);
+    const formattedPickupDate = pickupDate ? pickupDate.toLocaleDateString('es-ES') : 'N/A';
+    const formattedReturnDate = returnDate ? returnDate.toLocaleDateString('es-ES') : 'N/A';
+
 
     return (
         <div className="bg-blue-100 shadow-md rounded-md p-6 m-8">
