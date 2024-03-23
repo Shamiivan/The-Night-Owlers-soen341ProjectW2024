@@ -2,9 +2,10 @@
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
-import Vehicle, { IVehicle } from '@/models/Vehicle';
+import Vehicle, { IVehicle } from '@/models/vehicle';
 import printError from '@/utils/print';
-
+import Reservation from '@/models/reservation';
+import { addLocation } from '@/utils/locationRepository';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -70,12 +71,16 @@ export async function createVehicle(
     description: string,
     licensePlate: string,
     VIN: string
-    ){
+) {
 
     return executeAsync(async () => {
         await connectToDatabase();
+        // create new location of london
+        const location =  new mongoose.Types.ObjectId("65fddf402caecab370f74937");
+        
         // Create a new user document with the provided details
         const newVehicle = new (Vehicle as mongoose.Model<IVehicle>)({
+            location,
             brand,
             imageUrl,
             category,
@@ -97,6 +102,7 @@ export async function createVehicle(
         const result = await newVehicle.save();
         // Log the result of the user creation
         return result;
+ 
     });
 }
 
@@ -107,12 +113,12 @@ export async function createVehicle(
  * @param vehicle The vehicle object to be added.
  * @returns A promise that resolves with the created vehicle document.
  */
-export async function addVehicle(vehicle: IVehicle){
+export async function addVehicle(vehicle: IVehicle) {
     return executeAsync(async () => {
         // Ensure the database connection is established
         await connectToDatabase();
         // Create a new vehicle document using the Vehicle model
-        const newVehicle = new (Vehicle as mongoose.Model<IVehicle>) (vehicle);
+        const newVehicle = new (Vehicle as mongoose.Model<IVehicle>)(vehicle);
         const result = await newVehicle.save();
         return result;
     });
@@ -175,3 +181,102 @@ export async function deleteVehicle(id: string) {
     });
 }
 
+/**
+ * Retrieves a list of vehicles that are available for reservation within the specified date range.
+ * @async
+ * @function
+ * @param {string} pickupDate - The pickup date in ISO format (YYYY-MM-DD).
+ * @param {string} returnDate - The return date in ISO format (YYYY-MM-DD).
+ * @returns {Promise<Array<Vehicle>>} A promise that resolves to an array of available vehicles.
+ * @throws {Error} If there's an error querying the database.
+ *  */
+export async function getAvailableVehicles(pickupDate, returnDate) {
+    return executeAsync(async () => {
+        // Convert dates to JavaScript Date objects
+        const startDate = new Date(pickupDate);
+        const endDate = new Date(returnDate);
+
+        // Query reservations that overlap with the specified date range
+        const overlappingReservations = await Reservation?.find({
+            $or: [
+                { pickupDate: { $lte: startDate }, returnDate: { $gte: startDate } },
+                { pickupDate: { $lte: endDate }, returnDate: { $gte: endDate } },
+                { pickupDate: { $gte: startDate }, returnDate: { $lte: endDate } },
+            ],
+        });
+
+        // Extract vehicle IDs from overlapping reservations
+        const reservedVehicleIds = overlappingReservations?.map(reservation => reservation.vehicleId);
+
+        // Query all vehicles and filter out those that are reserved
+        const allVehicles = await Vehicle?.find({});
+        const availableVehicles = allVehicles?.filter(vehicle => !reservedVehicleIds?.includes(vehicle._id));
+
+        // Return the available vehicles
+        return availableVehicles;
+    });
+}
+
+/**
+ * Retrieves a list of vehicles that are available for reservation within the specified date range and location.
+ * @async
+ * @function
+ * @param {string} pickupDate - The pickup date in ISO format (YYYY-MM-DD).
+ * @param {string} returnDate - The return date in ISO format (YYYY-MM-DD).
+ * @param {string} locationId - The ID of the location.
+ * @returns {Promise<Array<Vehicle>>} A promise that resolves to an array of available vehicles.
+ * @throws {Error} If there's an error querying the database.
+ */
+export async function getAvailableVehiclesByLocation(pickupDate, returnDate, locationId) {
+    return executeAsync(async () => {
+        // Convert dates to JavaScript Date objects
+        const startDate = new Date(pickupDate);
+        const endDate = new Date(returnDate);
+
+        // Query reservations that overlap with the specified date range and are associated with the specified location
+        const overlappingReservations = await Reservation?.find({
+            location: new mongoose.Types.ObjectId(locationId),
+            $or: [
+                { pickupDate: { $lte: startDate }, returnDate: { $gte: startDate } },
+                { pickupDate: { $lte: endDate }, returnDate: { $gte: endDate } },
+                { pickupDate: { $gte: startDate }, returnDate: { $lte: endDate } },
+            ],
+        });
+
+        // Extract vehicle IDs from overlapping reservations
+        const reservedVehicleIds = overlappingReservations?.map(reservation => reservation.vehicleId);
+
+        // Query all vehicles and filter out those that are reserved or not in the specified location
+        const allVehicles = await Vehicle?.find({ location: new mongoose.Types.ObjectId(locationId) });
+        const availableVehicles = allVehicles?.filter(vehicle => !reservedVehicleIds?.includes(vehicle._id));
+
+        // Return the available vehicles
+        return availableVehicles;
+    });
+}
+
+
+/**
+ * Checks if all vehicles have a location and adds one if they don't.
+ * @returns A promise that resolves when the operation is complete.
+ */
+export async function ensureAllVehiclesHaveLocation() {
+    return executeAsync(async () => {
+        console.log("Ensuring all vehicles have a location...");
+        await connectToDatabase();
+        // Query the database for all vehicles
+        const vehicles = await Vehicle?.find({}) ?? [];
+
+        // Iterate over each vehicle
+        for (const vehicle of vehicles) {
+            // Check if the vehicle has a location
+            if (!vehicle.location) {
+                // If not, add a location
+                const locationId =  new mongoose.Types.ObjectId("65fde5fd2caecab370f74961");
+                // Update the vehicle with the new location
+                vehicle.location = locationId;
+                await vehicle.save();
+            }
+        }
+    });
+}

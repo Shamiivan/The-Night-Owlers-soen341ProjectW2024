@@ -21,6 +21,7 @@
         "name": "next"
       }
     ],
+    "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
@@ -46,6 +47,7 @@
     "src/__test__/tests/UpdateUserForm.jsx",
     "src/__test__/tests/UpdateVehicleForm.test.jsx",
     "src/app/login/page.jsx",
+
     "src/__test__/tests/VehicleCard.test.jsx",
     "src/pages/rentalagreement.jsx",
     "src/components/dashboard/CheckInForm.jsx",
@@ -54,7 +56,7 @@
     "src/components/dashboard/reservationCard.jsx",
     "src/app/admin/updateReservation/[id]/page.tsx",
     "src/components/rentalagreementForm.jsx"
-  ],
+, "src/app/reservation/[vehicleId]/page.jsx", "src/components/reservation-form.jsx"  ],
   "exclude": [
     "node_modules"
   ]

@@ -52,6 +52,9 @@ export function UserCard({ firstName, lastName, email, _id }: userProps) {
           <p className="text-sm text-muted-foreground">
             {email}
           </p>
+          <p className="text-sm text-muted-foreground">
+            ID: {_id}
+          </p>
         </div>
       <div className="ml-auto font-medium flex flex-row">
         <div className="mr-2">

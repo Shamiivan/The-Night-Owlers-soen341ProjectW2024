@@ -1,11 +1,14 @@
+'use client'
 import React from "react";
 import { Button } from "./button";
 import Link from "next/link";
 import Image from "next/image";
 import { UserNav } from "@/components/navbar/user-nav";
 import { icons } from "lucide-react";
-
+import { useSession } from "next-auth/react";
 const Navbar: React.FC = () => {
+  const { data: session } = useSession();
+  const user = session?.user;
   return (
     <div className="bg-blue-300 border-gray-200 dark:bg-gray-900">
       <div className="max-w-screen flex flex-wrap items-center justify-between mx-auto py-1 px-20">
@@ -33,22 +36,22 @@ const Navbar: React.FC = () => {
                 Rent
               </Link>
             </li>
-            <li>
-              <a
-                href="/viewreserve"
-                className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Manage
-              </a>
-            </li>
-            <li>
-              <a
-                href="/admin/users"
-                className="block py-10 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
-              >
-                Admin
-              </a>
-            </li>
+            {session ? (
+              user?.role === "admin" ? (
+                <li>
+                  <a
+                    href="/admin/users"
+                    className="block py-10 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent"
+                  >
+                    Dashboard
+                  </a>
+                </li>
+              ) : (
+                <div></div>
+              )
+            ) : (
+              <div></div>
+            )}
             {/*<li>
               <a href="#Help" className="block py-2 px-3 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:border-0 md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent">
                 Help

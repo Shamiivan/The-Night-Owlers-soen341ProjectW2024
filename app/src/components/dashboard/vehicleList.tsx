@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import VehicleCard from "@/components/dashboard/vehicleCard"; // Adjust the import path as necessary
-import { IVehicle } from "@/models/Vehicle"; // Adjust the import path as necessary
+import { IVehicle } from "@/models/vehicle"; // Adjust the import path as necessary
 
 export default function VehicleList() {
  const [vehicles, setVehicles] = useState<IVehicle[]>([]);

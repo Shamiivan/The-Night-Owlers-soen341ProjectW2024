@@ -26,7 +26,7 @@ export function UserNav() {
       {session ? (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="relative border-collapse">
+            <Button className="text-black relative border-2 border-slate-500 shadow-sm bg-slate-200">
               {user.firstName} {user.lastName}
             </Button>
           </DropdownMenuTrigger>
@@ -42,16 +42,17 @@ export function UserNav() {
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <a href={`/user/${user?.id}`}>Profile</a>
+                <a href={`/user/${user?.id}`} className="w-full flex items-start">Profile</a>
               </DropdownMenuItem>
 
-              <DropdownMenuItem>Manage reservations</DropdownMenuItem>
-            </DropdownMenuGroup>
+              <DropdownMenuItem>
+                <a href={`/viewreserve/${user?.id}`} className="w-full flex items-start">Manage reservations</a></DropdownMenuItem>
+              </DropdownMenuGroup>
 
             <DropdownMenuSeparator />
 
             <DropdownMenuItem>
-              <button onClick={() => signOut()}>Logout</button>
+              <button onClick={() => signOut()} className="w-full flex items-start">Logout</button>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
