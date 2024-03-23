@@ -2,7 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 
 // Define the IVehicle interface
 interface IVehicle extends Document {
-    location : mongoose.Types.ObjectId;
+    locations: mongoose.Types.ObjectId[];
     brand: string;
     imageUrl: string;
     category: string;
@@ -16,7 +16,7 @@ interface IVehicle extends Document {
     engineCapacity: number;
     rentalPrice: number;
     mileage: number;
-    description:string;
+    description: string;
     licensePlate: string;
     VIN: string;
 }
@@ -27,7 +27,7 @@ let Vehicle: mongoose.Model<IVehicle> | undefined = mongoose.models.Vehicle as m
 if (!Vehicle) {
     // Define the Vehicle schema
     const VehicleSchema = new Schema<IVehicle>({
-        location: { type: Schema.Types.ObjectId, ref: "Location", required: true },
+        locations: [{ type: Schema.Types.ObjectId, ref: "Location", required: true }],
         brand: { type: String, required: true },
         imageUrl: { type: String, required: false },
         category: { type: String, required: true },
