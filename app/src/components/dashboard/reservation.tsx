@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ReservationCard from "./reservationCard";
-import { IReservation } from "@/models/Reservation";
+import { IReservation } from "@/models/reservation";
 
 export default function ReservationsList() {
   const [reservations, setReservation] = useState<IReservation[]>([]);

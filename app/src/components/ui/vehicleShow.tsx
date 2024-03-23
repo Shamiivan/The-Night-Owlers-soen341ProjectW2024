@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Card from "@/components/card"; // Adjust the import path as necessary
-import { IVehicle } from "@/models/Vehicle"; // Adjust the import path as necessary
+import { IVehicle } from "@/models/vehicle"; // Adjust the import path as necessary
 
 export default function VehicleShow() {
  const [vehicles, setVehicles] = useState<IVehicle[]>([]);

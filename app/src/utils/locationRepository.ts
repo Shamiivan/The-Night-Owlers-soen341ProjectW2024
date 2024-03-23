@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import executeAsync from "@/utils/Result";
 import dotenv from "dotenv";
-import Location, { ILocation } from "@/models/Location";
+import Location, { ILocation } from "@/models/location";
 import { connectToDatabase } from "@/utils/connectDb";
 import exp from "constants";
 

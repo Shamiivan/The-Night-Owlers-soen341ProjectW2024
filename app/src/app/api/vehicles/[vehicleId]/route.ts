@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from "next/server";
 import { middleware } from '../../../../../middleware';
-import { IVehicle } from '@/models/Vehicle';
+import { IVehicle } from '@/models/vehicle';
 import { getVehicleById, updateVehicle, getAllVehicles, deleteVehicle, addVehicle } from "@/utils/vehicleRepository";
 
 

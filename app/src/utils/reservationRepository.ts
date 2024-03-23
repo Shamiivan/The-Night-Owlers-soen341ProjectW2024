@@ -1,12 +1,11 @@
 import mongoose from "mongoose";
 import executeAsync from "@/utils/Result";
 import dotenv from "dotenv";
-import Reservation, { IReservation } from "@/models/Reservation";
+import Reservation, { IReservation } from "@/models/reservation";
 import printError from "@/utils/print";
 import { connectToDatabase } from "@/utils/connectDb";
 import User from "@/models/user";
-import Vehicle from "@/models/Vehicle";
-import exp from "constants";
+import Vehicle from "@/models/vehicle";
 
 /**
  * Creates a new reservation in the database.

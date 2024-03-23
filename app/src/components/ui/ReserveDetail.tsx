@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IVehicle } from '@/models/Vehicle';
+import { IVehicle } from '@/models/vehicle';
 
 interface Props {
   isModify: boolean;

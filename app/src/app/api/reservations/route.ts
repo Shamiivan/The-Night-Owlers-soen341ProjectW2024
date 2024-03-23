@@ -5,7 +5,7 @@ import {
   createReservation,
   addReservation,
 } from "@/utils/reservationRepository";
-import type { IReservation } from "@/models/Reservation";
+import type { IReservation } from "@/models/reservation";
 import mongoose from "mongoose";
 
 export async function GET() {

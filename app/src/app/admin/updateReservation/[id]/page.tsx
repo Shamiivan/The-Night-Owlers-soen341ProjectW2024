@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "@/styles/global.css";
-import { IReservation } from '@/models/Reservation';
+import { IReservation } from '@/models/reservation';
 import UpdateReservationForm from '@/components/dashboard/updateReservationForm';
 
 

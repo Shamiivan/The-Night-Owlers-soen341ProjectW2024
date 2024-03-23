@@ -2,9 +2,9 @@
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
 import dotenv from 'dotenv';
-import Vehicle, { IVehicle } from '@/models/Vehicle';
+import Vehicle, { IVehicle } from '@/models/vehicle';
 import printError from '@/utils/print';
-import Reservation from '@/models/Reservation';
+import Reservation from '@/models/reservation';
 import { addLocation } from '@/utils/locationRepository';
 
 // Load environment variables from .env file
