@@ -7,10 +7,17 @@ import { SessionProvider } from "next-auth/react";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Resend } from 'resend';
+import { handleNumbersOnly, getCardType } from '../utils/creditCardUtils';
 
 export default function ConfirmPage({ session }) {
   
   const router = useRouter();
+  const [cardname, setName] = useState('');
+  const [number, setNumber] = useState('');
+  const [expiry, setExpiry] = useState('');
+  const [security, setSecurity] = useState('');
+  const [errors, setErrors] = useState({});
 
   const { name, email, userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, creditcard } = router.query;
 
@@ -22,14 +29,78 @@ export default function ConfirmPage({ session }) {
 //  const rentalDays = Math.round(((returnTimestamp - pickupTimestamp) / (1000 * 60 * 60 * 24)) + 0.5);
 
   const totalPrice = rentalDays * rentalPrice;
-  
+
+  const resend = new Resend('re_jGSGuC7f_J9rrQz7mo3wP7AS4MqUuWtkV');
+
+  const handleCardExpiry = ( e ) => {
+    let expiryDate = e.target.value;
+
+    if (e.keyCode !== 8) {
+      if (expiryDate > 1 && expiryDate.length === 1) {
+        expiryDate = '0' + expiryDate + '/';
+      } else if (expiryDate.length === 2) {
+        expiryDate = expiryDate + '/';
+      }
+
+      setExpiry(expiryDate);
+    } else {
+      setExpiry('');
+    }
+  }
+
+  const validateDriverLicense = (value) => {
+    const regex = /^[A-Z][0-9]{12}$/;
+    const isValid = regex.test(value);
+    setDriverlicense(isValid ? value : '');
+    setDriverLicenseError(!isValid);
+  }
+
+  // Input fields validation handler
+  const handleValidation = () => {
+    let formIsValid = true;
+
+    if (!name) {
+      formIsValid = false;
+      errors['name'] = 'Cardholder name is required';
+    } else {
+      errors['name'] = '';
+    }
+
+    if (!number) {
+      formIsValid = false;
+      errors['number'] = 'Card number is required';
+    } else {
+      errors['number'] = '';
+    }
+
+    if (!expiry) {
+      formIsValid = false;
+      errors['expiry'] = 'Expiry is required';
+    } else {
+      errors['expiry'] = '';
+    }
+
+    if (!security) {
+      formIsValid = false;
+      errors['security'] = 'CVV is required';
+    } else {
+      errors['security'] = '';
+    }
+
+    return formIsValid;
+  }
+
   const handlesubmit = async (e) => {
     e.preventDefault();
 
     const confirmation = window.confirm(`Are you sure you want to submit the reservation?`);
     if (!confirmation) return;
 
-   
+    if (!handleValidation()) {
+      console.log('Form validation failed');
+      return;
+    }
+
     try {
       console.log('Confirm page: submitting reservation', {userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, totalPrice});
 
@@ -58,40 +129,7 @@ export default function ConfirmPage({ session }) {
       if (response.ok) {
         const data = await response.json();
 
-        const res = await fetch('/api/send', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email,
-            name,
-            reservationId,
-            pickupDate,
-            pickupTime,
-            returnDate,
-            returnTime,
-            pickupLocation,
-            returnLocation,
-            comments,
-            imgUrl,
-            brand,
-            model,
-            year,
-            fuelType,
-            color,
-            nPeople,
-            rentalPrice,
-            totalPrice,
-          })
-        });
-        if (res.ok) {
-          window.alert('Confirmation email sent to your inbox.');
-          router.push('/');
-        } else {
-          console.error('Failed to send confirmation email');
-          window.alert('Failed to send confirmation email');
-        }
+       
 
       } else{
         throw new Error('Failed to create reservation');
@@ -99,7 +137,13 @@ export default function ConfirmPage({ session }) {
     } catch (error) {
       console.error(error);
       window.alert('Failed to create reservation');
-    }
+    } 
+    resend.emails.send({
+      from: 'onboarding@resend.dev',
+      to: 'p.jutipong13@gmail.com',
+      subject: 'Hello World',
+      html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
+    });
   };
 
   return (
@@ -180,18 +224,115 @@ export default function ConfirmPage({ session }) {
               <p>{driverlicense}</p>
             </div>
             <div className="grid grid-cols-2 bg-white p-6 rounded-xl">
-              <p className="text-lg font-medium">Credit Card Number:</p>
-              <p>{creditcard}</p>
+              <p className="text-lg font-medium">Comments:</p>
+              <p>{comments? comments : "None"}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-8">
             <div className="grid grid-cols-2 bg-white p-6 rounded-xl">
             <p className="text-lg font-medium">Total Price:</p>
             <p>$ {totalPrice.toFixed(2)}</p>
-            </div>
-            <div className="grid grid-cols-2 bg-white p-6 rounded-xl">
-              <p className="text-lg font-medium">Comments:</p>
-              <p>{comments}</p>
+            </div> 
+          </div>
+          
+        </div>
+        <div className="w-full bg-slate-200 flex justify-center rounded-xl pb-10">
+            <div>
+            <h3 className=" flex justify-center text-2xl font-semibold">Pay with Credit Card</h3>
+              <div>
+              <ul className="flex justify-center my-6">
+                <li className="mx-5">
+                  <Image
+                    src="/amex.png"
+                    alt="Amex"
+                    width={50}
+                    height={50}
+                  />
+                </li>
+                <li className="mx-5">
+                  <Image
+                    src="/jcb.png"
+                    alt="JCB"
+                    width={50}
+                    height={50}
+                  />
+                </li>
+                <li className="mx-5">
+                  <Image
+                    src="/mastercard.png"
+                    alt="MasterCard"
+                    width={50}
+                    height={50}
+                  />
+                </li>
+                <li className="mx-5">
+                  <Image
+                    src="/visa.png"
+                    alt="VISA"
+                    width={50}
+                    height={50}
+                  />
+                </li>
+              </ul>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label htmlFor="cardholderName">Cardholder name</label>
+                    <input
+                      id="cardholderName"
+                      placeholder="Name of cardholder"
+                      type="text"
+                      value={cardname}
+                      onChange={(e) => setName(e.target.value)}
+                      error={errors.name}
+                      className='ml-2 bg-slate-100 p-1 rounded-md'
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="cardNumber">Card Number</label>
+                    <input
+                      id="cardNumber"
+                      placeholder="Number of card"
+                      type="Card Number"
+                      maxLength="16"
+                      value={number}
+                      onKeyDown={handleNumbersOnly}
+                      onChange={(e) => setNumber(e.target.value)}
+                      error={errors.number}
+                      className='ml-2 bg-slate-100 p-1 rounded-md'
+                      required
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="cardExpiry">Expiry Date</label>
+                      <input
+                        id="cardExpiry"
+                        placeholder="MM/YY"
+                        maxLength="5"
+                        value={expiry}
+                        onKeyDown={handleNumbersOnly}
+                        onKeyUp={handleCardExpiry}
+                        onChange={(e) => setExpiry(e.target.value)}
+                        error={errors.expiry}
+                        className='ml-2 bg-slate-100 p-1 rounded-md w-24'
+                        required
+                      />
+                  </div>
+                  <div className="col-6">
+                    <label htmlFor="cardCvv">CVV</label>
+                    <input
+                      id="cardCvv"
+                      placeholder="123"
+                      maxLength="4"
+                      value={security}
+                      onKeyDown={handleNumbersOnly}
+                      onChange={(e) => setSecurity(e.target.value)}
+                      className='ml-2 bg-slate-100 p-1 rounded-md w-24'
+                      required
+                    />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         <div className="flex justify-between">
@@ -204,7 +345,6 @@ export default function ConfirmPage({ session }) {
             <Button variant="destructive">Cancel</Button>
           </Link>
         </div>
-      </div>
       </div>
       
       <Footer />
