@@ -1,6 +1,6 @@
 import "@/styles/global.css";
 import React from 'react'
-import ReservationDetailCard from '@/components/ReservationDetailCard'
+import ReservationDetailCard from '@/components/reservationDetailCard'
 import { getReservationById } from "@/utils/reservationRepository";
 import { getUserById } from "@/utils/userRepository";
 import { getVehicleById } from "@/utils/vehicleRepository";
