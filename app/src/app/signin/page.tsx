@@ -86,11 +86,8 @@ export default function LoginForm() {
           <Button className="w-full" type="submit">
             Login
           </Button>
-          <Button className="w-full" variant="outline">
-            Login with Google
-          </Button>
         </div>
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-8 text-center text-sm">
           Don't have an account?
           <Link className="underline" href="/signup">
             Sign up
