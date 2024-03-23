@@ -37,38 +37,6 @@ export function SearchBar() {
         router.push(`${pathname}${query}`);
 
     };
-    const checkPickUpDate = (event) => {
-        const selectedDate = new Date(event.target.value);
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0); // Reset the time part to ensure we're comparing only the date part
-
-        if (selectedDate < currentDate) {
-            alert('The selected date cannot be in the past. Please select a future date.');
-            return; // Exit the function if the date is in the past
-        }
-
-        const date = event.target.value;
-        console.log(date);
-        setPickupDate(date); // Assuming this is for the pickup date, adjust accordingly
-    };
-
-    const checkReturnDate = (event) => {
-        const selectedDate = new Date(event.target.value);
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0); // Reset the time part to ensure we're comparing only the date part
-        const pick = new Date(pickupDate);
-        if (pickupDate === "") {
-            alert("Please select the pick up date first!");
-            return;
-        }
-        if (selectedDate < currentDate || selectedDate < pick) {
-            alert('The selected date must be greater than or equal to the pick up date');
-            return;
-        }
-        setReturnDate(event.target.value);
-
-
-    }
 
     return (
 
@@ -90,7 +58,8 @@ export function SearchBar() {
                 <Input
                     type="date"
                     value={pickupDate}
-                    onChange={checkPickUpDate}
+                    onChange={(e) => setPickupDate(e.target.value)}
+                    min={new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
                     id="start" />
             </div>
             <div className="grid gap-2">
@@ -99,7 +68,8 @@ export function SearchBar() {
                 </Label>
                 <Input id="end" type="date"
                     value={returnDate}
-                    onChange={checkReturnDate}
+                    onChange={(e) => setReturnDate(e.target.value)}
+                    min={pickupDate}
                 />
             </div>
             <div className="flex items-end gap-2 md:col-start-4">

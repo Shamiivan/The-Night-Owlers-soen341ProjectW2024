@@ -1,4 +1,3 @@
-import type { NextAuthOptions } from "next-auth";
 // pages/api/auth/[...nextauth].js
 import Providers from "next-auth/providers";
 import CredentialsProvider from "next-auth/providers/credentials";
@@ -8,7 +7,7 @@ import printError from "@/utils/print";
 import { connectToDatabase } from "@/utils/connectDb";
 import { getUserByEmail } from "@/utils/userRepository";
 import NextAuth from "next-auth";
-import type { NextAuthConfig } from "next-auth";
+import type { NextAuthOptions } from "next-auth";
 
 const authOptions = {
   providers: [
@@ -48,7 +47,6 @@ const authOptions = {
       },
     }),
   ],
-  basePath: "/api/auth",
   pages: {
     signIn: "/signin",
     signOut: "/auth/signout",
@@ -68,17 +66,12 @@ const authOptions = {
           firstName: userDetails?.firstName,
           lastName: userDetails?.lastName,
           role: userDetails?.role,
-        };
+        } as any;
       }
       return session;
     },
-    authorized({ request, auth }) {
-      const { pathname } = request.nextUrl;
-      if (pathname === "/admin/users") return !!auth;
-      return true;
-    },
   },
-} satisfies NextAuthConfig;
+} satisfies NextAuthOptions
 
 export const { handlers, auth, signIn, SignOut } = NextAuth(authOptions);
 export { authOptions };
