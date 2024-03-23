@@ -32,7 +32,6 @@ export default function DeleteReservation({id}) {
 
   return (
     <div className="mt-auto w-full">
-      <>{id}</>
       <Button variant="destructive" className="mt-auto w-full" onClick={deleteReserve}>
         Cancel
       </Button>
