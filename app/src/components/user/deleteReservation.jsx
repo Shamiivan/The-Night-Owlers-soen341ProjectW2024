@@ -9,7 +9,11 @@ export default function DeleteReservation({id}) {
     if (confirmed) {
         try {
             const response = await fetch(`/api/reservations/${id}`, {
-            method: 'DELETE',
+              method: 'DELETE',
+              body: JSON.stringify({ _id: id }),
+              headers: {
+              'Content-Type': 'application/json',
+              },
             });
 
             if (!response.ok) {
@@ -28,6 +32,7 @@ export default function DeleteReservation({id}) {
 
   return (
     <div className="mt-auto w-full">
+      <>{id}</>
       <Button variant="destructive" className="mt-auto w-full" onClick={deleteReserve}>
         Cancel
       </Button>

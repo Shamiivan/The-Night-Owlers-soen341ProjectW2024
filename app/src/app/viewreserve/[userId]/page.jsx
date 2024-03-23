@@ -1,5 +1,5 @@
 import React from 'react';
-import ReservationCard from '@/components/reservations/ReserveCard';
+import ReservationCard from '@/components/reservations/reserveCard';
 import { getReservationsByUserId, getAllReservations } from '@/utils/reservationRepository';
 
 

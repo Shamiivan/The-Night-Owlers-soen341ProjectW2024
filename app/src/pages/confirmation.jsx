@@ -1,5 +1,5 @@
 import "@/styles/global.css";
-import React from 'react';
+import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import Navbar from '@/components/ui/Navbar';
 import Footer from '@/components/ui/Footer';
@@ -10,9 +10,9 @@ import Image from 'next/image';
 import { getSession } from "next-auth/react";
 
 export default function ConfirmPage({ session }) {
+  const email = session?.user?.email;
   const router = useRouter();
-  const user = session?.user;
-  const email = user?.email;
+
   const { userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, creditcard } = router.query;
 
   const pickupTimestamp = Date.parse(`${pickupDate}T00:00`);
@@ -24,7 +24,7 @@ export default function ConfirmPage({ session }) {
 
   const totalPrice = rentalDays * rentalPrice;
 
-
+  const [orderInfo, setOrderInfo] = useState('');
   const handlesubmit = async (e) => {
     e.preventDefault();
 
@@ -32,7 +32,7 @@ export default function ConfirmPage({ session }) {
     if (!confirmation) return;
 
     const emailContent = {
-      to: `${email}`, 
+      to: `${email}`,
       subject: 'Reservation Confirmation',
       text: `Reservation details:\n
         Pickup Date: ${pickupDate}\n
@@ -76,13 +76,17 @@ export default function ConfirmPage({ session }) {
 
       if (response.ok) {
         const data = await response.json();
-        const res = await fetch('/api/sendEmail', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(emailContent),
-        });
+        const sendConfirmationEmail = async () => {
+          try {
+            await axios.post('/sendConfirmationEmail', { customerEmail, orderInfo });
+            alert('Confirmation email sent successfully');
+          } catch (error) {
+            console.error('Error sending confirmation email:', error);
+            alert('Error sending confirmation email');
+          }
+        };
+
+        sendConfirmationEmail();
 
         if (res.ok) {
           window.alert('Reservation created successfully!\nConfirmation email sent to your inbox.');
