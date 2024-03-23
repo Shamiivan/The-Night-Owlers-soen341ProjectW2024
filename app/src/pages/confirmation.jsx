@@ -7,13 +7,12 @@ import { SessionProvider } from "next-auth/react";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { getSession } from "next-auth/react";
 
 export default function ConfirmPage({ session }) {
-  const email = session?.user?.email;
+  
   const router = useRouter();
 
-  const { userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, creditcard } = router.query;
+  const { name, email, userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, creditcard } = router.query;
 
   const pickupTimestamp = Date.parse(`${pickupDate}T00:00`);
   const returnTimestamp = Date.parse(`${returnDate}T00:00`);
@@ -23,32 +22,14 @@ export default function ConfirmPage({ session }) {
 //  const rentalDays = Math.round(((returnTimestamp - pickupTimestamp) / (1000 * 60 * 60 * 24)) + 0.5);
 
   const totalPrice = rentalDays * rentalPrice;
-
-  const [orderInfo, setOrderInfo] = useState('');
+  
   const handlesubmit = async (e) => {
     e.preventDefault();
 
     const confirmation = window.confirm(`Are you sure you want to submit the reservation?`);
     if (!confirmation) return;
 
-    const emailContent = {
-      to: `${email}`,
-      subject: 'Reservation Confirmation',
-      text: `Reservation details:\n
-        Pickup Date: ${pickupDate}\n
-        Pickup Time: ${pickupTime}\n
-        Return Date: ${returnDate}\n
-        Return Time: ${returnTime}\n
-        Pickup Location: ${pickupLocation}\n
-        Return Location: ${returnLocation}\n
-        Comments: ${comments}\n
-        Driver's License: ${driverlicense}\n
-        Total Price: $${totalPrice.toFixed(2)}\n
-        Click the link below to cancel the reservation: ${process.env.NEXT_PUBLIC_FRONTEND_URL}/cancel/${userId}/${vehicleId}/${pickupDate}/${pickupTime}`,
-
-
-    };
-
+   
     try {
       console.log('Confirm page: submitting reservation', {userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, totalPrice});
 
@@ -76,24 +57,40 @@ export default function ConfirmPage({ session }) {
 
       if (response.ok) {
         const data = await response.json();
-        const sendConfirmationEmail = async () => {
-          try {
-            await axios.post('/sendConfirmationEmail', { customerEmail, orderInfo });
-            alert('Confirmation email sent successfully');
-          } catch (error) {
-            console.error('Error sending confirmation email:', error);
-            alert('Error sending confirmation email');
-          }
-        };
 
-        sendConfirmationEmail();
-
+        const res = await fetch('/api/send', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            email,
+            name,
+            reservationId,
+            pickupDate,
+            pickupTime,
+            returnDate,
+            returnTime,
+            pickupLocation,
+            returnLocation,
+            comments,
+            imgUrl,
+            brand,
+            model,
+            year,
+            fuelType,
+            color,
+            nPeople,
+            rentalPrice,
+            totalPrice,
+          })
+        });
         if (res.ok) {
-          window.alert('Reservation created successfully!\nConfirmation email sent to your inbox.');
+          window.alert('Confirmation email sent to your inbox.');
           router.push('/');
         } else {
           console.error('Failed to send confirmation email');
-          window.alert('Reservation created successfully!\nFailed to send confirmation email');
+          window.alert('Failed to send confirmation email');
         }
 
       } else{

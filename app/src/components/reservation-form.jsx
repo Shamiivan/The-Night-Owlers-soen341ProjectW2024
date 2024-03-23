@@ -33,6 +33,12 @@ export function ReservationForm({
   const [creditcard, setCreditcard] = useState("");
   const [comments, setComments] = useState("");
 
+  let name = "";
+  let email = "";
+  if(session) {
+    name = `${user?.firstName} ${user?.lastName}`;
+    email = user?.email;
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,7 +70,7 @@ export function ReservationForm({
     }
 
     const imgUrlEncoded = encodeURIComponent(imgUrl); // Encode imgUrl to avoid breaking the URL
-    window.location.href = `/confirmation?userId=${user.id}&vehicleId=${vehicleId}&brand=${brand}&model=${model}&year=${year}&nPeople=${nPeople}&color=${color}&fuelType=${fuelType}&rentalPrice=${rentalPrice}&pickupDate=${pickupDate}&pickupTime=${pickupTime}&returnDate=${returnDate}&returnTime=${returnTime}&pickupLocation=A&returnLocation=A&comments=${comments}&driverlicense=${driverlicense}&creditcard=${creditcard}&imgUrl=${imgUrlEncoded}`;
+    window.location.href = `/confirmation?name=${name}&email=${email}&userId=${user.id}&vehicleId=${vehicleId}&brand=${brand}&model=${model}&year=${year}&nPeople=${nPeople}&color=${color}&fuelType=${fuelType}&rentalPrice=${rentalPrice}&pickupDate=${pickupDate}&pickupTime=${pickupTime}&returnDate=${returnDate}&returnTime=${returnTime}&pickupLocation=A&returnLocation=A&comments=${comments}&driverlicense=${driverlicense}&creditcard=${creditcard}&imgUrl=${imgUrlEncoded}`;
 
   }
 
