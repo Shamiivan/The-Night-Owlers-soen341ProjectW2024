@@ -16,20 +16,20 @@ export default function RentalAgreementForm({
     
     const [rentalName, setRentalName] = useState();
     const [rentalDate, setRentalDate] = useState();
-    const [renterName, setRenterName] = useState();
-    const [renterDate, setRenterDate] = useState();
+    const [renterName, setRenterName] = useState(reservation.renterName);
+    const [renterDate, setRenterDate] = useState(reservation.rentalDate.toISOString().split('T')[0]);
     const rentalCompanySignatureRef = useRef(null);
     const renterSignatureRef = useRef(reservation.renterSignatureRef);
     const router = useRouter();
     const status = "rented";
 
     const handleResetSignature = () => {
-        renterSignatureRef.current.clear();
+        renterSignatureRef.current.clear(); 
     };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (renterSignatureRef.current.isEmpty()) {
+        if (rentalCompanySignatureRef.current.isEmpty()) {
             alert('Please sign the rental agreement!');
             return;
         }
@@ -58,7 +58,7 @@ export default function RentalAgreementForm({
                     rentalName,
                     rentalDate,
                     renterName,
-                    renterDate,
+                    renterDate: reservation.renterDate,
                     rentalCompanySignature,
                     renterSignature,
                     id: reservation._id,
@@ -199,8 +199,11 @@ export default function RentalAgreementForm({
                     <label className="w-24">Signature:</label>
                     <SignatureCanvas
                         ref={rentalCompanySignatureRef}
-                        canvasProps={{ className: "border rounded-md bg-white h-32", style: { pointerEvents: "none", opacity: 0.5 } }}
+                        canvasProps={{ className: "border rounded-md bg-white h-32"}}
                     />
+                    <button type="button" onClick={handleResetSignature}>
+                        <FaUndo className="mr-1" />
+                    </button>
                 </div>
                 <div className="mt-2">
                     <label htmlFor="rentalName" className="w-24">Print Name:</label>
@@ -210,7 +213,7 @@ export default function RentalAgreementForm({
                         value={rentalName}
                         onChange={(e) => setRentalName(e.target.value)}
                         className="border rounded-md py-1 px-2 ml-2"
-                        disabled
+                        required
                     />
                 </div>
                 <div className="mt-2">
@@ -221,21 +224,18 @@ export default function RentalAgreementForm({
                         value={rentalDate}
                         onChange={(e) => setRentalDate(e.target.value)}
                         className="border rounded-md py-1 px-2 ml-2"
-                        disabled
+                        required
                     />
                 </div>
                 <p className="mt-6 mb-2 text-lg font-semibold">Renter:</p>
                 <div className="mt-2 grid grid-cols-6">
-                    <label className="w-24">Signature:</label>
-                    <SignatureCanvas
-                        ref={renterSignatureRef}
-                        canvasProps={{ className: "border rounded-md bg-white h-32", disabled: true }}
-                    />
-                    <button type="button" onClick={handleResetSignature}>
-                        <FaUndo className="mr-1" />
-                    </button>
+                <label className="w-24">Signature:</label>
+                {renterSignatureRef.current && (
+                    <img src={renterSignatureRef.current.toDataURL()} alt="Renter Signature" />
+                )}
                 </div>
                 <div className="mt-2">
+                   
                     <label htmlFor="renterName" className="w-24">Print Name:</label>
                     <input
                         type="text"
@@ -243,7 +243,7 @@ export default function RentalAgreementForm({
                         value={renterName}
                         onChange={(e) => setRenterName(e.target.value)}
                         className="border rounded-md py-1 px-2 ml-2"
-                        required
+                        disabled
                     />
                 </div>
                 <div className="mt-2">
@@ -254,7 +254,7 @@ export default function RentalAgreementForm({
                         value={renterDate}
                         onChange={(e) => setRenterDate(e.target.value)}
                         className="border rounded-md py-1 px-2 ml-2"
-                        required
+                        disabled
                     />
                 </div>
                 <div className="flex justify-between mt-4">

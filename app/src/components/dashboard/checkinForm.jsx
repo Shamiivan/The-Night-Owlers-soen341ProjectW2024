@@ -84,7 +84,6 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                 </div>
                 <div className="flex justify-center">
                     <form onSubmit={handleSubmit} className="w-1/2">
-                        <p>{reservation.pickupDateTime.toLocaleDateString('en-US')}</p>
                         <div className="flex flex-col">
                             <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name: {reservation.name}</label>
                             <input
