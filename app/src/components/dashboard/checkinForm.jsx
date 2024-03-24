@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button";
 import "@/styles/global.css";
 import Link from "next/link";
 import React, { useRef, useState, useEffect } from 'react';
-import SignatureCanvas from "react-signature-canvas";
 import { useRouter } from "next/navigation";
 
 

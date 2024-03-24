@@ -127,7 +127,7 @@ export default function RentalAgreementForm({
                 <h2 className="text-xl font-bold mb-2">3. Rental Details:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Rental Start Date: </p>
-                    <p>{reservation.returnDateTime.toLocaleDateString('en-US') }</p>
+                    <p>{reservation.pickupDateTime.toLocaleDateString('en-US') }</p>
                     <p>Rental End Date:</p>
                     <p> {reservation.returnDateTime.toLocaleDateString('en-US') }</p>
                     <p>Pick-up Location:</p>

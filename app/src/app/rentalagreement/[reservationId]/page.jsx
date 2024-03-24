@@ -1,6 +1,6 @@
 import "@/styles/global.css";
 import React from 'react';
-import RentalAgreementForm from "@/components/rentalagreementForm";
+import RentalAgreementForm from "@/pages/rentalagreement"
 import { getReservationById } from "@/utils/reservationRepository";
 import { getUserById } from "@/utils/userRepository";
 import { getVehicleById } from "@/utils/vehicleRepository";
@@ -51,7 +51,6 @@ export default async function RentalAgreement({ params }) {
 
     return (
         <div>
-            {/* Render other properties as needed */}
             <RentalAgreementForm
                 user={user}
                 vehicle={vehicle}
