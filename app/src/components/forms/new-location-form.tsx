@@ -195,11 +195,11 @@ export default function Modal({ title, onClose, onSubmit, children }: Props) {
                           <div className="flex space-x-2">
                             <div>
                               <Label htmlFor="latitude">Latitude</Label>
-                              <Input id="latitude" type="number" name="latitude" value={latitude} onChange={(e) => setLatitude(e.target.value)} required />
+                              <Input id="latitude" type="number" name="latitude" value={latitude} onChange={(e) => setLatitude(Number(e.target.value))} required />
                             </div>
                             <div>
                               <Label htmlFor="longitude">Longitude</Label>
-                              <Input id="longitude" type="number" name="longitude" value={longitude} onChange={(e) => setLongitude(e.target.value)} required />
+                              <Input id="longitude" type="number" name="longitude" value={longitude} onChange={(e) => setLongitude(Number(e.target.value))} required />
                             </div>
                           </div>
                           <div className="flex space-x-2">
