@@ -1,3 +1,4 @@
+'use client'
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,60 +25,103 @@ import {
   TableBody,
   Table,
 } from "@/components/ui/table";
+import { useSearchParams } from "next/navigation";
+import { CarIcon, PaperclipIcon, User } from "lucide-react";
 
 export default function Sidebar() {
+  const searchParams = useSearchParams();
+  console.log(searchParams);
   return (
-    <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
+
       <div className="hidden border-r bg-gray-100/40 lg:block dark:bg-gray-800/40">
         <div className="flex h-full max-h-screen flex-col gap-2">
-          <div className="flex h-[60px] items-center border-b px-6">
-            <Button className="ml-auto h-8 w-8" size="icon" variant="outline">
-              <BellIcon className="h-4 w-4" />
-              <span className="sr-only">Toggle notifications</span>
-            </Button>
+          <div className="flex h-[60px] justify-around border-b px-6">
+            <h3 className="text-lg font-medium">Dashboard</h3>
+            <div className="w-full">
+            <div className="flex justify- gap-4">
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    className="rounded-full relative border border-gray-200 w-8 h-8 dark:border-gray-800"
+                    size="icon"
+                    variant="ghost"
+                  >
+                    <div className="flex items-center justify-center w-8 h-8">
+                      
+                    </div>
+                    <img
+                      alt="Avatar"
+                      className="rounded-full"
+                      height="32"
+                      src="/placeholder.svg"
+                      style={{
+                        aspectRatio: "32/32",
+                        objectFit: "cover",
+                      }}
+                      width="32"
+                    />
+                    <User className="right-0 bottom-0 w-4 h-4 text-green-500" />
+                    <span className="sr-only">Toggle user menu</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Settings</DropdownMenuItem>
+                  <DropdownMenuItem>Support</DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem>Logout</DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </div>
+          </div>
           </div>
           <div className="flex-1 overflow-auto py-2">
             <nav className="grid items-start px-4 text-sm font-medium">
-              <Link
+              {/* <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-900  transition-all hover:text-gray-900 dark:bg-gray-800 dark:text-gray-50 dark:hover:text-gray-50"
                 href="#"
               >
                 <HomeIcon className="h-4 w-4" />
                 Home
+              </Link> */}
+              {/* Users */}
+              <Link
+                className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
+                href="/admin/users"
+              >
+                <UsersIcon className="h-4 w-4" />
+                customers
               </Link>
               <Link
                 className="flex  items-center gap-3  bg-gray-100 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href="/admin/locations"
               >
                 <MapPinIcon className="h-4 w-4" />
                 Locations
               </Link>
-              className="flex items-center gap-3 rounded-lg px-3 py-2
-              text-gray-500 transition-all hover:text-gray-900
-              dark:text-gray-400 dark:hover:text-gray-50"
-              <Link href="#">
-                <UsersIcon className="h-4 w-4" />
-                Customers
-              </Link>
+          {/* vehicles */}
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href="/admin/vehicles"
               >
-                <PackageIcon className="h-4 w-4" />
-                Products
+                <CarIcon className="h-4 w-4" />
+                Vehicles
               </Link>
+              {/* reservations */}
               <Link
                 className="flex items-center gap-3 rounded-lg px-3 py-2 text-gray-500 transition-all hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50"
-                href="#"
+                href="/admin/reservations"
               >
-                <ShoppingCartIcon className="h-4 w-4" />
-                Orders
+                <PaperclipIcon className="h-4 w-4" />
+                Reservations
               </Link>
+              
             </nav>
           </div>
         </div>
       </div>
-    </div>
+
   );
 }
 

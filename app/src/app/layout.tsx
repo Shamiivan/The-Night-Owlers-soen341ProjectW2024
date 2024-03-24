@@ -9,7 +9,7 @@ import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
 // Defining metadata for the application
 export const metadata: Metadata = {
-  title: "The Night Owlers",
+  title: "The Night  Owlers",
   description: "",
 };
 

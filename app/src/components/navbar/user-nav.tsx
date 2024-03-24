@@ -21,6 +21,7 @@ import { LogoutButton } from "@/components/navbar/logout";
 export function UserNav() {
   const { data: session } = useSession();
   const user = session?.user;
+  console.log(session);
   return (
     <div>
       {session ? (

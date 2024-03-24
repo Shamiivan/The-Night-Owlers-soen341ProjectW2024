@@ -75,8 +75,8 @@ export default function LocationCard({
       <TableCell>{typeOfLocation}</TableCell>
       <TableCell>{postalCode}</TableCell>
       <TableCell>{country}</TableCell>
-      <TableCell>{latitude}</TableCell>
-      <TableCell>{longitude}</TableCell>
+      {/* <TableCell>{latitude}</TableCell>
+      <TableCell>{longitude}</TableCell> */}
       <TableCell>{phone}</TableCell>
       <TableCell>{email}</TableCell>
       <TableCell>
