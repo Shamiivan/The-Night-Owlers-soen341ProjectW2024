@@ -4,9 +4,8 @@ import { signIn } from "next-auth/react";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import Link from "next/link"
-import { Label } from "@/components/ui/label"
-
+import Link from "next/link";
+import { Label } from "@/components/ui/label";
 
 export default function LoginForm() {
   const [email, setEmail] = useState("");
@@ -14,7 +13,7 @@ export default function LoginForm() {
   const [error, setError] = useState(false);
   const [result, setResult] = useState("");
   const router = useRouter();
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const result = await signIn("credentials", {
@@ -25,7 +24,7 @@ export default function LoginForm() {
     console.log(result);
     if (result?.error) {
       setError(true);
-      setResult("Invalid Credentials");
+      setResult(result.error);
     } else {
       // Redirect to the dashboard or home page after successful login
       console.log(result);
@@ -41,60 +40,60 @@ export default function LoginForm() {
         <div className="space-y-2">
           <h1 className="text-3xl text-center font-bold">Login</h1>
           <p className="text-gray-700 text-center mb-4">
-                Sign in to access your account and explore cars!
-        </p>
+            Sign in to access your account and explore cars!
+          </p>
         </div>
 
         <form onSubmit={handleSubmit}>
-        {result && (
-                <div
-                  className={`mb-4 rounded-md p-2 justify-center ${error ? "bg-red-500" : "bg-green-500"}`}
-                >
-                  <p className="italic m-2 text-primary-foreground">{result}</p>
-                </div>
-              )}
-        <div className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  required
-                />
-          </div>
-          <div className="space-y-2">
-            <div className="flex items-center">
-              <Label htmlFor="password">Password</Label>
-              {/* <Link className="ml-auto inline-block text-sm underline" href="#">
+          {result && (
+            <div
+              className={`mb-4 rounded-md p-2 justify-center ${error ? "bg-red-500" : "bg-green-500"}`}
+            >
+              <p className="italic m-2 text-primary-foreground">{result}</p>
+            </div>
+          )}
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="email">Email</Label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <div className="flex items-center">
+                <Label htmlFor="password">Password</Label>
+                {/* <Link className="ml-auto inline-block text-sm underline" href="#">
                 Forgot your password?
               </Link> */}
+              </div>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                required
+              />
             </div>
-            <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
-                  required
-                />
+            <Button className="w-full" type="submit">
+              Login
+            </Button>
           </div>
-          <Button className="w-full" type="submit">
-            Login
-          </Button>
-        </div>
-        <div className="mt-8 text-center text-sm">
-          Don't have an account?
-          <Link className="underline" href="/signup">
-            Sign up
-          </Link>
-        </div>
+          <div className="mt-8 text-center text-sm">
+            Don't have an account?
+            <Link className="underline" href="/signup">
+              Sign up
+            </Link>
+          </div>
         </form>
       </div>
     </div>
-  )
+  );
 }

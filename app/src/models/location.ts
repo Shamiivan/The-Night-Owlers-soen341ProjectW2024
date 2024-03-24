@@ -4,20 +4,17 @@ interface ILocation extends Document {
     name: string;
     address: string;
     city: string;
-    state: string;
+    country: string;
     typeOfLocation : "city" | "airport" | "train station";
     postalCode: string;
-    country: string;
-    latitude: number;
-    longitude: number;
+    latitude: number | null;
+    longitude: number |null;
     phone: string;
     email: string;
     operatingHours: {
         open: string;
         close: string;
     };
-    services: string[];
-    description: string;
 }
 
 let Location: mongoose.Model<ILocation> | undefined = mongoose.models.Location as mongoose.Model<ILocation> | undefined;
@@ -27,21 +24,18 @@ if (!Location) {
         name: { type: String, required: true, unique: true },
         address: { type: String, required: true },
         city: { type: String, required: true },
-        state: { type: String, required: true },
+        country :{ type: String, required: true },
         typeOfLocation: { type: String, required: true, enum: ["city", "airport", "train station"] },
         postalCode: { type: String, required: true },
-        country: { type: String, required: true },
-        latitude: { type: Number, required: true },
-        longitude: { type: Number, required: true },
+        latitude: { type: Number, required: false },
+        longitude: { type: Number, required: false },
         phone: { type: String, required: true },
         email: { type: String, required: true },
         operatingHours: {
-            open: { type: String, required: true },
-            close: { type: String, required: true },
+            open: { type: String, required: false, default: "09:00 PM"},
+            close: { type: String, required: false, default: "05:00 PM"},
         },
-        services: [{ type: String }],
-        description: { type: String, required: false },
-    }, { timestamps: true }); // Enable automatic timestamping of createdAt and updatedAt fields
+    }, { timestamps: true });
 
     Location = mongoose.model<ILocation>('Location', LocationSchema);
 }

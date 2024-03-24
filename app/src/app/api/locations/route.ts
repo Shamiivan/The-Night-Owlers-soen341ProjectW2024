@@ -6,7 +6,6 @@ import { NextRequest, NextResponse } from 'next/server';
 // GET function to retrieve all locations
 export async function GET(req: NextApiRequest, res: NextApiResponse) {
     const result = await getAllLocations();
-
     if (result.success) {
         return NextResponse.json({ success: true, value: result.value });
     } else if (result.error) {
@@ -18,11 +17,36 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
 }
 
 // POST function to create a new location
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(request: Request) {
     // Parse the request body to get the new location data
-    const { name, address, city, state, typeOfLocation, postalCode, country, latitude, longitude, phone, email, operatingHours, services, description } = req.body;
+    const {
+        name,
+        address,
+        city,
+        country,
+        typeOfLocation,
+        postalCode,
+        latitude,
+        longitude,
+        phone,
+        email,
 
-    const result = await createLocation(name, address, city, state, typeOfLocation, postalCode, country, latitude, longitude, phone, email, operatingHours, services, description);
+    }= await request.json();
+    console.log("name : ", name);
+    const result = await createLocation(
+        name,
+        address,
+        city,
+        country,
+        typeOfLocation,
+        postalCode,
+        latitude,
+        longitude,
+        phone,
+        email,
+    );
+
+    console.log(result);
     if (result.success) {
         return NextResponse.json({ success: true, value: result.value });
     } else if (result.error) {

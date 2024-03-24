@@ -11,30 +11,63 @@ import {connectToDatabase} from '@/utils/connectDb';
  * @param name - The name of the location.
  * @param address - The address of the location.
  * @param city - The city of the location.
- * @param state - The state of the location.
  * @param typeOfLocation - The type of the location (city, airport, train station).
  * @param postalCode - The postal code of the location.
- * @param country - The country of the location.
  * @param latitude - The latitude of the location.
  * @param longitude - The longitude of the location.
  * @param phone - The phone number of the location.
  * @param email - The email address of the location.
- * @param operatingHours - The operating hours of the location.
- * @param services - The services offered by the location.
- * @param description - A description of the location.
+ * @param operatingHours - The operating hours of the location. (optional)
+ * @param country - The country of the location.
+ * @param state - The state of the location.
  * @returns A promise that resolves with the created location document.
  */
-export async function createLocation(name: string, address: string, city: string, state: string, typeOfLocation: "city" | "airport" | "train station", postalCode: string, country: string, latitude: number, longitude: number, phone: string, email: string, operatingHours: { open: string, close: string }, services: string[], description: string) {
-  return executeAsync(async () => {
-      await connectToDatabase();
-      // Create a new location document with the provided details
-      const newLocation = new (Location as mongoose.Model<ILocation>)({ name, address, city, state, typeOfLocation, postalCode, country, latitude, longitude, phone, email, operatingHours, services, description });
-      // Save the new location document to the database
-      const result = await newLocation.save();
-      // Log the result of the location creation
-      return result;
-  });
+export async function createLocation(
+    name: string,
+    address: string,
+    city: string,
+    country: string,
+    typeOfLocation: "city" | "airport" | "train station",
+    postalCode: string,
+    latitude: number,
+    longitude: number,
+    phone: string,
+    email: string,
+    operatingHours?: { open: string; close: string },
+) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Prepare the location data
+        const locationData = {
+            name,
+            address,
+            city,
+            country,
+            typeOfLocation,
+            postalCode,
+            latitude,
+            longitude,
+            phone,
+            email,
+            operatingHours: { open: "09:00 AM", close: "05:00 PM" },
+        };
+
+        // Include operatingHours in the data only if it's provided
+        if (operatingHours) {
+            locationData.operatingHours = operatingHours;
+        }
+
+        // Create a new location document with the provided details
+        const newLocation = new (Location as mongoose.Model<ILocation>)(locationData);
+
+        // Save the new location document to the database
+        const result = await newLocation.save();
+
+        // Log the result of the location creation
+        return result;
+    });
 }
+
 
 
 /**

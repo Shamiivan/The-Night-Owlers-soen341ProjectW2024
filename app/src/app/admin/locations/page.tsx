@@ -1,34 +1,66 @@
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { CardTitle, CardDescription, CardHeader, CardContent, Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
-import { DropdownMenuTrigger, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuItem, DropdownMenuContent, DropdownMenu } from "@/components/ui/dropdown-menu"
-import { TableHead, TableRow, TableHeader, TableCell, TableBody, Table } from "@/components/ui/table"
-import Sidebar from "@/components/dashboard/sidebar"
-import { UserNav } from "@/components/navbar/user-nav"
-import LocationIndex from "@/components/dashboard/location/location-index"
-import LocationCard from "@/components/dashboard/location/location-card"
-import { getAllLocations } from "@/utils/locationRepository"
-import { getAllVehicles } from "@/utils/vehicleRepository"
-import { get } from "http"
 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import {
+  CardTitle,
+  CardDescription,
+  CardHeader,
+  CardContent,
+  Card,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import {
+  DropdownMenuTrigger,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuItem,
+  DropdownMenuContent,
+  DropdownMenu,
+} from "@/components/ui/dropdown-menu";
+import {
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table,
+} from "@/components/ui/table";
+import Sidebar from "@/components/dashboard/sidebar";
+import { UserNav } from "@/components/navbar/user-nav";
+import LocationIndex from "@/components/dashboard/location/location-index";
+import LocationCard from "@/components/dashboard/location/location-card";
+import { getAllLocations } from "@/utils/locationRepository";
+import { getAllVehicles } from "@/utils/vehicleRepository";
+import { get } from "http";
+import Modal from "@/components/forms/new-location-form";
 
 const fetchLocations = async () => {
   const response = await getAllLocations();
-  console.log(response);
-  if(response.success){
+  if (response.success) {
     return response.value;
-  }else{
+  } else {
     console.error("Failed to fetch locations");
     console.error(response.error.message);
     return [];
   }
-}
+};
 
 export default async function LocationView() {
-  
-  const locations =  await fetchLocations();
-  console.log(locations);
+  // modal functions
+
+  async function onClose() {
+    "use server"
+    console.log("Modal has closed")
+    
+}
+
+const onSubmit = async function onSubmit(name:string) {
+    "use server"
+    console.log("Ok was clicked");
+    console.log(name);
+}
+
+  const locations = await fetchLocations();
   return (
     <div className="grid min-h-screen w-full lg:grid-cols-[280px_1fr]">
       <Sidebar />
@@ -44,8 +76,13 @@ export default async function LocationView() {
           </form>
           <div className="w-full">
             <div className="flex justify-end gap-4">
-              <Button size="sm" variant="outline">
+              <Modal title="Modal Title" onClose={onClose} onSubmit={onSubmit}>
+                <p>Modal Content</p>
+              </Modal>
+              <Button asChild size="sm" variant="outline">
+                <Link href="/admin/locations?showDialog=true">
                 New Location
+                </Link>
               </Button>
 
               <DropdownMenu>
@@ -89,7 +126,6 @@ export default async function LocationView() {
                   <TableHead className="w-[120px]">Name</TableHead>
                   <TableHead className="w-[120px]">Address</TableHead>
                   <TableHead className="w-[100px]">City</TableHead>
-                  <TableHead className="w-[100px]">State</TableHead>
                   <TableHead className="w-[100px]">Type</TableHead>
                   <TableHead className="w-[100px]">Postal Code</TableHead>
                   <TableHead className="w-[100px]">Country</TableHead>
@@ -102,34 +138,32 @@ export default async function LocationView() {
                 </TableRow>
               </TableHeader>
               <TableBody>
-                  {
-                   locations &&  locations.map(location => (
-                      <LocationCard
-                        key={location._id}
-                        _id={location._id}
-                        name={location.name}
-                        address={location.address}
-                        city={location.city}
-                        state={location.state}
-                        typeOfLocation={location.typeOfLocation}
-                        postalCode={location.postalCode}
-                        country={location.country}
-                        latitude={location.latitude}
-                        longitude={location.longitude}
-                        phone={location.phone}
-                        email={location.email}
-                        operatingHours={location.operatingHours}
-                      />
-                    ))}
+                {locations &&
+                  locations.map((location) => (
+                    <LocationCard
+                      key={location._id}
+                      _id={location._id}
+                      name={location.name}
+                      address={location.address}
+                      city={location.city}
+                      typeOfLocation={location.typeOfLocation}
+                      postalCode={location.postalCode}
+                      country={location.country}
+                      latitude={null}
+                      longitude={null}
+                      phone={location.phone}
+                      email={location.email}
+                      operatingHours={location.operatingHours}
+                    />
+                  ))}
               </TableBody>
             </Table>
           </div>
         </main>
       </div>
     </div>
-  )
+  );
 }
-
 
 function Package2Icon(props) {
   return (
@@ -149,9 +183,8 @@ function Package2Icon(props) {
       <path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9" />
       <path d="M12 3v6" />
     </svg>
-  )
+  );
 }
-
 
 function BellIcon(props) {
   return (
@@ -170,9 +203,8 @@ function BellIcon(props) {
       <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9" />
       <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
     </svg>
-  )
+  );
 }
-
 
 function HomeIcon(props) {
   return (
@@ -191,9 +223,8 @@ function HomeIcon(props) {
       <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
       <polyline points="9 22 9 12 15 12 15 22" />
     </svg>
-  )
+  );
 }
-
 
 function MapPinIcon(props) {
   return (
@@ -212,9 +243,8 @@ function MapPinIcon(props) {
       <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
       <circle cx="12" cy="10" r="3" />
     </svg>
-  )
+  );
 }
-
 
 function UsersIcon(props) {
   return (
@@ -235,9 +265,8 @@ function UsersIcon(props) {
       <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
       <path d="M16 3.13a4 4 0 0 1 0 7.75" />
     </svg>
-  )
+  );
 }
-
 
 function PackageIcon(props) {
   return (
@@ -258,9 +287,8 @@ function PackageIcon(props) {
       <path d="m3.3 7 8.7 5 8.7-5" />
       <path d="M12 22V12" />
     </svg>
-  )
+  );
 }
-
 
 function ShoppingCartIcon(props) {
   return (
@@ -280,9 +308,8 @@ function ShoppingCartIcon(props) {
       <circle cx="19" cy="21" r="1" />
       <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
     </svg>
-  )
+  );
 }
-
 
 function SearchIcon(props) {
   return (
@@ -301,5 +328,5 @@ function SearchIcon(props) {
       <circle cx="11" cy="11" r="8" />
       <path d="m21 21-4.3-4.3" />
     </svg>
-  )
+  );
 }

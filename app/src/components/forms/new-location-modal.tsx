@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { useMutation } from 'react-query';
 import { createLocation } from "@/utils/locationRepository";
 
 export function NewLocationModal({ isOpen, onClose }) {
