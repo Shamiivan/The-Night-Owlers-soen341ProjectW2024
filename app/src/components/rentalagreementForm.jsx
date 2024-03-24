@@ -40,10 +40,8 @@ export default function RentalAgreementForm({
             body: JSON.stringify({
                     userId: user.id,
                     vehicleId: vehicle.id,
-                    pickupDate: reservation.pickupDate,
-                    pickupTime: reservation.pickupTime,
-                    returnDate: reservation.returnDate,
-                    returnTime: reservation.returnTime,
+                    pickupDateTime: reservation.pickupDateTime,
+                    returnDateTime: reservation.returnDateTime,
                     pickupLocation: reservation.pickupLocation,
                     returnLocation: reservation.returnLocation,
                     comments: reservation.comments,
@@ -74,7 +72,7 @@ export default function RentalAgreementForm({
         }
     };
 
-    const timeDifference = reservation.returnDate.getTime() - reservation.pickupDate.getTime();
+    const timeDifference = reservation.returnDateTime.getTime() - reservation.pickupDateTime.getTime();
     const returnPeriodInDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 
   return (
@@ -123,9 +121,9 @@ export default function RentalAgreementForm({
                 <h2 className="text-xl font-bold mb-2">3. Rental Details:</h2>
                 <div className="grid grid-cols-2 gap-4">
                     <p>Rental Start Date: </p>
-                    <p>{reservation.pickupDate.toLocaleDateString('es-ES')}</p>
+                    <p>{reservation.returnDateTime.toLocaleDateString() }</p>
                     <p>Rental End Date:</p>
-                    <p> {reservation.returnDate.toLocaleDateString('es-ES')}</p>
+                    <p> {reservation.returnDateTime.toLocaleDateString() }</p>
                     <p>Pick-up Location:</p>
                     <p>{reservation.pickupLocation}</p>
                     <p>Drop-off Location:</p>

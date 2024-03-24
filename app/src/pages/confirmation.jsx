@@ -116,6 +116,7 @@ export default function ConfirmPage({ session }) {
           pickupLocation,
           returnLocation,
           comments,
+          name,
           driverlicense,
           status: 'reserved',
           totalPrice,

@@ -39,6 +39,7 @@ export default function ReservationsList() {
             pickupTime={reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
             returnDate={reservation.returnDateTime ? new Date(reservation.returnDateTime) : new Date()}
             returnTime={reservation.returnDateTime ? new Date(reservation.returnDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
+            name = {reservation.name}
             status={reservation.status}
         />
       ))}

@@ -14,7 +14,6 @@ export default function CheckinForm({ user, vehicle, reservation }) {
     const [checkcreditCard, setCreditCard] = useState('');
     const [newdamageReported, setDamageReported] = useState(false);
     const router = useRouter();
-    const  fullname = `${user.firstName} ${user.lastName}`;
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -25,7 +24,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
             return;
         }
 
-        if (checkname !== fullname) {
+        if (checkname !== reservation.name) {
             alert("Driver's name does not match the reservation data. Please verify.");
             return;
         }
@@ -41,17 +40,14 @@ export default function CheckinForm({ user, vehicle, reservation }) {
         }
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id }`, {
+            console.log('Sending PUT request to', `${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`);
+
+
+            const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
                 method: 'PUT',
                 body: JSON.stringify({
                     userId: reservation.userId,
                     vehicleId: reservation.vehicleId,
-                    pickupDate: reservation.pickupDate,
-                    pickupTime: reservation.pickupTime,
-                    returnDate: reservation.returnDate,
-                    returnTime: reservation.returnTime,
-                    pickupLocation: reservation.pickupLocation,
-                    returnLocation: reservation.returnLocation,
                     totalPrice: reservation.totalPrice,
                     comments: reservation.comments,
                     status: reservation.status,
@@ -59,7 +55,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                     driverlicense: checkdriverLicense,
                     creditcard: checkcreditCard,
                     damageReported: newdamageReported,
-                    id : reservation._id
+                    id: reservation._id
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,8 +63,11 @@ export default function CheckinForm({ user, vehicle, reservation }) {
             });
 
             if (!response.ok) {
+                console.error('PUT request failed:', await response.text());
                 throw new Error('Failed to check in');
             }
+
+            console.log('Check-in successful, redirecting to rental agreement');
             router.push(`/rentalagreement/${reservation._id}`);
         } catch (error) {
             console.error('Error checking in:', error);
@@ -85,8 +84,9 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                 </div>
                 <div className="flex justify-center">
                     <form onSubmit={handleSubmit} className="w-1/2">
+                        <p>{reservation.pickupDateTime.toLocaleDateString('en-US')}</p>
                         <div className="flex flex-col">
-                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name: {fullname}</label>
+                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name: {reservation.name}</label>
                             <input
                                 id="checkname"
                                 type="text"
