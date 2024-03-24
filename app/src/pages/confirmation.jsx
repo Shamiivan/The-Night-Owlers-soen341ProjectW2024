@@ -14,7 +14,7 @@ export default function ConfirmPage({ session }) {
   
   const router = useRouter();
   const [cardname, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [cardnumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [security, setSecurity] = useState('');
   const [errors, setErrors] = useState({});
@@ -66,11 +66,11 @@ export default function ConfirmPage({ session }) {
       errors['name'] = '';
     }
 
-    if (!number) {
+    if (!cardnumber) {
       formIsValid = false;
-      errors['number'] = 'Card number is required';
+      errors['cardnumber'] = 'Card number is required';
     } else {
-      errors['number'] = '';
+      errors['cardnumber'] = '';
     }
 
     if (!expiry) {
@@ -119,7 +119,7 @@ export default function ConfirmPage({ session }) {
           driverlicense,
           status: 'reserved',
           totalPrice,
-          creditcard
+          creditcard: cardnumber,
         }),
         headers: {
           'Content-Type': 'application/json'
@@ -137,13 +137,9 @@ export default function ConfirmPage({ session }) {
     } catch (error) {
       console.error(error);
       window.alert('Failed to create reservation');
-    } 
-    resend.emails.send({
-      from: 'onboarding@resend.dev',
-      to: 'p.jutipong13@gmail.com',
-      subject: 'Hello World',
-      html: '<p>Congrats on sending your <strong>first email</strong>!</p>'
-    });
+    }
+
+    router.push('/');
   };
 
   return (
@@ -276,7 +272,7 @@ export default function ConfirmPage({ session }) {
               </ul>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <label htmlFor="cardholderName">Cardholder name</label>
+                    <label htmlFor="cardholderName" className="block">Cardholder name</label>
                     <input
                       id="cardholderName"
                       placeholder="Name of cardholder"
@@ -284,27 +280,27 @@ export default function ConfirmPage({ session }) {
                       value={cardname}
                       onChange={(e) => setName(e.target.value)}
                       error={errors.name}
-                      className='ml-2 bg-slate-100 p-1 rounded-md'
+                      className=' bg-slate-100 p-1 rounded-md'
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="cardNumber">Card Number</label>
+                    <label htmlFor="cardNumber" className="block">Card Number</label>
                     <input
                       id="cardNumber"
                       placeholder="Number of card"
                       type="Card Number"
                       maxLength="16"
-                      value={number}
+                      value={cardnumber}
                       onKeyDown={handleNumbersOnly}
-                      onChange={(e) => setNumber(e.target.value)}
+                      onChange={(e) => setCardNumber(e.target.value)}
                       error={errors.number}
-                      className='ml-2 bg-slate-100 p-1 rounded-md'
+                      className='bg-slate-100 p-1 rounded-md'
                       required
                     />
                   </div>
                   <div>
-                    <label htmlFor="cardExpiry">Expiry Date</label>
+                    <label htmlFor="cardExpiry" className="block">Expiry Date</label>
                       <input
                         id="cardExpiry"
                         placeholder="MM/YY"
@@ -314,12 +310,12 @@ export default function ConfirmPage({ session }) {
                         onKeyUp={handleCardExpiry}
                         onChange={(e) => setExpiry(e.target.value)}
                         error={errors.expiry}
-                        className='ml-2 bg-slate-100 p-1 rounded-md w-24'
+                        className='bg-slate-100 p-1 rounded-md w-24'
                         required
                       />
                   </div>
                   <div className="col-6">
-                    <label htmlFor="cardCvv">CVV</label>
+                    <label htmlFor="cardCvv" className="block">CVV</label>
                     <input
                       id="cardCvv"
                       placeholder="123"
@@ -327,7 +323,7 @@ export default function ConfirmPage({ session }) {
                       value={security}
                       onKeyDown={handleNumbersOnly}
                       onChange={(e) => setSecurity(e.target.value)}
-                      className='ml-2 bg-slate-100 p-1 rounded-md w-24'
+                      className='bg-slate-100 p-1 rounded-md w-24'
                       required
                     />
                   </div>

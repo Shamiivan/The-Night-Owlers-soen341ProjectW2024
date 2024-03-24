@@ -10,8 +10,6 @@ import { useRouter } from "next/navigation";
 export default function CheckinForm({ user, vehicle, reservation }) {
 
     const [checkname, setName] = useState('');
-    const [newpickupTime, setPickupTime] = useState('');
-    const [newpickupDate, setPickupDate] = useState('');
     const [checkdriverLicense, setDriverLicense] = useState('');
     const [checkcreditCard, setCreditCard] = useState('');
     const [newdamageReported, setDamageReported] = useState(false);
@@ -22,7 +20,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
         e.preventDefault();
 
         
-        if (!checkname || !newpickupTime || !newpickupDate || !checkdriverLicense || !checkcreditCard) {
+        if (!checkname || !checkdriverLicense || !checkcreditCard) {
             alert('Please fill out all required fields.');
             return;
         }
@@ -48,18 +46,20 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                 body: JSON.stringify({
                     userId: reservation.userId,
                     vehicleId: reservation.vehicleId,
-                    pickupDate: newpickupDate,
-                    pickupTime: newpickupTime,
+                    pickupDate: reservation.pickupDate,
+                    pickupTime: reservation.pickupTime,
                     returnDate: reservation.returnDate,
                     returnTime: reservation.returnTime,
                     pickupLocation: reservation.pickupLocation,
                     returnLocation: reservation.returnLocation,
+                    totalPrice: reservation.totalPrice,
                     comments: reservation.comments,
                     status: reservation.status,
                     name: checkname,
                     driverlicense: checkdriverLicense,
                     creditcard: checkcreditCard,
                     damageReported: newdamageReported,
+                    id : reservation._id
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -118,9 +118,8 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                                 required
                             />
                         </div>
-                        <div className="mb-4">
-                            <label htmlFor="newdamageReported" className="font-semibold">
-                            Damage Reported:
+                        <div className="flex mb-4">
+                            <label htmlFor="newdamageReported" className="font-semibold">Damage Reported:</label>
                             <input
                                 id="newdamageReported"
                                 type="checkbox"
@@ -128,7 +127,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                                 onChange={(e) => setDamageReported(e.target.checked)}
                                 className="ml-2"
                             />
-                            </label>
+                            <p>{newdamageReported ? 'Yes' : 'No'}</p>
                         </div>
                         <div className="mt-10 flex justify-between">
                             <Button type="submit">Check In</Button>
