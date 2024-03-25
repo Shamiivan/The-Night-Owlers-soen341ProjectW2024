@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from "react";
 
-export default function ReservationCard({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, status, _id }) {
+export default function ReservationCard({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, name, status, _id }) {
 
     const deleteReservation = async () => {
 
@@ -31,6 +31,17 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
         }
     };
 
+    const getStatusColor = (status) => {
+        switch (status) {
+          case 'reserved':
+            return 'bg-blue-300 text-black';
+          case 'rented':
+            return 'bg-green-500 text-white';
+          default:
+            return 'bg-slate-300 text-white';
+        }
+      };
+
     return (
         <div className="flex items-center ">
             <Avatar className="h-9 w-9">
@@ -38,25 +49,22 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
                 <AvatarFallback>{/* Here you may show an avatar fallback */}</AvatarFallback>
             </Avatar>
             <div className="ml-4 space-y-1">
-            <p className="text-sm font-medium leading-none">Reservation ID: {_id}</p>
-                <p className="text-sm text-muted-foreground">
-                    Vehicle ID: {vehicleId}
+                <p className="text-sm font-medium leading-none">
+                    <span className="font-semibold">Reservation ID:</span> {_id}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                    User ID: {userId}
+                    <span className="font-semibold">User:</span> {name}
                 </p>
                 <p className="text-sm text-muted-foreground">
-                    Status: {status}
+                    <span className="font-semibold">Vehicle ID:</span> {vehicleId}
                 </p>
+                <div>
+                    <p className={`px-2 py-1 text-sm text-muted-foreground w-fit rounded-xl ${getStatusColor(status)}`}>
+                    <span className="font-semibold">Status:</span> {status}
+                    </p>
+                </div>
             </div>
             <div className="ml-auto font-medium flex flex-row">
-                <div className="mr-2">
-                    <Link href={status === 'rented' ? `/admin/checkout/${_id}` : `/admin/checkin/${_id}`}>
-                    <Button variant={status === 'rented' ? 'secondary' : ''}>
-                            {status === 'rented' ? 'Check Out' : 'Check In'}
-                            </Button>
-                    </Link>
-                </div>
                 <div className="mr-2">
                     <Link href={`/admin/updateReservation/${_id}`}>
                         <Button variant="link">Update</Button>

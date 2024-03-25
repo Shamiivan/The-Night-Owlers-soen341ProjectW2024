@@ -10,6 +10,9 @@ import { useState, useEffect, use } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/navigation";
+import { Resend } from 'resend';
+import { handleNumbersOnly, getCardType } from '../utils/creditCardUtils';
+import CreditcardForm from "@/components/creditCardConfirmation";
 
 export function ReservationForm({
   vehicleId,
@@ -30,11 +33,28 @@ export function ReservationForm({
   const [returnDate, setReturnDate] = useState("");
   const [returnTime, setReturnTime] = useState("");
   const [driverlicense, setDriverlicense] = useState("");
-  const [creditcard, setCreditcard] = useState("");
+  const [driverLicenseError ,setDriverLicenseError] = useState(true);
   const [comments, setComments] = useState("");
 
+  let name = "";
+  let email = "";
+  if(session) {
+    name = `${user?.firstName} ${user?.lastName}`;
+    email = user?.email;
+  }
+
+
+  const validateDriverLicense = (value) => {
+    console.log('Validating driver license:', value);
+    const regex = /^[A-Z][0-9]{12}$/;
+    const isValid = regex.test(value);
+    console.log('Is driver license valid?', isValid);
+    setDriverlicense(isValid ? value : '');
+    return regex.test(value);
+  }
 
   const handleSubmit = (e) => {
+    console.log('Form submission started');
     e.preventDefault();
 
     const today = new Date();
@@ -44,29 +64,44 @@ export function ReservationForm({
     const returnTimeObj = new Date(`${returnDate}T${returnTime}`);
 
     if (pickupDateObj <= today) {
+      console.log('Pickup date is in the past');
       alert('Pickup date should be in the future');
       return;
     }
 
     if (returnDateObj < pickupDateObj) {
+      console.log('Return date is before pickup date');
       alert('Return date should not be before pickup date');
       return;
     }
 
     if (pickupDateObj.getTime() === returnDateObj.getTime() && returnTimeObj <= pickupTimeObj) {
+      console.log('Return time is less than or equal to pickup time');
       alert('Return time should be more than pickup time');
       return;
     }
 
     if (!user?.id) {
+      console.log('User ID is not available');
       alert('User ID not available');
       return;
     }
 
+    const isValidDriverLicense = validateDriverLicense(driverlicense);
+
+    if (!isValidDriverLicense) {
+      alert('Driver license is invalid');
+      return;
+    }
+
     const imgUrlEncoded = encodeURIComponent(imgUrl); // Encode imgUrl to avoid breaking the URL
-    window.location.href = `/confirmation?userId=${user.id}&vehicleId=${vehicleId}&brand=${brand}&model=${model}&year=${year}&nPeople=${nPeople}&color=${color}&fuelType=${fuelType}&rentalPrice=${rentalPrice}&pickupDate=${pickupDate}&pickupTime=${pickupTime}&returnDate=${returnDate}&returnTime=${returnTime}&pickupLocation=A&returnLocation=A&comments=${comments}&driverlicense=${driverlicense}&creditcard=${creditcard}&imgUrl=${imgUrlEncoded}`;
+    console.log('Redirecting to confirmation page');
+
+
+    window.location.href = `/confirmation?name=${name}&email=${email}&userId=${user.id}&vehicleId=${vehicleId}&brand=${brand}&model=${model}&year=${year}&nPeople=${nPeople}&color=${color}&fuelType=${fuelType}&rentalPrice=${rentalPrice}&pickupDate=${pickupDate}&pickupTime=${pickupTime}&returnDate=${returnDate}&returnTime=${returnTime}&pickupLocation=A&returnLocation=A&comments=${comments}&driverlicense=${driverlicense}&imgUrl=${imgUrlEncoded}`;
 
   }
+
 
 
   return (
@@ -98,12 +133,12 @@ export function ReservationForm({
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
+          <div className="grid grid-cols-2 gap-4 ">
+            <div className="space-y-2 ">
               <Label htmlFor="pickup-date">Pickup date</Label>
               <Input id="pickup-date"
               value={pickupDate}
-              onChange={(e) => setReturnDate(e.target.value)}
+              onChange={(e) => setPickupDate(e.target.value)}
               required type="date"
               min={new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
               />
@@ -116,8 +151,14 @@ export function ReservationForm({
               required type="time" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="return-date">Return date</Label>
+              <Label htmlFor="return-date">
+                Return date
+                {pickupDate ? null : (
+                  <span className="text-red-500">Select pickup date first</span>
+                )}
+              </Label>
               <Input id="return-date"
+              disabled={!pickupDate}
               value={returnDate}
               onChange={(e) => setReturnDate(e.target.value)}
               required type="date"
@@ -131,18 +172,13 @@ export function ReservationForm({
               onChange={(e) => setReturnTime(e.target.value)}
               required type="time" />
             </div>
+
             <div className="space-y-2">
               <Label htmlFor="driverlicense">Driver license</Label>
               <Input id="driverlicense"
               value={driverlicense}
+              maxLength={13}
               onChange={(e) => setDriverlicense(e.target.value)}
-              required type="text" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="creditcard">Credit Card Number</Label>
-              <Input id="creditcard"
-              value={creditcard}
-              onChange={(e) => setCreditcard(e.target.value)}
               required type="text" />
             </div>
           </div>
@@ -153,15 +189,17 @@ export function ReservationForm({
             onChange={(e) => setComments(e.target.value)}
             placeholder="Enter your comments or requests" />
           </div>
-          <div className="flex justify-between">
-            <Button type="submit">
-                Make a Reservation
-            </Button>
-            <Link href="/vehicles">
-              <Button variant="outline">back</Button>
-            </Link>
-          </div>
-        </form>
+          <div>
+            </div>
+              <div className="flex justify-between">
+                  <Button type="submit">
+                      Make a Reservation
+                  </Button>
+                  <Link href="/vehicles">
+                    <Button variant="outline">back</Button>
+                  </Link>
+              </div>
+          </form>
       </div>
     </div>
   )

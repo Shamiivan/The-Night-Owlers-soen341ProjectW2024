@@ -1,26 +1,22 @@
 name: ACICD
 
 on:
-  # Runs on pushes targeting the default branch
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
+  workflow_dispatch:
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
   cancel-in-progress: false
-
 
 jobs:
   # Build job
@@ -74,15 +70,11 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-      - name: Install Jest
-        run: npm install jest@latest
-      - name: Install dependencies
+
+      - name: Install Dependencies
         run: |
           npm install
           npm install @fortawesome/fontawesome-svg-core
-          ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
-      - name: Install Jest
-        run: npm install jest@latest
-      - name: Run test
+      - name: Run Tests
         run: npx jest
 
