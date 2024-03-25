@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 import Reservation, { IReservation } from "@/models/Reservation";
 import printError from "@/utils/print";
 import { connectToDatabase } from "@/utils/connectDb";
-import User from "@/models/user";
+import User from "@/models/User";
 import Vehicle from "@/models/Vehicle";
 import exp from "constants";
 

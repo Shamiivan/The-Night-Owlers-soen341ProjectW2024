@@ -1,5 +1,5 @@
 import React from 'react';
-import ReservationCard from '@/components/reservations/reserveCard';
+import ReservationList from '@/components/reservations/reservationList';
 import { getReservationsByUserId, getAllReservations } from '@/utils/reservationRepository';
 
 
@@ -30,7 +30,7 @@ export default async function ViewReserve({ params }) {
       </div>      
       <div className="container mx-auto mt-8">
         {reservations.map((reservation) => (
-          <ReservationCard
+          <ReservationList
             key={reservation._id}
             userId={reservation.userId._id}
             vehicleId={reservation.vehicleId._id}
