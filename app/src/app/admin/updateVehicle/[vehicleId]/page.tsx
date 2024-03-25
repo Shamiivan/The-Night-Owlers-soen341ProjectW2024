@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import "@/styles/global.css";
-import { IVehicle } from '@/models/Vehicle';
+import { IVehicle } from '@/models/vehicle';
 import UpdateVehicleForm from '@/components/dashboard/updateVehicleForm';
 
 export default function VehiclePage({params} : {params: {vehicleId: string}}) {

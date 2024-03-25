@@ -15,6 +15,7 @@ export function SearchBar() {
     const searchParams = useSearchParams();
     const [pickupDate, setPickupDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
+    const [location, setLocation] = useState("");
 
 
     const handleSubmit = (e) => {
@@ -22,7 +23,12 @@ export function SearchBar() {
         const current = new URLSearchParams(Array.from(searchParams?.entries() ?? []));
         current.set("pickUpDate", pickupDate);
         current.set("returnDate", returnDate);
-        // cast to string
+        if(location ==="London"){
+            current.set("location", "65fddf402caecab370f74937");
+        }else if(location ==="Montreal"){
+            current.set("location", "65fde5fd2caecab370f74961")
+        }
+
         const search = current.toString();
         console.log(search);
         // or const query = `${'?'.repeat(search.length && 1)}${search}`;
@@ -31,38 +37,6 @@ export function SearchBar() {
         router.push(`${pathname}${query}`);
 
     };
-    const checkPickUpDate = (event) => {
-        const selectedDate = new Date(event.target.value);
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0); // Reset the time part to ensure we're comparing only the date part
-
-        if (selectedDate < currentDate) {
-            alert('The selected date cannot be in the past. Please select a future date.');
-            return; // Exit the function if the date is in the past
-        }
-
-        const date = event.target.value;
-        console.log(date);
-        setPickupDate(date); // Assuming this is for the pickup date, adjust accordingly
-    };
-
-    const checkReturnDate = (event) => {
-        const selectedDate = new Date(event.target.value);
-        const currentDate = new Date();
-        currentDate.setHours(0, 0, 0, 0); // Reset the time part to ensure we're comparing only the date part
-        const pick = new Date(pickupDate);
-        if (pickupDate === "") {
-            alert("Please select the pick up date first!");
-            return;
-        }
-        if (selectedDate < currentDate || selectedDate < pick) {
-            alert('The selected date must be greater than or equal to the pick up date');
-            return;
-        }
-        setReturnDate(event.target.value);
-
-
-    }
 
     return (
 
@@ -71,7 +45,11 @@ export function SearchBar() {
                 <Label className="text-sm" htmlFor="location">
                     Pick-up location
                 </Label>
-                <Input id="location" placeholder="Enter a location" />
+                <select id="location" value={location} onChange={(e) => setLocation(e.target.value)}>
+                    <option value="">Select a location</option>
+                    <option value="Montreal">Montreal</option>
+                    <option value="London">London</option>
+                </select>
             </div>
             <div className="grid gap-2">
                 <Label className="text-sm" htmlFor="start">
@@ -80,7 +58,8 @@ export function SearchBar() {
                 <Input
                     type="date"
                     value={pickupDate}
-                    onChange={checkPickUpDate}
+                    onChange={(e) => setPickupDate(e.target.value)}
+                    min={new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
                     id="start" />
             </div>
             <div className="grid gap-2">
@@ -89,7 +68,8 @@ export function SearchBar() {
                 </Label>
                 <Input id="end" type="date"
                     value={returnDate}
-                    onChange={checkReturnDate}
+                    onChange={(e) => setReturnDate(e.target.value)}
+                    min={pickupDate}
                 />
             </div>
             <div className="flex items-end gap-2 md:col-start-4">

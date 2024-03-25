@@ -1,9 +1,11 @@
 
-import CreateUserForm from "@/components/signUp";
+// import CreateUserForm from "@/components/forms/
+import { SignupForm } from "@/components/forms/signup-form";
+import { Sign } from "crypto";
 export default function Vehicles() {
   return (
     <main>
-      <CreateUserForm />
+      <SignupForm />
     </main>
   );
 }

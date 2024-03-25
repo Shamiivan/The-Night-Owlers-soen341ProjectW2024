@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import { Button } from '../ui/button';
 import Link from 'next/link';
 import Footer from "@/components/ui/Footer";
+import { Label } from '@radix-ui/react-dropdown-menu';
 
 const CreateVehicleForm = () => {
+    const [location, setLocation] = useState("");
     const [imageUrl, setImageUrl] = useState('');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');
@@ -26,13 +28,20 @@ const CreateVehicleForm = () => {
     const [showSuccessPopup, setShowSuccessPopup] = useState(false);
     
     const handleSubmit = async (e: React.FormEvent) => {
+        let locationId;
         e.preventDefault();
+        if(location ==="London"){
+            locationId ="65fddf402caecab370f74937";
+        }else{ 
+            locationId = "65fde5fd2caecab370f74961"; 
+        }
         console.log("result")
         try {
             
             const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/vehicles`, {
                 method: 'POST',
                 body: JSON.stringify({
+                    location,
                     brand,
                     imageUrl,
                     vehicleModel,
@@ -73,6 +82,18 @@ const CreateVehicleForm = () => {
     return (
         <div>
         <form onSubmit={handleSubmit} className="p-10 mt-4 max-w-lg mx-auto max-h-[650px] overflow-y-auto bg-slate-200 rounded-lg">
+            {/** LOCATION*/}
+            <div className="grid gap-2">
+                <Label className="text-sm" htmlFor="location">
+                    Pick-up location
+                </Label>
+                <select id="location" value={location} onChange={(e) => setLocation(e.target.value)}>
+                    <option value="">Select a location</option>
+                    <option value="Montreal">Montreal</option>
+                    <option value="London">London</option>
+                </select>
+            </div>
+            
             {/* Brand */}
             <div className="mb-4">
                 <label htmlFor="brand" className="block text-sm font-medium text-gray-700">Brand:</label>

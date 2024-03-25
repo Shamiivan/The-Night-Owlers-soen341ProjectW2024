@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
-import { IReservation } from "@/models/Reservation";
+import { IReservation } from "@/models/reservation";
 import {getReservationsByUserId} from "@/utils/reservationRepository";
 
 export async function GET(req: NextApiRequest, { params }: any, res: NextApiResponse) {

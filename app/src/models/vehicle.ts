@@ -1,8 +1,8 @@
-import mongoose, { Document, Schema } from 'mongoose';
+import mongoose, { Document, Schema } from "mongoose";
 
 // Define the IVehicle interface
 interface IVehicle extends Document {
-    id: string;
+    location : mongoose.Types.ObjectId;
     brand: string;
     imageUrl: string;
     category: string;
@@ -27,6 +27,7 @@ let Vehicle: mongoose.Model<IVehicle> | undefined = mongoose.models.Vehicle as m
 if (!Vehicle) {
     // Define the Vehicle schema
     const VehicleSchema = new Schema<IVehicle>({
+        location: { type: Schema.Types.ObjectId, ref: "Location", required: true },
         brand: { type: String, required: true },
         imageUrl: { type: String, required: false },
         category: { type: String, required: true },

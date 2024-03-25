@@ -105,9 +105,8 @@ export function ReservationForm({
 
 
   return (
-    <div className="max-w-6xl mx-auto px-4 lg:px-6 space-y-6 mb-8">
-      <div className="space-y-2 text-center">
-
+    <div className="max-w-md mx-auto px-2 lg:px-6 space-y-2 mb-2">
+      <div className="space-y-1 text-center">
         {session ? (
           <h1 className="text-3xl font-bold">Car Rental Reservation for {user.firstName} {user.lastName}</h1>
         ) : (
@@ -118,7 +117,7 @@ export function ReservationForm({
       </div>
       <div>
         <div className="flex justify-center">
-          <div className="flex p-4 bg-slate-200 rounded-lg mb-8 shadow-md">
+          <div className="flex p-2 bg-slate-200 rounded-lg mb-4 shadow-md">
             <div className="mr-4">
               <Image src={imgUrl} alt="Car" width={300} height={200} />
             </div>
@@ -139,7 +138,7 @@ export function ReservationForm({
               <Label htmlFor="pickup-date">Pickup date</Label>
               <Input id="pickup-date"
               value={pickupDate}
-              onChange={(e) => setPickupDate(e.target.value)}
+              onChange={(e) => setReturnDate(e.target.value)}
               required type="date"
               min={new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
               />

@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
 import { addVehicle, createVehicle, getAllVehicles } from '@/utils/vehicleRepository';
-import { IVehicle } from '@/models/Vehicle';
+import { IVehicle } from '@/models/vehicle';
 
 export async function GET() {
     const result = await getAllVehicles();
