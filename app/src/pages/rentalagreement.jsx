@@ -35,6 +35,8 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
 			{ v: 1, type: "pspdfkit/form-field-value", name: "MileageField", value: vehicle.mileage.toString()},
 			{ v: 1, type: "pspdfkit/form-field-value", name: "PriceField", value: vehicle.rentalPrice.toString()},
 			{ v: 1, type: "pspdfkit/form-field-value", name: "CommentField", value: reservation.comments},
+			{ v: 1, type: "pspdfkit/form-field-value", name: "PickupDateField2", value: reservation.pickupDateTime.toLocaleDateString('en-US')},
+
 		]
 	}
 	// Open a document and immediately import Instant JSON into it.
@@ -65,10 +67,34 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
 		}
 	  }, []);
 
+	  const handleSubmit = async () => {
+		// Get the PDF data from the PSPDFKit instance
+		const pdfData = await containerRef.current.getInstance().exportPDF();
+
+		// Send the PDF data to your backend for storage
+		// Example: you can use fetch API to send a POST request
+		const response = await fetch('/api/save-pdf', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/pdf',
+			},
+			body: pdfData,
+		});
+
+		if (response.ok) {
+			// Handle successful storage, e.g., show a success message
+			console.log('PDF saved successfully!');
+			route.push(`/viewreserve/${reservation.reservationId}`);
+		} else {
+			// Handle error, e.g., show an error message
+			console.error('Failed to save PDF:', response.statusText);
+		}
+	};
+
 	return (
 		<div>
 			<div ref={containerRef} style={{ height: '100vh' }} />
-			<div className="flex justify-between m-8">
+			<form onSubmit={handleSubmit} className="flex justify-between m-8">
 				<Button type="submit">
 					Submit
 				</Button>
@@ -77,7 +103,7 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
 						Back
 					</Button>
 				</Link>
-			</div>
+			</form>
 		</div>
 	
 	)
