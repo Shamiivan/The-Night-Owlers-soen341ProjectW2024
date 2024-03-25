@@ -32,6 +32,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Detect package manager
         id: detect-package-manager
         run: |
@@ -49,10 +50,12 @@ jobs:
             echo "Unable to determine package manager"
             exit 1
           fi
+
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: "14"
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
@@ -61,6 +64,7 @@ jobs:
           #
           # You may remove this line if you want to manage the configuration yourself.
           static_site_generator: next
+
       - name: Restore cache
         uses: actions/cache@v4
         with:
@@ -74,13 +78,17 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
+
       - name: Install dependencies
         run: |
           npm install
           npm install @fortawesome/fontawesome-svg-core
           ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+          npm install string-width-cjs@4.2.3 || echo "Failed to install string-width-cjs@4.2.3"
+
       - name: Install Jest
         run: npm install jest@latest
+        
       - name: Run test
         run: npx jest
 
