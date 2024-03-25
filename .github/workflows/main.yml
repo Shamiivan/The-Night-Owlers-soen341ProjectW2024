@@ -46,16 +46,6 @@ jobs:
             exit 1
           fi
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: "14"
-
-      - name: Clear npm cache
-        run: npm cache clean --force
-
-      - name: Install latest npm
-        run: sudo npm install -g npm@latest
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
@@ -74,11 +64,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
 
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "14"
+
+      - name: Clear npm cache
+        run: npm cache clean --force
+
       - name: Install dependencies
         run: |
           npm install
           npm install @fortawesome/fontawesome-svg-core
           ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
+          npm install string-width-cjs@4.2.3 || echo "Failed to install string-width-cjs@4.2.3"
 
       - name: Install Jest
         run: npm install jest@latest
