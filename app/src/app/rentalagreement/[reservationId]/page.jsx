@@ -1,6 +1,6 @@
 import "@/styles/global.css";
 import React from 'react';
-import RentalAgreementForm from "@/pages/rentalagreement"
+import RentalAgreementForm from "@/components/rentalagreement"
 import { getReservationById } from "@/utils/reservationRepository";
 import { getUserById } from "@/utils/userRepository";
 import { getVehicleById } from "@/utils/vehicleRepository";
