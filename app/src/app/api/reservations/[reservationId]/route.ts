@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import { middleware } from "../../../../../middleware";
-import { IReservation } from "@/models/Reservation";
+import { IReservation } from "@/models/reservation";
 import { getReservationById, updateReservation, getAllReservations, deleteReservation, createReservation } from "@/utils/reservationRepository";
 
 export async function GET(req: NextApiRequest, { params }: any, res: NextApiResponse) {
