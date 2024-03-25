@@ -3,11 +3,10 @@ import "@/styles/global.css";
 import React, { useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import PSPDFKit from 'pspdfkit';
-
+import { useRouter } from "next/navigation";
 export default function RentalAgreementForm({reservation, user, vehicle }) {
-	
 
+	const router = useRouter();
 
 	const timeDifference = reservation.returnDateTime.getTime() - reservation.pickupDateTime.getTime();
     const returnPeriodInDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
@@ -67,29 +66,43 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
 		}
 	  }, []);
 
-	  const handleSubmit = async () => {
-		// Get the PDF data from the PSPDFKit instance
-		const pdfData = await containerRef.current.getInstance().exportPDF();
+	  const handleSubmit = async (e) => {
+        e.preventDefault();
 
-		// Send the PDF data to your backend for storage
-		// Example: you can use fetch API to send a POST request
-		const response = await fetch('/api/save-pdf', {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/pdf',
-			},
-			body: pdfData,
-		});
+        const isConfirmed = window.confirm('Are you sure you want to check in this reservations?');
 
-		if (response.ok) {
-			// Handle successful storage, e.g., show a success message
-			console.log('PDF saved successfully!');
-			route.push(`/viewreserve/${reservation.reservationId}`);
-		} else {
-			// Handle error, e.g., show an error message
-			console.error('Failed to save PDF:', response.statusText);
-		}
-	};
+        if (isConfirmed) {
+          // Proceed with the form submission
+          const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
+            method: 'PUT',
+            body: JSON.stringify({
+                    userId: user.id,
+                    vehicleId: vehicle.id,
+                    pickupDateTime: reservation.pickupDateTime,
+                    returnDateTime: reservation.returnDateTime,
+                    pickupLocation: reservation.pickupLocation,
+                    returnLocation: reservation.returnLocation,
+                    comments: reservation.comments,
+                    status: 'rented',
+                    driverlicense: reservation.driverlicense,
+                    creditcard: reservation.creditcard,
+                    damageReported: reservation.damageReported,
+                    id: reservation._id,
+                }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          });
+    
+          if (response.ok) {
+            const data = await response.json();
+            router.push(`/viewreserve/${user._id}`);
+          } else {
+            console.error('Error updating reservations:', response.statusText);
+          }
+          alert('Rental agreement submitted successfully!');
+        }
+    };
 
 	return (
 		<div>

@@ -41,12 +41,6 @@ import exp from "constants";
  * @param creditcard - The credit card number.
  * @param damageReported - A boolean indicating whether the damage was reported.
  * @param status - The status of the reservation.
- * @param rentalName - The name of the rental company.
- * @param rentalDate - The date the reservation was made.
- * @param renterName - The name of the renter.
- * @param renterDate - The date the reservation was made.
- * @param rentalCompanySignature - The signature of the rental company.
- * @param renterSignature - The signature of the renter.
  * @param userId - The ID of the user making the reservation.
  * @param vehicleId - The ID of the vehicle being reserved.
  */
@@ -81,12 +75,6 @@ export async function createReservation(
     creditcard: string,
     damageReported: boolean,
     status: "reserved",
-    rentalName: string,
-    rentalDate: Date,
-    renterName: string,
-    renterDate: Date,
-    rentalCompanySignature: String,
-    renterSignature: String,
 ) {
   return executeAsync(async () => {
     console.log("Creating reservation");
@@ -116,12 +104,6 @@ export async function createReservation(
         creditcard,
         damageReported,
         status,
-        rentalName,
-        rentalDate,
-        renterName,
-        renterDate,
-        rentalCompanySignature,
-        renterSignature,
 
     });
     // Save the new reservation document to the database
