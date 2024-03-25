@@ -138,7 +138,7 @@ export function ReservationForm({
               <Label htmlFor="pickup-date">Pickup date</Label>
               <Input id="pickup-date"
               value={pickupDate}
-              onChange={(e) => setReturnDate(e.target.value)}
+              onChange={(e) => setPickupDate(e.target.value)}
               required type="date"
               min={new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString().split('T')[0]}
               />

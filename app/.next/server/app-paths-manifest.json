@@ -1,3 +1,12 @@
 {
-  "/page": "app/page.js"
+  "/not-found": "app/not-found.js",
+  "/api/reservations/route": "app/api/reservations/route.js",
+  "/reservation/[vehicleId]/page": "app/reservation/[vehicleId]/page.js",
+  "/page": "app/page.js",
+  "/viewreserve/[userId]/page": "app/viewreserve/[userId]/page.js",
+  "/admin/users/page": "app/admin/users/page.js",
+  "/api/users/route": "app/api/users/route.js",
+  "/admin/reservations/page": "app/admin/reservations/page.js",
+  "/admin/vehicles/page": "app/admin/vehicles/page.js",
+  "/api/vehicles/route": "app/api/vehicles/route.js"
 }

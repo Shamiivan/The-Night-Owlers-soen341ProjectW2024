@@ -1,4 +1,4 @@
-// File: C:\SOEN341\s\The-Night-Owlers-soen341ProjectW2024\app\src\app\page.tsx
+// File: C:\SOEN341\Pj\The-Night-Owlers-soen341ProjectW2024\app\src\app\page.tsx
 import * as entry from '../../../src/app/page.js'
 import type { ResolvingMetadata, ResolvingViewport } from 'next/dist/lib/metadata/types/metadata-interface.js'
 

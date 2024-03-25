@@ -1,9 +1,5 @@
 import { ReservationForm } from "@/components/reservation-form"
-import { getSession } from "next-auth/react"
-import { authOptions } from "@/utils/auth";
-import { getProviders } from "next-auth/react"
 import { getVehicleById } from "@/utils/vehicleRepository";
-import CreditcardForm from "@/components/creditCardConfirmation";
 async function fetchVehicle(id) {
     const response = await getVehicleById(id);
     if (response.success) {
