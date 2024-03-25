@@ -1,6 +1,4 @@
 {
-  "/reservation/[vehicleId]/page": "app/reservation/[vehicleId]/page.js",
-  "/admin/vehicles/page": "app/admin/vehicles/page.js",
-  "/viewreserve/[userId]/page": "app/viewreserve/[userId]/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/reservation/[vehicleId]/page": "app/reservation/[vehicleId]/page.js"
 }

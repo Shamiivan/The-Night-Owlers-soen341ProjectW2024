@@ -16,27 +16,15 @@
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
     ],
-    "/vehicles/error": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/vehicles/error.js"
-    ],
     "/vehicles/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/vehicles/page.js"
     ],
-    "/reservation/[vehicleId]/page": [
+    "/vehicles/error": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/css/app/reservation/[vehicleId]/page.css",
-      "static/chunks/app/reservation/[vehicleId]/page.js"
-    ],
-    "/viewreserve/[userId]/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/viewreserve/[userId]/page.css",
-      "static/chunks/app/viewreserve/[userId]/page.js"
+      "static/chunks/app/vehicles/error.js"
     ],
     "/admin/users/page": [
       "static/chunks/webpack.js",
@@ -44,16 +32,11 @@
       "static/css/app/admin/users/page.css",
       "static/chunks/app/admin/users/page.js"
     ],
-    "/admin/reservations/page": [
+    "/reservation/[vehicleId]/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/reservations/page.js"
-    ],
-    "/admin/vehicles/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/css/app/admin/vehicles/page.css",
-      "static/chunks/app/admin/vehicles/page.js"
+      "static/css/app/reservation/[vehicleId]/page.css",
+      "static/chunks/app/reservation/[vehicleId]/page.js"
     ]
   }
 }
