@@ -100,6 +100,7 @@
     "react-signature-canvas": "^1.0.6",
     "react-toastify": "^10.0.4",
     "resend": "^3.2.0",
+    "string-width-cjs": "^5.1.1",
     "strip-ansi-cjs": "^8.0.0",
     "tailwind": "^4.0.0",
     "tailwind-merge": "^2.2.1",
