@@ -78,6 +78,9 @@ export default function VehicleCard({ brand, imageUrl, category, vehicleModel, y
         <p className="text-sm text-muted-foreground">
           {category} - {year} - {color}
         </p>
+        <p className="text-sm text-muted-foreground">
+          ID: {_id}
+        </p>
       </div>
       <div className="ml-auto font-medium flex flex-row">
         <div className="mr-2">

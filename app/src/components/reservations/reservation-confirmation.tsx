@@ -1,9 +1,6 @@
 "use client"
 import "@/styles/global.css";
 import React, { useEffect, useState } from 'react';
-import Navbar from "@/components/ui/Navbar";
-import Footer from "@/components/ui/Footer";
-import ReservationList from "@/components/reservations/ReserveList";
 import { Button } from "@/components/ui/button";
 
 interface ReservationFormProps {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Navbar from "@/components/ui/Navbar";
 import Footer from '@/components/ui/Footer';
-import VehicleDetailCard from '@/components/VehicleDetailCard';
+import VehicleDetailCard from '@/components/vehicleDetailCard';
 import { Details } from '@/components/details';
 
 const VehicleDetails: React.FC = () => {

@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { NextRequest, NextResponse } from "next/server";
 import { middleware } from "../../../../../middleware";
-import { IReservation } from "@/models/Reservation";
+import { IReservation } from "@/models/reservation";
 import { getReservationById, updateReservation, getAllReservations, deleteReservation, createReservation } from "@/utils/reservationRepository";
 
 export async function GET(req: NextApiRequest, { params }: any, res: NextApiResponse) {
@@ -21,6 +21,7 @@ interface UpdatedReservationData {
   [key: string]: any;
 }
 
+
 export async function PUT(request: Request) {
   console.log(request);
   const updatedReservationData: UpdatedReservationData = await request.json();
@@ -28,24 +29,17 @@ export async function PUT(request: Request) {
   const updateFields: Partial<IReservation> = {
     vehicleId: updatedReservationData.vehicleId,
     userId: updatedReservationData.userId,
-    pickupDate: updatedReservationData.pickupDate,
-    returnDate: updatedReservationData.returnDate,
-    pickupTime: updatedReservationData.pickupTime,
-    returnTime: updatedReservationData.returnTime,
+    pickupDateTime: updatedReservationData.pickupDateTime,
+    returnDateTime: updatedReservationData.returnDateTime,
     pickupLocation: updatedReservationData.pickupLocation,
     returnLocation: updatedReservationData.returnLocation,
+    totalPrice: updatedReservationData.totalPrice,
     comments: updatedReservationData.comments,
     status: updatedReservationData.status,
     name: updatedReservationData.name,
     driverlicense: updatedReservationData.driverlicense,
     creditcard: updatedReservationData.creditcard,
     damageReported: updatedReservationData.damageReported,
-    rentalName: updatedReservationData.rentalName,
-    rentalDate: updatedReservationData.rentalDate,
-    renterName: updatedReservationData.renterName,
-    renterDate: updatedReservationData.renterDate,
-    rentalCompanySignature: updatedReservationData.rentalCompanySignature,
-    renterSignature: updatedReservationData.renterSignature
 
   };
   const id = updatedReservationData.id;

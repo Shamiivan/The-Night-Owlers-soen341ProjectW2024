@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import "@/styles/global.css";
-import { IReservation } from '@/models/Reservation';
+import { IReservation } from '@/models/reservation';
 import UpdateReservationForm from '@/components/dashboard/updateReservationForm';
 
 
@@ -41,31 +41,34 @@ const id = params.id;
  return (
     <div>
       <div>
+        <p></p>
         {/* Render reservation data if available */}
       {reservation ? (
           <UpdateReservationForm
-            oldUserId={reservation.userId.toString()}
-            oldVehicleId={reservation.vehicleId.toString()}
-            oldPickupDate={reservation.pickupDate}
-            oldPickupTime={reservation.pickupTime}
-            oldReturnDate={reservation.returnDate}
-            oldReturnTime={reservation.returnTime}
+            oldUserId={reservation.userId?.toString() ?? ''}
+            oldVehicleId={reservation.vehicleId?.toString() ?? ''}
+            oldPickupDate={reservation.pickupDateTime ? new Date(reservation.pickupDateTime) : new Date()}
+            oldPickupTime={reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
+            oldReturnDate={reservation.returnDateTime ? new Date(reservation.returnDateTime) : new Date()}
+            oldReturnTime={reservation.returnDateTime ? new Date(reservation.returnDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : ''}
             oldPickupLocation={reservation.pickupLocation}
             oldReturnLocation={reservation.returnLocation}
-            oldComment={reservation.comments}
-            oldStatus={reservation.status}
-            oldName={reservation.name}
-            oldDriverlicense={reservation.driverlicense}
-            oldCreditcard={reservation.creditcard}
-            oldDamageReported={reservation.damageReported}
+            oldtotalPrice={reservation.totalPrice ?? ''}
+            oldComment={reservation.comments ?? ''}
+            oldStatus={reservation.status ?? ''}
+            oldName={reservation.name ?? ''}
+            oldDriverlicense={reservation.driverlicense ?? ''}
+            oldCreditcard={reservation.creditcard ?? ''}
+            oldDamageReported={reservation.damageReported ?? false}
+
             id={reservation._id.toString()}
            />
- 
+
       ) : (
         <p>Loading reservation data...</p>
       )}
       </div>
-      
+
     </div>
  );
 }
