@@ -1,7 +1,0 @@
-{
-  "/signin/page": "app/signin/page.js",
-  "/rentalagreement/[reservationId]/page": "app/rentalagreement/[reservationId]/page.js",
-  "/viewreserve/[userId]/page": "app/viewreserve/[userId]/page.js",
-  "/favicon.ico/route": "app/favicon.ico/route.js",
-  "/checkin/[reservationId]/page": "app/checkin/[reservationId]/page.js"
-}
