@@ -55,7 +55,7 @@
     "src/components/dashboard/reservationCard.jsx",
     "src/app/admin/updateReservation/[id]/page.tsx",
     "src/components/rentalagreementForm.jsx"
-, "src/app/reservation/[vehicleId]/page.jsx", "src/components/reservation-form.jsx"  ],
+, "src/app/reservation/[vehicleId]/page.jsx", "src/components/reservation-form.jsx", "src/__test__/tests/ViewReservation.test.jsx"  ],
   "exclude": [
     "node_modules"
   ]
