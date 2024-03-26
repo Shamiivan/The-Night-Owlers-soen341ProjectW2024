@@ -1,6 +1,7 @@
 
 import React from 'react';
 import { VehicleIndex } from "@/components/vehicle-index";
+import { VehicleCard } from "@/components/vehicles/VehicleCard";
 import { getAllVehicles, getAvailableVehiclesByLocation} from '@/utils/vehicleRepository';
 import { SearchBar } from '@/components/vehicles/SearchBar';
 
@@ -25,16 +26,20 @@ const fetchAllVehicles = async () =>{
 }
 export default async function Vehicles({searchParams}) {
   
-  let vehicles = await fetchAllVehicles();
+  let vehicles;
   console.log(searchParams.pickUpDate);
   console.log(searchParams.returnDate);
+  console.log(searchParams.location);
 
   if(searchParams.pickUpDate !== '' && searchParams.returnDate !== ''
   && searchParams.pickUpDate !== undefined && searchParams.returnDate !== undefined && searchParams.location !== undefined
   ){
-    console.log("new vehicles");
     vehicles = await fetchAvailableVehicles(searchParams.pickUpDate, searchParams.returnDate, searchParams.location);
+  }else {
+   vehicles = await fetchAllVehicles();
   }
+
+  console.log(vehicles);
   
  return (
       <main>
@@ -47,7 +52,20 @@ export default async function Vehicles({searchParams}) {
             </p>
           </div>
           <SearchBar />
-          <VehicleIndex vehicles={vehicles} />
+          {/* <VehicleIndex vehicles={vehicles} /> */}
+          <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+        {vehicles?.map(vehicle => (
+          <VehicleCard
+            key={vehicle.id} // Always use a key when mapping over an array
+            brand={vehicle.brand}
+            category={vehicle.category}
+            price={vehicle.rentalPrice}
+            vehicleModel={vehicle.vehicleModel}
+            image={vehicle.imageUrl}
+            id={vehicle.id}
+          />
+        ))}
+      </div>
         </div>
       </main>
  );

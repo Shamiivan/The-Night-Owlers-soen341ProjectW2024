@@ -1,7 +1,6 @@
 // Import necessary types and utilities
 import type { Metadata } from "next";
 import "@/styles/global.css"; // Importing global styles
-//import SessionProvider from "@/app/Provider";
 import AuthProvider from "@/app/Provider";
 
 import { cn } from "../lib/utils"; // Importing a utility function for class name concatenation

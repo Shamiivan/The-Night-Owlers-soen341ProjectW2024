@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-// import Modal from "@/components/modal";
 import {
   TableHead,
   TableRow,
@@ -29,8 +28,7 @@ async function fetchVehicles() {
 export default async function Vehicles() {
   async function onClose() {
     "use server"
-    console.log("Modal has closed")
-
+    console.log("Modal has closed");
   }
   const vehicles = await fetchVehicles();
 
