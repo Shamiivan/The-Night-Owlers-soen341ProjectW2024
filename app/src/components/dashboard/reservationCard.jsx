@@ -2,7 +2,6 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@radix-ui/react-separator";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from "react";
 
 export default function ReservationCard({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, name, status, _id }) {
