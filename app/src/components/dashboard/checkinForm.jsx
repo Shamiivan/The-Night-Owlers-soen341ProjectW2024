@@ -84,7 +84,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                 <div className="flex justify-center">
                     <form onSubmit={handleSubmit} className="w-1/2">
                         <div className="flex flex-col">
-                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name: {reservation.name}</label>
+                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name:</label>
                             <input
                                 id="checkname"
                                 type="text"
@@ -95,7 +95,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                             />
                         </div>
                         <div className="flex flex-col w-full">
-                            <label htmlFor="checkdriverLicense" className="mb-2 font-semibold">Driver's License: {reservation.driverlicense}</label>
+                            <label htmlFor="checkdriverLicense" className="mb-2 font-semibold">Driver's License:</label>
                             <input
                                 id="checkdriverLicense"
                                 type="text"
@@ -106,7 +106,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                             />
                         </div>
                         <div className="flex flex-col w-full">
-                            <label htmlFor="checkcreditCard" className="mb-2 font-semibold">Credit Card: {reservation.creditcard}</label>
+                            <label htmlFor="checkcreditCard" className="mb-2 font-semibold">Credit Card:</label>
                             <input
                                 id="checkcreditCard"
                                 type="text"
