@@ -44,7 +44,8 @@ if (!Vehicle) {
         description: { type: String, required: true },
         licensePlate: { type: String, required: true },
         VIN: { type: String, required: true },
-    });
+    }, 
+    { timestamps: true });
 
     // Create the Vehicle model
     Vehicle = mongoose.model<IVehicle>('Vehicle', VehicleSchema);

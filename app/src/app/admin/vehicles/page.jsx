@@ -1,151 +1,93 @@
-"use client";
-import * as React from "react";
-import {
-  CarIcon,
-  File,
-  Search,
-  Send,
-  Settings,
-  UsersRound,
-} from "lucide-react";
-
-import { Nav } from "@/components/dashboard/nav";
-import { cn } from "@/lib/utils";
-import { Separator } from "@/components/ui/separator";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { TooltipProvider } from "@/components/ui/tooltip";
+// import Modal from "@/components/modal";
 import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "@/components/ui/resizable";
-import UserList from "@/components/dashboard/users";
+  TableHead,
+  TableRow,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table,
+} from "@/components/ui/table";
+
+import { getAllVehicles } from "@/utils/vehicleRepository";
+import VehicleCard from "@/components/dashboard/vehicles/vehicle-card";
+import Modal from "@/components/modal";
 import CreateVehicleForm from "@/components/dashboard/createVehicleForm";
-import VehicleList from "@/components/dashboard/vehicleList";
 
 
-export default function Vehicles({
-  defaultLayout = [265, 440, 655],
-  defaultCollapsed = false,
-  navCollapsedSize,
-}) {
-  const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
+async function fetchVehicles() {
+  const response = await getAllVehicles();
+  if (response.success) {
+    return response.value;
+  } else {
+    return [];
+  }
+}
+
+export default async function Vehicles() {
+  async function onClose() {
+    "use server"
+    console.log("Modal has closed")
+
+  }
+  const vehicles = await fetchVehicles();
 
   return (
-    <TooltipProvider delayDuration={0}>
-      <ResizablePanelGroup
-        direction="horizontal"
-        onLayout={(sizes) => {
-          document.cookie = `react-resizable-panels:layout=${
-            JSON.stringify(
-              sizes,
-            )
-          }`;
-        }}
-        className="h-full max-h-[800px] items-stretch"
-      >
-        <ResizablePanel
-          defaultSize={defaultLayout[0]}
-          collapsedSize={navCollapsedSize}
-          collapsible={true}
-          minSize={15}
-          maxSize={20}
-          onCollapse={(collapsed) => {
-            setIsCollapsed(collapsed);
-            document.cookie = `react-resizable-panels:collapsed=${
-              JSON.stringify(
-                collapsed,
-              )
-            }`;
-          }}
-          className={cn(
-            isCollapsed &&
-              "min-w-[50px] transition-all duration-300 ease-in-out",
-          )}
-        >
-          <div className="mt-6">
-          {/* add lable later */}
-          <Nav
-            isCollapsed={isCollapsed}
-            links={[
-              {
-                title: "Users",
-                icon: UsersRound,
-                variant: "ghost",
-                url : "/admin/users",
-              },
-              {
-                title: "Vehicles",
-                icon: CarIcon,
-                variant: "default",
-                url : "/admin/vehicles",
-              },
-              {
-                title: "Reservations",
-                icon: File,
-                variant: "ghost",
-                url : "/admin/reservations",
-              },
-            ]}
-          />
-          </div>
-          <Separator />
-          <div className="mt-4">
-          {/*<Nav
-            isCollapsed={isCollapsed}
-            links={[
-              {
-                title: "Settings",
-                icon: Settings,
-                variant: "ghost",
-                url : "/admin/settings",
-              },
-            ]}
-          />*/}
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
-          <Tabs defaultValue="all">
-            <div className="flex items-center px-4 py-2">
-              <h1 className="text-xl font-bold">Dashboard</h1>
-              <TabsList className="ml-auto">
-                <TabsTrigger
-                  value="all"
-                  className="text-zinc-600 dark:text-zinc-200"
-                >
-                  Main view
-                </TabsTrigger>
-                <TabsTrigger
-                  value="unread"
-                  className="text-zinc-600 dark:text-zinc-200"
-                >
-                  Create Vehicle
-                </TabsTrigger>
-              </TabsList>
-            </div>
-            <Separator />
-            <TabsContent value="all" className="m-0">
-              <div className="bg-background/95 p-4 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-                <form>
-                  <div className="relative">
-                    <Search className="absolute left-2 top-2.5 h-4 w-4 text-muted-foreground" />
-                    <Input placeholder="Search" className="pl-8" />
-                  </div>
-                </form>
-              </div>
-              <VehicleList />
-            </TabsContent>
-            <TabsContent value="unread" className="m-0">
-              <CreateVehicleForm />
-            </TabsContent>
-          </Tabs>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-      </ResizablePanelGroup>
-    </TooltipProvider>
+    <div className="flex flex-col">
+      <header className="flex h-14 items-left gap-4 border-b bg-gray-100/40 px-6 dark:bg-gray-800/40">
+        {/* TODO : IMPLEMENT PAGE NAME */}
+        <Button className="mt-2" asChild size="sm" variant="link">
+          <Link href="/admin/vehicles?showDialog=true">
+            New Vehicle
+          </Link>
+        </Button>
+      </header>
+      {/* <Modal title="Create a new location" onClose={onClose} onSubmit={onSubmit}>
+      <p>Modal Content</p>
+    </Modal> */}
+      <main className="flex flex-grow flex-col gap-4 p-4 md:gap-8 md:p-6">
+        <div className="border shadow-sm rounded-lg">
+          <Modal title="Create a new vehicle"
+            onClose={onClose}
+            redirectRoute="/admin/vehicles"
+          >
+           <CreateVehicleForm />
+          </Modal>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="w-[100px]">Make</TableHead>
+                <TableHead className="w-[100px]">Model</TableHead>
+                <TableHead className="w-[100px]">Status</TableHead>
+                <TableHead className="w-[100px]">Price</TableHead>
+                <TableHead className="w-[100px]">Year</TableHead>
+                <TableHead className="w-[100px]">Type</TableHead>
+                <TableHead className="w-[100px]">Vin</TableHead>
 
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {vehicles &&
+                vehicles.map((vehicle) => (
+                  <VehicleCard
+                    key={vehicle._id}
+                    _id={vehicle._id}
+                    make={vehicle.brand}
+                    vehicleModel={vehicle.vehicleModel}
+                    status={vehicle.status}
+                    price={vehicle.rentalPrice}
+                    year={vehicle.year}
+                    category={vehicle.category}
+                    vin={vehicle.vin}
+                  />
+                ))}
+            </TableBody>
+          </Table>
+
+        </div>
+      </main>
+    </div>
   );
 }

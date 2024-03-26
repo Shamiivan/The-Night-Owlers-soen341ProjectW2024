@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { VehicleIndex } from "@/components/vehicle-index";
-import { getAllVehicles, getAvailableVehiclesByLocation, ensureAllVehiclesHaveLocation} from '@/utils/vehicleRepository';
+import { getAllVehicles, getAvailableVehiclesByLocation} from '@/utils/vehicleRepository';
 import { SearchBar } from '@/components/vehicles/SearchBar';
 
 const fetchAvailableVehicles = async (pickUpDate:string, returnDate:string, locationId: string) => {

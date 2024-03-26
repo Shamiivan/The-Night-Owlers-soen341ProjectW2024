@@ -5,7 +5,6 @@ import dotenv from 'dotenv';
 import Vehicle, { IVehicle } from '@/models/vehicle';
 import printError from '@/utils/print';
 import Reservation from '@/models/reservation';
-import { addLocation } from '@/utils/locationRepository';
 
 // Load environment variables from .env file
 dotenv.config();
@@ -256,27 +255,27 @@ export async function getAvailableVehiclesByLocation(pickupDate, returnDate, loc
 }
 
 
-/**
- * Checks if all vehicles have a location and adds one if they don't.
- * @returns A promise that resolves when the operation is complete.
- */
-export async function ensureAllVehiclesHaveLocation() {
-    return executeAsync(async () => {
-        console.log("Ensuring all vehicles have a location...");
-        await connectToDatabase();
-        // Query the database for all vehicles
-        const vehicles = await Vehicle?.find({}) ?? [];
+// /**
+//  * Checks if all vehicles have a location and adds one if they don't.
+//  * @returns A promise that resolves when the operation is complete.
+//  */
+// export async function ensureAllVehiclesHaveLocation() {
+//     return executeAsync(async () => {
+//         console.log("Ensuring all vehicles have a location...");
+//         await connectToDatabase();
+//         // Query the database for all vehicles
+//         const vehicles = await Vehicle?.find({}) ?? [];
 
-        // Iterate over each vehicle
-        for (const vehicle of vehicles) {
-            // Check if the vehicle has a location
-            if (!vehicle.location) {
-                // If not, add a location
-                const locationId =  new mongoose.Types.ObjectId("65fde5fd2caecab370f74961");
-                // Update the vehicle with the new location
-                vehicle.location = locationId;
-                await vehicle.save();
-            }
-        }
-    });
-}
+//         // Iterate over each vehicle
+//         for (const vehicle of vehicles) {
+//             // Check if the vehicle has a location
+//             if (!vehicle.location) {
+//                 // If not, add a location
+//                 const locationId =  new mongoose.Types.ObjectId("65fde5fd2caecab370f74961");
+//                 // Update the vehicle with the new location
+//                 vehicle.location = locationId;
+//                 await vehicle.save();
+//             }
+//         }
+//     });
+// }
