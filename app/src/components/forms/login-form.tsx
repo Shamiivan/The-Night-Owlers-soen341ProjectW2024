@@ -42,7 +42,7 @@ export function LoginForm() {
       setError(false);
       setResult("Sign in successful");
 
-      router.push("/vehicles");
+      router.push("/alexisawesome");
     }
   };
   return (
