@@ -7,11 +7,12 @@ import Link from 'next/link';
 import Footer from "@/components/ui/Footer";
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input'
+import { ILocation } from '@/models/location';
 
 
 const CreateVehicleForm = () => {
     const [location, setLocation] = useState("");
-    const [locations, setLocations] = useState([]);
+    const [locations, setLocations] = useState<ILocation[]>([]);
     const [imageUrl, setImageUrl] = useState('');
     const [brand, setBrand] = useState('');
     const [category, setCategory] = useState('');

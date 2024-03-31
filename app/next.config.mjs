@@ -5,7 +5,8 @@ const nextConfig = {
       "https://picsum.photos",
       "s7d1.scene7.com",
       "media.discordapp.net",
-      "https://cdn.discordapp.com",
+      "https://cdn.discordapp.com/attachments",
+      "https://cdn.discordapp.com/"
     ],
   },
   typescript: {

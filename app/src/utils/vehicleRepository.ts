@@ -1,7 +1,7 @@
 // Import necessary modules
 import mongoose from 'mongoose';
 import executeAsync from '@/utils/Result';
-import dotenv from 'dotenv';
+import dotenv, { populate } from 'dotenv';
 import Vehicle, { IVehicle } from '@/models/vehicle';
 import printError from '@/utils/print';
 import Reservation from '@/models/reservation';
@@ -75,8 +75,8 @@ export async function createVehicle(
     return executeAsync(async () => {
         await connectToDatabase();
         // create new location of london
-        const location =  new mongoose.Types.ObjectId("65fddf402caecab370f74937");
-        
+        const location = new mongoose.Types.ObjectId("65fddf402caecab370f74937");
+
         // Create a new user document with the provided details
         const newVehicle = new (Vehicle as mongoose.Model<IVehicle>)({
             location,
@@ -101,7 +101,7 @@ export async function createVehicle(
         const result = await newVehicle.save();
         // Log the result of the user creation
         return result;
- 
+
     });
 }
 
@@ -216,6 +216,20 @@ export async function getAvailableVehicles(pickupDate, returnDate) {
     });
 }
 
+/**get a list of all the categories of vehicles
+ * 
+ * @returns A promise that resolves with an array of vehicle categories.
+ * @throws {Error} If there's an error querying the database.
+ * */
+export async function getVehicleCategories() {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        // Query the database for all vehicle categories
+        const categories = await Vehicle?.distinct('category');
+        return categories;
+    });
+}
+
 /**
  * Retrieves a list of vehicles that are available for reservation within the specified date range and location.
  * @async
@@ -279,3 +293,47 @@ export async function getAvailableVehiclesByLocation(pickupDate, returnDate, loc
 //         }
 //     });
 // }
+
+
+
+export async function getVehiclesWithFilters(filters: any) {
+    return executeAsync(async () => {
+        await connectToDatabase();
+        let vehicles;
+        const queryFilters: { [key: string]: any } = {};        // Iterate over each filter
+        for (const key in filters) {
+            // Check if the filter is for the 'location' field
+            if (key === 'location') {
+                // Convert the location ID string to a Mongoose ObjectId
+                queryFilters[key] = new mongoose.Types.ObjectId(filters[key]);
+            } else {
+                // For other fields, directly assign the filter value
+                queryFilters[key] = filters[key];
+            }
+        }
+    
+        if(filters.pickUpDate && filters.returnDate){
+            const pickupIso = new Date(filters.pickupDate).toISOString();
+            const returnIso = new Date(filters.returnDate).toISOString();
+              // Find reservations that overlap with the specified period
+              const overlappingReservations = await Reservation?.find({
+                $or: [
+                    { pickupDateTime: { $lte: returnIso, $gte: pickupIso } },
+                    { returnDateTime: { $lte: returnIso, $gte: pickupIso } }
+                ]
+            });
+
+            // Extract the vehicle IDs from the overlapping reservations
+            const reservedVehicleIds = overlappingReservations?.map(reservation => reservation.vehicleId);
+
+            // Add the condition to exclude reserved vehicles
+            queryFilters._id = { $nin: reservedVehicleIds };
+        }
+        console.log(queryFilters);
+        vehicles = await Vehicle?.find(queryFilters);
+     
+
+        // const vehicles = await Vehicle?.find(searchParams);
+        return vehicles;
+    });
+}

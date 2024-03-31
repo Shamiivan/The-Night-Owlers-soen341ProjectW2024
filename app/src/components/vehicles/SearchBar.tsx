@@ -1,54 +1,113 @@
 'use client'
+import { use, useEffect } from "react";
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { useState } from "react"
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { CardContent, Card } from "@/components/ui/card"
-import { getSession } from "next-auth/react"
-import { ReservationButton } from "./ReservationButton"
-import Link from "next/link"
+import { getVehicleCategories } from "@/utils/vehicleRepository";
+import { ILocation } from "@/models/location";
 
-export function SearchBar() {
+
+interface SearchBarProps {
+    categories?: any[];
+    locations?: ILocation[];
+}
+
+export function SearchBar(
+    { categories = [], locations = [] }: SearchBarProps
+) {
     const router = useRouter();
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const [pickupDate, setPickupDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
-    const [location, setLocation] = useState("");
+    const [selectedLocation, setSelectedLocation] = useState("");
+    const [selectedCategory, setSelectedCategory] = useState("");
 
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+
+
+
+    const submitForm = () => {
         const current = new URLSearchParams(Array.from(searchParams?.entries() ?? []));
-        current.set("pickUpDate", pickupDate);
-        current.set("returnDate", returnDate);
-        if(location ==="London"){
-            current.set("location", "65fddf402caecab370f74937");
-        }else if(location ==="Montreal"){
-            current.set("location", "65fde5fd2caecab370f74961")
+        // pickupDate
+        if (pickupDate !== '') {
+            current.set("pickUpDate", pickupDate);
+        } else {
+            current.delete("pickUpDate");
         }
 
+        // returnDate
+        if (returnDate !== '') {
+            current.set("returnDate", returnDate);
+        } else {
+            current.delete("returnDate");
+        }
+
+        // location
+        if (selectedLocation !== '') {
+            current.set("location", selectedLocation);
+        } else {
+            current.delete("location");
+        }
+
+        //categories
+        if (selectedCategory !== '') {
+            current.set("category", selectedCategory);
+        }
+        else {
+            current.delete("category");
+        }
+
+
         const search = current.toString();
-        console.log(search);
         // or const query = `${'?'.repeat(search.length && 1)}${search}`;
         const query = search ? `?${search}` : "";
 
         router.push(`${pathname}${query}`);
+    }
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        submitForm();
 
     };
+
+    useEffect(() => {
+        submitForm();
+    }, [pickupDate, returnDate, selectedLocation, selectedCategory]);
 
     return (
 
         <form onSubmit={handleSubmit} className="grid md:grid-cols-3 gap-4">
+            {/** LOCATION*/}
             <div className="grid gap-2">
                 <Label className="text-sm" htmlFor="location">
-                    Pick-up location
+                    Current Location :
                 </Label>
-                <select id="location" value={location} onChange={(e) => setLocation(e.target.value)}>
+
+                <select id="location" value={selectedLocation} onChange={(e) => setSelectedLocation(e.target.value)}>
                     <option value="">Select a location</option>
-                    <option value="Montreal">Montreal</option>
-                    <option value="London">London</option>
+                    {locations.map((location) => (
+                        <option key={location.id} value={location.id}>
+                            {location.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
+            <div className="grid gap-2">
+                <Label className="text-sm" htmlFor="location">
+                    Select Category
+                </Label>
+
+                <select id="category" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                    <option value="">Select a category</option>
+                    {categories.map((category) => (
+                        <option key={category.name} value={category.name}>
+                            {category}
+                        </option>
+                    ))}
                 </select>
             </div>
             <div className="grid gap-2">
@@ -72,9 +131,9 @@ export function SearchBar() {
                     min={pickupDate}
                 />
             </div>
-            <div className="flex items-end gap-2 md:col-start-4">
+            {/* <div className="flex items-end gap-2 md:col-start-4">
                 <Button size="lg">Search</Button>
-            </div>
+            </div> */}
         </form>
     )
 }
