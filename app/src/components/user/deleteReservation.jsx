@@ -9,7 +9,11 @@ export default function DeleteReservation({id}) {
     if (confirmed) {
         try {
             const response = await fetch(`/api/reservations/${id}`, {
-            method: 'DELETE',
+              method: 'DELETE',
+              body: JSON.stringify({ _id: id }),
+              headers: {
+              'Content-Type': 'application/json',
+              },
             });
 
             if (!response.ok) {

@@ -313,7 +313,8 @@ export async function getVehiclesWithFilters(filters: any) {
         }
     
         if(filters.pickUpDate && filters.returnDate){
-            const pickupIso = new Date(filters.pickupDate).toISOString();
+
+            const pickupIso = new Date(filters.pickUpDate).toISOString();
             const returnIso = new Date(filters.returnDate).toISOString();
               // Find reservations that overlap with the specified period
               const overlappingReservations = await Reservation?.find({
@@ -330,9 +331,10 @@ export async function getVehiclesWithFilters(filters: any) {
             queryFilters._id = { $nin: reservedVehicleIds };
         }
         console.log(queryFilters);
+        
         vehicles = await Vehicle?.find(queryFilters);
      
-
+        console.log(vehicles);
         // const vehicles = await Vehicle?.find(searchParams);
         return vehicles;
     });

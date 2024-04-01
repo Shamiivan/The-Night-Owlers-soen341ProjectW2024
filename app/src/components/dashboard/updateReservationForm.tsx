@@ -29,9 +29,9 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
 
   const [userId, setUserId] = useState(oldUserId);
   const [vehicleId, setVehicleId] = useState(oldVehicleId);
-  const [pickupDate, setPickupDate] = useState(oldPickupDate);
+  const [pickupDate, setPickupDate] = useState(oldPickupDate.toISOString().split('T')[0]);
   const [pickupTime, setPickupTime] = useState(oldPickupTime);
-  const [returnDate, setReturnDate] = useState(oldReturnDate);
+  const [returnDate, setReturnDate] = useState(oldReturnDate.toISOString().split('T')[0]);
   const [returnTime, setReturnTime] = useState(oldReturnTime);
   const [pickupLocation, setPickupLocation] = useState(oldPickupLocation);
   const [returnLocation, setReturnLocation] = useState(oldReturnLocation);
@@ -48,18 +48,21 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
     e.preventDefault();
     const isConfirmed = window.confirm('Are you sure you want to update this reservations?');
 
+    const pickupDateTime = new Date(`${pickupDate}T${pickupTime}:00`);
+    const returnDateTime = new Date(`${returnDate}T${returnTime}:00`);
+
     if (isConfirmed) {
       console.log('User confirmed update');
+
+
       // Proceed with the form submission
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${id}`, {
         method: 'PUT',
         body: JSON.stringify({
           userId,
           vehicleId,
-          pickupDate,
-          pickupTime,
-          returnDate,
-          returnTime,
+          pickupDateTime,
+          returnDateTime,
           pickupLocation,
           returnLocation,
           totalPrice,
@@ -112,12 +115,22 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
         />
       </div>
       <div className="mb-4">
+        <label htmlFor='name' className="block text-sm font-medium text-gray-700">Name:</label>
+        <input
+          type="text"
+          id="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+        />
+      </div>
+      <div className="mb-4">
         <label htmlFor="pickupDate" className="block text-sm font-medium text-gray-700">Pick-up Date:</label>
         <input
           type="date"
           id="pickupDate"
-          value={pickupDate instanceof Date ? pickupDate.toISOString().split('T')[0] : pickupDate}
-          onChange={(e) => setPickupDate(new Date(e.target.value))}
+          value={pickupDate}
+          onChange={(e) => setPickupDate((e.target.value))}
           className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
@@ -136,8 +149,8 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
         <input
           type="date"
           id="returnDate"
-          value={returnDate instanceof Date ? returnDate.toISOString().split('T')[0] : returnDate}
-          onChange={(e) => setReturnDate(new Date(e.target.value))}
+          value={returnDate}
+          onChange={(e) => setReturnDate((e.target.value))}
           className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
         />
       </div>
@@ -210,16 +223,7 @@ const UpdateReservationForm = ({ oldUserId, oldVehicleId, oldPickupDate, oldPick
           <option value="returned">Returned</option>
         </select>
       </div>
-      <div className="mb-4">
-        <label htmlFor='name' className="block text-sm font-medium text-gray-700">Name:</label>
-        <input
-          type="text"
-          id="name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="pl-2 mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
-        />
-      </div>
+      
       <div className="mb-4">
         <label htmlFor='driverlicense' className="block text-sm font-medium text-gray-700">Driver License:</label>
         <input

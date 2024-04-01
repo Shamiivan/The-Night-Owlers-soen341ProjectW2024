@@ -25,16 +25,12 @@ interface UpdatedReservationData {
 export async function PUT(request: Request) {
   console.log(request);
   const updatedReservationData: UpdatedReservationData = await request.json();
-  const pickupDate = updatedReservationData.pickupDate.split('T')[0];
-  const pickupTime = updatedReservationData.pickupTime;
-  const returnDate = updatedReservationData.returnDate.split('T')[0];
-  const returnTime = updatedReservationData.returnTime;
   console.log("UPDATED ", updatedReservationData);
   const updateFields: Partial<IReservation> = {
     vehicleId: updatedReservationData.vehicleId,
     userId: updatedReservationData.userId,
-    pickupDateTime: new Date(`${pickupDate}T${pickupTime}`),
-    returnDateTime: new Date(`${returnDate}T${returnTime}`),
+    pickupDateTime: updatedReservationData.pickupDateTime,
+    returnDateTime: updatedReservationData.returnDateTime,
     pickupLocation: updatedReservationData.pickupLocation,
     returnLocation: updatedReservationData.returnLocation,
     totalPrice: updatedReservationData.totalPrice,
@@ -44,12 +40,6 @@ export async function PUT(request: Request) {
     driverlicense: updatedReservationData.driverlicense,
     creditcard: updatedReservationData.creditcard,
     damageReported: updatedReservationData.damageReported,
-    rentalName: updatedReservationData.rentalName,
-    rentalDate: updatedReservationData.rentalDate,
-    renterName: updatedReservationData.renterName,
-    renterDate: updatedReservationData.renterDate,
-    rentalCompanySignature: updatedReservationData.rentalCompanySignature,
-    renterSignature: updatedReservationData.renterSignature
 
   };
   const id = updatedReservationData.id;
