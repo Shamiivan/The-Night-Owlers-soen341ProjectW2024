@@ -1,13 +1,16 @@
 'use client';
 import "@/styles/global.css";
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import { useRouter } from "next/navigation";
+import axios from 'axios';
+
 export default function RentalAgreementForm({reservation, user, vehicle }) {
 
 	const router = useRouter();
-
+	const [pdfData, setPdfData] = useState(null);
+    const [pdfUrl, setPdfUrl] = useState(null);
 	const timeDifference = reservation.returnDateTime.getTime() - reservation.pickupDateTime.getTime();
     const returnPeriodInDays = Math.ceil(timeDifference / (1000 * 3600 * 24));
 	
@@ -42,105 +45,104 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
 	
 	const containerRef = useRef(null);
 	
-	useEffect(() => {
-		const container = containerRef.current;
-	
-		if (typeof window !== 'undefined') {
-		  import('pspdfkit').then((PSPDFKit) => {
-			if (PSPDFKit) {
-			  PSPDFKit.unload(container);
-			}
-	
-			PSPDFKit.load({
-				licenseKey: 'DZ3yoMfjidDzHs59zDEJqSyZfkfPXvgK-L_BNMzSCAPomrstqi0pxEFJy8sjwv3CodG_KBdnaypNNUKs0tYvBXrKZhIsQlXSh3gYqM90VMGs93v9coS5h1gb2gL8UuQLb7oVefIUwnxFdY51cDRAo7JF9ylYCnYkVURlAFeodETH7FgXlMp-iCl52CKfM7Lsk5NFMi3zOBIHIQ',
-				instantJSON: instantJSON,
-				theme: PSPDFKit.Theme.Dark,
-				container,
-			  	document: '/rentalagreement.pdf',
-			  	baseUrl: `${window.location.protocol}//${window.location.host}/`,
-			}).then((instance) => {
-				console.log("PSPDFKit loaded", instance);
-			});
-		  });
-		}
-	  }, []);
+    useEffect(() => {
+        const container = containerRef.current;
 
-	  const handleSubmit = async (e) => {
+        if (typeof window !== 'undefined') {
+            import('pspdfkit').then((PSPDFKit) => {
+                if (PSPDFKit) {
+                    PSPDFKit.unload(container);
+                }
+
+                PSPDFKit.load({
+					licenseKey: 'DZ3yoMfjidDzHs59zDEJqSyZfkfPXvgK-L_BNMzSCAPomrstqi0pxEFJy8sjwv3CodG_KBdnaypNNUKs0tYvBXrKZhIsQlXSh3gYqM90VMGs93v9coS5h1gb2gL8UuQLb7oVefIUwnxFdY51cDRAo7JF9ylYCnYkVURlAFeodETH7FgXlMp-iCl52CKfM7Lsk5NFMi3zOBIHIQ',
+					instantJSON: instantJSON,
+					theme: PSPDFKit.Theme.Dark,
+					container,
+					document: '/rentalagreement.pdf',
+					baseUrl: `${window.location.protocol}//${window.location.host}/`,
+                    toolbarItems: [
+                        ...PSPDFKit.defaultToolbarItems, {type: "form-creator"}
+                    ]
+                }).then((instance) => {
+                    console.log('PSPDFKit loaded', instance);
+                    instance.addEventListener('formFieldValues.update', async (formFieldValues) => {
+                        instance.save();
+                        const pdf = await instance.exportPDF();
+                        console.log('pdf', pdf);
+                        setPdfData(pdf);
+                    });
+                });
+            });
+        }
+    }, []);
+
+	const handleSubmit = async (e) => {
         e.preventDefault();
 
-        const isConfirmed = window.confirm('Are you sure you want to check in this reservations?');
+        const isConfirmed = window.confirm('Are you sure you want to check in this reservation?');
 
         if (isConfirmed) {
-			// Proceed with the form submission
+            // Proceed with the form submission
+            try {
 
-			// Capture the PSPDFKit instance
-			const pspdfkitInstance = window.PSPDFKit.default.getInstance(
-				containerRef.current
-			);
+                const pdfBlob = new Blob([pdfData], { type: 'application/pdf' });
+                console.log(pdfBlob);
 
-			// Export PDF
-			const pdfBlob = await pspdfkitInstance.exportPDF();
+                const formData = new FormData();
+                formData.append('file', pdfBlob);
+                formData.append('upload_preset', 'rentalagreement');
 
-			// Convert PDF blob to base64 string
-			const reader = new FileReader();
-			reader.readAsDataURL(pdfBlob);
-			reader.onloadend = async () => {
-				const pdfBase64 = reader.result;
+            // Send POST request to Cloudinary
+            const response = await axios.post('https://api.cloudinary.com/v1_1/dpudxiylo/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
 
-				try {
-					const res = await fetch("/api/uploadPdf", {
-						method: "POST",
-						body: JSON.stringify({
-							file: pdfBase64,
-							upload_preset: "rentalagreement",
-						}),
-						headers: {
-							"Content-Type": "application/json",
-						},
-					});
-			
-					if (!res.ok) {
-						throw new Error("Failed to upload PDF to Cloudinary");
-					}
-			
-					const data = await res.json();
+            if (response.status === 200) {
+                const { secure_url } = response.data; // Retrieve the URL of the uploaded PDF from Cloudinary response
+                console.log('Uploaded PDF URL:', secure_url);
 
-					const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
-						method: 'PUT',
-						body: JSON.stringify({
-								userId: user.id,
-								vehicleId: vehicle.id,
-								pickupDateTime: reservation.pickupDateTime,
-								returnDateTime: reservation.returnDateTime,
-								pickupLocation: reservation.pickupLocation,
-								returnLocation: reservation.returnLocation,
-								comments: reservation.comments,
-								status: 'rented',
-								driverlicense: reservation.driverlicense,
-								creditcard: reservation.creditcard,
-								damageReported: reservation.damageReported,
-								id: reservation._id,
-								pdfUrl: data.secure_url,
-							}),
-						headers: {
-						'Content-Type': 'application/json',
-						},
-					});
-				
-					if (response.ok) {
-						const data = await response.json();
-						router.push(`/viewreserve/${user._id}`);
-					} else {
-						console.error('Error updating reservations:', response.statusText);
-					}
-					
-				} catch (error) {
-					console.error("Error:", error);
-					alert("Failed to complete rental agreement submission");
-				}
-			};
+                // Proceed with updating reservation including Cloudinary PDF URL
+                const updateResponse = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        userId: user.id,
+                        vehicleId: vehicle.id,
+                        pickupDateTime: reservation.pickupDateTime,
+                        returnDateTime: reservation.returnDateTime,
+                        pickupLocation: reservation.pickupLocation,
+                        returnLocation: reservation.returnLocation,
+                        comments: reservation.comments,
+                        status: 'rented',
+                        driverlicense: reservation.driverlicense,
+                        creditcard: reservation.creditcard,
+                        damageReported: reservation.damageReported,
+                        id: reservation._id,
+                        pdfData: secure_url,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
+
+                if (updateResponse.ok) {
+                    const data = await updateResponse.json();
+                    router.push(`/viewreserve/${user._id}`);
+                    alert('Rental agreement submitted successfully!');
+                } else {
+                    console.error('Error updating reservation:', updateResponse.statusText);
+                }
+            } else {
+                console.error('Error uploading PDF to Cloudinary:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while submitting rental agreement. Please try again later.');
         }
-    };
+    }
+};
 
 	return (
 		<div>
@@ -155,6 +157,7 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
 					</Button>
 				</Link>
 			</form>
+            <iframe src="https://res.cloudinary.com/dpudxiylo/image/upload/v1712002115/rentalagreement/owau1oxdyarhzevhbest.pdf" alt="rental agreement" />
 		</div>
 	
 	)

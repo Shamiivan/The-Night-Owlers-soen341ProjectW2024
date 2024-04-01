@@ -48,12 +48,6 @@ export default function ConfirmPage({ session }) {
     }
   }
 
-  const validateDriverLicense = (value) => {
-    const regex = /^[A-Z][0-9]{12}$/;
-    const isValid = regex.test(value);
-    setDriverlicense(isValid ? value : '');
-    setDriverLicenseError(!isValid);
-  }
 
   // Input fields validation handler
   const handleValidation = () => {
