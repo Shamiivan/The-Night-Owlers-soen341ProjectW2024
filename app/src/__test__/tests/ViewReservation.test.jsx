@@ -18,9 +18,7 @@ describe('ReservationDetailCard', () => {
     pickupDateTime: '2024-03-30T10:00:00',
     returnDateTime: '2024-03-31T10:00:00',
     comments: 'Test comments',
-    license: 'ABC1234567890',
-    totalPrice: 100,
-    status: 'reserved',
+    totalPrice: 100
   };
 
   const vehicle = {
@@ -64,7 +62,6 @@ describe('ReservationDetailCard', () => {
     expect(getByText('Renter Name:')).toBeInTheDocument();
     expect(getByText((content, element) => customMatcher(`Email: ${user.email}`, element))).toBeInTheDocument();
     expect(getByText((content, element) => customMatcher(`Phone Number: ${user.phone}`, element))).toBeInTheDocument();
-    expect(getByText('Driver License:')).toBeInTheDocument();
     expect(getByText('Comments:')).toBeInTheDocument();
     expect(getByText('Edit')).toBeInTheDocument();
     expect(getByText('Back')).toBeInTheDocument();

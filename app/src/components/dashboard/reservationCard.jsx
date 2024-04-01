@@ -64,6 +64,11 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
                 </div>
             </div>
             <div className="ml-auto font-medium flex flex-row">
+                {status === 'rented' && (
+                    <Button className="mr-2">
+                        <p>Check-in</p>
+                    </Button>
+                )}
                 <div className="mr-2">
                     <Link href={`/admin/updateReservation/${_id}`}>
                         <Button variant="link">Update</Button>
@@ -73,6 +78,7 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
                 <Button variant="destructive" onClick={deleteReservation}>Delete</Button>
                 </div>
             </div>
+            
             <Separator />
         </div>
     );

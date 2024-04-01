@@ -49,7 +49,7 @@
 
     "src/__test__/tests/VehicleCard.test.jsx",
     "src/components/rentalagreement.jsx",
-    "src/components/dashboard/CheckInForm.jsx",
+    "src/components/user/checkinForm.jsx",
     "src/app/admin/checkin/[reservationId]/page.jsx",
     "src/app/rentalagreement/[reservationId]/page.jsx",
     "src/components/dashboard/reservationCard.jsx",

@@ -71,35 +71,74 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
         const isConfirmed = window.confirm('Are you sure you want to check in this reservations?');
 
         if (isConfirmed) {
-          // Proceed with the form submission
-          const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
-            method: 'PUT',
-            body: JSON.stringify({
-                    userId: user.id,
-                    vehicleId: vehicle.id,
-                    pickupDateTime: reservation.pickupDateTime,
-                    returnDateTime: reservation.returnDateTime,
-                    pickupLocation: reservation.pickupLocation,
-                    returnLocation: reservation.returnLocation,
-                    comments: reservation.comments,
-                    status: 'rented',
-                    driverlicense: reservation.driverlicense,
-                    creditcard: reservation.creditcard,
-                    damageReported: reservation.damageReported,
-                    id: reservation._id,
-                }),
-            headers: {
-              'Content-Type': 'application/json',
-            },
-          });
-    
-          if (response.ok) {
-            const data = await response.json();
-            router.push(`/viewreserve/${user._id}`);
-          } else {
-            console.error('Error updating reservations:', response.statusText);
-          }
-          alert('Rental agreement submitted successfully!');
+			// Proceed with the form submission
+
+			// Capture the PSPDFKit instance
+			const pspdfkitInstance = window.PSPDFKit.default.getInstance(
+				containerRef.current
+			);
+
+			// Export PDF
+			const pdfBlob = await pspdfkitInstance.exportPDF();
+
+			// Convert PDF blob to base64 string
+			const reader = new FileReader();
+			reader.readAsDataURL(pdfBlob);
+			reader.onloadend = async () => {
+				const pdfBase64 = reader.result;
+
+				try {
+					const res = await fetch("/api/uploadPdf", {
+						method: "POST",
+						body: JSON.stringify({
+							file: pdfBase64,
+							upload_preset: "rentalagreement",
+						}),
+						headers: {
+							"Content-Type": "application/json",
+						},
+					});
+			
+					if (!res.ok) {
+						throw new Error("Failed to upload PDF to Cloudinary");
+					}
+			
+					const data = await res.json();
+
+					const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
+						method: 'PUT',
+						body: JSON.stringify({
+								userId: user.id,
+								vehicleId: vehicle.id,
+								pickupDateTime: reservation.pickupDateTime,
+								returnDateTime: reservation.returnDateTime,
+								pickupLocation: reservation.pickupLocation,
+								returnLocation: reservation.returnLocation,
+								comments: reservation.comments,
+								status: 'rented',
+								driverlicense: reservation.driverlicense,
+								creditcard: reservation.creditcard,
+								damageReported: reservation.damageReported,
+								id: reservation._id,
+								pdfUrl: data.secure_url,
+							}),
+						headers: {
+						'Content-Type': 'application/json',
+						},
+					});
+				
+					if (response.ok) {
+						const data = await response.json();
+						router.push(`/viewreserve/${user._id}`);
+					} else {
+						console.error('Error updating reservations:', response.statusText);
+					}
+					
+				} catch (error) {
+					console.error("Error:", error);
+					alert("Failed to complete rental agreement submission");
+				}
+			};
         }
     };
 

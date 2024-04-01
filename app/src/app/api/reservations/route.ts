@@ -39,6 +39,7 @@ export async function POST(request: Request) {
         creditcard,
         damageReported,
         status,
+        pdfUrl
     }= await request.json();
 
     const result = await createReservation(
@@ -57,6 +58,7 @@ export async function POST(request: Request) {
         creditcard,
         damageReported,
         status,
+        pdfUrl
         );
     console.log(result);
     // Return a response indicating success or failure

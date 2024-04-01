@@ -75,6 +75,7 @@ export async function createReservation(
     creditcard: string,
     damageReported: boolean,
     status: "reserved",
+    pdfUrl: string
 ) {
   return executeAsync(async () => {
     console.log("Creating reservation");
@@ -104,6 +105,7 @@ export async function createReservation(
         creditcard,
         damageReported,
         status,
+        pdfUrl
 
     });
     // Save the new reservation document to the database

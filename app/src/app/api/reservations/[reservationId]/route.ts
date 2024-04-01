@@ -40,6 +40,7 @@ export async function PUT(request: Request) {
     driverlicense: updatedReservationData.driverlicense,
     creditcard: updatedReservationData.creditcard,
     damageReported: updatedReservationData.damageReported,
+    pdfUrl: updatedReservationData.pdfUrl
 
   };
   const id = updatedReservationData.id;
