@@ -41,7 +41,6 @@ export default function RentalAgreementForm({reservation, user, vehicle }) {
 
 		]
 	}
-	// Open a document and immediately import Instant JSON into it.
 	
 	const containerRef = useRef(null);
 	
