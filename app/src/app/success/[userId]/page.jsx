@@ -41,6 +41,7 @@ export default async function SuccessPage({ params }) {
         </svg>
         <h1 className="text-2xl font-bold mb-4">Reservation Successful</h1>
         <p>Your reservation has been successfully created!</p>
+        <p className="mt-4 text-sm">A confirmation email will be sent to you shortly.</p>
         <Link href={`/viewreserve/${user._id.toString()}`} className='mt-8 inline-block'>
           <Button>
             Continue
