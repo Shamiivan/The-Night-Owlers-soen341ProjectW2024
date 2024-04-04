@@ -175,10 +175,10 @@ export default function ConfirmPage({ session }) {
 
       if (response.ok) {
         const data = await response.json();
-
         await sendEmail();
+        router.push(`/success/${userId}`);
       } else{
-        throw new Error('Failed to create reservation');
+        router.push('/failure');
       }
     } catch (error) {
       console.error(error);
@@ -186,7 +186,7 @@ export default function ConfirmPage({ session }) {
     }
     
 
-    router.push('/');
+    
   };
 
   return (
