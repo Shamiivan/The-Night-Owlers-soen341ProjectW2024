@@ -151,9 +151,6 @@ export function ReservationForm({
               <div className="space-y-2">
                 <Label htmlFor="return-date">
                   Return date
-                  {pickupDate ? null : (
-                    <span className="text-red-500">Select pickup date first</span>
-                  )}
                 </Label>
                 <Input id="return-date"
                 disabled={!pickupDate}

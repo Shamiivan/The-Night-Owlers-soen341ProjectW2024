@@ -7,8 +7,7 @@ import { SessionProvider } from "next-auth/react";
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Resend } from 'resend';
-import { handleNumbersOnly, getCardType } from '../utils/creditCardUtils';
+import { handleNumbersOnly} from '../utils/creditCardUtils';
 
 export default function ConfirmPage({ session }) {
   
@@ -17,20 +16,14 @@ export default function ConfirmPage({ session }) {
   const [cardnumber, setCardNumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [security, setSecurity] = useState('');
-  const [errors, setErrors] = useState({});
-
-  const { name, email, userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense, creditcard } = router.query;
+  const { name, email, userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense } = router.query;
 
   const pickupTimestamp = Date.parse(`${pickupDate}T00:00`);
   const returnTimestamp = Date.parse(`${returnDate}T00:00`);
   const rentalDays = Math.ceil((returnTimestamp - pickupTimestamp) / (1000 * 60 * 60 * 24) + 1 );
-//  const pickupTimestamp = Date.parse(`${pickupDate}T${pickupTime}`);
-//  const returnTimestamp = Date.parse(`${returnDate}T${returnTime}`);
-//  const rentalDays = Math.round(((returnTimestamp - pickupTimestamp) / (1000 * 60 * 60 * 24)) + 0.5);
 
   const totalPrice = rentalDays * rentalPrice;
 
-  const resend = new Resend('re_jGSGuC7f_J9rrQz7mo3wP7AS4MqUuWtkV');
 
   const handleCardExpiry = ( e ) => {
     let expiryDate = e.target.value;
@@ -48,47 +41,100 @@ export default function ConfirmPage({ session }) {
     }
   }
 
-  const validateDriverLicense = (value) => {
-    const regex = /^[A-Z][0-9]{12}$/;
-    const isValid = regex.test(value);
-    setDriverlicense(isValid ? value : '');
-    setDriverLicenseError(!isValid);
-  }
 
   // Input fields validation handler
   const handleValidation = () => {
     let formIsValid = true;
+    const today = new Date();
+    const currentYear = today.getFullYear();
+    const currentMonth = today.getMonth() + 1;
 
     if (!name) {
       formIsValid = false;
-      errors['name'] = 'Cardholder name is required';
-    } else {
-      errors['name'] = '';
+      alert('Cardholder name is required');
+      return;
     }
 
     if (!cardnumber) {
       formIsValid = false;
-      errors['cardnumber'] = 'Card number is required';
-    } else {
-      errors['cardnumber'] = '';
+      alert('Card number is required');
+      return;
+    } else if (!isValidCardNumber(cardnumber)) {
+      formIsValid = false;
+      alert('Invalid card number');
+      return;
     }
 
     if (!expiry) {
       formIsValid = false;
-      errors['expiry'] = 'Expiry is required';
+      alert('Expiry is required');
+      return;
     } else {
-      errors['expiry'] = '';
+      const [month, year] = expiry.split('/');
+      const expiryYear = parseInt('20' + year);
+      const expiryMonth = parseInt(month);
+      if (expiryYear < currentYear || (expiryYear === currentYear && expiryMonth < currentMonth)) {
+        formIsValid = false;
+        alert('Card has expired');
+        return;
+      }
     }
 
     if (!security) {
       formIsValid = false;
-      errors['security'] = 'CVV is required';
-    } else {
-      errors['security'] = '';
+      alert('CVV is required');
+      return;
     }
 
     return formIsValid;
-  }
+  };
+  
+  // Function to validate card number
+  const isValidCardNumber = (cardNumber) => {
+    return /^\d{16}$/.test(cardNumber);
+  };
+
+  const sendEmail = async () => {
+    const data = {
+      to: email,
+      subject: 'Reservation Confirmation',
+      body: `<div style="font-family: Arial, sans-serif; color: #333;">
+            <p style="font-size: 16px;">Hello from The Night Owlers, ${name}.</p>
+            <p style="font-size: 16px;">Here are the details of your reservation:</p>
+            <ul style="font-size: 16px; list-style-type: none; padding: 0;">
+              <li><strong>Vehicle:</strong> ${brand} ${model}</li>
+              <li><strong>Pickup Date:</strong> ${pickupDate}</li>
+              <li><strong>Pickup Time:</strong> ${pickupTime}</li>
+              <li><strong>Return Date:</strong> ${returnDate}</li>
+              <li><strong>Return Time:</strong> ${returnTime}</li>
+              <li><strong>Pickup Location:</strong> ${pickupLocation}</li>
+              <li><strong>Return Location:</strong> ${returnLocation}</li>
+              <li><strong>Comments:</strong> ${comments}</li>
+              <li><strong>Total Price:</strong> $${totalPrice}</li>
+            </ul>
+            <p style="font-size: 16px;">Thank you for using our service.</p>
+            <p style="font-size: 16px;">The Night Owlers</p>
+        </div>`,
+    };
+
+    try {
+      const response = await fetch('/api/sendEmail', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setEmailSent(true);
+      } else {
+        console.error('Failed to send email');
+      }
+    } catch (error) {
+      console.error('Error sending email:', error);
+    }
+  };
 
   const handlesubmit = async (e) => {
     e.preventDefault();
@@ -129,18 +175,18 @@ export default function ConfirmPage({ session }) {
 
       if (response.ok) {
         const data = await response.json();
-
-       
-
+        await sendEmail();
+        router.push(`/success/${userId}`);
       } else{
-        throw new Error('Failed to create reservation');
+        router.push('/failure');
       }
     } catch (error) {
       console.error(error);
       window.alert('Failed to create reservation');
     }
+    
 
-    router.push('/');
+    
   };
 
   return (
@@ -280,7 +326,6 @@ export default function ConfirmPage({ session }) {
                       type="text"
                       value={cardname}
                       onChange={(e) => setName(e.target.value)}
-                      error={errors.name}
                       className=' bg-slate-100 p-1 rounded-md'
                       required
                     />
@@ -295,7 +340,6 @@ export default function ConfirmPage({ session }) {
                       value={cardnumber}
                       onKeyDown={handleNumbersOnly}
                       onChange={(e) => setCardNumber(e.target.value)}
-                      error={errors.number}
                       className='bg-slate-100 p-1 rounded-md'
                       required
                     />
@@ -310,7 +354,6 @@ export default function ConfirmPage({ session }) {
                         onKeyDown={handleNumbersOnly}
                         onKeyUp={handleCardExpiry}
                         onChange={(e) => setExpiry(e.target.value)}
-                        error={errors.expiry}
                         className='bg-slate-100 p-1 rounded-md w-24'
                         required
                       />

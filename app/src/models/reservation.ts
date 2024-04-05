@@ -14,6 +14,7 @@ interface IReservation extends Document {
     driverlicense: string;
     creditcard: string;
     damageReported: boolean;
+    pdfData: string; 
 }
 let Reservation: mongoose.Model<IReservation> | undefined = mongoose.models.Reservation as mongoose.Model<IReservation> | undefined;
 
@@ -33,6 +34,7 @@ const ReservationSchema = new Schema({
     driverlicense: { type: String, required: true },
     creditcard: { type: String, required: false },
     damageReported: { type: Boolean, required: false },
+    pdfData: { type: String, required: false },
 
 }, { timestamps: true }); // Enable automatic timestamping  of createdAt and updatedAt fields
     Reservation = mongoose.model<IReservation>("Reservation", ReservationSchema);
