@@ -21,8 +21,8 @@ export function Map (){
 
         //toronto
         const position = {
-            lat: 43.642693,
-            lng: -79.3871189
+            lat: 42.99815068933534, 
+            lng: -81.27268313943205
         }
         const montreal = {
             lat: 45.470556,
@@ -31,7 +31,7 @@ export function Map (){
         //map options
         const mapOptions: google.maps.MapOptions = {
             center: position,
-            zoom: 8,
+            zoom: 6,
             mapId: 'MY_NEXTJS_MAPID'
         }
         //setup the map
@@ -44,7 +44,7 @@ export function Map (){
         });
         // Creating an info window
         const infoWindow = new google.maps.InfoWindow({
-           content: "<div>Car Information: <br> Model: Toyota <br> Year: 2022</div>"
+           content: "<div>address: Wonderland Rd N #5, London, ON N6H 4L1</div>"
         });
  
         // Adding click event listener to the marker
@@ -71,9 +71,9 @@ const markerMontreal = new Marker({
     position: montreal
 });
 
-// 为蒙特利尔的 marker 创建信息窗口
+
 const infoWindowMontreal = new google.maps.InfoWindow({
-    content: "<div>Location: Montreal</div>"
+    content: "<div>Address:Bd Roméo Vachon Nord (Arrivées), Dorval, QC H4Y 1H1</div>"
 });
 
 markerMontreal.addListener('click', () => {
