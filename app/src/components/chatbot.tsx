@@ -1,3 +1,4 @@
+'use client';
 import React, { useState } from 'react';
 
 const faqs = [
@@ -7,38 +8,35 @@ const faqs = [
 ];
 
 const Chatbot = () => {
-  const [isOpen, setIsOpen] = useState(false); // Whether the chatbot is open
+  const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState([{ user: 'bot', text: "Hi, I'm your friendly car rental assistant. How can I help you today?" }]);
   const [inputValue, setInputValue] = useState('');
 
   const handleSend = () => {
-    if (!inputValue.trim()) return; // Don't send empty messages
-    // User message
+    if (!inputValue.trim()) return;
     const newUserMessage = { user: 'user', text: inputValue };
-    // Bot response (This should be replaced with a real response from a server or chatbot service)
     const newBotMessage = { user: 'bot', text: 'Let me get that information for you...' };
-
-    // Simulate a bot response to the user input
     setMessages([...messages, newUserMessage, newBotMessage]);
-    setInputValue(''); // Clear the input field
+    setInputValue('');
   };
 
   return (
-    <div className={`fixed bottom-5 right-5 z-50 max-w-xs bg-white shadow-lg rounded-lg p-4 ${isOpen ? 'block' : 'hidden'}`}>
-      <div className="flex justify-between items-center p-2 bg-blue-500 text-white text-lg rounded-t-lg">
-        Chat with us!
-        <button onClick={() => setIsOpen(!isOpen)}>{isOpen ? 'Close' : 'Open'}</button>
-      </div>
-      <div className="p-4 overflow-auto h-64">
-        {/* Display messages */}
-        {messages.map((message, index) => (
-          <div key={index} className={`p-2 ${message.user === 'bot' ? 'text-left' : 'text-right'}`}>
-            {message.text}
-          </div>
-        ))}
-      </div>
+    <>
+      {/* Chat Interface */}
       {isOpen && (
-        <>
+        <div className="fixed bottom-5 right-5 z-50 max-w-xs bg-white shadow-lg rounded-lg p-4">
+          <div className="flex justify-between items-center p-2 bg-blue-500 text-white text-lg rounded-t-lg">
+            Chat with us!
+            <button onClick={() => setIsOpen(false)}>Close</button>
+          </div>
+          <div className="p-4 overflow-auto h-64">
+            {/* Display messages */}
+            {messages.map((message, index) => (
+              <div key={index} className={`p-2 ${message.user === 'bot' ? 'text-left' : 'text-right'}`}>
+                {message.text}
+              </div>
+            ))}
+          </div>
           <div className="p-2">
             <input
               type="text"
@@ -53,9 +51,19 @@ const Chatbot = () => {
               Send
             </button>
           </div>
-        </>
+        </div>
       )}
-    </div>
+
+      {/* Button to open chat */}
+      {!isOpen && (
+        <button 
+          className="fixed bottom-5 right-5 z-50 p-4 bg-blue-500 text-white rounded-full shadow-lg"
+          onClick={() => setIsOpen(true)}
+        >
+          Chat
+        </button>
+      )}
+    </>
   );
 };
 
