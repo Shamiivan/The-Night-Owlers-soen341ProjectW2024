@@ -1,6 +1,7 @@
 import "@/styles/global.css";
 import React from "react";
 import Navbar from "../components/ui/Navbar";
+import Chatbot from '../components/chatbot';
 import Footer from "../components/ui/Footer";
 import Image from "next/image";
 import { SessionProvider } from "next-auth/react";
@@ -73,5 +74,6 @@ export default async function Home() {
         </div>
       </div>
     </main>
+    
   );
 }
