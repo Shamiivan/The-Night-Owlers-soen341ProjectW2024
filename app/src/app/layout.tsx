@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import "@/styles/global.css"; // Importing global styles
 //import SessionProvider from "@/app/Provider";
 import AuthProvider from "@/app/Provider";
-
+import {Map} from "@/components/ui/map";
 import { cn } from "../lib/utils"; // Importing a utility function for class name concatenation
 import Navbar from "@/components/ui/Navbar";
 import Footer from "@/components/ui/Footer";
@@ -30,6 +30,7 @@ export default async function RootLayout({
           <div className="flex flex-col min-h-screen">
             <Navbar />
             <main className="flex-grow">{children}</main>
+            <Map />
             <Footer />
           </div>
         </body>
