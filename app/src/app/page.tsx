@@ -1,6 +1,6 @@
 import "@/styles/global.css";
 import React from "react";
-import Chatbot from '../components/chatbot'; 
+import Chatbot from '@/components/chatbot'; 
 import Image from "next/image";
 import {Map} from "@/components/ui/map";
 
