@@ -1,5 +1,6 @@
 import { ReservationForm } from "@/components/reservation-form"
 import { getVehicleById } from "@/utils/vehicleRepository";
+
 async function fetchVehicle(id) {
     const response = await getVehicleById(id);
     if (response.success) {
