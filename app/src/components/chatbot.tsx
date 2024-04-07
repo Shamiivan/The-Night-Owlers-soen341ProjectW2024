@@ -12,6 +12,14 @@ const faqs = [
     answer: 'You would need to create an account to rent a vehicle. Then, you can click the rent button and select your desired car.',
   },
   {
+    question: 'Are there any mileage limits?',
+    answer: 'Our standard rental comes with an unlimited mileage.',
+  },
+  {
+    question: 'What documents do I need to rent a car?',
+    answer: 'You will need a valid driver\'s license, a credit card in the driver\'s name, and proof of insurance. International renters may need additional documentation.',
+  },
+  {
     question: 'Can I pick which location I would like to rent from?',
     answer: 'Yes, you can pick your desired location to rent a vehicle.',
   },
