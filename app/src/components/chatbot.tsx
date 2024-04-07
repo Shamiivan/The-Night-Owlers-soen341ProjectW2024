@@ -17,7 +17,7 @@ const faqs = [
   },
   {
     question: 'What documents do I need to rent a car?',
-    answer: 'You will need a valid driver\'s license, a credit card in the driver\'s name, and proof of insurance. International renters may need additional documentation.',
+    answer: 'You will need a valid driver\'s license and a credit card in the driver\'s namea',
   },
   {
     question: 'Can I pick which location I would like to rent from?',
@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     question: 'What happens if I return the car late?',
-    answer: 'We understand that sometimes there might be delays. We offer a 30-minute grace period for returns; thereafter, additional charges may apply.',
+    answer: 'We understand that sometimes there might be delays. Unfortunstely, there might be additional charges.',
   },
   {
     question: 'What is the fuel policy?',
@@ -67,7 +67,7 @@ const Chatbot = () => {
     const userMessage: Message = { user: 'user', text: inputValue };
     let botResponse: string | ReactNode = 'Let me get that information for you...';
     
-    if (/hi|hello|hey/i.test(inputValue.toLowerCase())) {
+    if (/hi|hello|hey|Hi|Hello/i.test(inputValue.toLowerCase())) {
       botResponse = 'Hello! How can I assist you with your car rental today? 😊';
     }
     const botMessage: Message = { user: 'bot', text: botResponse };
@@ -120,32 +120,32 @@ const Chatbot = () => {
             </div>
           </div>
           <div className="p-2">
-            <input
-              type="text"
-              value={inputValue}
-              onChange={(e) => setInputValue(e.target.value)}
-              className="border p-1 rounded w-full"
-              placeholder="Ask me something..."
-            />
-          </div>
-          <div className="p-2">
-            <button onClick={handleSend} className="bg-blue-400 text-white p-2 rounded w-full">
-              Send
-            </button>
+            <form onSubmit={handleSubmit}>
+              <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                className="border p-1 rounded w-full"
+                placeholder="Ask me something..."
+                autoFocus
+              />
+              <button type="submit" className="bg-blue-400 text-white p-2 rounded w-full">
+                Send
+              </button>
+            </form>
           </div>
         </div>
       )}
-
-      {!isOpen && (
-        <button
-          className="fixed bottom-5 right-5 z-50 p-4 bg-blue-400 text-white rounded-full shadow-lg"
-          onClick={() => setIsOpen(true)}
-        >
-          Chat
-        </button>
-      )}
-    </>
-  );
-};
-
+  
+  {!isOpen && (
+      <button
+        className="fixed bottom-5 right-5 z-50 p-4 bg-blue-400 text-white rounded-full shadow-lg focus:outline-none"
+        onClick={() => setIsOpen(true)}
+      >
+        Chat
+      </button>
+    )}
+  </>
+);
+}
 export default Chatbot;
