@@ -67,7 +67,7 @@ const Chatbot = () => {
     const userMessage: Message = { user: 'user', text: inputValue };
     let botResponse: string | ReactNode = 'Let me get that information for you...';
     
-    if (/hi|hello|hey/i.test(inputValue.toLowerCase())) {
+    if (/hi|hello|hey|Hi|Hello/i.test(inputValue.toLowerCase())) {
       botResponse = 'Hello! How can I assist you with your car rental today? 😊';
     }
     const botMessage: Message = { user: 'bot', text: botResponse };
