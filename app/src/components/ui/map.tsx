@@ -1,5 +1,5 @@
 "use client"
-import {Loader} from '@googlemaps/js-api-loader';
+import { Loader } from '@googlemaps/js-api-loader';
 import React, {useEffect} from "react";
 export function Map (){
 
