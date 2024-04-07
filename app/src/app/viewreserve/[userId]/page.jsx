@@ -20,7 +20,19 @@ async function fetchUserReservations(userId) {
 export default async function ViewReserve({ params }) {
 
   const reservations = await fetchUserReservations(params.userId);
+  
+  if (!reservations[0]) {
+    return (
+      <div className="flex flex-col items-center justify-center gap-2 text-center">
+        <h1 className="text-3xl font-bold text-primary tracking-tighter sm:text-5xl">No Reservations Found</h1>
+        <p>It looks like you haven't reserved any cars yet.</p>
+      </div>
+    );
+  }
+
   const user = reservations[0].userId;
+
+  
 
   return (
     <div>

@@ -1,10 +1,8 @@
 import "@/styles/global.css";
 import React from "react";
-import Navbar from "../components/ui/Navbar";
 import Chatbot from '../components/chatbot'; 
-import Footer from "../components/ui/Footer";
 import Image from "next/image";
-import { SessionProvider } from "next-auth/react";
+import {Map} from "@/components/ui/map";
 
 const Home = () => {
   return (
@@ -16,7 +14,7 @@ const Home = () => {
           <span className="ml-2 text-blue-800">Enjoy</span>
         </h1>
 
-        <div className="flex justify-center items-center h-screen bg-blue-500 rounded-xl shadow-md shadow-gray-500">
+        <div className="flex justify-center items-center h-screen bg-blue-500 rounded-xl shadow-md shadow-gray-500 mb-8">
           <div className="flex flex-col justify-center items-start p-8 mr-4 text-white">
             <h1 className="text-3xl font-bold mb-4">Welcome to Omni Rental!</h1>
             <p className="text-lg">
@@ -37,10 +35,8 @@ const Home = () => {
           </div>
         </div>
 
-        <div className="mb-8"></div>
-        <div className="mb-8"></div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
           <div className="bg-blue-100 border border-blue-200 rounded-md p-6 shadow-md shadow-gray-500">
             <h2 className="text-2xl font-bold text-blue-600 mb-4">
               Best Pricing
@@ -74,9 +70,11 @@ const Home = () => {
             </p>
           </div>
         </div>
+        <Map />
       </main>
       <Chatbot />
     </>
+
   );
 };
 
