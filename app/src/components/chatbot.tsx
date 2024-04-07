@@ -36,6 +36,10 @@ const faqs = [
     answer: 'We offer a full refund for cancellations made at least 24 hours before the rental start time. Cancellations made after this period may be subject to a fee.',
   },
   {
+    question: 'Can I rent a car with a child seat or GPS?',
+    answer: 'Yes, we have a range of accessories available for rental, including child seats, GPS devices, and ski racks. These can be added to your booking during the reservation process in the additional notes section.',
+  },
+  {
     question: 'What payment methods do you accept?',
     answer: 'We accept all major credit cards including Visa, MasterCard, and American Express. Payments are securely processed at the time of booking.',
   },
@@ -50,11 +54,25 @@ const Chatbot = () => {
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [inputValue, setInputValue] = useState('');
 
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent the default form submit action
+    handleSend();
+  };
+
   const handleSend = () => {
     if (!inputValue.trim()) return;
-    const newUserMessage: Message = { user: 'user', text: inputValue };
-    const newBotMessage: Message = { user: 'bot', text: 'Let me get that information for you...' };
-    setMessages([...messages, newUserMessage, newBotMessage]);
+
+    // You would implement some basic logic to determine the bot's response
+    // Here, for simplicity, we're just checking if the user says 'hi' or similar.
+    const userMessage: Message = { user: 'user', text: inputValue };
+    let botResponse: string | ReactNode = 'Let me get that information for you...';
+    
+    if (/hi|hello|hey/i.test(inputValue.toLowerCase())) {
+      botResponse = 'Hello! How can I assist you with your car rental today? 😊';
+    }
+    const botMessage: Message = { user: 'bot', text: botResponse };
+
+    setMessages([...messages, userMessage, botMessage]);
     setInputValue('');
   };
 
@@ -64,17 +82,20 @@ const Chatbot = () => {
   };
 
   const handleFAQClick = (faq: { question: string; answer: string }) => {
-    const newBotMessage: Message = {
+    // Include both the question and answer in the bot's message
+    const botMessage: Message = {
       user: 'bot',
       text: (
         <>
+          <strong>Question:</strong> {faq.question}
+          <br />
           <strong>Answer:</strong> {faq.answer}
         </>
       ),
     };
-    setMessages([...messages, newBotMessage]);
+    setMessages([...messages, botMessage]);
   };
-
+  
   return (
     <>
       {isOpen && (
