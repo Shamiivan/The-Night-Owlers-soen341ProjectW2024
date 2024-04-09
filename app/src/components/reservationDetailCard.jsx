@@ -10,22 +10,31 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
     const router = useRouter();
     const [editMode, setEditMode] = useState(false);
 
-    const pickupDate = reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toISOString().split('T')[0] : "";
+    const pickupDateTime = reservation.pickupDateTime ? new Date(reservation.pickupDateTime) : null;
+    if (pickupDateTime) {
+        const timezoneOffset = pickupDateTime.getTimezoneOffset() / 60;
+        pickupDateTime.setHours(pickupDateTime.getHours() + timezoneOffset);
+    }
+
+    const returnDateTime = reservation.returnDateTime ? new Date(reservation.returnDateTime) : null;
+    if (returnDateTime) {
+        const timezoneOffset = returnDateTime.getTimezoneOffset() / 60;
+        returnDateTime.setHours(returnDateTime.getHours() + timezoneOffset);
+    }
+    // Format the date as 'yyyy-mm-dd' string
+    const pickupDate = pickupDateTime ? pickupDateTime.toISOString().split('T')[0] : "";
     const pickupTime = reservation.pickupDateTime ? new Date(reservation.pickupDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : '';
-    const returnDate = reservation.returnDateTime ? new Date(reservation.returnDateTime).toISOString().split('T')[0] : "";
+    const returnDate = returnDateTime ? returnDateTime.toISOString().split('T')[0] : "";
     const returnTime = reservation.returnDateTime ? new Date(reservation.returnDateTime).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}) : '';
 
     const [newName, setName] = useState(reservation.name);
-    const [newemail, setEmail] = useState(user.email);
-    const [newphone, setPhone] = useState(user.phone);
     const [newpickupDate, setPickupDate] = useState(pickupDate);
     const [newpickupTime, setPickupTime] = useState(pickupTime);
     const [newreturnDate, setReturnDate] = useState(returnDate);
     const [newreturnTime, setReturnTime] = useState(returnTime);
     const [newcomments, setComments] = useState(reservation.comments);
-    const [newlicense, setLicense] = useState(reservation.license);
     const [totalPrice, setTotalPrice] = useState(reservation.totalPrice);
-
+    const today = new Date().toISOString().split('T')[0];
     const toggleEditMode = () => {
         setEditMode(prevMode => !prevMode);
     };
@@ -44,7 +53,7 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
     const calculateTotalPrice = () => {
         const pickupDateTime = new Date(`${newpickupDate}T${newpickupTime}:00`);
         const returnDateTime = new Date(`${newreturnDate}T${newreturnTime}:00`);
-        const daysDifference = Math.round((returnDateTime - pickupDateTime) / (1000 * 60 * 60 * 24));
+        const daysDifference = Math.round((returnDateTime - pickupDateTime) / (1000 * 60 * 60 * 24) + 1);
         const totalPrice = daysDifference * vehicle.rentalPrice;
         setTotalPrice(totalPrice);
     };
@@ -73,7 +82,7 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                 totalPrice,
                 comments : newcomments,
                 name: newName,
-                driverlicense: newlicense,
+                driverlicense: reservation.driverlicense,
                 id : reservation._id
                 }),
                 headers: {
@@ -136,10 +145,9 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                             </div>
                         </div>
                         <div className="space-y-2 my-4 border-b-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg" >
-                            <p className="text-gray-800 dark:text-white"><span className="font-semibold">Renter Name:</span> {user.firstName} {user.lastName}</p>
+                            <p className="text-gray-800 dark:text-white"><span className="font-semibold">Renter Name:</span> {reservation.name}</p>
                             <p className="text-gray-800 dark:text-white"><span className="font-semibold">Email:</span> {user.email}</p>
                             <p className="text-gray-800 dark:text-white"><span className="font-semibold">Phone Number:</span> {user.phone}</p>
-                            <p className="text-gray-800 dark:text-white"><span className="font-semibold">Driver License:</span> {reservation.dreiverlicense}</p>
                         </div>
                         <p className="mb-4 text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border-b-2 border-gray-300"><span className="font-semibold">Comments:</span> { reservation.comments ? reservation.comments : "No comments"}</p>
                     </div>
@@ -171,7 +179,6 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                                     <p className="text-gray-800 dark:text-white"><span className="font-semibold">Renter Name:</span> {user.firstName} {user.lastName}</p>
                                     <p className="text-gray-800 dark:text-white"><span className="font-semibold">Renter Email:</span> {user.email}</p>
                                     <p className="text-gray-800 dark:text-white"><span className="font-semibold">Phone Number:</span> {user.phone}</p>
-                                    <p className="text-gray-800 dark:text-white"><span className="font-semibold">Driver License:</span> {reservation.dreiverlicense}</p>
                                 </div>
                                 <p className="mb-4 text-gray-800 dark:text-white bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border-b-2 border-gray-300"><span className="font-semibold">Comments:</span> { reservation.comments ? reservation.comments : "No comments"}</p>
                             </div>
@@ -190,8 +197,8 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                                             type="date"
                                             name="pickupDate"
                                             value={newpickupDate}
+                                            min={today}
                                             onChange={(e) => setPickupDate(e.target.value)}
-                                            placeholder="Pick Up Date"
                                             className="ml-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg border border-gray-300"
                                         />
                                     </div>
@@ -203,7 +210,6 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                                             name="pickupTime"
                                             value={newpickupTime}
                                             onChange={(e) => setPickupTime(e.target.value)}
-                                            placeholder="Pick Up Time"
                                             className="ml-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg border border-gray-300"
                                         />
                                     </div>
@@ -216,8 +222,8 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                                             type="date"
                                             name="returnDate"
                                             value={newreturnDate}
+                                            min={newpickupDate}
                                             onChange={(e) => setReturnDate(e.target.value)}
-                                            placeholder="Return Date"
                                             className="ml-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg border border-gray-300"
                                         />
                                     </div>
@@ -229,15 +235,13 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                                             name="returnTime"
                                             value={newreturnTime}
                                             onChange={(e) => setReturnTime(e.target.value)}
-                                            placeholder="Return Time"
                                             className="ml-2 bg-gray-100 dark:bg-gray-800 p-2 rounded-lg border border-gray-300"
                                         />
                                     </div>
                                 </div>
                                 
                             </div>
-                            
-                            
+
                             <div className="space-y-2 bg-gray-100 dark:bg-gray-800 p-4 rounded-lg border-b-2 mb-2">
                                 <div className="grid grid-cols-3 gap-4 mb-2">
                                     <label htmlFor="firstName" className="font-semibold">Renter Name:</label>
@@ -251,7 +255,7 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                                         className=" dark:bg-gray-800 p-2 rounded-lg border border-gray-300"
                                     />
                                 </div>
-                                <div className="grid grid-cols-3 gap-4 mb-2">
+                                {/*<div className="grid grid-cols-3 gap-4 mb-2">
                                     <label htmlFor="email" className="font-semibold">Email:</label>
                                     <input
                                         id="email"
@@ -274,19 +278,7 @@ export default function ReservationDetailCard ({ reservation, vehicle, user }) {
                                         placeholder="Phone"
                                         className="dark:bg-gray-800 p-2 rounded-lg border border-gray-300"
                                     />
-                                </div>
-                                <div className="grid grid-cols-3 gap-4 mb-2">
-                                    <label htmlFor="license" className="font-semibold">Driver License:</label>
-                                    <input
-                                        id="license"
-                                        type="text"
-                                        name="license"
-                                        value={newlicense}
-                                        onChange={(e) => setLicense(e.target.value)}
-                                        placeholder="Driver License"
-                                        className="dark:bg-gray-800 p-2 rounded-lg border border-gray-300"
-                                    />
-                                </div>
+                                </div>*/}
                                 <div className="grid grid-cols-3 gap-4 mb-2">
                                     <label htmlFor="comments" className="font-semibold">Comments:</label>
                                     <textarea

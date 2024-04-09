@@ -1,11 +1,8 @@
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
 import { CardContent, Card } from "@/components/ui/card"
 import { getSession } from "next-auth/react"
-import { ReservationButton } from "./ReservationButton"
 import Link  from "next/link"
-
+import React from "react"
 
 interface carProps {
     brand: string,

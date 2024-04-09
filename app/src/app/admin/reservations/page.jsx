@@ -22,7 +22,7 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import ReservationList from "@/components/dashboard/reservation";
-
+import CreateReservationForm from "@/components/dashboard/createReservationForm";
 
 export default function Reservations({
   defaultLayout = [265, 440, 655],
@@ -138,7 +138,7 @@ export default function Reservations({
               <ReservationList />
             </TabsContent>
             <TabsContent value="unread" className="m-0">
-              <div className="bg-primary">Something</div>
+              <CreateReservationForm/>
             </TabsContent>
           </Tabs>
         </ResizablePanel>
