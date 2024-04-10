@@ -2,14 +2,12 @@
 import "@/styles/global.css";
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
-import { SelectValue, SelectTrigger, SelectItem, SelectContent, Select } from "@/components/ui/select"
 import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button"
-import { useSession } from "next-auth/react"
-import React, { useState, useEffect, use } from "react"
+import { useSession, SessionProvider  } from "next-auth/react"
+import React, { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { SessionProvider } from "next-auth/react";
 
 export function ReservationForm({
   vehicleId,
@@ -30,7 +28,6 @@ export function ReservationForm({
   const [returnDate, setReturnDate] = useState("");
   const [returnTime, setReturnTime] = useState("");
   const [driverlicense, setDriverlicense] = useState("");
-  const [driverLicenseError ,setDriverLicenseError] = useState(true);
   const [comments, setComments] = useState("");
 
   let name = "";
