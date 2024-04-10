@@ -23,13 +23,18 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
           const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
                 method: 'PUT',
                 body: JSON.stringify({
-                    userId: reservation.userId,
-                    name: fullname,  
-                    phone,
-                    mileage,
-                    fuel,
-                    returnLocation,
-                    anyDamage,
+                  userId: user.id,
+                  vehicleId: vehicle.id,
+                  pickupDateTime: reservation.pickupDateTime,
+                  returnDateTime: reservation.returnDateTime,
+                  pickupLocation: reservation.pickupLocation,
+                  returnLocation: reservation.returnLocation,
+                  comments: reservation.comments,
+                  status: 'returned',
+                  driverlicense: reservation.driverlicense,
+                  creditcard: reservation.creditcard,
+                  damageReported: reservation.damageReported,
+                  id: reservation._id,     
                 }),
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +42,7 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
             });
 
             if (response.ok) {
-                router.push(`/admin/reservations`);
+                router.push(`/viewreserve/${reservation.userId}`);
                 alert('Checked out successfully');
             } else {
                 const errorData = await response.json();
@@ -139,7 +144,7 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
                     </div>
                     <div className="mt-10 flex justify-between">
                         <Button type="submit">Check Out</Button>
-                        <Link href='/admin/reservations'>
+                        <Link href={`/viewreserve/${reservation.userId}`}>
                           <Button className="bg-red-500 hover:bg-red-400">Back</Button>
                         </Link>
                     </div>

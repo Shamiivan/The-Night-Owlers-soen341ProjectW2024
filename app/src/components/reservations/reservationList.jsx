@@ -81,7 +81,7 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, p
                             View more
                         </Button>
                     </Link>
-                    <Link href={status === 'rented' ? `/admin/checkout/${id}` : `/checkin/${id}`} className="mt-auto ml-4">
+                    <Link href={status === 'rented' ? `/checkout/${id}` : `/checkin/${id}`} className="mt-auto ml-4">
                         <Button variant={status === 'rented' ? 'secondary' : ''}>
                             {status === 'rented' ? 'Check Out' : 'Check In'}
                         </Button>
