@@ -2,14 +2,11 @@
 import { Button } from "@/components/ui/button";
 import "@/styles/global.css";
 import Link from "next/link";
-import React, { useRef, useState, useEffect } from 'react';
-import SignatureCanvas from "react-signature-canvas";
+import React, {useState} from 'react';
 import { useRouter } from "next/navigation";
 
 export default function CheckoutForm({ user, vehicle, reservation }) {
     const [checkname, setName] = useState('');
-    const [checkoutDate, setCheckoutDate] = useState('');
-    const [dropOffTime, setDropOffTime] = useState('');
     const [mileage, setMileage] = useState('');
     const [fuel, setFuel] = useState('');
     const [returnLocation, setReturnLocation] = useState('');
@@ -22,37 +19,34 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
         e.preventDefault();
 
     
-        // try {
-        //     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/reservations/${reservation.id}/checkout`, {
-        //         method: 'POST',
-        //         body: JSON.stringify({
-        //             userId: reservation.userId,
-        //             name: fullname,  // Use fullname directly if you don't need to verify changes
-        //             phone,
-        //             checkoutDate,
-        //             dropOffTime,
-        //             mileage,
-        //             fuel,
-        //             returnLocation,
-        //             anyDamage,
-        //         }),
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //     });
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
+                method: 'PUT',
+                body: JSON.stringify({
+                    userId: reservation.userId,
+                    name: fullname,  
+                    phone,
+                    mileage,
+                    fuel,
+                    returnLocation,
+                    anyDamage,
+                }),
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+            });
 
-    //         if (response.ok) {
-    //             // Here you might want to redirect to a confirmation page
-    //             router.push(`/admin/reservations/${reservation.id}`);
-    //             alert('Checked out successfully');
-    //         } else {
-    //             const errorData = await response.json();
-    //             alert('Failed to check out: ' + errorData.message);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error checking out:', error);
-    //         alert('Failed to check out. Please try again later.');
-    //     }
+            if (response.ok) {
+                router.push(`/admin/reservations`);
+                alert('Checked out successfully');
+            } else {
+                const errorData = await response.json();
+                alert('Failed to check out: ' + errorData.message);
+            }
+        } catch (error) {
+            console.error('Error checking out:', error);
+            alert('Failed to check out. Please try again later.');
+        }
     };
 
     return (
@@ -91,30 +85,6 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
               </div> 
             </div>
             <div className="grid grid-cols-2 gap-8">
-              <div className="flex flex-col">
-                <label htmlFor="checkoutDate" className="text-lg font-semibold">
-                  Check-Out Date
-                </label>
-                <input
-                  type="date"
-                  id="checkoutDate"
-                  value={checkoutDate}
-                  onChange={(e) => setCheckoutDate(e.target.value)}
-                  className="border-2 border-slate-300 rounded-md p-2"
-                />
-              </div>
-              <div className="flex flex-col">
-                <label htmlFor="dropOffTime" className="text-lg font-semibold">
-                  Drop-Off Time
-                </label>
-                <input
-                  type="time"
-                  id="dropOffTime"
-                  value={dropOffTime}
-                  onChange={(e) => setDropOffTime(e.target.value)}
-                  className="border-2 border-slate-300 rounded-md p-2"
-                />
-              </div>
             </div>
             <div className="grid grid-cols-2 gap-8">
               <div className="flex flex-col">

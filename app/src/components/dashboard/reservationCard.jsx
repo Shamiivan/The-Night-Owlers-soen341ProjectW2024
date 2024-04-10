@@ -71,6 +71,11 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
                         </Button>
                     </Link>
                 )}
+                 <div className="mr-2">
+                    <Link href={`/admin/checkout/${_id}`}>
+                        <Button variant="link">Check-Out</Button>
+                    </Link>
+                </div>
                 <div className="mr-2">
                     <Link href={`/admin/updateReservation/${_id}`}>
                         <Button variant="link">Update</Button>
