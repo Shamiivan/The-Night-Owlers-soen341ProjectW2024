@@ -45,7 +45,6 @@ export default async function Checkout({ params }){
 
     return (
         <div>
-            {/* Render other properties as needed */}
             <CheckoutForm
                 user={user}
                 vehicle={vehicle}
