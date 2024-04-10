@@ -52,7 +52,9 @@ export function UserNav() {
             <DropdownMenuSeparator />
 
             <DropdownMenuItem>
+              <a href='/'> 
               <button onClick={() => signOut()} className="w-full flex items-start">Logout</button>
+              </a>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
