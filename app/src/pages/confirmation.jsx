@@ -8,12 +8,17 @@ import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 import { handleNumbersOnly} from '../utils/creditCardUtils';
+import PropTypes from 'prop-types';
+
+ConfirmPage.propTypes = {
+  session: PropTypes.object.isRequired
+};
 
 export default function ConfirmPage({ session }) {
   
   const router = useRouter();
-  const [cardname, setName] = useState('');
-  const [cardnumber, setCardNumber] = useState('');
+  const [cardname, setCardname] = useState('');
+  const [cardnumber, setCardnumber] = useState('');
   const [expiry, setExpiry] = useState('');
   const [security, setSecurity] = useState('');
   const { name, email, userId, vehicleId, imgUrl, brand, model, year, nPeople, color, fuelType, rentalPrice, pickupDate, pickupTime, returnDate, returnTime, pickupLocation, returnLocation, comments, driverlicense } = router.query;
@@ -50,23 +55,19 @@ export default function ConfirmPage({ session }) {
     const currentMonth = today.getMonth() + 1;
 
     if (!name) {
-      formIsValid = false;
       alert('Cardholder name is required');
       return;
     }
 
     if (!cardnumber) {
-      formIsValid = false;
       alert('Card number is required');
       return;
     } else if (!isValidCardNumber(cardnumber)) {
-      formIsValid = false;
       alert('Invalid card number');
       return;
     }
 
     if (!expiry) {
-      formIsValid = false;
       alert('Expiry is required');
       return;
     } else {
@@ -74,14 +75,12 @@ export default function ConfirmPage({ session }) {
       const expiryYear = parseInt('20' + year);
       const expiryMonth = parseInt(month);
       if (expiryYear < currentYear || (expiryYear === currentYear && expiryMonth < currentMonth)) {
-        formIsValid = false;
         alert('Card has expired');
         return;
       }
     }
 
     if (!security) {
-      formIsValid = false;
       alert('CVV is required');
       return;
     }
@@ -174,7 +173,6 @@ export default function ConfirmPage({ session }) {
       });
 
       if (response.ok) {
-        const data = await response.json();
         await sendEmail();
         router.push(`/success/${userId}`);
       } else{
@@ -268,7 +266,7 @@ export default function ConfirmPage({ session }) {
             </div>
             <div className="grid grid-cols-2 bg-white p-6 rounded-xl">
               <p className="text-lg font-medium">Comments:</p>
-              <p>{comments? comments : "None"}</p>
+              <p>{comments ?? "None"}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 gap-8">
@@ -325,7 +323,7 @@ export default function ConfirmPage({ session }) {
                       placeholder="Name of cardholder"
                       type="text"
                       value={cardname}
-                      onChange={(e) => setName(e.target.value)}
+                      onChange={(e) => setCardname(e.target.value)}
                       className=' bg-slate-100 p-1 rounded-md'
                       required
                     />
@@ -339,7 +337,7 @@ export default function ConfirmPage({ session }) {
                       maxLength="16"
                       value={cardnumber}
                       onKeyDown={handleNumbersOnly}
-                      onChange={(e) => setCardNumber(e.target.value)}
+                      onChange={(e) => setCardnumber(e.target.value)}
                       className='bg-slate-100 p-1 rounded-md'
                       required
                     />
