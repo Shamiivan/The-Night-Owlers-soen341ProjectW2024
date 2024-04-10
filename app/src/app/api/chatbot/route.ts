@@ -9,13 +9,22 @@ const key = process.env.GOOGLE_API_KEY;
 
 
 export async function GET() {
-    const data = await main();
+    const data = "";
     return NextResponse.json({ success: true, value: data });
 }
+export async function POST(request : Request) {
+    const data =  await request.json();
+    const message = data.message;
+    const res = await generateResponse(message);
+    const answer = res.content;
+    console.log(answer);
+    return NextResponse.json({ success: true, value: answer});
+}
+    
 
 
 
-async function main() {
+async function generateResponse(message:string) {
     const model = new ChatGoogleGenerativeAI({
         model: "gemini-pro",
         maxOutputTokens: 2048,
@@ -29,7 +38,7 @@ async function main() {
 
     // Batch and stream are also supported
     const res = await model.invoke([
-        ["human", "write about cars"],
+        ["human", message],
     ]);
 
     return res
