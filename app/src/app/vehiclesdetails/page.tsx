@@ -1,5 +1,4 @@
 import React from 'react';
-import VehicleDetailCard from '@/components/vehicleDetailCard';
 import { Details } from '@/components/details';
 
 const VehicleDetails: React.FC = () => {

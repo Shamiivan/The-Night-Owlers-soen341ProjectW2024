@@ -1,8 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@radix-ui/react-separator";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export default function ReservationCard({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, name, status, _id }) {
 
@@ -71,11 +71,11 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
                         </Button>
                     </Link>
                 )}
-                 <div className="mr-2">
+                 {status === 'returned' && (
                     <Link href={`/admin/checkout/${_id}`}>
                         <Button variant="link">Check-Out</Button>
                     </Link>
-                </div>
+                 )}
                 <div className="mr-2">
                     <Link href={`/admin/updateReservation/${_id}`}>
                         <Button variant="link">Update</Button>
