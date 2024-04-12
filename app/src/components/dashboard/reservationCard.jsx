@@ -1,8 +1,8 @@
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Separator } from "@radix-ui/react-separator";
 import { Button } from "@/components/ui/button";
 import Link from 'next/link';
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 export default function ReservationCard({ userId, vehicleId, pickupDate, pickupTime, returnDate, returnTime, name, status, _id }) {
 
@@ -64,13 +64,18 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
                 </div>
             </div>
             <div className="ml-auto font-medium flex flex-row">
-                {status === 'rented' && (
-                    <Link href={`/admin/checkin/${_id}`}>
-                        <Button className="mr-2">
-                            <p>Check-in</p>
-                        </Button>
+                
+                    <Link href={`/admin/checkin-checkout/${_id}`}>
+                        {status === 'rented' && (
+                            <Button className="mr-2">
+                                <p>Check-in</p>
+                            </Button>
+                        )}
+                        {status === 'returned' && (
+                         <Button variant="link">Check-Out</Button>
+                        )}
                     </Link>
-                )}
+                 
                 <div className="mr-2">
                     <Link href={`/admin/updateReservation/${_id}`}>
                         <Button variant="link">Update</Button>

@@ -4,8 +4,6 @@ import {
   CarIcon,
   File,
   Search,
-  Send,
-  Settings,
   UsersRound,
 } from "lucide-react";
 
@@ -91,17 +89,6 @@ export default function Reservations({
           </div>
           <Separator />
           <div className="mt-4 h-full">
-          {/*<Nav
-            isCollapsed={isCollapsed}
-            links={[
-              {
-                title: "Settings",
-                icon: Settings,
-                variant: "ghost",
-                url : "/admin/settings",
-              },
-            ]}
-          />*/}
           </div>
         </ResizablePanel>
         <ResizableHandle withHandle />
