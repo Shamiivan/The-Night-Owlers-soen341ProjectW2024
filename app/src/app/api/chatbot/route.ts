@@ -28,6 +28,7 @@ export async function POST(request: Request) {
 
 async function generateResponse(message: string) {
     const model = new ChatGoogleGenerativeAI({
+        apiKey : key,
         model: "gemini-pro",
         maxOutputTokens: 2048,
     });
