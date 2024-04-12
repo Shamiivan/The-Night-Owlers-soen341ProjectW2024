@@ -75,18 +75,7 @@ jobs:
           npm install
           npm install @fortawesome/fontawesome-svg-core
       - name: Run Tests
-        run: npx jest
-
-  sonarcloud:
-    needs: build
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+        run: npx jest --coverage
       - name: 'SonarCloud Scan'
         uses: SonarSource/sonarcloud-github-action@master
         env:
