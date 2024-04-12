@@ -76,18 +76,6 @@ jobs:
           npm install @fortawesome/fontawesome-svg-core
       - name: Run Tests
         run: npx jest --coverage
-      
-
-  sonarcloud:
-    needs: build
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: app
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - name: 'SonarCloud Scan'
         uses: SonarSource/sonarcloud-github-action@master
         env:
@@ -99,3 +87,4 @@ jobs:
             -Dsonar.organization=shamiivan
             -Dsonar.projectName=The-Night-Owlers-soen341ProjectW2024
             -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
+
