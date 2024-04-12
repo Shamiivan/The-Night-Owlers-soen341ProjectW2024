@@ -13,7 +13,6 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
     const [phone, setPhone] = useState('');
     const [anyDamage, setAnyDamage] = useState(false);
     const router = useRouter();
-    const fullname = `${user.firstName} ${user.lastName}`;
 
     const isAdminPath = window.location.pathname.includes('/admin');
     

@@ -2,7 +2,7 @@
 
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent} from '@testing-library/react';
 import Users from '@/app/admin/users/page';
 
 describe('Users Component', () => {
