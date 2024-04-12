@@ -16,12 +16,17 @@ export function ChatbotComponent() {
   const [query, setQuery] = useState('');
   const [currResponse, setCurrResponse] = useState("");
 
+  const getRandomId = () => {
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    return array[0];
+  };
 
   function toggleState() {
     setIsOpen(!isOpen);
   }
   const getResponse = async function (query: string) {
-    const id = Math.random().toString() + ++counter;
+    const id = getRandomId().toString();
     let message: Message = { id: id, user: 'bot', text: "" }
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/chatbot`, {
@@ -51,7 +56,7 @@ export function ChatbotComponent() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!query) return;
-    const newQuery: Message = { id: Math.random().toString(), user: 'user', text: query };
+    const newQuery: Message = { id: getRandomId().toString(), user: 'user', text: query };
     setMessages(prevMessages => [...prevMessages, newQuery]);
     console.log(messages);
 
@@ -70,7 +75,7 @@ export function ChatbotComponent() {
 
       const data = await response.json();
       const stringfiedData = JSON.stringify(data.value);
-      const id = Math.random().toString();
+      const id = getRandomId().toString();
       let message: Message = { id: id, user: 'bot', text: stringfiedData }
       setMessages(prevMessages => [...prevMessages, message]);
     } catch (error) {
