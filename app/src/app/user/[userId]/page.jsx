@@ -1,9 +1,5 @@
 import React from 'react';
-import { getSession } from "next-auth/react";
 import { getUserById } from "@/utils/userRepository";
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
-import Image from 'next/image'
 import UpdateUserForm from '@/components/user/updateInfo/[userId]/page.jsx';
 
 export default async function ViewUser({ params }) {

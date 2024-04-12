@@ -1,6 +1,6 @@
 import React from 'react';
 import ReservationList from '@/components/reservations/reservationList';
-import { getReservationsByUserId, getAllReservations } from '@/utils/reservationRepository';
+import { getReservationsByUserId } from '@/utils/reservationRepository';
 
 
 
