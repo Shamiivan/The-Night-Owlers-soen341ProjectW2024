@@ -9,6 +9,7 @@ type Message = {
   user: 'bot' | 'user',
   text: string,
 }
+let counter = 0;
 export function ChatbotComponent() {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -20,7 +21,7 @@ export function ChatbotComponent() {
     setIsOpen(!isOpen);
   }
   const getResponse = async function (query: string) {
-    const id = Math.random().toString();
+    const id = Math.random().toString() + ++counter;
     let message: Message = { id: id, user: 'bot', text: "" }
     try {
       const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/chatbot`, {
