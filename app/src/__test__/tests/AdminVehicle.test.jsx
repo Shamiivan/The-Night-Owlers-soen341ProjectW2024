@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import React from 'react';
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import Vehicles from '@/app/admin/vehicles/page';
 
 describe('Vehicles Component', () => {
@@ -12,7 +12,6 @@ describe('Vehicles Component', () => {
     expect(screen.getByText('Users')).toBeInTheDocument();
     expect(screen.getByText('Vehicles')).toBeInTheDocument();
     expect(screen.getByText('Reservations')).toBeInTheDocument();
-    //expect(screen.getByText('Settings')).toBeInTheDocument();
 
     // Click on the "Create Vehicle" tab trigger
     fireEvent.click(screen.getByText('Create Vehicle'));

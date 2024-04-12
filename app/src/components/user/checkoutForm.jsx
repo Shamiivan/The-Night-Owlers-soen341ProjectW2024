@@ -15,6 +15,8 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
     const router = useRouter();
     const fullname = `${user.firstName} ${user.lastName}`;
 
+    const isAdminPath = window.location.pathname.includes('/admin');
+    
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -42,7 +44,12 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
             });
 
             if (response.ok) {
-                router.push(`/viewreserve/${reservation.userId}`);
+                const isAdminPath = router.pathname.includes('/admin');
+                if (isAdminPath) {
+                  router.push(`/admin/reservations`);
+                } else {
+                  router.push(`/viewreserve/${reservation.userId}`);
+                }
                 alert('Checked out successfully');
             } else {
                 const errorData = await response.json();
@@ -144,9 +151,15 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
                     </div>
                     <div className="mt-10 flex justify-between">
                         <Button type="submit">Check Out</Button>
-                        <Link href={`/viewreserve/${reservation.userId}`}>
-                          <Button className="bg-red-500 hover:bg-red-400">Back</Button>
-                        </Link>
+                        {isAdminPath ? (
+                          <Link href={`/admin/reservations`}>
+                              <Button className="bg-red-500 hover:bg-red-400">Back</Button>
+                          </Link>
+                        ) : (
+                          <Link href={`/viewreserve/${reservation.userId}`}>
+                              <Button className="bg-red-500 hover:bg-red-400">Back</Button>
+                          </Link>
+                        )}
                     </div>
             </div>
           </form>
