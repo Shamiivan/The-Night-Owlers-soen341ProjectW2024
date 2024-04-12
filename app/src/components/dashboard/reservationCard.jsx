@@ -64,18 +64,18 @@ export default function ReservationCard({ userId, vehicleId, pickupDate, pickupT
                 </div>
             </div>
             <div className="ml-auto font-medium flex flex-row">
-                {status === 'rented' && (
-                    <Link href={`/admin/checkin/${_id}`}>
-                        <Button className="mr-2">
-                            <p>Check-in</p>
-                        </Button>
+                
+                    <Link href={`/admin/checkin-checkout/${_id}`}>
+                        {status === 'rented' && (
+                            <Button className="mr-2">
+                                <p>Check-in</p>
+                            </Button>
+                        )}
+                        {status === 'returned' && (
+                         <Button variant="link">Check-Out</Button>
+                        )}
                     </Link>
-                )}
-                 {status === 'returned' && (
-                    <Link href={`/admin/checkout/${_id}`}>
-                        <Button variant="link">Check-Out</Button>
-                    </Link>
-                 )}
+                 
                 <div className="mr-2">
                     <Link href={`/admin/updateReservation/${_id}`}>
                         <Button variant="link">Update</Button>

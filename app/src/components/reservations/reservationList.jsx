@@ -81,19 +81,19 @@ export default async function ReservationList({ userId, vehicleId, pickupDate, p
                             View more
                         </Button>
                     </Link>
-                    {status === 'reserved' &&
-                        <Link href={`/checkin/${id}`} className="mt-auto ml-4">
-                            <Button variant="primary">
-                                Check In
-                            </Button>
+                    
+                        <Link href={`/checkin-checkout/${id}`} className="mt-auto ml-4">
+                            {status === 'reserved' &&
+                                <Button>
+                                    Check In
+                                </Button>
+                            }
+                            {status === 'rented' &&
+                                <Button variant="secondary">
+                                    Check Out
+                                </Button>
+                             }
                         </Link>
-                    }  {status === 'rented' &&
-                        <Link href={`/checkout/${id}`} className="mt-auto ml-4">
-                            <Button variant="primary">
-                                Check Out
-                            </Button>
-                        </Link>
-                    }
                 </div>
                 <div>
                     <DeleteReservation

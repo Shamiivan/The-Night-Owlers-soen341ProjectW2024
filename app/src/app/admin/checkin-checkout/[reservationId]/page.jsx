@@ -1,6 +1,7 @@
 import "@/styles/global.css";
 import React from 'react';
-import CheckinForm from "@/components/user/checkinForm";
+import CheckinForm from "@/components/dashboard/checkinForm";
+import CheckoutForm from "@/components/dashboard/checkoutForm";
 import { getReservationById } from "@/utils/reservationRepository";
 import { getUserById } from "@/utils/userRepository";
 import { getVehicleById } from "@/utils/vehicleRepository";
@@ -43,14 +44,28 @@ export default async function CheckIn({ params }){
         return <div>Loading...</div>; // Handle loading state
     }
 
-    return (
-        <div>
+    if (reservation.status === "rented") {
+        return (
+            <div>
             {/* Render other properties as needed */}
-            <CheckinForm
-                user={user}
-                vehicle={vehicle}
-                reservation={reservation}
-            />
-        </div>
-    );
+                <CheckinForm
+                    user={user}
+                    vehicle={vehicle}
+                    reservation={reservation}
+                />
+            </div>
+
+        )
+    } else if (reservation.status === "returned") {
+        return (
+            <div>
+                {/* Render other properties as needed */}
+                <CheckoutForm
+                    user={user}
+                    vehicle={vehicle}
+                    reservation={reservation}
+                />
+            </div>
+        )
+    }
 }
