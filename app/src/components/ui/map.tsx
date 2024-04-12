@@ -1,8 +1,10 @@
 "use client"
 import { Loader } from '@googlemaps/js-api-loader';
 import React, {useEffect} from "react";
-export function Map (){
 
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+export function Map (){
+    const router = useRouter();
     const mapRef = React.useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -48,8 +50,11 @@ export function Map (){
         });
  
         // Adding click event listener to the marker
-        marker.addListener('click', () => {
+        marker.addListener('mouseover', () => {
         infoWindow.open(map, marker); // Opening info window when marker is clicked
+       });
+       marker.addListener('click', () => {
+        router.push('/vehicles?pickUpDate=&returnDate=&location=65fde5fd2caecab370f74961');
        });
 /*
 const marker2 = new Marker({
@@ -75,8 +80,13 @@ const markerMontreal = new Marker({
 const infoWindowMontreal = new google.maps.InfoWindow({
     content: "<div>Address:Bd Roméo Vachon Nord (Arrivées), Dorval, QC H4Y 1H1</div>"
 });
-
+//
 markerMontreal.addListener('click', () => {
+    
+    router.push('/vehicles?pickUpDate=&returnDate=&location=65fde5fd2caecab370f74961');
+});
+//
+markerMontreal.addListener('mouseover', () => {
     infoWindowMontreal.open(map, markerMontreal);
 });
 

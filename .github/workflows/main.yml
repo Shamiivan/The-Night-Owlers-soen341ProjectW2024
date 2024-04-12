@@ -70,7 +70,6 @@ jobs:
           # If source files changed but packages didn't, rebuild from a prior cache.
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('**/package-lock.json', '**/yarn.lock') }}-
-
       - name: Install Dependencies
         run: |
           npm install
@@ -78,3 +77,24 @@ jobs:
       - name: Run Tests
         run: npx jest
 
+  sonarcloud:
+    needs: build
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: app
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: 'SonarCloud Scan'
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONARCLOUD_TOKEN }}
+        with:
+          args: >
+            -Dsonar.projectKey=Shamiivan_The-Night-Owlers-soen341ProjectW2024
+            -Dsonar.organization=shamiivan
+            -Dsonar.projectName=The-Night-Owlers-soen341ProjectW2024
+            -Dsonar.javascript.lcov.reportPaths=./coverage/lcov.info
