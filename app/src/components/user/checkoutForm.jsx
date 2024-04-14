@@ -18,7 +18,6 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
     
     const handleSubmit = async (e) => {
         e.preventDefault();
-
     
         try {
           const response = await fetch(`${process.env.NEXT_PUBLIC_ADMIN_URL}/api/reservations/${reservation._id}`, {
@@ -43,7 +42,6 @@ export default function CheckoutForm({ user, vehicle, reservation }) {
             });
 
             if (response.ok) {
-                const isAdminPath = router.pathname.includes('/admin');
                 if (isAdminPath) {
                   router.push(`/admin/reservations`);
                 } else {
