@@ -2,23 +2,23 @@
 import { Button } from "@/components/ui/button";
 import "@/styles/global.css";
 import Link from "next/link";
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useRouter } from "next/navigation";
 
 
 export default function CheckinForm({ user, vehicle, reservation }) {
 
-    const [checkname, setName] = useState('');
-    const [checkdriverLicense, setDriverLicense] = useState('');
-    const [checkcreditCard, setCreditCard] = useState('');
-    const [newdamageReported, setDamageReported] = useState(false);
+    const [checkname, setCheckname] = useState('');
+    const [checkdriverlicense, setCheckdriverlicense] = useState('');
+    const [checkcreditcard, setCheckcreditcard] = useState('');
+    const [newdamageReported, setNewdamageReported] = useState(false);
     const router = useRouter();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         
-        if (!checkname || !checkdriverLicense || !checkcreditCard) {
+        if (!checkname || !checkdriverlicense || !checkcreditCard) {
             alert('Please fill out all required fields.');
             return;
         }
@@ -28,7 +28,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
             return;
         }
 
-        if (checkdriverLicense !== reservation.driverlicense ) {
+        if (checkdriverlicense !== reservation.driverlicense ) {
             alert('Driver\'s license does not match the reservation data. Please verify.');
             return;
         }
@@ -51,7 +51,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                     comments: reservation.comments,
                     status: reservation.status,
                     name: checkname,
-                    driverlicense: checkdriverLicense,
+                    driverlicense: checkdriverlicense,
                     creditcard: checkcreditCard,
                     damageReported: newdamageReported,
                     id: reservation._id
@@ -84,23 +84,23 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                 <div className="flex justify-center">
                     <form onSubmit={handleSubmit} className="w-1/2">
                         <div className="flex flex-col">
-                            <label htmlFor="checkfirstname" className="mb-2 font-semibold">Name:</label>
+                            <label htmlFor="checkname" className="mb-2 font-semibold">Name:</label>
                             <input
                                 id="checkname"
                                 type="text"
                                 value={checkname}
-                                onChange={(e) => setName(e.target.value)}
+                                onChange={(e) => setCheckname(e.target.value)}
                                 className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                 required
                             />
                         </div>
                         <div className="flex flex-col w-full">
-                            <label htmlFor="checkdriverLicense" className="mb-2 font-semibold">Driver's License:</label>
+                            <label htmlFor="checkdriverlicense" className="mb-2 font-semibold">Driver's License:</label>
                             <input
-                                id="checkdriverLicense"
+                                id="checkdriverlicense"
                                 type="text"
-                                value={checkdriverLicense}
-                                onChange={(e) => setDriverLicense(e.target.value)}
+                                value={checkdriverlicense}
+                                onChange={(e) => setCheckdriverlicense(e.target.value)}
                                 className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                 required
                             />
@@ -110,8 +110,8 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                             <input
                                 id="checkcreditCard"
                                 type="text"
-                                value={checkcreditCard}
-                                onChange={(e) => setCreditCard(e.target.value)}
+                                value={checkcreditcard}
+                                onChange={(e) => setCheckcreditcard(e.target.value)}
                                 className="mb-4 p-2 border border-gray-300 rounded-md shadow-md"
                                 required
                             />
@@ -122,7 +122,7 @@ export default function CheckinForm({ user, vehicle, reservation }) {
                                 id="newdamageReported"
                                 type="checkbox"
                                 checked={newdamageReported}
-                                onChange={(e) => setDamageReported(e.target.checked)}
+                                onChange={(e) => setNewdamageReported(e.target.checked)}
                                 className="ml-2"
                             />
                             <p>{newdamageReported ? 'Yes' : 'No'}</p>

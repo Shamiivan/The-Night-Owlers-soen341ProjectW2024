@@ -10,16 +10,17 @@ jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
 
+beforeAll(() => {
+    fetchMock.enableMocks();
+});
+
+// Reset fetch mock after each test
+afterEach(() => {
+    fetchMock.resetMocks();
+});
+
 describe('CheckoutForm', () => {
 
-    beforeAll(() => {
-        fetchMock.enableMocks();
-    });
-
-    // Reset fetch mock after each test
-    afterEach(() => {
-        fetchMock.resetMocks();
-    });
   const user = {
     firstName: 'John',
     lastName: 'Doe',
