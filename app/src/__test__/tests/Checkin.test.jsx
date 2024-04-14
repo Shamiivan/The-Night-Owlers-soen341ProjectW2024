@@ -1,15 +1,7 @@
 import React from 'react';
 import { render, fireEvent, screen } from '@testing-library/react';
 import CheckinForm from '@/components/user/checkinForm';
-
-global.fetch = jest.fn(() =>
-  Promise.resolve({
-    ok: true,
-    json: () => Promise.resolve({ /* mock response data */ }),
-  })
-);
-
-process.env.NEXT_PUBLIC_ADMIN_URL = 'http://example.com';
+import fetchMock from 'jest-fetch-mock';
 
 global.alert = jest.fn();
 
@@ -17,6 +9,16 @@ global.alert = jest.fn();
 jest.mock('next/navigation', () => ({
   useRouter: jest.fn(),
 }));
+
+beforeAll(() => {
+  fetchMock.enableMocks();
+});
+
+// Reset fetch mock after each test
+afterEach(() => {
+  fetchMock.resetMocks();
+});
+
 
 describe('CheckinForm', () => {
   const reservation = {
@@ -36,7 +38,8 @@ describe('CheckinForm', () => {
     fireEvent.change(screen.getByLabelText("Driver's License:"), { target: { value: 'ABC1234567890' } });
     fireEvent.change(screen.getByLabelText('Credit Card:'), { target: { value: 'creditcard123' } });
 
-    fireEvent.click(screen.getByText('Check In'));
+    fireEvent.submit(screen.getByText('Check In'));
+
 
   });
 

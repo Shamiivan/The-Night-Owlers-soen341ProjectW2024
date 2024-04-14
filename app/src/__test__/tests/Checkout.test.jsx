@@ -21,8 +21,6 @@ afterEach(() => {
 
 describe('CheckoutForm', () => {
 
-
-    
   const user = {
     firstName: 'John',
     lastName: 'Doe',
